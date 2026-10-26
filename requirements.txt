@@ -1,0 +1,16 @@
+# Analysis-only requirements, copied from the resolved versions in
+# environment-local.yml. Python 3.11 is specified in README.md.
+# These pins are not a Windows/CUDA inference lockfile.
+
+torch==2.10.0
+torchvision==0.26.0
+numpy==2.4.6
+pandas==3.0.6
+scipy==1.17.1
+matplotlib==3.11.2
+Pillow==13.0.0
+PyYAML==6.0.3
+tqdm==4.70.1
+jupyter==1.1.1
+scikit-image==0.26.0
+pyiqa==0.1.16
