@@ -69,6 +69,7 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         "sr_scale": float(config["sr_scale"]),
         "color_fix_type": config["color_fix_type"],
         "preprocessor": config["preprocessor"],
+        "precision": config.get("precision", "fp32"),
         "output_root": str(Path(config["output_root"]).expanduser()),
     }
 
@@ -82,6 +83,10 @@ def validate_runtime(config: dict[str, Any]) -> None:
         raise ValueError("DoSSR trunc_12 fixes t1 to T/2; t1_fraction must be 0.5")
     if config["preprocessor"] != "RealESRNet":
         raise ValueError("The vanilla multi-step checkpoint uses the RealESRNet preprocessor")
+    if config.get("precision", "fp32") not in {"fp32", "fp16"}:
+        raise ValueError("precision must be one of: fp32, fp16")
+    if config.get("precision", "fp32") == "fp16" and config["device"] != "cuda":
+        raise ValueError("fp16 autocast is currently supported only with device: cuda")
     if config["device"] not in {"cuda", "mps", "cpu"}:
         raise ValueError("device must be one of: cuda, mps, cpu")
     if int(config["seed"]) < 0:
@@ -107,6 +112,8 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
         elif manifest_path.is_file():
             with manifest_path.open(encoding="utf-8") as stream:
                 existing = json.load(stream)
+            # Older FP32 manifests predate the precision field.
+            existing.setdefault("precision", "fp32")
             current = manifest
             if existing != current:
                 raise FileExistsError(
@@ -130,6 +137,8 @@ def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
         str(REPO_ROOT / "src" / "dossr_inference_compat.py"),
         "--inference-script",
         str(Path(config["inference_script"]).expanduser()),
+        "--precision",
+        str(config.get("precision", "fp32")),
         "--",
         "--ckpt",
         str(Path(config["checkpoint"]).expanduser()),
@@ -165,11 +174,31 @@ def main() -> int:
         action="store_true",
         help="Remove and recreate this seed's output directory before inference",
     )
+    parser.add_argument(
+        "--precision",
+        choices=("fp32", "fp16"),
+        default=None,
+        help="Override YAML precision (default: fp32)",
+    )
+    parser.add_argument(
+        "--fp16",
+        action="store_true",
+        help="Enable CUDA float16 autocast; equivalent to --precision fp16",
+    )
     args = parser.parse_args()
 
     try:
         config_path = args.config.expanduser().resolve()
         config = load_config(config_path)
+        config_precision = config.get("precision", "fp32")
+        if args.fp16 and args.precision == "fp32":
+            raise ValueError("Use either --fp16 or --precision, not both with conflicting values")
+        if args.fp16:
+            config["precision"] = "fp16"
+        elif args.precision is not None:
+            config["precision"] = args.precision
+        else:
+            config["precision"] = config_precision
         log_dir = Path(config["log_dir"]).expanduser()
     except Exception as error:
         print(f"Configuration error: {error}", file=sys.stderr)

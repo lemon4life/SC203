@@ -23,7 +23,12 @@ AUTHOR_OPENCLIP_CHECKPOINT = Path(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inference-script", type=Path, required=True)
+    parser.add_argument("--precision", choices=("fp32", "fp16"), default=None)
+    parser.add_argument("--fp16", action="store_true", help="Enable CUDA float16 autocast")
     args, inference_args = parser.parse_known_args()
+    if args.fp16 and args.precision == "fp32":
+        parser.error("Use either --fp16 or --precision, not conflicting values")
+    precision = "fp16" if args.fp16 else (args.precision or "fp32")
     if inference_args[:1] == ["--"]:
         inference_args = inference_args[1:]
 
@@ -90,7 +95,21 @@ def main() -> int:
 
     torch.load = torch_load_with_mmap
     sys.argv = [str(inference_script), *inference_args]
-    runpy.run_path(str(inference_script), run_name="__main__")
+    if precision == "fp16":
+        if not torch.cuda.is_available():
+            raise RuntimeError("precision=fp16 requires an available CUDA device")
+        print(
+            "DoSSR compatibility: enabling CUDA float16 autocast for inference.",
+            flush=True,
+        )
+        with torch.autocast(
+            device_type="cuda",
+            dtype=torch.float16,
+            cache_enabled=False,
+        ):
+            runpy.run_path(str(inference_script), run_name="__main__")
+    else:
+        runpy.run_path(str(inference_script), run_name="__main__")
     return 0
 
 
