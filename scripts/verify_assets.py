@@ -9,7 +9,13 @@ import inspect
 import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
+
+from src.env_info import DEFAULT_LOG_DIR, configure_logging, log_run_info  # noqa: E402
+
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
+REQUIRED_DATASETS = {"RealSR", "DRealSR"}
 DEFAULT_ASSETS_DIR = Path("/content/drive/MyDrive/lemmepass")
 
 
@@ -71,7 +77,12 @@ def main() -> int:
         metavar="LABEL=PATH",
         help="Explicit image folder to count; may be repeated. Otherwise RealSR/DRealSR are discovered.",
     )
+    parser.add_argument("--log-dir", type=Path, default=DEFAULT_LOG_DIR)
     args = parser.parse_args()
+
+    logger, log_path = configure_logging("verify_assets", args.log_dir)
+    log_run_info(logger, args, seed=None)
+    logger.info("Log file: %s", log_path)
 
     root = args.assets_dir.expanduser()
     files = {
@@ -81,16 +92,20 @@ def main() -> int:
     }
 
     failures = 0
-    print(f"Asset root: {root}")
+    logger.info("Asset root: %s", root)
     for label, path in files.items():
         if not path.is_file():
-            print(f"MISSING | {label} | {path}")
+            logger.error("MISSING | %s | %s", label, path)
             failures += 1
             continue
         size = path.stat().st_size
-        print(
-            f"OK | {label} | path={path} | size_bytes={size} "
-            f"| size_MiB={size / (1024 ** 2):.2f} | sha256={sha256_file(path)}"
+        logger.info(
+            "OK | %s | path=%s | size_bytes=%s | size_MiB=%.2f | sha256=%s",
+            label,
+            path,
+            size,
+            size / (1024 ** 2),
+            sha256_file(path),
         )
 
     extracted_root = root / "data" / "StableSR_testsets"
@@ -104,20 +119,25 @@ def main() -> int:
             image_folders[label] = Path(raw_path).expanduser()
     else:
         image_folders = find_dataset_folders(extracted_root)
-        if not image_folders:
-            print(
-                "MISSING | image folders | no RealSR/DRealSR folders discovered under "
-                f"{extracted_root}; pass --image-dir LABEL=PATH"
-            )
-            failures += 1
+    missing_datasets = REQUIRED_DATASETS.difference(image_folders)
+    if missing_datasets:
+        logger.error(
+            "MISSING | image folders | datasets=%s | root=%s | pass --image-dir LABEL=PATH",
+            sorted(missing_datasets),
+            extracted_root,
+        )
+        failures += 1
 
     for label, folder in image_folders.items():
         if not folder.is_dir():
-            print(f"MISSING | image folder {label} | {folder}")
+            logger.error("MISSING | image folder %s | %s", label, folder)
             failures += 1
             continue
         count = image_count(folder)
-        print(f"{'OK' if count else 'EMPTY'} | images | dataset={label} | path={folder} | count={count}")
+        if count:
+            logger.info("OK | images | dataset=%s | path=%s | count=%s", label, folder, count)
+        else:
+            logger.error("EMPTY | images | dataset=%s | path=%s | count=0", label, folder)
         if count == 0:
             failures += 1
 
@@ -125,15 +145,15 @@ def main() -> int:
     if checkpoint.is_file():
         try:
             keys = load_checkpoint(checkpoint)
-            print(f"OK | torch.load(map_location='cpu') | top_level_keys={keys}")
+            logger.info("OK | torch.load(map_location='cpu') | top_level_keys=%s", keys)
         except Exception as error:  # Report the load failure without dumping checkpoint contents.
-            print(f"FAIL | torch.load(map_location='cpu') | {type(error).__name__}: {error}")
+            logger.exception("FAIL | torch.load(map_location='cpu') | %s", type(error).__name__)
             failures += 1
 
     if failures:
-        print(f"VERIFICATION FAILED | issues={failures}")
+        logger.error("VERIFICATION FAILED | issues=%s", failures)
         return 1
-    print("VERIFICATION PASSED")
+    logger.info("VERIFICATION PASSED")
     return 0
 
 
