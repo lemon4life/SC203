@@ -126,7 +126,10 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
 def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
     return [
         sys.executable,
+        str(REPO_ROOT / "src" / "dossr_inference_compat.py"),
+        "--inference-script",
         str(Path(config["inference_script"]).expanduser()),
+        "--",
         "--ckpt",
         str(Path(config["checkpoint"]).expanduser()),
         "--config",
