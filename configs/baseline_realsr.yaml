@@ -1,0 +1,20 @@
+# Phase 1 vanilla DoSSR baseline. Paths target the standard Colab layout.
+seed: 42
+input_dir: /content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128
+output_root: /content/outputs/baseline
+checkpoint: /content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt
+model_config: /content/SC203/external/DOSSR/configs/model/cldm_v21.yaml
+inference_script: /content/SC203/external/DOSSR/scripts/inference.py
+dossr_root: /content/SC203/external/DOSSR
+log_dir: /content/drive/MyDrive/lemmepass/logs
+
+# The checked-in DoSSR inference implementation fixes the sampler to 3rd order
+# and sets t1 to floor(T/2) through its trunc_12 schedule. The runner validates
+# these paper defaults; they are not upstream CLI flags.
+steps: 5
+solver_order: 3
+t1_fraction: 0.5
+device: cuda
+sr_scale: 4
+color_fix_type: wavelet
+preprocessor: RealESRNet
