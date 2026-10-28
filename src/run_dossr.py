@@ -9,6 +9,7 @@ import logging
 import shutil
 import subprocess
 import sys
+import os
 from pathlib import Path
 from typing import Any
 
@@ -209,6 +210,12 @@ def main() -> int:
         process = subprocess.Popen(
             command,
             cwd=dossr_root,
+            env={
+                **os.environ,
+                "PYTHONPATH": os.pathsep.join(
+                    [str(dossr_root), os.environ.get("PYTHONPATH", "")]
+                ).rstrip(os.pathsep),
+            },
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
