@@ -213,3 +213,11 @@ These commands run in Colab only. They do not download Stable Diffusion 2.1-base
 ### RealSR / DRealSR / RealLR200 source note
 
 The [StableSR dataset card](https://huggingface.co/datasets/Iceclear/StableSR-TestSets) lists RealSR Val and DRealSR Val, and gives 3.06 GB as the total archive size; the publisher does not list per-folder byte sizes. It does not include RealLR200. SeeSR's project documentation identifies its separate [RealLR200 Drive folder](https://drive.google.com/drive/folders/1L2VsQYQRKhWJxe6yWZU9FgBWSgBCk6mz?usp=drive_link). RealLR200 remains deferred and must not be downloaded until separately approved.
+
+## Colab workflow implementation notes
+
+- The repository had no `SC203_Phase1_RealSR.ipynb`; `notebooks/` contained only `.gitkeep`. The existing asset downloader defaults to `/content/drive/MyDrive/lemmepass` and the verifier checks the DoSSR checkpoint, RealESRNet weights, StableSR archive, image counts, sizes, hashes, and CPU checkpoint loading.
+- `notebooks/colab_runner.ipynb` is a thin template with Drive mount, plain-HTTPS branch checkout/pull, runtime report, setup-script invocation, and a tee-based script/log cell. Outputs are cleared in the committed notebook.
+- `scripts/colab_setup.py` reads the DoSSR requirements file, excludes `xformers` and `triton`, runs `pip check` and a constrained pip dry run first, and stops on conflicts or any plan to change installed `torch`/`torchvision`. If the ignored external clone is absent in Colab, it clones upstream source only; it does not download weights.
+- `src/env_info.py` provides shared timestamped logging and a start-of-run platform/device/PyTorch/seed/arguments line. It redacts argument names that look like credentials. The setup script and asset verifier use this helper; runtime logs default to `/content/drive/MyDrive/lemmepass/logs`.
+- The setup script and notebook are **UNTESTED on Colab**. Only local compilation and notebook-structure checks are intended before handoff; no package installation or download is performed locally.
