@@ -142,14 +142,17 @@ The approved Phase 1 scope is `dossr_default.ckpt`, `RealESRNet_x4plus.pth`, and
 
 ### Asset manifest
 
-Sizes below are publisher/repository listing sizes where available. Actual byte sizes and SHA-256 values must be filled from the Colab verifier output after download; assets are intentionally not present on this Mac.
+Published sizes are included where available. Actual byte sizes, SHA-256 values, and image counts below come from the successful Colab verification log dated 2026-10-28; assets remain in Drive and were not downloaded to this Mac.
 
-| Asset | Source | Expected size | Colab path | Actual size / SHA-256 |
+| Asset | Source | Published size | Colab path | Verified size / SHA-256 |
 | --- | --- | ---: | --- | --- |
-| DoSSR multi-step checkpoint `dossr_default.ckpt` | [DoSSR Google Drive folder](https://drive.google.com/drive/folders/1BTGRbAqXDSNWjyUnTLgDfmjd2xyu8GvP?usp=sharing) | Not published for the individual file | `/content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt` | Pending Colab verification |
-| `RealESRNet_x4plus.pth` | [Official Real-ESRGAN v0.1.1 release](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/RealESRNet_x4plus.pth) | About 67 MB | `/content/drive/MyDrive/lemmepass/weights/RealESRNet_x4plus.pth` | Pending Colab verification |
-| StableSR test bundle `StableSR_testsets.zip` | [StableSR-TestSets on Hugging Face](https://huggingface.co/datasets/Iceclear/StableSR-TestSets) | 3.06 GB for the complete archive | `/content/drive/MyDrive/lemmepass/data/StableSR_testsets.zip` | Pending Colab verification |
-| Extracted RealSR / DRealSR image folders | In the StableSR archive | Per-folder sizes not published | `/content/drive/MyDrive/lemmepass/data/StableSR_testsets/` (exact nested paths discovered after extraction) | Verifier reports image counts; paths pending |
+| DoSSR multi-step checkpoint `dossr_default.ckpt` | [DoSSR Google Drive folder](https://drive.google.com/drive/folders/1BTGRbAqXDSNWjyUnTLgDfmjd2xyu8GvP?usp=sharing) | Not published for the individual file | `/content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt` | 6,871,491,886 bytes (6,553.17 MiB); SHA-256 `442cbfabb7597144ac42ba6a5c126647e983078bdbc9997a9261c39b9cb18cf8` |
+| `RealESRNet_x4plus.pth` | [Official Real-ESRGAN v0.1.1 release](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.1/RealESRNet_x4plus.pth) | About 67 MB | `/content/drive/MyDrive/lemmepass/weights/RealESRNet_x4plus.pth` | 67,040,989 bytes (63.94 MiB); SHA-256 `a820b9bde89a874d7599d545567308ce6c128fc8754a53208eda016d40aa81df` |
+| StableSR test bundle `StableSR_testsets.zip` | [StableSR-TestSets on Hugging Face](https://huggingface.co/datasets/Iceclear/StableSR-TestSets) | 3.06 GB for the complete archive | `/content/drive/MyDrive/lemmepass/data/StableSR_testsets.zip` | 3,055,396,861 bytes (2,913.85 MiB); SHA-256 `32a6344e2a0d394ffcaa7a9245df14105c590dab3ef0d3540e940add1ef9b803` |
+| RealSR Val image folder | In the StableSR archive | Per-folder size not published | `/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128` | 200 images |
+| DRealSR Val image folder | In the StableSR archive | Per-folder size not published | `/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/DrealSRVal_crop128` | 186 images |
+
+The same run logged `VERIFICATION PASSED` and successfully loaded `dossr_default.ckpt` using `torch.load(map_location='cpu')`. This verifies file integrity checks, image presence, and checkpoint deserialization; it does not verify GPU model loading or inference.
 
 ### Colab download and verification steps
 
