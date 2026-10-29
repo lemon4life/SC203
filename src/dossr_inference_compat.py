@@ -13,6 +13,7 @@ import argparse
 import gc
 import runpy
 import sys
+import time
 from pathlib import Path
 
 AUTHOR_OPENCLIP_CHECKPOINT = Path(
@@ -43,9 +44,11 @@ def main() -> int:
 
     import open_clip
     import torch
+    import utils.common as dossr_common
 
     original_create = open_clip.create_model_and_transforms
     original_torch_load = torch.load
+    original_load_state_dict = dossr_common.load_state_dict
 
     def create_without_missing_author_weights(*call_args, **call_kwargs):
         requested = call_kwargs.get("pretrained")
@@ -72,7 +75,14 @@ def main() -> int:
 
         try:
             try:
-                return original_torch_load(*load_args, **load_kwargs)
+                started = time.monotonic()
+                result = original_torch_load(*load_args, **load_kwargs)
+                print(
+                    "DoSSR compatibility: checkpoint deserialization returned "
+                    f"after {time.monotonic() - started:.1f}s.",
+                    flush=True,
+                )
+                return result
             except (RuntimeError, TypeError) as error:
                 message = str(error).lower()
                 if isinstance(error, TypeError):
@@ -94,11 +104,30 @@ def main() -> int:
                 )
                 load_kwargs["mmap"] = False
                 gc.collect()
-                return original_torch_load(*load_args, **load_kwargs)
+                started = time.monotonic()
+                result = original_torch_load(*load_args, **load_kwargs)
+                print(
+                    "DoSSR compatibility: checkpoint deserialization returned "
+                    f"after {time.monotonic() - started:.1f}s with mmap disabled.",
+                    flush=True,
+                )
+                return result
         finally:
             gc.collect()
 
+    def load_state_dict_with_progress(*load_args, **load_kwargs):
+        print("DoSSR compatibility: strict model state-dict load starting.", flush=True)
+        started = time.monotonic()
+        result = original_load_state_dict(*load_args, **load_kwargs)
+        print(
+            "DoSSR compatibility: strict model state-dict load finished "
+            f"after {time.monotonic() - started:.1f}s.",
+            flush=True,
+        )
+        return result
+
     torch.load = torch_load_with_mmap
+    dossr_common.load_state_dict = load_state_dict_with_progress
 
     if args.offload_condition_encoder:
         if not torch.cuda.is_available():
