@@ -26,6 +26,7 @@ from src.env_info import DEFAULT_LOG_DIR, configure_logging, log_run_info  # noq
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 ANSI_ESCAPE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+IMAGE_TIME = re.compile(r"Execution time:\s*([0-9]+(?:\.[0-9]+)?)\s*seconds")
 REQUIRED_CONFIG = {
     "seed",
     "input_dir",
@@ -204,6 +205,25 @@ def stream_process_output(stream, logger: logging.Logger) -> tuple[int, int]:
     pending = ""
     cache_hits = 0
     cache_misses = 0
+    last_image = "unknown"
+
+    def log_line(line: str) -> None:
+        nonlocal cache_hits, cache_misses, last_image
+        logger.info("DoSSR | %s", line)
+        if line.startswith("skip "):
+            cache_hits += 1
+            last_image = line.removeprefix("skip ")
+        elif line.startswith("save to "):
+            cache_misses += 1
+            last_image = line.removeprefix("save to ")
+        match = IMAGE_TIME.search(line)
+        if match:
+            logger.info(
+                "IMAGE PROFILE | path=%s | elapsed_seconds=%s",
+                last_image,
+                match.group(1),
+            )
+
     while True:
         chunk = os.read(stream.fileno(), 4096)
         if not chunk:
@@ -212,21 +232,13 @@ def stream_process_output(stream, logger: logging.Logger) -> tuple[int, int]:
         for line in pieces[:-1]:
             line = ANSI_ESCAPE.sub("", line).strip()
             if line:
-                logger.info("DoSSR | %s", line)
-                if line.startswith("skip "):
-                    cache_hits += 1
-                elif line.startswith("save to "):
-                    cache_misses += 1
+                log_line(line)
         pending = pieces[-1]
 
     pending += decoder.decode(b"", final=True)
     pending = ANSI_ESCAPE.sub("", pending).strip()
     if pending:
-        logger.info("DoSSR | %s", pending)
-        if pending.startswith("skip "):
-            cache_hits += 1
-        elif pending.startswith("save to "):
-            cache_misses += 1
+        log_line(pending)
     return cache_hits, cache_misses
 
 

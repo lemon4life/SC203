@@ -89,12 +89,16 @@ def main() -> int:
             )
         allocated = torch.cuda.memory_allocated()
         reserved = torch.cuda.memory_reserved()
+        peak_allocated = torch.cuda.max_memory_allocated()
+        peak_reserved = torch.cuda.max_memory_reserved()
         stats = torch.cuda.memory_stats()
         print(
             "DoSSR memory profile | "
             f"{label} | allocated={allocated / 2**30:.2f} GiB | "
             f"reserved={reserved / 2**30:.2f} GiB | "
             f"allocator_cache={max(0, reserved - allocated) / 2**30:.2f} GiB | "
+            f"peak_allocated={peak_allocated / 2**30:.2f} GiB | "
+            f"peak_reserved={peak_reserved / 2**30:.2f} GiB | "
             f"inactive_split={stats.get('inactive_split_bytes.all.current', 0) / 2**30:.2f} GiB | "
             f"alloc_retries={stats.get('num_alloc_retries', 0)} | "
             f"ooms={stats.get('num_ooms', 0)}",
@@ -187,6 +191,8 @@ def main() -> int:
     dossr_common.load_state_dict = load_state_dict_with_progress
 
     if args.profile_memory:
+        if torch.cuda.is_available():
+            torch.cuda.reset_peak_memory_stats()
         report_cuda_memory("before model creation")
         from model.cldm import ControlLDM
         from model.shift_sampler import SpacedSampler

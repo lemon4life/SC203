@@ -1,0 +1,5 @@
+# Runs the prepared five-image batch with the same settings and several seeds.
+baseline_config: /content/baseline_realsr_5img.yaml
+seeds: [42, 43, 44, 45, 46]
+output_root: /content/outputs/seed-study-realsr-5img
+log_dir: /content/drive/MyDrive/lemmepass/logs

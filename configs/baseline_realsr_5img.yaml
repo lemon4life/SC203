@@ -1,0 +1,22 @@
+# Small RealSR batch template. Stage five sorted images into input_dir before running.
+seed: 42
+input_dir: /content/realsr_batch_5
+output_root: /content/outputs/baseline-realsr-5img
+checkpoint: /content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt
+model_config: /content/SC203/external/DOSSR/configs/model/cldm_v21.yaml
+inference_script: /content/SC203/external/DOSSR/scripts/inference.py
+dossr_root: /content/SC203/external/DOSSR
+log_dir: /content/drive/MyDrive/lemmepass/logs
+
+steps: 5
+solver_order: 3
+t1_fraction: 0.5
+device: cuda
+precision: fp16
+offload_condition_encoder: false
+tiled: false
+tile_size: 512
+tile_stride: 256
+sr_scale: 4
+color_fix_type: wavelet
+preprocessor: RealESRNet

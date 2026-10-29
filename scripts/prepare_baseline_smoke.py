@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage one RealSR image and derive a temporary YAML config for a smoke run."""
+"""Stage a deterministic RealSR image subset and derive a temporary run config."""
 
 from __future__ import annotations
 
@@ -42,7 +42,19 @@ def main() -> int:
         "--config",
         type=Path,
         default=REPO_ROOT / "configs" / "baseline_realsr.yaml",
-        help="Full baseline YAML config to copy and adjust for one-image smoke run",
+        help="Baseline YAML config to copy and adjust for a smoke or small-batch run",
+    )
+    parser.add_argument(
+        "--source-dir",
+        type=Path,
+        default=None,
+        help="Optional source image folder override; defaults to input_dir in --config",
+    )
+    parser.add_argument(
+        "--image-count",
+        type=int,
+        default=1,
+        help="Number of lexically first images to stage (default: 1)",
     )
     parser.add_argument("--smoke-dir", type=Path, default=Path("/content/realsr_smoke"))
     parser.add_argument("--config-out", type=Path, default=Path("/content/baseline_smoke.yaml"))
@@ -69,14 +81,28 @@ def main() -> int:
     logger.info("Log file: %s", log_path)
 
     try:
-        input_dir = Path(config["input_dir"]).expanduser()
+        if args.image_count < 1:
+            raise ValueError("--image-count must be at least 1")
+        input_dir = (
+            args.source_dir.expanduser()
+            if args.source_dir is not None
+            else Path(config["input_dir"]).expanduser()
+        )
         images = sorted(
             path
             for path in input_dir.rglob("*")
             if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS
         )
-        if not images:
-            raise FileNotFoundError(f"No supported images found under {input_dir}")
+        if len(images) < args.image_count:
+            raise FileNotFoundError(
+                f"Requested {args.image_count} images but found {len(images)} under {input_dir}"
+            )
+        selected_images = images[: args.image_count]
+        selected_names = {image.name for image in selected_images}
+        if len(selected_names) != len(selected_images):
+            raise ValueError(
+                "Selected images contain duplicate filenames; choose another staging method."
+            )
 
         smoke_dir = args.smoke_dir.expanduser().resolve()
         smoke_dir.mkdir(parents=True, exist_ok=True)
@@ -85,25 +111,26 @@ def main() -> int:
             for path in smoke_dir.iterdir()
             if path.is_file()
             and path.suffix.lower() in IMAGE_EXTENSIONS
-            and path.name != images[0].name
+            and path.name not in selected_names
         ]
         if unrelated_images:
             raise FileExistsError(
                 f"Smoke folder contains other images: {smoke_dir}. "
-                "Choose a fresh --smoke-dir so this run stays one-image."
+                "Choose a fresh --smoke-dir so staging contains only the requested images."
             )
 
-        destination = smoke_dir / images[0].name
-        if destination.exists():
-            if digest(destination) != digest(images[0]):
-                raise FileExistsError(
-                    f"Smoke image already exists with different content: {destination}. "
-                    "Choose a fresh --smoke-dir."
-                )
-            logger.info("Smoke image already staged; skipping copy: %s", destination)
-        else:
-            destination.write_bytes(images[0].read_bytes())
-            logger.info("Staged one smoke image: %s", destination)
+        for source_image in selected_images:
+            destination = smoke_dir / source_image.name
+            if destination.exists():
+                if digest(destination) != digest(source_image):
+                    raise FileExistsError(
+                        f"Staged image has different content: {destination}. "
+                        "Choose a fresh --smoke-dir."
+                    )
+                logger.info("Image already staged; skipping copy: %s", destination)
+            else:
+                destination.write_bytes(source_image.read_bytes())
+                logger.info("Staged image: %s", destination)
 
         config["input_dir"] = str(smoke_dir)
         config["output_root"] = str(args.output_root.expanduser())
@@ -120,9 +147,9 @@ def main() -> int:
             logger.info("Smoke config already exists; skipping write: %s", config_out)
         else:
             config_out.write_text(rendered, encoding="utf-8")
-            logger.info("Created one-image config: %s", config_out)
+            logger.info("Created staged-image config: %s", config_out)
 
-        logger.info("Smoke input count: 1")
+        logger.info("Smoke input count: %s", len(selected_images))
         logger.info("Smoke output root: %s", args.output_root.expanduser())
         logger.info("SMOKE CONFIG READY")
         return 0
