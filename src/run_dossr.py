@@ -4,12 +4,14 @@
 from __future__ import annotations
 
 import argparse
+import codecs
 import json
 import logging
 import shutil
 import subprocess
 import sys
 import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +24,7 @@ if str(REPO_ROOT) not in sys.path:
 from src.env_info import DEFAULT_LOG_DIR, configure_logging, log_run_info  # noqa: E402
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
+ANSI_ESCAPE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 REQUIRED_CONFIG = {
     "seed",
     "input_dir",
@@ -169,6 +172,27 @@ def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
     return command
 
 
+def stream_process_output(stream, logger: logging.Logger) -> None:
+    """Log child output as it arrives, treating tqdm carriage returns as line breaks."""
+    decoder = codecs.getincrementaldecoder("utf-8")("replace")
+    pending = ""
+    while True:
+        chunk = os.read(stream.fileno(), 4096)
+        if not chunk:
+            break
+        pieces = re.split(r"[\r\n]", pending + decoder.decode(chunk))
+        for line in pieces[:-1]:
+            line = ANSI_ESCAPE.sub("", line).strip()
+            if line:
+                logger.info("DoSSR | %s", line)
+        pending = pieces[-1]
+
+    pending += decoder.decode(b"", final=True)
+    pending = ANSI_ESCAPE.sub("", pending).strip()
+    if pending:
+        logger.info("DoSSR | %s", pending)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -269,12 +293,10 @@ def main() -> int:
             },
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1,
+            bufsize=0,
         )
         assert process.stdout is not None
-        for line in process.stdout:
-            logger.info("DoSSR | %s", line.rstrip())
+        stream_process_output(process.stdout, logger)
         return_code = process.wait()
         if return_code != 0:
             raise subprocess.CalledProcessError(return_code, command)
