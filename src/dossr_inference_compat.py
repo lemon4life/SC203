@@ -29,7 +29,10 @@ def main() -> int:
     parser.add_argument(
         "--offload-condition-encoder",
         action="store_true",
-        help="Run DoSSR's condition encoder on CPU to reduce CUDA activation memory",
+        help=(
+            "Move DoSSR's condition encoder off cuda:0; use cuda:1 when available, "
+            "otherwise use the CPU fallback"
+        ),
     )
     args, inference_args = parser.parse_known_args()
     if args.fp16 and args.precision == "fp32":
@@ -134,29 +137,47 @@ def main() -> int:
             raise RuntimeError("--offload-condition-encoder requires an available CUDA device")
 
         # DoSSR's condition encoder is a separate copy of the first-stage encoder.
-        # Keep its weights and activations on CPU, then move only the small latent
-        # back to the model device. This avoids changing upstream files.
+        # Prefer a second CUDA device so both weights and activations stay in VRAM;
+        # retain CPU as the single-GPU fallback. Only the latent returns to cuda:0.
         from model.cldm import ControlLDM
 
         original_apply_condition_encoder = ControlLDM.apply_condition_encoder
+        condition_device = (
+            torch.device("cuda:1")
+            if torch.cuda.device_count() > 1
+            else torch.device("cpu")
+        )
+        if condition_device.type == "cuda":
+            print(
+                "DoSSR compatibility: condition encoder offload enabled on "
+                f"{condition_device} ({torch.cuda.get_device_name(condition_device)}); "
+                "encoded latents return to the main model device.",
+                flush=True,
+            )
+        else:
+            print(
+                "DoSSR compatibility: only one CUDA device is visible; "
+                "using the existing CPU condition-encoder fallback.",
+                flush=True,
+            )
 
-        def apply_condition_encoder_on_cpu(model, control):
+        def apply_condition_encoder_with_offload(model, control):
             destination = control.device
-            model.cond_encoder.to("cpu")
-            if torch.cuda.is_available():
+            model.cond_encoder.to(condition_device)
+            if condition_device.type == "cpu":
                 torch.cuda.empty_cache()
-            gc.collect()
-            latent = original_apply_condition_encoder(model, control.to("cpu"))
+                gc.collect()
+                latent = original_apply_condition_encoder(model, control.to("cpu"))
+            else:
+                with torch.cuda.device(condition_device):
+                    latent = original_apply_condition_encoder(
+                        model, control.to(condition_device)
+                    )
             if precision == "fp16":
                 latent = latent.to(dtype=torch.float16)
             return latent.to(destination)
 
-        ControlLDM.apply_condition_encoder = apply_condition_encoder_on_cpu
-        print(
-            "DoSSR compatibility: condition encoder CPU offload enabled; "
-            "its latent will return to the model device.",
-            flush=True,
-        )
+        ControlLDM.apply_condition_encoder = apply_condition_encoder_with_offload
 
     sys.argv = [str(inference_script), *inference_args]
     if precision == "fp16":

@@ -92,7 +92,7 @@ def validate_runtime(config: dict[str, Any]) -> None:
     if config.get("precision", "fp32") == "fp16" and config["device"] != "cuda":
         raise ValueError("fp16 autocast is currently supported only with device: cuda")
     if config.get("offload_condition_encoder", False) and config["device"] != "cuda":
-        raise ValueError("condition-encoder CPU offload is currently supported only with device: cuda")
+        raise ValueError("condition-encoder offload is currently supported only with device: cuda")
     if config["device"] not in {"cuda", "mps", "cpu"}:
         raise ValueError("device must be one of: cuda, mps, cpu")
     if int(config["seed"]) < 0:
@@ -219,7 +219,7 @@ def main() -> int:
     parser.add_argument(
         "--offload-condition-encoder",
         action="store_true",
-        help="Run DoSSR's condition encoder on CPU to reduce CUDA activation memory",
+        help="Move DoSSR's condition encoder to cuda:1 when available, or use CPU fallback",
     )
     args = parser.parse_args()
 
