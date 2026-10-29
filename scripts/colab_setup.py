@@ -108,6 +108,14 @@ def main() -> int:
     parser.add_argument("--requirements", type=Path, default=DEFAULT_REQUIREMENTS)
     parser.add_argument("--dossr-repo-url", default=DEFAULT_DOSSR_URL)
     parser.add_argument("--log-dir", type=Path, default=DEFAULT_LOG_DIR)
+    parser.add_argument(
+        "--allow-preexisting-conflicts",
+        action="store_true",
+        help=(
+            "Kaggle mode: report baseline pip-check conflicts and continue only if "
+            "the DoSSR dry-run passes and preserves torch/torchvision"
+        ),
+    )
     args = parser.parse_args()
 
     logger, log_path = configure_logging("colab_setup", args.log_dir)
@@ -127,10 +135,18 @@ def main() -> int:
 
     pip_check = run_command([sys.executable, "-m", "pip", "check"], logger)
     current_conflicts = (pip_check.stdout or "") + (pip_check.stderr or "")
+    baseline_conflicts = {
+        line.strip() for line in current_conflicts.splitlines() if line.strip()
+    }
     if pip_check.returncode != 0:
-        logger.error("Existing environment dependency conflicts found; stopping before installation:")
-        log_output(logger, current_conflicts, "error")
-        return 1
+        level = "warning" if args.allow_preexisting_conflicts else "error"
+        getattr(logger, level)(
+            "Existing environment dependency conflicts found%s:",
+            "; continuing with Kaggle preflight" if args.allow_preexisting_conflicts else "; stopping before installation",
+        )
+        log_output(logger, current_conflicts, level)
+        if not args.allow_preexisting_conflicts:
+            return 1
 
     with tempfile.TemporaryDirectory(prefix="sc203-colab-setup-") as temp_name:
         temp_dir = Path(temp_name)
@@ -223,9 +239,16 @@ def main() -> int:
     final_check = run_command([sys.executable, "-m", "pip", "check"], logger)
     final_output = (final_check.stdout or "") + (final_check.stderr or "")
     if final_check.returncode != 0:
-        logger.error("Dependency conflicts remain after installation:")
+        final_conflicts = {
+            line.strip() for line in final_output.splitlines() if line.strip()
+        }
+        new_conflicts = final_conflicts - baseline_conflicts
         log_output(logger, final_output, "error")
-        return 1
+        if new_conflicts:
+            logger.error("New dependency conflicts appeared after setup:")
+            log_output(logger, "\n".join(sorted(new_conflicts)), "error")
+            return 1
+        logger.warning("Only the previously reported environment conflicts remain.")
 
     logger.info("Setup complete. torch=%s, torchvision=%s unchanged.", torch_after, torchvision_after)
     return 0
