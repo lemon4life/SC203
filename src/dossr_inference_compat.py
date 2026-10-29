@@ -25,6 +25,11 @@ def main() -> int:
     parser.add_argument("--inference-script", type=Path, required=True)
     parser.add_argument("--precision", choices=("fp32", "fp16"), default=None)
     parser.add_argument("--fp16", action="store_true", help="Enable CUDA float16 autocast")
+    parser.add_argument(
+        "--offload-condition-encoder",
+        action="store_true",
+        help="Run DoSSR's condition encoder on CPU to reduce CUDA activation memory",
+    )
     args, inference_args = parser.parse_known_args()
     if args.fp16 and args.precision == "fp32":
         parser.error("Use either --fp16 or --precision, not conflicting values")
@@ -94,6 +99,36 @@ def main() -> int:
             gc.collect()
 
     torch.load = torch_load_with_mmap
+
+    if args.offload_condition_encoder:
+        if not torch.cuda.is_available():
+            raise RuntimeError("--offload-condition-encoder requires an available CUDA device")
+
+        # DoSSR's condition encoder is a separate copy of the first-stage encoder.
+        # Keep its weights and activations on CPU, then move only the small latent
+        # back to the model device. This avoids changing upstream files.
+        from model.cldm import ControlLDM
+
+        original_apply_condition_encoder = ControlLDM.apply_condition_encoder
+
+        def apply_condition_encoder_on_cpu(model, control):
+            destination = control.device
+            model.cond_encoder.to("cpu")
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            gc.collect()
+            latent = original_apply_condition_encoder(model, control.to("cpu"))
+            if precision == "fp16":
+                latent = latent.to(dtype=torch.float16)
+            return latent.to(destination)
+
+        ControlLDM.apply_condition_encoder = apply_condition_encoder_on_cpu
+        print(
+            "DoSSR compatibility: condition encoder CPU offload enabled; "
+            "its latent will return to the model device.",
+            flush=True,
+        )
+
     sys.argv = [str(inference_script), *inference_args]
     if precision == "fp16":
         if not torch.cuda.is_available():

@@ -70,6 +70,7 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         "color_fix_type": config["color_fix_type"],
         "preprocessor": config["preprocessor"],
         "precision": config.get("precision", "fp32"),
+        "offload_condition_encoder": bool(config.get("offload_condition_encoder", False)),
         "output_root": str(Path(config["output_root"]).expanduser()),
     }
 
@@ -87,6 +88,8 @@ def validate_runtime(config: dict[str, Any]) -> None:
         raise ValueError("precision must be one of: fp32, fp16")
     if config.get("precision", "fp32") == "fp16" and config["device"] != "cuda":
         raise ValueError("fp16 autocast is currently supported only with device: cuda")
+    if config.get("offload_condition_encoder", False) and config["device"] != "cuda":
+        raise ValueError("condition-encoder CPU offload is currently supported only with device: cuda")
     if config["device"] not in {"cuda", "mps", "cpu"}:
         raise ValueError("device must be one of: cuda, mps, cpu")
     if int(config["seed"]) < 0:
@@ -114,6 +117,7 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
                 existing = json.load(stream)
             # Older FP32 manifests predate the precision field.
             existing.setdefault("precision", "fp32")
+            existing.setdefault("offload_condition_encoder", False)
             current = manifest
             if existing != current:
                 raise FileExistsError(
@@ -131,7 +135,7 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
 
 
 def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
-    return [
+    command = [
         sys.executable,
         "-u",
         str(REPO_ROOT / "src" / "dossr_inference_compat.py"),
@@ -160,6 +164,9 @@ def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
         str(int(config["seed"])),
         "--skip_if_exist",
     ]
+    if config.get("offload_condition_encoder", False):
+        command.insert(command.index("--"), "--offload-condition-encoder")
+    return command
 
 
 def main() -> int:
@@ -185,6 +192,11 @@ def main() -> int:
         action="store_true",
         help="Enable CUDA float16 autocast; equivalent to --precision fp16",
     )
+    parser.add_argument(
+        "--offload-condition-encoder",
+        action="store_true",
+        help="Run DoSSR's condition encoder on CPU to reduce CUDA activation memory",
+    )
     args = parser.parse_args()
 
     try:
@@ -199,6 +211,12 @@ def main() -> int:
             config["precision"] = args.precision
         else:
             config["precision"] = config_precision
+        if args.offload_condition_encoder:
+            config["offload_condition_encoder"] = True
+        else:
+            config["offload_condition_encoder"] = bool(
+                config.get("offload_condition_encoder", False)
+            )
         log_dir = Path(config["log_dir"]).expanduser()
     except Exception as error:
         print(f"Configuration error: {error}", file=sys.stderr)
