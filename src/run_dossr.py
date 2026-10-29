@@ -75,6 +75,9 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         "preprocessor": config["preprocessor"],
         "precision": config.get("precision", "fp32"),
         "offload_condition_encoder": bool(config.get("offload_condition_encoder", False)),
+        "tiled": config.get("tiled", False),
+        "tile_size": int(config.get("tile_size", 512)),
+        "tile_stride": int(config.get("tile_stride", 256)),
         "output_root": str(Path(config["output_root"]).expanduser()),
     }
 
@@ -94,6 +97,13 @@ def validate_runtime(config: dict[str, Any]) -> None:
         raise ValueError("fp16 autocast is currently supported only with device: cuda")
     if config.get("offload_condition_encoder", False) and config["device"] != "cuda":
         raise ValueError("condition-encoder offload is currently supported only with device: cuda")
+    if not isinstance(config.get("tiled", False), bool):
+        raise ValueError("tiled must be a YAML boolean")
+    if config.get("tiled", False):
+        if int(config.get("tile_size", 512)) <= 0:
+            raise ValueError("tile_size must be a positive pixel value when tiled is true")
+        if int(config.get("tile_stride", 256)) <= 0:
+            raise ValueError("tile_stride must be a positive pixel value when tiled is true")
     if config["device"] not in {"cuda", "mps", "cpu"}:
         raise ValueError("device must be one of: cuda, mps, cpu")
     if int(config["seed"]) < 0:
@@ -122,6 +132,9 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
             # Older FP32 manifests predate the precision field.
             existing.setdefault("precision", "fp32")
             existing.setdefault("offload_condition_encoder", False)
+            existing.setdefault("tiled", False)
+            existing.setdefault("tile_size", 512)
+            existing.setdefault("tile_stride", 256)
             current = manifest
             if existing != current:
                 raise FileExistsError(
@@ -174,6 +187,14 @@ def build_command(
         command.insert(command.index("--"), "--offload-condition-encoder")
     if profile_memory:
         command.insert(command.index("--"), "--profile-memory")
+    if config.get("tiled", False):
+        command.extend([
+            "--tiled",
+            "--tile_size",
+            str(int(config.get("tile_size", 512))),
+            "--tile_stride",
+            str(int(config.get("tile_stride", 256))),
+        ])
     return command
 
 

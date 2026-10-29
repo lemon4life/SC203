@@ -16,6 +16,9 @@ solver_order: 3
 t1_fraction: 0.5
 device: cuda
 precision: fp32
+tiled: false
+tile_size: 512
+tile_stride: 256
 sr_scale: 4
 color_fix_type: wavelet
 preprocessor: RealESRNet
