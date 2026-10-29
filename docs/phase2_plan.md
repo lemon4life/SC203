@@ -33,7 +33,7 @@ python scripts/inspect_output.py \
   --log-dir /content/drive/MyDrive/lemmepass/logs
 ```
 
-To obtain the missing 512×512-input peak-memory measurement, copy the working smoke YAML to a new profile config and use a new output root. This leaves the working smoke config and output folder alone:
+To profile the working FP16 smoke settings, copy the smoke YAML to a new config, explicitly retain FP16, and use a new output root. This leaves the working smoke config and output folder alone:
 
 ```bash
 python - <<'PY'
@@ -43,15 +43,16 @@ import yaml
 source = Path('/content/baseline_smoke_l4_fp16.yaml')
 target = Path('/content/baseline_smoke_l4_fp16_profile.yaml')
 config = yaml.safe_load(source.read_text())
-config['output_root'] = '/content/outputs/baseline-smoke-l4-fp16-profile'
+config['precision'] = 'fp16'
+config['output_root'] = '/content/outputs/baseline-smoke-l4-fp16-profile-fp16'
 target.write_text(yaml.safe_dump(config, sort_keys=False))
 print(target)
 PY
 cd /content/SC203
-bash scripts/run_baseline.sh --config /content/baseline_smoke_l4_fp16_profile.yaml --profile-memory
+bash scripts/run_baseline.sh --config /content/baseline_smoke_l4_fp16_profile.yaml --profile-memory --fp16
 ```
 
-The supplied run facts do not include a peak-memory number. **TODO: confirm** it from this profile log. Expected fields include `peak_allocated=... GiB` and `peak_reserved=... GiB`. Each image also gets an `IMAGE PROFILE` line.
+**Profile observed (2026-10-29):** the run completed with `peak_allocated=49.29 GiB` and `peak_reserved=60.48 GiB`; after sampling it had 6.54 GiB allocated and 53.94 GiB cached in the allocator, with zero allocation retries and zero OOMs. It took 18.17 seconds in the sampler and 21.05 seconds for the image; total runner time was 61.94 seconds. This run used FP32: its YAML had `precision: fp32` and the command did not pass `--fp16`. These figures are **not** the FP16 peak. The FP16 profile remains TODO: confirm.
 
 Stage the five lexically first RealSR images and write a temporary config from the template:
 
