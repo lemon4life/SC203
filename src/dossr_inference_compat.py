@@ -27,6 +27,11 @@ def main() -> int:
     parser.add_argument("--precision", choices=("fp32", "fp16"), default=None)
     parser.add_argument("--fp16", action="store_true", help="Enable CUDA float16 autocast")
     parser.add_argument(
+        "--profile-memory",
+        action="store_true",
+        help="Log CUDA allocator snapshots around checkpoint loading and sampling",
+    )
+    parser.add_argument(
         "--offload-condition-encoder",
         action="store_true",
         help=(
@@ -48,6 +53,33 @@ def main() -> int:
     import open_clip
     import torch
     import utils.common as dossr_common
+
+    def report_cuda_memory(label: str) -> None:
+        if not args.profile_memory:
+            return
+        if not torch.cuda.is_available():
+            print(f"DoSSR memory profile | {label} | CUDA unavailable", flush=True)
+            return
+        try:
+            torch.cuda.synchronize()
+        except RuntimeError as error:
+            print(
+                f"DoSSR memory profile | {label} | CUDA synchronize reported: {error}",
+                flush=True,
+            )
+        allocated = torch.cuda.memory_allocated()
+        reserved = torch.cuda.memory_reserved()
+        stats = torch.cuda.memory_stats()
+        print(
+            "DoSSR memory profile | "
+            f"{label} | allocated={allocated / 2**30:.2f} GiB | "
+            f"reserved={reserved / 2**30:.2f} GiB | "
+            f"allocator_cache={max(0, reserved - allocated) / 2**30:.2f} GiB | "
+            f"inactive_split={stats.get('inactive_split_bytes.all.current', 0) / 2**30:.2f} GiB | "
+            f"alloc_retries={stats.get('num_alloc_retries', 0)} | "
+            f"ooms={stats.get('num_ooms', 0)}",
+            flush=True,
+        )
 
     original_create = open_clip.create_model_and_transforms
     original_torch_load = torch.load
@@ -120,6 +152,7 @@ def main() -> int:
 
     def load_state_dict_with_progress(*load_args, **load_kwargs):
         print("DoSSR compatibility: strict model state-dict load starting.", flush=True)
+        report_cuda_memory("before strict state-dict load")
         started = time.monotonic()
         result = original_load_state_dict(*load_args, **load_kwargs)
         print(
@@ -127,10 +160,66 @@ def main() -> int:
             f"after {time.monotonic() - started:.1f}s.",
             flush=True,
         )
+        report_cuda_memory("after strict state-dict load")
         return result
 
     torch.load = torch_load_with_mmap
     dossr_common.load_state_dict = load_state_dict_with_progress
+
+    if args.profile_memory:
+        report_cuda_memory("before model creation")
+        from model.cldm import ControlLDM
+        from model.shift_sampler import SpacedSampler
+
+        original_model_to = ControlLDM.to
+
+        def model_to_with_memory_profile(model, *to_args, **to_kwargs):
+            report_cuda_memory("before model device transfer")
+            started = time.monotonic()
+            result = original_model_to(model, *to_args, **to_kwargs)
+            if torch.cuda.is_available():
+                try:
+                    torch.cuda.synchronize()
+                except RuntimeError as error:
+                    print(
+                        "DoSSR model device-transfer profile | CUDA synchronize reported: "
+                        f"{error}",
+                        flush=True,
+                    )
+            print(
+                "DoSSR model device-transfer profile | elapsed="
+                f"{time.monotonic() - started:.2f}s",
+                flush=True,
+            )
+            report_cuda_memory("after model device transfer")
+            return result
+
+        ControlLDM.to = model_to_with_memory_profile
+        original_sample = SpacedSampler.shift_sample_3_order
+
+        def sample_with_memory_profile(sampler, *sample_args, **sample_kwargs):
+            report_cuda_memory("before sampler")
+            started = time.monotonic()
+            try:
+                return original_sample(sampler, *sample_args, **sample_kwargs)
+            finally:
+                if torch.cuda.is_available():
+                    try:
+                        torch.cuda.synchronize()
+                    except RuntimeError as error:
+                        print(
+                            "DoSSR sampler profile | CUDA synchronize reported: "
+                            f"{error}",
+                            flush=True,
+                        )
+                print(
+                    "DoSSR sampler profile | elapsed="
+                    f"{time.monotonic() - started:.2f}s",
+                    flush=True,
+                )
+                report_cuda_memory("after sampler")
+
+        SpacedSampler.shift_sample_3_order = sample_with_memory_profile
 
     if args.offload_condition_encoder:
         if not torch.cuda.is_available():

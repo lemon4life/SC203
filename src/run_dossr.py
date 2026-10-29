@@ -12,6 +12,7 @@ import subprocess
 import sys
 import os
 import re
+import time
 from pathlib import Path
 from typing import Any
 
@@ -137,7 +138,9 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
 
-def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
+def build_command(
+    config: dict[str, Any], output_dir: Path, *, profile_memory: bool = False
+) -> list[str]:
     command = [
         sys.executable,
         "-u",
@@ -169,13 +172,17 @@ def build_command(config: dict[str, Any], output_dir: Path) -> list[str]:
     ]
     if config.get("offload_condition_encoder", False):
         command.insert(command.index("--"), "--offload-condition-encoder")
+    if profile_memory:
+        command.insert(command.index("--"), "--profile-memory")
     return command
 
 
-def stream_process_output(stream, logger: logging.Logger) -> None:
+def stream_process_output(stream, logger: logging.Logger) -> tuple[int, int]:
     """Log child output as it arrives, treating tqdm carriage returns as line breaks."""
     decoder = codecs.getincrementaldecoder("utf-8")("replace")
     pending = ""
+    cache_hits = 0
+    cache_misses = 0
     while True:
         chunk = os.read(stream.fileno(), 4096)
         if not chunk:
@@ -185,12 +192,21 @@ def stream_process_output(stream, logger: logging.Logger) -> None:
             line = ANSI_ESCAPE.sub("", line).strip()
             if line:
                 logger.info("DoSSR | %s", line)
+                if line.startswith("skip "):
+                    cache_hits += 1
+                elif line.startswith("save to "):
+                    cache_misses += 1
         pending = pieces[-1]
 
     pending += decoder.decode(b"", final=True)
     pending = ANSI_ESCAPE.sub("", pending).strip()
     if pending:
         logger.info("DoSSR | %s", pending)
+        if pending.startswith("skip "):
+            cache_hits += 1
+        elif pending.startswith("save to "):
+            cache_misses += 1
+    return cache_hits, cache_misses
 
 
 def main() -> int:
@@ -220,6 +236,11 @@ def main() -> int:
         "--offload-condition-encoder",
         action="store_true",
         help="Move DoSSR's condition encoder to cuda:1 when available, or use CPU fallback",
+    )
+    parser.add_argument(
+        "--profile-memory",
+        action="store_true",
+        help="Log CUDA allocator snapshots around model loading and sampling",
     )
     args = parser.parse_args()
 
@@ -277,11 +298,12 @@ def main() -> int:
         destination = output_path(config)
         manifest = manifest_for(config)
         prepare_output(destination, manifest, args.overwrite)
-        command = build_command(config, destination)
+        command = build_command(config, destination, profile_memory=args.profile_memory)
         logger.info("Input images: %s", len(images))
         logger.info("Output folder: %s", destination)
         logger.info("DoSSR command: %s", command)
 
+        run_started = time.monotonic()
         process = subprocess.Popen(
             command,
             cwd=dossr_root,
@@ -296,8 +318,14 @@ def main() -> int:
             bufsize=0,
         )
         assert process.stdout is not None
-        stream_process_output(process.stdout, logger)
+        cache_hits, cache_misses = stream_process_output(process.stdout, logger)
         return_code = process.wait()
+        logger.info(
+            "OUTPUT CACHE | hits=%s | misses=%s | meaning=existing PNG reused vs newly saved PNG",
+            cache_hits,
+            cache_misses,
+        )
+        logger.info("Runner elapsed time: %.2fs", time.monotonic() - run_started)
         if return_code != 0:
             raise subprocess.CalledProcessError(return_code, command)
         logger.info("BASELINE COMPLETED | images=%s | output=%s", len(images), destination)
