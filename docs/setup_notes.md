@@ -282,3 +282,65 @@ The [StableSR dataset card](https://huggingface.co/datasets/Iceclear/StableSR-Te
 - `src/dossr_inference_compat.py` now monkey-patches DoSSR's vanilla `CrossAttention.forward` at runtime only when xformers is unavailable and PyTorch SDPA exists. It preserves projection layers, head count/layout, explicit scale, boolean valid-key masks, and zero attention dropout. FP16 autocast outputs stay FP16 so CUDA can select a memory-efficient SDPA kernel; this differs from upstream's explicit FP32 Q/K accumulation and may cause small numerical differences.
 - The upstream forward remains active if SDPA is absent or a kernel is unsupported. `scripts/check_attention_sdpa.py` compares the old einsum reference and SDPA on small random masked FP16 CPU tensors. This check was not run locally because the Mac Python environment has no PyTorch. Full DoSSR inference remains **UNTESTED**.
 - Inspection confirmed the VAE `AttnBlock.forward` also materializes a `[batch, HW, HW]` table with `bmm` at decode time. This patch does not alter it; if it becomes the next memory bottleneck, apply the same SDPA rewrite with one head and scale `channels**-0.5`, retaining its residual/projection behavior.
+
+# CUDA OOM in DoSSR attention and the SDPA patch
+
+## Symptom and cause
+
+The first one-image smoke run failed in the first sampling step. CUDA could not allocate 80 GiB on a GPU with about 79 GiB total. The model itself used about 8 GiB. The failing operation was CrossAttention's `einsum` in `external/DOSSR/ldm/modules/attention.py:178`. It creates a full attention table. Its memory grows with the square of the image size.
+
+The smoke input was 512×512. DoSSR used `sr_scale: 4`, producing a 2048×2048 image. The run used five steps, FP16 autocast, seed 42, Python 3.13, and PyTorch 2.11.0+cu130. xformers was not installed.
+
+## Why the tiling flags did not help
+
+DoSSR accepts `--tiled`, `--tile_size`, and `--tile_stride`. These flags do not split inference into tiles. `tile_size` only goes to `auto_resize`; `tile_stride` is unused, and the sampler receives no tile arguments. These flags do not reduce attention memory.
+
+## Fix and verification
+
+Commit `da3bcbd` added a runtime patch in `src/dossr_inference_compat.py` and `src/attention_compat.py`. When xformers is missing, vanilla CrossAttention uses PyTorch `scaled_dot_product_attention`. The original einsum implementation remains the fallback. No file in `external/` was changed.
+
+The successful run logged `using PyTorch scaled_dot_product_attention`. The small check passed with output shape `(2, 4, 16, 8)` and maximum absolute error `0.000977` at `rtol=0.01` and `atol=0.01`. The one-image run reached 5/5 and saved `Canon_001_LR4_0.png` under `/content/outputs/baseline-smoke-l4-fp16/seed_42/`. It exited with status 0. Runner time was 48.99 seconds; sampler time was about 3 seconds. Checkpoint loading took 123.8 seconds in the failed run and 1.0 second from cache in the successful run.
+
+## Reproduce in Colab
+
+Pull the branch and run the small attention check:
+
+```bash
+cd /content/SC203
+git fetch origin
+git checkout feat/baseline-runner
+git pull --ff-only origin feat/baseline-runner
+python scripts/check_attention_sdpa.py --log-dir /content/drive/MyDrive/lemmepass/logs
+```
+
+Set a fresh output root in the smoke YAML so the rerun uses a new result folder:
+
+```bash
+python - <<'PY'
+from pathlib import Path
+import yaml
+
+path = Path('/content/baseline_smoke_l4_fp16.yaml')
+config = yaml.safe_load(path.read_text())
+config['output_root'] = '/content/outputs/baseline-smoke-l4-fp16-rerun'
+path.write_text(yaml.safe_dump(config, sort_keys=False))
+print('output_root:', config['output_root'])
+PY
+```
+
+Run the one-image smoke test:
+
+```bash
+cd /content/SC203
+set -o pipefail
+bash scripts/run_baseline.sh --config /content/baseline_smoke_l4_fp16.yaml --fp16 2>&1 | tee /content/baseline_smoke_l4_fp16_console.log
+status=${PIPESTATUS[0]}
+echo "SMOKE_RUNNER_EXIT_STATUS=$status"
+exit "$status"
+```
+
+## Numerical note and limits
+
+The baseline uses FP16 autocast and the SDPA path. Its output can differ slightly from upstream's FP32 einsum path. The small comparison check is not a full-image quality comparison.
+
+The VAE's vanilla `AttnBlock` still builds a full attention table with `bmm`. It did not run out of memory in this 512×512 input test, but it may at larger inputs. TODO: confirm its limit at larger input sizes. The full 200-image baseline is also TODO: confirm.
