@@ -53,6 +53,26 @@ def main() -> int:
     import open_clip
     import torch
     import utils.common as dossr_common
+    from ldm import xformers_state
+
+    if not xformers_state.is_xformers_available():
+        from ldm.modules import attention as attention_module
+
+        from attention_compat import patch_cross_attention
+
+        if patch_cross_attention(attention_module):
+            print(
+                "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
+                "for vanilla CrossAttention; original projections, heads, scale, "
+                "and mask semantics are retained.",
+                flush=True,
+            )
+        else:
+            print(
+                "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
+                "upstream einsum CrossAttention.",
+                flush=True,
+            )
 
     def report_cuda_memory(label: str) -> None:
         if not args.profile_memory:
