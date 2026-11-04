@@ -4,6 +4,8 @@ No batch or seed-study inference has been run. The existing one-image smoke conf
 
 ## Prepared files
 
+- `notebooks/01_dossr_baseline.ipynb` is the standardized Colab notebook for the VAE `AttnBlock` SDPA check (`--device cuda`), 1-image FP16 memory profile, output inspection, 1-image same-seed control vs. cross-seed spread check (`42 vs 42-repeat` and `42 vs 43`), and disk-gated 5-image / 5-seed study (`RUN_SEED_STUDY = False` by default). All cells in this notebook are **NOT TESTED** until Colab logs are shared.
+- `scripts/check_attention_sdpa.py` now accepts `--device` (`auto`, `cpu`, `cuda`) and tests `CrossAttention` plus both tiny (`2x16x6x5`) and larger (`1x512x64x64`) VAE `AttnBlock` shapes (**NOT TESTED** on Colab GPU).
 - `scripts/inspect_output.py` checks a saved result's size, finite pixel values, and all-black/all-white cases. It saves a bicubic-upscaled input beside the DoSSR output.
 - `scripts/prepare_baseline_smoke.py` now accepts `--image-count` and `--source-dir`. Defaults remain one image and the source directory in the YAML.
 - `configs/baseline_realsr_5img.yaml` is a five-image batch template. It uses seed 42, FP16, CUDA, five sampling steps, x4 scale, no condition-encoder offload, and a new output root. It expects five staged inputs in `/content/realsr_batch_5`.

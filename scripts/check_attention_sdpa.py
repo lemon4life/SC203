@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare DoSSR's einsum CrossAttention and bmm VAE AttnBlock with SDPA on tiny FP16 tensors."""
+"""Compare DoSSR's einsum CrossAttention and bmm VAE AttnBlock with SDPA on FP16 tensors."""
 
 from __future__ import annotations
 
@@ -47,9 +47,72 @@ class _ReferenceAttnBlock(torch.nn.Module):
         return x + h_
 
 
+def _resolve_device(requested: str) -> torch.device:
+    if requested == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if requested == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("--device cuda requested, but torch.cuda.is_available() is False")
+    return torch.device(requested)
+
+
+def _run_vae_checks(
+    logger,
+    *,
+    device: torch.device,
+    vae_batch: int,
+    channels: int,
+    height: int,
+    width: int,
+    label: str,
+) -> None:
+    vq = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
+    vk = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
+    vv = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
+    vae_ref = bmm_vae_attention_reference(vq, vk, vv)
+    vae_act = sdpa_vae_attention(vq, vk, vv)
+    vae_max_abs_error = (vae_ref.float() - vae_act.float()).abs().max().item()
+    torch.testing.assert_close(vae_act, vae_ref, rtol=1e-2, atol=1e-2)
+    logger.info(
+        "VAE AttnBlock SDPA kernel FP16 comparison passed (%s) | device=%s | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
+        label,
+        device.type,
+        tuple(vae_act.shape),
+        vae_max_abs_error,
+    )
+
+    x = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
+    original_forward = _ReferenceAttnBlock.forward
+    try:
+        block = _ReferenceAttnBlock(channels).to(device=device, dtype=torch.float16).eval()
+        with torch.no_grad():
+            block_ref = block(x)
+            dummy_module = types.SimpleNamespace(AttnBlock=_ReferenceAttnBlock)
+            patched = patch_vae_attn_block(dummy_module)
+            if not patched:
+                raise RuntimeError("patch_vae_attn_block returned False")
+            block_act = block(x)
+    finally:
+        _ReferenceAttnBlock.forward = original_forward
+    block_max_abs_error = (block_ref.float() - block_act.float()).abs().max().item()
+    torch.testing.assert_close(block_act, block_ref, rtol=1e-2, atol=1e-2)
+    logger.info(
+        "VAE AttnBlock patched forward FP16 comparison passed (%s) | device=%s | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
+        label,
+        device.type,
+        tuple(block_act.shape),
+        block_max_abs_error,
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--device",
+        choices=("auto", "cpu", "cuda"),
+        default="auto",
+        help="Execution device for the FP16 comparison (default: auto, prefers cuda when available)",
+    )
     parser.add_argument("--log-dir", type=Path, default=DEFAULT_LOG_DIR)
     args = parser.parse_args()
 
@@ -59,7 +122,11 @@ def main() -> int:
 
     try:
         torch.manual_seed(args.seed)
-        device = torch.device("cpu")
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(args.seed)
+        device = _resolve_device(args.device)
+        logger.info("Running SDPA FP16 comparison on device: %s", device)
+
         batch, heads, query_len, key_len, head_dim = 2, 4, 16, 19, 8
         q = torch.randn(batch, heads, query_len, head_dim, dtype=torch.float16, device=device)
         k = torch.randn(batch, heads, key_len, head_dim, dtype=torch.float16, device=device)
@@ -73,40 +140,29 @@ def main() -> int:
         max_abs_error = (reference.float() - actual.float()).abs().max().item()
         torch.testing.assert_close(actual, reference, rtol=1e-2, atol=1e-2)
         logger.info(
-            "SDPA FP16 comparison passed | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
+            "SDPA FP16 comparison passed | device=%s | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
+            device.type,
             tuple(actual.shape),
             max_abs_error,
         )
 
-        vae_batch, channels, height, width = 2, 16, 6, 5
-        vq = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
-        vk = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
-        vv = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
-        vae_ref = bmm_vae_attention_reference(vq, vk, vv)
-        vae_act = sdpa_vae_attention(vq, vk, vv)
-        vae_max_abs_error = (vae_ref.float() - vae_act.float()).abs().max().item()
-        torch.testing.assert_close(vae_act, vae_ref, rtol=1e-2, atol=1e-2)
-        logger.info(
-            "VAE AttnBlock SDPA kernel FP16 comparison passed | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
-            tuple(vae_act.shape),
-            vae_max_abs_error,
+        _run_vae_checks(
+            logger,
+            device=device,
+            vae_batch=2,
+            channels=16,
+            height=6,
+            width=5,
+            label="tiny",
         )
-
-        x = torch.randn(vae_batch, channels, height, width, dtype=torch.float16, device=device)
-        block = _ReferenceAttnBlock(channels).to(device=device, dtype=torch.float16).eval()
-        with torch.no_grad():
-            block_ref = block(x)
-            dummy_module = types.SimpleNamespace(AttnBlock=_ReferenceAttnBlock)
-            patched = patch_vae_attn_block(dummy_module)
-            if not patched:
-                raise RuntimeError("patch_vae_attn_block returned False")
-            block_act = block(x)
-        block_max_abs_error = (block_ref.float() - block_act.float()).abs().max().item()
-        torch.testing.assert_close(block_act, block_ref, rtol=1e-2, atol=1e-2)
-        logger.info(
-            "VAE AttnBlock patched forward FP16 comparison passed | shape=%s | max_abs_error=%.6f | rtol=0.01 | atol=0.01",
-            tuple(block_act.shape),
-            block_max_abs_error,
+        _run_vae_checks(
+            logger,
+            device=device,
+            vae_batch=1,
+            channels=512,
+            height=64,
+            width=64,
+            label="large_1x512x64x64",
         )
         return 0
     except Exception as error:
