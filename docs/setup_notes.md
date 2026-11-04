@@ -343,4 +343,5 @@ exit "$status"
 
 The baseline uses FP16 autocast and the SDPA path. Its output can differ slightly from upstream's FP32 einsum path. The small comparison check is not a full-image quality comparison.
 
-The VAE's vanilla `AttnBlock` still builds a full attention table with `bmm`. It did not run out of memory in this 512×512 input test, but it may at larger inputs. TODO: confirm its limit at larger input sizes. The full 200-image baseline is also TODO: confirm.
+The VAE's vanilla `AttnBlock` previously built a full `[batch, HW, HW]` attention table with `bmm`. `src/attention_compat.py` and `src/dossr_inference_compat.py` now also runtime-patch `AttnBlock.forward` to use single-head PyTorch SDPA (`scale = channels ** -0.5`), keeping `norm`, `q/k/v` projections, `proj_out`, residual addition, and the original `bmm` fallback. `scripts/check_attention_sdpa.py` now checks both `CrossAttention` and `AttnBlock` on tiny FP16 tensors. This VAE `AttnBlock` patch is **UNTESTED** locally (no PyTorch on Mac) and **UNTESTED on Colab** until a new Colab log is shared.
+

@@ -52,7 +52,10 @@ cd /content/SC203
 bash scripts/run_baseline.sh --config /content/baseline_smoke_l4_fp16_profile.yaml --profile-memory --fp16
 ```
 
-**Profile observed (2026-10-29):** the run completed with `peak_allocated=49.29 GiB` and `peak_reserved=60.48 GiB`; after sampling it had 6.54 GiB allocated and 53.94 GiB cached in the allocator, with zero allocation retries and zero OOMs. It took 18.17 seconds in the sampler and 21.05 seconds for the image; total runner time was 61.94 seconds. This run used FP32: its YAML had `precision: fp32` and the command did not pass `--fp16`. These figures are **not** the FP16 peak. The FP16 profile remains TODO: confirm.
+**Profile observed (2026-10-29):**
+- **FP32 (without `--fp16`):** `peak_allocated=49.29 GiB`, `peak_reserved=60.48 GiB`, sampler time `18.17 s`, image time `21.05 s`, runner time `61.94 s`.
+- **FP16 (with `--fp16`, before VAE `AttnBlock` patch):** `peak_allocated=36.04 GiB`, `peak_reserved=52.70 GiB`, sampler time `4.61 s`.
+- **FP16 (with VAE `AttnBlock` SDPA patch):** **UNTESTED** — TODO: confirm after running with a new output root.
 
 Stage the five lexically first RealSR images and write a temporary config from the template:
 
@@ -99,9 +102,9 @@ cp -Rn /content/outputs/seed-study-realsr-5img /content/drive/MyDrive/lemmepass/
 - `scikit-image==0.26.0` and `pyiqa==0.1.16` are listed in the analysis requirements. Their installation in the Colab DoSSR environment is not confirmed. Candidate no-reference metrics include NIQE and BRISQUE through an IQA package; **TODO: confirm** metric IDs and runtime dependencies before implementation.
 - Proposed `scripts/compute_metrics.py`: accept an output root, optional GT directory, and metric list; match by image stem; write one CSV row per image and seed; then report per-image variation and per-seed mean/std/range. It should refuse full-reference metrics if a GT match is missing. No metrics script was added because the GT pairing is unknown.
 
-## VAE attention risk
+## VAE attention patch
 
-The VAE `AttnBlock` in `external/DOSSR/ldm/modules/diffusionmodules/model.py` builds a `[batch, HW, HW]` table with `bmm`. It completed the supplied 2048×2048 output smoke run, but its table grows quadratically with spatial token count. Larger images may exceed GPU memory. No threshold is known. If a larger run fails there, apply an SDPA rewrite to that block with one head and scale `channels**-0.5`; do not change it without approval.
+The VAE `AttnBlock` in `external/DOSSR/ldm/modules/diffusionmodules/model.py` builds a `[batch, HW, HW]` table with `bmm`. `src/attention_compat.py` now runtime-patches `AttnBlock.forward` with single-head PyTorch SDPA (`scale = channels**-0.5`), keeping `norm`, `q/k/v` projections, `proj_out`, residual addition, and the original `bmm` fallback. This patch is **UNTESTED on Colab** until the FP16 memory profile is rerun.
 
 ## Ordered checklist and estimates
 

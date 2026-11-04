@@ -57,8 +57,9 @@ def main() -> int:
 
     if not xformers_state.is_xformers_available():
         from ldm.modules import attention as attention_module
+        from ldm.modules.diffusionmodules import model as diffusion_model_module
 
-        from attention_compat import patch_cross_attention
+        from attention_compat import patch_cross_attention, patch_vae_attn_block
 
         if patch_cross_attention(attention_module):
             print(
@@ -71,6 +72,20 @@ def main() -> int:
             print(
                 "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
                 "upstream einsum CrossAttention.",
+                flush=True,
+            )
+
+        if patch_vae_attn_block(diffusion_model_module):
+            print(
+                "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
+                "for vanilla VAE AttnBlock; original norm, q/k/v projections, "
+                "single-head scale, proj_out, and residual semantics are retained.",
+                flush=True,
+            )
+        else:
+            print(
+                "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
+                "upstream bmm VAE AttnBlock.",
                 flush=True,
             )
 
