@@ -62,7 +62,7 @@ def output_path(config: dict[str, Any]) -> Path:
 
 
 def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
-    return {
+    manifest: dict[str, Any] = {
         "seed": int(config["seed"]),
         "input_dir": str(Path(config["input_dir"]).expanduser()),
         "checkpoint": str(Path(config["checkpoint"]).expanduser()),
@@ -81,6 +81,11 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         "tile_stride": int(config.get("tile_stride", 256)),
         "output_root": str(Path(config["output_root"]).expanduser()),
     }
+    if bool(config.get("disable_sdpa", False)):
+        manifest["disable_sdpa"] = True
+    if bool(config.get("disable_vae_sdpa", False)):
+        manifest["disable_vae_sdpa"] = True
+    return manifest
 
 
 def validate_runtime(config: dict[str, Any]) -> None:
@@ -186,6 +191,10 @@ def build_command(
     ]
     if config.get("offload_condition_encoder", False):
         command.insert(command.index("--"), "--offload-condition-encoder")
+    if config.get("disable_sdpa", False):
+        command.insert(command.index("--"), "--disable-sdpa")
+    if config.get("disable_vae_sdpa", False):
+        command.insert(command.index("--"), "--disable-vae-sdpa")
     if profile_memory:
         command.insert(command.index("--"), "--profile-memory")
     if config.get("tiled", False):
@@ -275,6 +284,16 @@ def main() -> int:
         action="store_true",
         help="Log CUDA allocator snapshots around model loading and sampling",
     )
+    parser.add_argument(
+        "--disable-sdpa",
+        action="store_true",
+        help="Disable runtime PyTorch SDPA patches and retain upstream einsum/bmm attention",
+    )
+    parser.add_argument(
+        "--disable-vae-sdpa",
+        action="store_true",
+        help="Disable only the runtime VAE AttnBlock SDPA patch while keeping CrossAttention SDPA",
+    )
     args = parser.parse_args()
 
     try:
@@ -295,6 +314,14 @@ def main() -> int:
             config["offload_condition_encoder"] = bool(
                 config.get("offload_condition_encoder", False)
             )
+        if args.disable_sdpa:
+            config["disable_sdpa"] = True
+        else:
+            config["disable_sdpa"] = bool(config.get("disable_sdpa", False))
+        if args.disable_vae_sdpa:
+            config["disable_vae_sdpa"] = True
+        else:
+            config["disable_vae_sdpa"] = bool(config.get("disable_vae_sdpa", False))
         log_dir = Path(config["log_dir"]).expanduser()
     except Exception as error:
         print(f"Configuration error: {error}", file=sys.stderr)
@@ -324,6 +351,11 @@ def main() -> int:
                 raise FileNotFoundError(f"Missing {label}: {path}")
         if not input_dir.is_dir():
             raise NotADirectoryError(input_dir)
+        if input_dir.name.lower() == "test_hr" or (input_dir / "test_HR").exists():
+            raise ValueError(
+                f"Refusing input_dir that points to or contains test_HR: {input_dir}. "
+                "Use a leaf low-resolution folder such as RealSRVal_crop128/test_LR."
+            )
         images = [p for p in input_dir.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS]
         if not images:
             raise ValueError(f"No supported images found under {input_dir}")

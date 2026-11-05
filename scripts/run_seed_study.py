@@ -11,6 +11,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.env_info import DEFAULT_LOG_DIR, configure_logging, log_run_info  # noqa: E402
+
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 
 
 def read_mapping(path: Path, label: str) -> dict[str, Any]:
@@ -45,6 +48,18 @@ def main() -> int:
         type=Path,
         default=None,
         help="Override baseline_config from the study YAML (for example, the staged Colab config)",
+    )
+    parser.add_argument(
+        "--expected-input-size",
+        type=int,
+        default=128,
+        help="Expected square width/height of every prepared input image in pixels (default: 128)",
+    )
+    parser.add_argument(
+        "--expected-output-size",
+        type=int,
+        default=512,
+        help="Expected square width/height of every generated output image in pixels (default: 512)",
     )
     args = parser.parse_args()
 
@@ -77,8 +92,34 @@ def main() -> int:
         input_dir = Path(baseline["input_dir"]).expanduser()
         if not input_dir.is_dir():
             raise FileNotFoundError(f"Prepared input folder not found: {input_dir}")
+        subfolders = sorted(p.name for p in input_dir.iterdir() if p.is_dir())
+        if subfolders:
+            raise ValueError(
+                f"Prepared input folder {input_dir} contains subfolders {subfolders}; "
+                "expected a flat staged image folder."
+            )
+        input_images = sorted(
+            p for p in input_dir.iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
+        )
+        if not input_images:
+            raise ValueError(f"No images found in prepared input folder: {input_dir}")
+        expected_in_dim = (int(args.expected_input_size), int(args.expected_input_size))
+        for img_path in input_images:
+            with Image.open(img_path) as im:
+                if im.size != expected_in_dim:
+                    raise ValueError(
+                        f"Input image {img_path} has size {im.size}, expected {expected_in_dim}"
+                    )
+        logger.info(
+            "Verified %s input images in %s with size %s",
+            len(input_images),
+            input_dir,
+            expected_in_dim,
+        )
+
         output_root = Path(study["output_root"]).expanduser()
         output_root.mkdir(parents=True, exist_ok=True)
+        expected_out_dim = (int(args.expected_output_size), int(args.expected_output_size))
 
         with tempfile.TemporaryDirectory(prefix="sc203-seed-study-") as temp_dir:
             for seed in seeds:
@@ -115,6 +156,30 @@ def main() -> int:
                 return_code = process.wait()
                 if return_code != 0:
                     raise subprocess.CalledProcessError(return_code, command)
+
+                seed_out_dir = output_root / f"seed_{seed}"
+                out_images = sorted(
+                    p
+                    for p in seed_out_dir.iterdir()
+                    if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS and not p.name.endswith("_compare.png")
+                )
+                if len(out_images) != len(input_images):
+                    raise RuntimeError(
+                        f"Seed {seed} produced {len(out_images)} output images in {seed_out_dir}, "
+                        f"expected {len(input_images)}"
+                    )
+                for out_path in out_images:
+                    with Image.open(out_path) as out_im:
+                        if out_im.size != expected_out_dim:
+                            raise ValueError(
+                                f"Output image {out_path} has size {out_im.size}, expected {expected_out_dim}"
+                            )
+                logger.info(
+                    "Verified %s output images for seed %s with size %s",
+                    len(out_images),
+                    seed,
+                    expected_out_dim,
+                )
 
         logger.info("SEED STUDY COMPLETED | seeds=%s | output_root=%s", seeds, output_root)
         return 0

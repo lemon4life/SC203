@@ -39,6 +39,16 @@ def main() -> int:
             "otherwise use the CPU fallback"
         ),
     )
+    parser.add_argument(
+        "--disable-sdpa",
+        action="store_true",
+        help="Disable runtime PyTorch SDPA patches and retain upstream einsum/bmm attention",
+    )
+    parser.add_argument(
+        "--disable-vae-sdpa",
+        action="store_true",
+        help="Disable only the runtime VAE AttnBlock SDPA patch while keeping CrossAttention SDPA",
+    )
     args, inference_args = parser.parse_known_args()
     if args.fp16 and args.precision == "fp32":
         parser.error("Use either --fp16 or --precision, not conflicting values")
@@ -61,33 +71,46 @@ def main() -> int:
 
         from attention_compat import patch_cross_attention, patch_vae_attn_block
 
-        if patch_cross_attention(attention_module):
+        if args.disable_sdpa:
             print(
-                "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
-                "for vanilla CrossAttention; original projections, heads, scale, "
-                "and mask semantics are retained.",
+                "DoSSR compatibility: --disable-sdpa is set; retaining upstream "
+                "einsum CrossAttention and upstream bmm VAE AttnBlock.",
                 flush=True,
             )
         else:
-            print(
-                "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
-                "upstream einsum CrossAttention.",
-                flush=True,
-            )
+            if patch_cross_attention(attention_module):
+                print(
+                    "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
+                    "for vanilla CrossAttention; original projections, heads, scale, "
+                    "and mask semantics are retained.",
+                    flush=True,
+                )
+            else:
+                print(
+                    "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
+                    "upstream einsum CrossAttention.",
+                    flush=True,
+                )
 
-        if patch_vae_attn_block(diffusion_model_module):
-            print(
-                "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
-                "for vanilla VAE AttnBlock; original norm, q/k/v projections, "
-                "single-head scale, proj_out, and residual semantics are retained.",
-                flush=True,
-            )
-        else:
-            print(
-                "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
-                "upstream bmm VAE AttnBlock.",
-                flush=True,
-            )
+            if args.disable_vae_sdpa:
+                print(
+                    "DoSSR compatibility: --disable-vae-sdpa is set; retaining "
+                    "upstream bmm VAE AttnBlock.",
+                    flush=True,
+                )
+            elif patch_vae_attn_block(diffusion_model_module):
+                print(
+                    "DoSSR compatibility: using PyTorch scaled_dot_product_attention "
+                    "for vanilla VAE AttnBlock; original norm, q/k/v projections, "
+                    "single-head scale, proj_out, and residual semantics are retained.",
+                    flush=True,
+                )
+            else:
+                print(
+                    "DoSSR compatibility: PyTorch SDPA is unavailable; retaining "
+                    "upstream bmm VAE AttnBlock.",
+                    flush=True,
+                )
 
     def report_cuda_memory(label: str) -> None:
         if not args.profile_memory:

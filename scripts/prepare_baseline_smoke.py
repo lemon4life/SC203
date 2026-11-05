@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -88,15 +89,37 @@ def main() -> int:
             if args.source_dir is not None
             else Path(config["input_dir"]).expanduser()
         )
+        if not input_dir.is_dir():
+            raise FileNotFoundError(f"Source input directory not found: {input_dir}")
+
+        subfolders = sorted(path.name for path in input_dir.iterdir() if path.is_dir())
+        if subfolders:
+            raise ValueError(
+                f"Input directory {input_dir} contains subfolders {subfolders}. "
+                "Pass a leaf image directory such as RealSRVal_crop128/test_LR so test_HR and test_LR are never mixed."
+            )
+
         images = sorted(
             path
-            for path in input_dir.rglob("*")
+            for path in input_dir.iterdir()
             if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS
         )
         if len(images) < args.image_count:
             raise FileNotFoundError(
                 f"Requested {args.image_count} images but found {len(images)} under {input_dir}"
             )
+
+        observed_sizes: dict[tuple[int, int], list[str]] = {}
+        for image_path in images:
+            with Image.open(image_path) as img:
+                observed_sizes.setdefault(img.size, []).append(image_path.name)
+        if len(observed_sizes) > 1:
+            summary = {str(size): names[:3] for size, names in observed_sizes.items()}
+            raise ValueError(
+                f"Input directory {input_dir} contains mixed image sizes {summary}. "
+                "All images in the source directory must share a uniform size."
+            )
+
         selected_images = images[: args.image_count]
         selected_names = {image.name for image in selected_images}
         if len(selected_names) != len(selected_images):
@@ -119,6 +142,7 @@ def main() -> int:
                 "Choose a fresh --smoke-dir so staging contains only the requested images."
             )
 
+        staged_sizes: set[tuple[int, int]] = set()
         for source_image in selected_images:
             destination = smoke_dir / source_image.name
             if destination.exists():
@@ -127,10 +151,26 @@ def main() -> int:
                         f"Staged image has different content: {destination}. "
                         "Choose a fresh --smoke-dir."
                     )
-                logger.info("Image already staged; skipping copy: %s", destination)
+                with Image.open(destination) as staged_img:
+                    img_size = staged_img.size
+                staged_sizes.add(img_size)
+                logger.info(
+                    "Image already staged; skipping copy: %s | size=%sx%s",
+                    destination,
+                    img_size[0],
+                    img_size[1],
+                )
             else:
                 destination.write_bytes(source_image.read_bytes())
-                logger.info("Staged image: %s", destination)
+                with Image.open(destination) as staged_img:
+                    img_size = staged_img.size
+                staged_sizes.add(img_size)
+                logger.info(
+                    "Staged image: %s | size=%sx%s",
+                    destination,
+                    img_size[0],
+                    img_size[1],
+                )
 
         config["input_dir"] = str(smoke_dir)
         config["output_root"] = str(args.output_root.expanduser())
@@ -149,7 +189,7 @@ def main() -> int:
             config_out.write_text(rendered, encoding="utf-8")
             logger.info("Created staged-image config: %s", config_out)
 
-        logger.info("Smoke input count: %s", len(selected_images))
+        logger.info("Smoke input count: %s | staged_sizes=%s", len(selected_images), sorted(staged_sizes))
         logger.info("Smoke output root: %s", args.output_root.expanduser())
         logger.info("SMOKE CONFIG READY")
         return 0

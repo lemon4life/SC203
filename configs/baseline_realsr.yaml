@@ -1,4 +1,9 @@
 # Phase 1 vanilla DoSSR baseline. Paths target the standard Colab layout.
+# WARNING: RealSRVal_crop128 contains both test_HR (512x512) and test_LR (128x128).
+# Do not pass the parent RealSRVal_crop128 directory as input_dir (src/run_dossr.py
+# and scripts/prepare_baseline_smoke.py now reject directories containing test_HR
+# or subfolders). Use configs/baseline_realsr_lr128.yaml (which points to test_LR)
+# or pass --source-dir .../RealSRVal_crop128/test_LR when staging.
 seed: 42
 input_dir: /content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128
 output_root: /content/outputs/baseline

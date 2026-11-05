@@ -1,0 +1,5 @@
+# Runs the prepared five-image test_LR (128x128 -> 512x512) batch across seeds 42..46.
+baseline_config: /content/baseline_realsr_5img_lr128.yaml
+seeds: [42, 43, 44, 45, 46]
+output_root: /content/outputs/seed-study-realsr-5img-lr128
+log_dir: /content/drive/MyDrive/lemmepass/logs
