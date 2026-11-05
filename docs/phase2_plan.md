@@ -4,10 +4,11 @@ No batch or seed-study inference has been run. The existing one-image smoke conf
 
 ## Prepared files
 
-- `notebooks/01_dossr_baseline.ipynb` is the standardized Colab notebook for the `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`) baseline, GPU SDPA check (`--device cuda`), 1-image SDPA ON vs. OFF (`--disable-sdpa`) memory/time/pixel comparison, output inspection (`--expected-size 512`), 3-image same-seed control vs. cross-seed spread check (`42 vs 42-repeat` and `42 vs 43`), and disk-gated 5-image / 5-seed study (`RUN_SEED_STUDY = False` by default). All `test_LR` (`128x128 -> 512x512`) runs in this notebook are **NOT TESTED** until Colab logs are shared.
+- `notebooks/01_dossr_baseline.ipynb` is the standardized Colab notebook for the `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`) baseline. **`CELL 01`–`CELL 13` are VERIFIED on Colab (`251d4a5`):** GPU SDPA check (`--device cuda`), 1-image SDPA ON vs. OFF (`--disable-sdpa`) memory/time/pixel comparison (`7.32 GiB` allocated, `8.29 GiB` reserved, `1.75 s/img`, `mean_abs_diff = 0.0334 px`), output inspection (`--expected-size 512`), 3-image same-seed control vs. cross-seed spread check (`42 vs 42-repeat`: `0.0000`, `42 vs 43`: `mean_abs_diff = 8.8237 px`, `max = 255.0`), and the 5-image / 5-seed study (`seeds 42..46`, 25 `512x512` PNGs). **`CELL 14` (`scripts/compute_metrics.py`) and `CELL 15` (results zip bundle) are NOT TESTED** until Colab logs are shared.
+- `scripts/compute_metrics.py` (**`NOT TESTED`**) pairs `<stem>_0.png` (`512x512`) in each `seed_<N>` folder with `RealSRVal_crop128/test_HR/<stem>.png` (`512x512`), computes full-reference **PSNR**, **SSIM**, and **LPIPS** per image and seed plus across-seed `mean`, `std`, `min`, `max`, `range`, and pairwise cross-seed spread, and writes `metrics_per_seed.csv` and `metrics_summary_by_image.csv`.
 - `configs/baseline_realsr_lr128.yaml`, `configs/baseline_realsr_5img_lr128.yaml`, and `configs/seed_study_realsr_5img_lr128.yaml` point to `RealSRVal_crop128/test_LR` (`128x128` inputs) and record `gt_dir: .../RealSRVal_crop128/test_HR` (`512x512` ground truth). `src/run_dossr.py` accepts `gt_dir` without passing it to DoSSR and refuses any `input_dir` that points to or contains `test_HR`.
 - `scripts/prepare_baseline_smoke.py` now stops with an error if the source directory contains subfolders or mixed image sizes, and logs the size (`WxH`) of staged images.
-- `scripts/run_seed_study.py` now verifies that all prepared input images are `128x128` and all generated output images are `512x512`.
+- `scripts/run_seed_study.py` now verifies that all prepared input images are `128x128` and all generated output images are `512x512` (**`VERIFIED`** on `251d4a5`).
 - `scripts/check_attention_sdpa.py` now accepts `--device` (`auto`, `cpu`, `cuda`) and tests `CrossAttention` plus both tiny (`2x16x6x5`) and larger (`1x512x64x64`) VAE `AttnBlock` shapes.
 - `scripts/inspect_output.py` checks a saved result's size, finite pixel values, and all-black/all-white cases. It saves a bicubic-upscaled input beside the DoSSR output.
 - `scripts/prepare_baseline_smoke.py` now accepts `--image-count` and `--source-dir`. Defaults remain one image and the source directory in the YAML.
@@ -57,12 +58,17 @@ cd /content/SC203
 bash scripts/run_baseline.sh --config /content/baseline_smoke_l4_fp16_profile.yaml --profile-memory --fp16
 ```
 
-**Profile observed on `512x512 -> 2048x2048` (`test_HR` input, 2026-10-29 & 2026-11-05):**
-- **FP32 (without `--fp16`, `CrossAttention` SDPA only):** `peak_allocated=49.29 GiB`, `peak_reserved=60.48 GiB`, sampler time `18.17 s`, image time `21.05 s`, runner time `61.94 s`.
-- **FP16 (with `--fp16`, before VAE `AttnBlock` patch):** `peak_allocated=36.04 GiB`, `peak_reserved=52.70 GiB`, sampler time `4.61 s`.
-- **FP16 (with VAE `AttnBlock` SDPA patch, `5e6a777`):** `peak_allocated=20.51 GiB`, `peak_reserved=34.71 GiB`, sampler time `5.28 s`, image time `8.33 s`.
-- **FP16 on true `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`):** **NOT TESTED** — TODO: confirm after running `CELL 08`–`CELL 09` of `notebooks/01_dossr_baseline.ipynb` (estimates of ~7–9 GiB VRAM, T4 fit, and ~1–2 s per image are **estimates only, NOT TESTED**).
-- **Important quarantine rule for old `2048x2048` outputs:** Only the first, unpatched FP16 run on `2048x2048` hit the 80 GiB OOM; subsequent `2048x2048` runs succeeded, but they used `test_HR` (`512x512`) as input. Place `README_DO_NOT_USE_AS_BASELINE.txt` in all old `2048x2048` output folders and do not use them as the RealSR baseline.
+**Profile observed on `512x512 -> 2048x2048` (`test_HR` input, 2026-10-29 & 2026-11-05) and true `128x128 -> 512x512` (`test_LR` input, `251d4a5`):**
+- **FP32 on `2048x2048` (without `--fp16`, `CrossAttention` SDPA only):** `peak_allocated=49.29 GiB`, `peak_reserved=60.48 GiB`, sampler time `18.17 s`, image time `21.05 s`, runner time `61.94 s`.
+- **FP16 on `2048x2048` (with `--fp16`, before VAE `AttnBlock` patch):** `peak_allocated=36.04 GiB`, `peak_reserved=52.70 GiB`, sampler time `4.61 s`.
+- **FP16 on `2048x2048` (with VAE `AttnBlock` SDPA patch, `5e6a777`):** `peak_allocated=20.51 GiB`, `peak_reserved=34.71 GiB`, sampler time `5.28 s`, image time `8.33 s`.
+- **FP16 on true `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`, `251d4a5`, `VERIFIED`):**
+  - **SDPA ON:** `peak_allocated=7.32 GiB`, `peak_reserved=8.29 GiB`, sampler time `1.24 s`, image time `1.75 s`.
+  - **SDPA OFF (`--disable-sdpa`):** `peak_allocated=7.32 GiB`, `peak_reserved=8.28 GiB`, sampler time `1.42 s`, image time `1.92 s`.
+  - **Pixel diff (SDPA ON vs. OFF, 8-bit `0..255`):** `max_abs_diff=2.0000`, `mean_abs_diff=0.0334`.
+  - **3-image seed check (`Canon_001`..`003`):** `42 vs 42-repeat` `max=0.0000, mean=0.0000` | `42 vs 43` `max=255.0000, mean=8.8237`.
+  - **5-image / 5-seed study (`seeds 42..46`):** All 25 `512x512` PNGs verified in `seed-study-realsr-5img-lr128-fp16`.
+- **Important quarantine rule for old `2048x2048` outputs:** Only the first, unpatched FP16 run on `2048x2048` hit the 80 GiB OOM; subsequent `2048x2048` runs succeeded, but they used `test_HR` (`512x512`) as input. `README_DO_NOT_USE_AS_BASELINE.txt` has been written into all old `2048x2048` output folders (`CELL 04`, `251d4a5`); do not use them as the RealSR baseline.
 
 Stage the five lexically first RealSR images and write a temporary config from the template:
 

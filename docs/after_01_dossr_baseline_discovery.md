@@ -115,9 +115,57 @@ Use the *-lr128-* output folders (generated from RealSRVal_crop128/test_LR,
 
 ---
 
-## 4. Safeguards & Next Steps Implemented (`Status: NOT TESTED` on `test_LR`)
+## 4. Verified Results on True `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`, Commit `251d4a5`)
 
-1. **`scripts/prepare_baseline_smoke.py`:** Now stops with an error if `input_dir` has subdirectories or mixed image sizes, and logs the size (`WxH`) of every staged image.
-2. **`src/run_dossr.py`:** Refuses to run if `input_dir` is named `test_HR` or contains a `test_HR` subdirectory; accepts `gt_dir` in YAML configs without passing it to DoSSR; supports `--disable-sdpa` and `--disable-vae-sdpa`.
-3. **`scripts/run_seed_study.py` & `notebooks/01_dossr_baseline.ipynb`:** Verify that every staged input image is `128x128` and every generated output image is `512x512`.
-4. **Estimated `test_LR` (`128x128 -> 512x512`) performance (`NOT TESTED`):** Rough engineering estimates (~7–9 GiB VRAM, ~1–2 s per image, plausible on smaller GPUs like T4/L4) are **estimates only (`NOT TESTED`)** until `CELL 08`–`CELL 11` are executed on `test_LR` in Colab.
+Running `CELL 01` through `CELL 13` of the updated `notebooks/01_dossr_baseline.ipynb` (`251d4a5`) on Google Colab verified the corrected `test_LR` (`128x128 -> 512x512`) pipeline end-to-end:
+
+### A. `CELL 04` (`VERIFIED`): Dataset Pairing & Quarantine Markers
+```text
+Verified 100 image(s) in /content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_LR all have size (128, 128).
+Verified 100 image(s) in /content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR all have size (512, 512).
+Verified 1-to-1 filename pairing between test_LR (128x128) and test_HR (512x512) for all 100 images.
+First 3 paired filenames: ['Canon_001_LR4.png', 'Canon_002_LR4.png', 'Canon_003_LR4.png']
+Wrote /content/drive/MyDrive/lemmepass/outputs/baseline-smoke-vae-sdpa-fp16/README_DO_NOT_USE_AS_BASELINE.txt
+Wrote /content/drive/MyDrive/lemmepass/outputs/seed-sanity-repeat42-fp16/README_DO_NOT_USE_AS_BASELINE.txt
+Wrote /content/drive/MyDrive/lemmepass/outputs/seed-sanity-seed43-fp16/README_DO_NOT_USE_AS_BASELINE.txt
+CELL 04 READY
+```
+
+### B. `CELL 08` & `CELL 09` (`VERIFIED`): 1-Image `test_LR` (`128x128 -> 512x512`) SDPA ON vs. SDPA OFF
+```text
+=== 1-Image test_LR (128x128 -> 512x512) SDPA ON vs. OFF Comparison ===
+SDPA ON  : peak_allocated=7.32 GiB | peak_reserved=8.29 GiB | sampler=1.24 s | image=1.75 s
+SDPA OFF : peak_allocated=7.32 GiB | peak_reserved=8.28 GiB | sampler=1.42 s | image=1.92 s
+Pixel diff (SDPA ON vs SDPA OFF, 8-bit levels 0..255): max_abs_diff=2.0000 | mean_abs_diff=0.0334
+CELL 09 READY
+```
+- **Why VRAM is `7.32 GiB` (`8.29 GiB` reserved) at `512x512`:** At `512x512` output, the largest attention sequence length is $N = 64 \times 64 = 4{,}096$ ($256\times$ smaller in $O(N^2)$ attention matrix area than $N = 65{,}536$ at `2048x2048`). Because `peak_reserved = 8.29 GiB`, `128x128 -> 512x512` runs fit comfortably on standard Colab **T4 (`14.56 GiB`)** or **L4 (`22.5 GiB`)** GPUs (with High-RAM enabled for host checkpoint loading) without requiring an A100.
+
+### C. `CELL 11` (`VERIFIED`): Resume Check & 3-Image `test_LR` Seed Sensitivity (`42` vs `42-repeat` vs `43`)
+```text
+=== 3-Image Seed Sensitivity Results (8-bit pixel levels 0..255) ===
+  Canon_001_LR4_0.png: (42 vs 42-repeat) max=0.0000, mean=0.0000 | (42 vs 43) max=185.0000, mean=5.1717
+  Canon_002_LR4_0.png: (42 vs 42-repeat) max=0.0000, mean=0.0000 | (42 vs 43) max=223.0000, mean=11.9893
+  Canon_003_LR4_0.png: (42 vs 42-repeat) max=0.0000, mean=0.0000 | (42 vs 43) max=255.0000, mean=9.3100
+Aggregate (3 images): (42 vs 42-repeat) max=0.0000, mean=0.0000
+Aggregate (3 images): (42 vs 43)        max=255.0000, mean=8.8237
+Wrote status file: /content/sc203_status/cell11_seed_sanity_status.json
+SEED SANITY GATE PASSED
+CELL 11 READY
+```
+
+### D. `CELL 12` & `CELL 13` (`VERIFIED`): 5-Image Batch & 5-Seed Study (`seeds 42..46`)
+```text
+Disk gate check passed (HEAD=251d4a5).
+Verified 5 image(s) in /content/realsr_batch_5_lr128 all have size (128, 128).
+=== 5-Seed Study (test_LR 128x128 -> 512x512) Output Verification ===
+  seed_42: 5 PNGs verified at (512, 512) | precision=fp16
+  seed_43: 5 PNGs verified at (512, 512) | precision=fp16
+  seed_44: 5 PNGs verified at (512, 512) | precision=fp16
+  seed_45: 5 PNGs verified at (512, 512) | precision=fp16
+  seed_46: 5 PNGs verified at (512, 512) | precision=fp16
+CELL 13 READY
+```
+
+### E. Next Step (`Status: NOT TESTED`): Full-Reference & Cross-Seed Metrics (`CELL 14` & `CELL 15`)
+- `scripts/compute_metrics.py` (`CELL 14`) pairs each `<stem>_0.png` (`512x512`) in `seed_42`..`seed_46` with `test_HR/<stem>.png` (`512x512`), computes **PSNR**, **SSIM**, and **LPIPS** per image and seed plus across-seed `mean`, `std`, `min`, `max`, `range`, and pairwise cross-seed spread, and writes `metrics_per_seed.csv` and `metrics_summary_by_image.csv`. (`NOT TESTED` until `CELL 14` Colab logs are returned.)

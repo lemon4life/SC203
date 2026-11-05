@@ -17,14 +17,14 @@ cd SC203
 git checkout feat/baseline-runner   # all current work is on this branch
 ```
 
-- Work branch: `feat/baseline-runner` (as of `5e6a777`; before it: `dfc8d96`, `cdc9a71`, `d066ade`, `1af0178`). TODO: confirm if `main` has been updated (`origin/main` was at initial commit `f08e303` when checked locally).
+- Work branch: `feat/baseline-runner` (as of `251d4a5`; before it: `5e6a777`, `dfc8d96`, `cdc9a71`, `d066ade`, `1af0178`). TODO: confirm if `main` has been updated (`origin/main` was at initial commit `f08e303` when checked locally).
 - `external/DOSSR/` is the upstream DoSSR code. **Never edit it.** It is ignored in `.gitignore` (plain clone, not a submodule); `scripts/colab_setup.py` clones `https://github.com/AMD-AIG-AIMA/DOSSR.git` automatically when `external/DOSSR` is absent on a fresh machine.
 
 Files we know about:
 
 | Path | What it is |
 |---|---|
-| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook (`CELL 01`–`CELL 13`): setup, `test_LR` vs `test_HR` verification, GPU SDPA check, 1-image `test_LR` (`128x128 -> 512x512`) SDPA ON vs OFF (`--disable-sdpa`) profile, `512x512` output inspection, 3-image seed sensitivity control (`42 vs 42-repeat` and `42 vs 43`), and `RUN_SEED_STUDY`-gated 5-seed study. **The `test_LR` (`128x128 -> 512x512`) runs are NOT TESTED.** |
+| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook: **`CELL 01`–`CELL 13` are VERIFIED** (`251d4a5`: setup, `test_LR` vs `test_HR` verification, GPU SDPA check, 1-image `test_LR` `128x128 -> 512x512` SDPA ON vs OFF profile, `512x512` output inspection, 3-image seed sensitivity control, and 5-image / 5-seed study `seeds 42..46`). **`CELL 14` (`compute_metrics.py`) and `CELL 15` (results zip bundle) are NOT TESTED.** |
 | `notebooks/colab_l4_smoke.ipynb`, `notebooks/colab_runner.ipynb`, `notebooks/kaggle_runner.ipynb` | Earlier smoke and runner notebooks (kept until team confirms cleanup). |
 | `scripts/run_baseline.sh` | Entry point. Calls the runner. |
 | `src/run_dossr.py` | Runner. Reads a YAML config (accepts optional `gt_dir` without passing it to DoSSR; refuses `input_dir` pointing to or containing `test_HR`; supports `--disable-sdpa` and `--disable-vae-sdpa`), builds the DoSSR command, writes logs, saves outputs per seed. |
@@ -33,9 +33,10 @@ Files we know about:
 | `scripts/check_attention_sdpa.py` | Small test: old einsum `CrossAttention` and bmm `VAE AttnBlock` (tiny `2x16x6x5` and larger `1x512x64x64`) vs SDPA on random fp16 tensors (`--device auto|cpu|cuda`). |
 | `scripts/inspect_output.py` | Checks output size, NaN/Inf, all-black, all-white. Saves a side-by-side (bicubic vs DoSSR). |
 | `scripts/prepare_baseline_smoke.py` | Copies N images from a flat leaf folder into a staging folder (stops with an error if the source folder has subfolders or mixed image sizes; logs each staged image's `WxH` size) and writes a YAML. |
-| `scripts/run_seed_study.py` | Runs several seeds into separate folders and verifies input (`128x128`) and output (`512x512`) image sizes. **NOT TESTED on `test_LR`.** |
+| `scripts/run_seed_study.py` | Runs several seeds into separate folders and verifies input (`128x128`) and output (`512x512`) image sizes. **VERIFIED on `test_LR` (`251d4a5`).** |
+| `scripts/compute_metrics.py` | Pairs `<stem>_0.png` in each `seed_<N>` folder with `test_HR/<stem>.png`, verifies `512x512` sizes, computes PSNR, SSIM, and LPIPS per image and seed plus across-seed summary and pairwise cross-seed spread, and writes `metrics_per_seed.csv` and `metrics_summary_by_image.csv`. **NOT TESTED.** |
 | `scripts/verify_assets.py` | Checks that checkpoint, weights and test bundle are on Drive. |
-| `configs/baseline_realsr_lr128.yaml`, `configs/baseline_realsr_5img_lr128.yaml`, `configs/seed_study_realsr_5img_lr128.yaml` | Corrected configs pointing `input_dir` to `RealSRVal_crop128/test_LR` (`128x128` -> `512x512` at x4) and recording `gt_dir: .../RealSRVal_crop128/test_HR` (`512x512`). **NOT TESTED.** |
+| `configs/baseline_realsr_lr128.yaml`, `configs/baseline_realsr_5img_lr128.yaml`, `configs/seed_study_realsr_5img_lr128.yaml` | Corrected configs pointing `input_dir` to `RealSRVal_crop128/test_LR` (`128x128` -> `512x512` at x4) and recording `gt_dir: .../RealSRVal_crop128/test_HR` (`512x512`). **VERIFIED (`251d4a5`).** |
 | `configs/baseline_realsr.yaml`, `configs/baseline_realsr_5img.yaml`, `configs/seed_study_realsr_5img.yaml` | Legacy configs (kept untouched except a warning comment in `baseline_realsr.yaml`). |
 | `docs/after_01_dossr_baseline_discovery.md`, `docs/plans/` | Discovery report (`2026-11-05`) and numbered implementation plans archive. |
 | `docs/setup_notes.md`, `docs/phase2_plan.md`, `docs/colab_workflow.md` | Notes, workflow guide, and phase 2 plan. |
@@ -73,29 +74,34 @@ Files we know about:
    - `42 vs 43`: `max_abs_diff = 168.0`, `mean_abs_diff = 2.9309`.
 6. **Critical Dataset Discovery (`CELL 04`, Nov 5, 2026):**
    - Earlier configs pointed `input_dir` at the parent `RealSRVal_crop128` directory. Because `rglob("*")` sorted paths alphabetically, `test_HR` (`512x512`) was picked before `test_LR` (`128x128`) and upscaled by `sr_scale: 4` to `2048x2048`.
-   - **Quarantine rule:** All old `2048x2048` output folders (`baseline-smoke-l4-fp16`, `baseline-smoke-vae-sdpa-fp16`, `seed-sanity-repeat42-fp16`, `seed-sanity-seed43-fp16`, `baseline-realsr-5img`) must have `README_DO_NOT_USE_AS_BASELINE.txt` and must **not** be used as the RealSR baseline.
+   - **Quarantine rule:** All old `2048x2048` output folders (`baseline-smoke-l4-fp16`, `baseline-smoke-vae-sdpa-fp16`, `seed-sanity-repeat42-fp16`, `seed-sanity-seed43-fp16`, `baseline-realsr-5img`) have been marked with `README_DO_NOT_USE_AS_BASELINE.txt` (`CELL 04`, `251d4a5`) and must **not** be used as the RealSR baseline.
+7. **Verified True `test_LR` (`128x128 -> 512x512` at `sr_scale: 4`) Runs (`CELL 04`–`CELL 13`, `251d4a5`):**
+   - **1-image `test_LR` SDPA ON vs. SDPA OFF (`--disable-sdpa`) (`CELL 08`–`CELL 09`):**
+     - **SDPA ON:** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.29 GiB`, `sampler = 1.24 s`, `image = 1.75 s`.
+     - **SDPA OFF (`--disable-sdpa`):** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.28 GiB`, `sampler = 1.42 s`, `image = 1.92 s`.
+     - **Pixel diff (SDPA ON vs. OFF, 8-bit `0..255`):** `max_abs_diff = 2.0000`, `mean_abs_diff = 0.0334`.
+     - **Hardware fit:** At `8.29 GiB` peak reserved, `128x128 -> 512x512` runs fit comfortably on standard Colab **T4 (`14.56 GiB`)** or **L4 (`22.5 GiB`)** GPUs (with High-RAM enabled for host checkpoint loading) without requiring an A100.
+   - **3-image `test_LR` (`Canon_001`..`Canon_003`) seed sensitivity check (`CELL 11`):**
+     - `42 vs 42-repeat`: `max_abs_diff = 0.0000`, `mean_abs_diff = 0.0000` across all 3 images.
+     - `42 vs 43`: `max_abs_diff = 255.0000`, `mean_abs_diff = 8.8237` (`5.1717`, `11.9893`, `9.3100` on `Canon_001`..`003`).
+   - **5-image / 5-seed study (`seeds 42..46` on `test_LR` in `CELL 12`–`CELL 13`):**
+     - All 25 outputs (`5 images x 5 seeds`) in `seed-study-realsr-5img-lr128-fp16` verified at `(512, 512)` in FP16.
 
 ## 5. What is NOT done
 
-- **True `test_LR` (`128x128 -> 512x512` at `sr_scale: 4`) runs are NOT TESTED yet:**
-  - 1-image `test_LR` SDPA ON vs. SDPA OFF (`--disable-sdpa`) memory/time/pixel comparison (`CELL 08`–`CELL 09` of `notebooks/01_dossr_baseline.ipynb`) is **NOT TESTED**. (Rough estimates of ~7–9 GiB VRAM, T4 fit, and ~1–2 s per image are **estimates only, NOT TESTED**.)
-  - 3-image `test_LR` (`Canon_001`..`Canon_003`) seed sensitivity check (`42`, `42-repeat`, `43` in `CELL 11`) is **NOT TESTED**.
-  - 5-image / 5-seed study (`seeds 42..46` on `test_LR` in `CELL 12`–`CELL 13`) is **NOT TESTED**.
-- **`scripts/compute_metrics.py` is not written yet:** now that `test_HR` (`512x512`, 100 images with matching filenames) is confirmed, we will write `scripts/compute_metrics.py` (pairing `<stem>_0.png` with `test_HR/<stem>.png`, saving a CSV with PSNR, SSIM, and LPIPS per image and seed, plus mean and std across seeds) right after the `test_LR` runs are verified.
+- **Running `scripts/compute_metrics.py` (`CELL 14` & `CELL 15` of `notebooks/01_dossr_baseline.ipynb`, `NOT TESTED`):**
+  - `scripts/compute_metrics.py` is written locally (`NOT TESTED` on Colab) to pair `<stem>_0.png` (`512x512`) with `test_HR/<stem>.png` (`512x512`), compute **PSNR**, **SSIM**, and **LPIPS** per image and seed plus across-seed summary and pairwise cross-seed spread, and write `metrics_per_seed.csv` and `metrics_summary_by_image.csv`.
+- **Scaling up beyond 5 images:** 20-image and 100-image `test_LR` runs across seeds are not run yet.
 - Text conditioning is **not designed or built**. The method is undecided.
 
 ## 6. Next tasks, in order
 
-1. **Run `notebooks/01_dossr_baseline.ipynb` (`CELL 01`–`CELL 11`, `RUN_SEED_STUDY = False`) on `test_LR` (`128x128 -> 512x512`, currently `NOT TESTED`):**
-   - Verify `test_LR` (`100` images at `128x128`) and `test_HR` (`100` images at `512x512`) and write `README_DO_NOT_USE_AS_BASELINE.txt` into old `2048x2048` folders (`CELL 04`).
-   - Run 1 `test_LR` image with SDPA patches ON and OFF (`--disable-sdpa`) (`CELL 08`–`CELL 09`) and compare `peak_allocated`, `peak_reserved`, time, and `float32` pixel diff.
-   - Inspect the `512x512` output alongside `test_HR` (`CELL 10`).
-   - Run the resume check and the 3-image seed check (`42`, `42-repeat`, `43` on `Canon_001`..`003`) (`CELL 11`).
-2. **Run the 5-image / 5-seed study on `test_LR` (`CELL 12`–`CELL 13`, `NOT TESTED`):** set `RUN_SEED_STUDY = True` and run seeds 42 to 46.
-3. **Write `scripts/compute_metrics.py`:** pair `<stem>_0.png` (`512x512`) with `test_HR/<stem>.png` (`512x512`), compute PSNR, SSIM, and LPIPS per image and seed, mean and std across seeds, worst seed, and pairwise LPIPS between seeds, and save a CSV.
-4. **Scale up:** test 10 to 20 `test_LR` images first and measure real time, then the full 100-image `test_LR` set.
-5. **Text conditioning:** propose 2 or 3 designs (use InstructIR as a reference), with cost and risk. Do not build one until the user and mentor choose.
-6. **Docs:** keep `docs/`, `docs/plans/`, and the weekly report updated.
+1. **Run `CELL 14` and `CELL 15` of `notebooks/01_dossr_baseline.ipynb` (`NOT TESTED`):**
+   - Pull the latest commit (`CELL 02`), run `CELL 14` (`scripts/compute_metrics.py` on the 25 verified images in `seed-study-realsr-5img-lr128-fp16`), and run `CELL 15` to package `sc203_baseline_results_bundle.zip`.
+2. **Plot & analyze seed variance (Teammate 2):** build boxplots/tables from `metrics_per_seed.csv` and `metrics_summary_by_image.csv`, plus per-pixel variance heatmaps across seeds.
+3. **Scale up (Member 1):** test 20 `test_LR` images first and measure real time, then the full 100-image `test_LR` set.
+4. **Text conditioning & instruction prompts (Teammates 3 & 4):** prepare restoration instructions (`RealSRVal_crop128/test_LR`) and propose/prototype 2 lightweight instruction-conditioning designs (referencing InstructIR). Do not build the full training pipeline until the team and mentor choose.
+5. **Docs:** keep `docs/`, `docs/plans/`, and the weekly report updated.
 
 ## 7. Rules
 
@@ -113,7 +119,7 @@ Files we know about:
 
 ## 8. Open questions for the user (ask, do not guess)
 
-1. ~~Exact GPU model in Colab?~~ **Confirmed:** `NVIDIA A100-SXM4-80GB` (`79.25 GiB`).
+1. ~~Exact GPU model in Colab?~~ **Confirmed:** `NVIDIA A100-SXM4-80GB` (`79.25 GiB`), and verified that `test_LR` (`128x128 -> 512x512`) uses only `7.32 GiB` allocated / `8.29 GiB` reserved (`1.75 s/img`), so T4 or L4 also fits easily.
 2. ~~Do we have HR images for RealSR?~~ **Confirmed:** `RealSRVal_crop128/test_HR` (`100` images, `512x512`). TODO: confirm if the course or mentor wants any additional metrics beyond PSNR, SSIM, and LPIPS.
 3. ~~How many images are in the full RealSR folder, and what are their sizes?~~ **Confirmed:** `100` LR images (`128x128`) in `test_LR` and `100` HR images (`512x512`) in `test_HR`.
 4. Course deadlines and the plan per stage?
@@ -122,4 +128,4 @@ Files we know about:
 
 ## 9. Quick Colab execution
 
-Open `notebooks/01_dossr_baseline.ipynb` in Google Colab and run `CELL 01` through `CELL 11` in order (`RUN_SEED_STUDY = False` by default).
+Since `CELL 01`–`CELL 13` are already verified and all 25 images are saved on Drive (`seed-study-realsr-5img-lr128-fp16`), open `notebooks/01_dossr_baseline.ipynb` in Google Colab and run `CELL 01` $\rightarrow$ `CELL 02` (`git pull`) $\rightarrow$ `CELL 14` (`compute_metrics.py`) $\rightarrow$ `CELL 15` (export `.zip`).
