@@ -1,7 +1,8 @@
 external/
 checkpoints/
 weights/
-data/
+data/*
+!data/text_boxes_*.csv
 outputs/
 *.pth
 *.ckpt

@@ -1,131 +1,117 @@
 # context.md: read this first
 
-You are joining Team 1 (LEMMEPASS) in SC203 Scientific Methods (class 25A02). This file tells you what the project is, what is done, what is not, and what to do next. Facts below come from our real logs (Oct 29 & Nov 5, 2026). Anything not confirmed is marked **TODO: confirm**. Do not guess it. Ask the user.
+You are joining Team 1 (LEMMEPASS) in SC203 Scientific Methods (class 25A02). This file tells you what the project is, what is done, what is not, and what to do next. Facts below come from our real logs (Oct 29 & Nov 5, 2026) and direct source inspection of `external/DOSSR`. Anything not confirmed is marked **TODO: confirm**. Do not guess it. Ask the user.
 
-## 1. Project
+## 1. Project & New Mentor Direction (Nov 2026)
 
-- **Topic 3:** seed-robust, instruction-conditioned real-world super-resolution.
-- **Base model:** DoSSR (public code and pretrained checkpoint). We add text conditioning later. InstructIR is a reference for the instruction idea.
-- **Research question:** how much does the random seed change the output, and does text conditioning help or hurt stability?
-- **Team:** 4 members. The user runs things on Google Colab. The user works on an Apple Silicon Mac (no NVIDIA GPU, no PyTorch locally). Teammates use Windows. So **you cannot run GPU inference locally**. The user runs your commands in Colab and sends back logs.
+- **Topic 3:** seed-robust real-world super-resolution with text-region consistency.
+- **Base model:** DoSSR (public code and pretrained checkpoint).
+- **Updated Research Question (Nov 2026 Mentor Direction):**
+  - *"Does adding a loss during LoRA training help DoSSR restore text correctly more consistently when the seed changes?"*
+  - The baseline is tentatively accepted. The instruction-conditioning part (InstructIR / prompt injection) is **deferred** until the text-region consistency loss is validated. **Do not work on prompts/InstructIR/text injection now.**
+- **Mentor's 5 Core Requests:**
+  1. **Fixed 10 Seeds & Prompt Comparison:** Use a fixed list of 10 seeds (`configs/seeds_10.yaml`, default `42..51`), committed before running, for every RealSR image (`RealSRVal_crop128/test_LR`, `128x128 -> 512x512`). Compare `default` prompt (`"clean, high-resolution, 8k"`) vs `empty` prompt (`""`) on the exact same `(image, seed)` pairs, 5 steps, FP16, **SDPA OFF (`--disable-sdpa`)**. For `Canon_001_LR4` (`eduroam`), make a side-by-side figure with `LR`, `HR`, and the two outputs with the same text region zoomed.
+  2. **Text-Region Consistency Loss for LoRA Training:** For an LR-HR pair and the same timestep $t$, draw two independent noise samples $\epsilon_1, \epsilon_2$. Use a mask from the HR text boxes and penalize the difference between the two clean-latent predictions ($\hat{x}_0^{(1)}$ and $\hat{x}_0^{(2)}$) inside the text region. Keep the original DoSSR loss.
+  3. **Three Fair-Comparison LoRA Versions `(A, B, C)`:** Same data, prompt, number of noise samples (2 noise samples per step for all three so `C` gets no extra signal), and training budget:
+     - `(A)` Original loss (averaged over 2 noise samples).
+     - `(B)` Higher text-region weight (averaged over 2 noise samples).
+     - `(C)` `(B)` plus the cross-noise text-region consistency loss. (`B` vs `C` isolates what the new loss adds.)
+  4. **Evaluation Metrics:** Main metric is the share of text-region restorations with at least one wrong character vs the HR transcription. Also compute Character Error Rate (CER, edit distance), disagreement between seeds, and whole-image SSIM/LPIPS. Treat the **IMAGE** as the statistical unit (the 10 seeds of one image are not independent) and pair comparisons on `(image, seed)` pairs. If RealSR has too few readable text regions, use `Real-CE x4` for text evaluation.
+  5. **Next Report Deliverables:** (1) 10-seed baseline table, (2) one-page comparison with **CCSR**, **PNFS**, and **TADiSR**, and (3) a trial LoRA run on Colab with VRAM recorded.
 
-## 2. Repo
+## 2. Team Split (4 Members), Branches & PR Rule
+
+- **Names:** `TODO: confirm` mapping of `Hoàng Nguyên Anh (25125002)`, `Nguyễn Phan Minh Nhật (25125033)`, `Huỳnh Trần Gia Hân (25125042)`, `Hồ Quang Minh (25125060)` to Members 1–4.
+- **Merge & Status Rule:** **Members 2, 3, and 4 must NOT edit `context.md` directly.** Members report progress in the team chat, and Member 1 (via the agent) updates `context.md`. **Member 1 merges all teammate branches (`feat/text-eval`, `feat/lora-loss`, `feat/report-figures`) into `feat/baseline-runner` via Pull Requests (PRs).**
+
+| Member | Role | Branch | Owned Files | Hardware |
+|---|---|---|---|---|
+| **Member 1 (User)** | GPU & Pipeline Lead | `feat/baseline-runner` | `src/run_dossr.py`, `src/dossr_inference_compat.py`, `src/attention_compat.py`, `scripts/run_seed_study.py`, `configs/seeds_10.yaml`, `configs/*_10seed_*.yaml`, `notebooks/01_dossr_baseline.ipynb`, `context.md` | Colab Pro GPU (runs on Apple Silicon Mac locally without GPU) |
+| **Member 2** | Text Evaluation Lead | `feat/text-eval` | `scripts/make_text_contact_sheets.py`, `scripts/text_eval.py`, `data/text_boxes_realsr_template.csv`, `data/text_boxes_realsr.csv`, `docs/handoff_member2.md` | CPU laptop (Windows/Mac) or Free Colab CPU |
+| **Member 3** | LoRA & Loss Lead | `feat/lora-loss` | `docs/lora_feasibility_and_loss_design.md`, `docs/handoff_member3.md`, future `src/lora_text_loss.py`, `configs/lora_*.yaml` | CPU laptop for design; Member 1 runs GPU trial on Colab Pro |
+| **Member 4** | Report, Metrics & Figures Lead | `feat/report-figures` | `scripts/compute_metrics.py`, `scripts/plot_eduroam_figure.py`, `docs/related_methods_ccsr_pnfs_tadisr.md`, `docs/handoff_member4.md` | CPU laptop (Windows/Mac) or Free Colab CPU |
+
+## 3. Task Status & Dependency Table
+
+> **Rule:** Only Member 1 / the agent updates this table. Everything stays `NOT TESTED` until Colab or teammate execution logs are sent back.
+
+| Task | Description | Owner | Status | Blocked By |
+|---|---|---|---|---|
+| **B.5** | Contact sheet generator (`scripts/make_text_contact_sheets.py`) & CSV template (`data/text_boxes_realsr_template.csv`, header: `image,box_id,x,y,w,h,transcript,readable`) | Member 2 | `NOT TESTED` (Script & template created locally) | None — ready for Member 2 today |
+| **B.5-Label** | Run `make_text_contact_sheets.py` on `test_HR`, count readable text boxes, fill `data/text_boxes_realsr.csv`, check if `Real-CE x4` is needed | Member 2 | `NOT TESTED` | B.5 |
+| **C.9** | Read-only audit of DoSSR training entry point (`scripts/train.py`, `configs/train_cldm.yaml`), training prompt (`""` in `realesrgan.py:179`), loss & `pred_x0` (`model/cldm.py`, `ddpm.py`), and queue/no_grad caveats (`docs/lora_feasibility_and_loss_design.md`) | Member 3 | **Done (`VERIFIED` in `external/DOSSR` source)** | None — ready for Member 3 today |
+| **C.10** | LoRA trial parameter, batch/patch size, VRAM & logging estimates (`docs/lora_feasibility_and_loss_design.md`) | Member 3 | **`ESTIMATE — NOT TESTED`** (Documented in `docs/lora_feasibility_and_loss_design.md`) | None — ready for Member 3 today |
+| **Handoffs** | `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Member 1 | **Done** | None — ready to hand off today |
+| **A.1** | Create `configs/seeds_10.yaml` (`42..51`) | Member 1 | `NOT TESTED` (Next in Group 2) | None |
+| **A.2** | Audit `external/DOSSR` inference vs training prompt (`"clean, high-resolution, 8k"` vs `""`) | Member 1 | **Done (`VERIFIED` in `external/DOSSR` source)** | None |
+| **A.3** | Add `--prompt-mode {default,empty}`, log prompt & SDPA mode in `run_manifest.json`, and stop if `precision != "fp16"` | Member 1 | `NOT TESTED` (Next in Group 2) | A.1 |
+| **A.4** | Prepare 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`) & `CELL 16`–`CELL 17` in `notebooks/01_dossr_baseline.ipynb` | Member 1 | `NOT TESTED` (Next in Group 2) | A.1, A.3 |
+| **A.4-Run** | Run `CELL 16` (1-image prompt check) and `CELL 17` (100-image $\times$ 10-seed $\times$ 2-prompt study) on Colab Pro | Member 1 | `NOT TESTED` | A.4 |
+| **B.6** | Choose OCR option & write `scripts/text_eval.py` (using exact text rules in `docs/handoff_member2.md`) | Member 2 | `NOT TESTED` (Group 3) | OCR choice; final run blocked by B.5-Label & A.4-Run |
+| **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS) | Member 4 | `NOT TESTED` (Created in `81382ae`; ready to test on 5-seed outputs now) | Final 10-seed table blocked by A.4-Run |
+| **B.8** | Write `scripts/plot_eduroam_figure.py` (`Canon_001_LR4` side-by-side zoomed figure) | Member 4 | `NOT TESTED` (Group 3) | Crop box `(x,y,w,h)` from User/Member 2 + `CELL 16` outputs |
+| **C-Trial** | Implement & run trial LoRA `(A, B, C)` on Colab Pro with VRAM logged | Member 3 & Member 1 | `NOT TESTED` | Member 3 plan + B.5-Label |
+| **D-Report** | 10-seed baseline table, 1-page CCSR/PNFS/TADiSR comparison, and trial LoRA VRAM report | Member 4 & All | `NOT TESTED` | A.4-Run, B.6, B.7, B.8, C-Trial |
+
+## 4. Repo & Known Files
 
 ```bash
 git clone https://github.com/lemon4life/SC203
 cd SC203
-git checkout feat/baseline-runner   # all current work is on this branch
+git checkout feat/baseline-runner   # main integration branch managed by Member 1
 ```
 
-- Work branch: `feat/baseline-runner` (as of `251d4a5`; before it: `5e6a777`, `dfc8d96`, `cdc9a71`, `d066ade`, `1af0178`). TODO: confirm if `main` has been updated (`origin/main` was at initial commit `f08e303` when checked locally).
-- `external/DOSSR/` is the upstream DoSSR code. **Never edit it.** It is ignored in `.gitignore` (plain clone, not a submodule); `scripts/colab_setup.py` clones `https://github.com/AMD-AIG-AIMA/DOSSR.git` automatically when `external/DOSSR` is absent on a fresh machine.
-
-Files we know about:
+- `external/DOSSR/` is the upstream DoSSR code. **Never edit it.** It is ignored in `.gitignore`; `scripts/colab_setup.py` clones `https://github.com/AMD-AIG-AIMA/DOSSR.git` automatically when `external/DOSSR` is absent.
 
 | Path | What it is |
 |---|---|
-| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook: **`CELL 01`–`CELL 13` are VERIFIED** (`251d4a5`: setup, `test_LR` vs `test_HR` verification, GPU SDPA check, 1-image `test_LR` `128x128 -> 512x512` SDPA ON vs OFF profile, `512x512` output inspection, 3-image seed sensitivity control, and 5-image / 5-seed study `seeds 42..46`). **`CELL 14` (`compute_metrics.py`) and `CELL 15` (results zip bundle) are NOT TESTED.** |
-| `notebooks/colab_l4_smoke.ipynb`, `notebooks/colab_runner.ipynb`, `notebooks/kaggle_runner.ipynb` | Earlier smoke and runner notebooks (kept until team confirms cleanup). |
-| `scripts/run_baseline.sh` | Entry point. Calls the runner. |
-| `src/run_dossr.py` | Runner. Reads a YAML config (accepts optional `gt_dir` without passing it to DoSSR; refuses `input_dir` pointing to or containing `test_HR`; supports `--disable-sdpa` and `--disable-vae-sdpa`), builds the DoSSR command, writes logs, saves outputs per seed. |
-| `src/dossr_inference_compat.py` | Launcher around upstream `inference.py`. Turns on fp16 autocast, loads the checkpoint with mmap, skips a missing author-local OpenCLIP file, installs our `CrossAttention` and `VAE AttnBlock` patches (unless `--disable-sdpa` / `--disable-vae-sdpa` is passed), supports `--profile-memory`. |
-| `src/attention_compat.py` | Our SDPA patches for `CrossAttention` and VAE `AttnBlock`. |
-| `scripts/check_attention_sdpa.py` | Small test: old einsum `CrossAttention` and bmm `VAE AttnBlock` (tiny `2x16x6x5` and larger `1x512x64x64`) vs SDPA on random fp16 tensors (`--device auto|cpu|cuda`). |
-| `scripts/inspect_output.py` | Checks output size, NaN/Inf, all-black, all-white. Saves a side-by-side (bicubic vs DoSSR). |
-| `scripts/prepare_baseline_smoke.py` | Copies N images from a flat leaf folder into a staging folder (stops with an error if the source folder has subfolders or mixed image sizes; logs each staged image's `WxH` size) and writes a YAML. |
-| `scripts/run_seed_study.py` | Runs several seeds into separate folders and verifies input (`128x128`) and output (`512x512`) image sizes. **VERIFIED on `test_LR` (`251d4a5`).** |
-| `scripts/compute_metrics.py` | Pairs `<stem>_0.png` in each `seed_<N>` folder with `test_HR/<stem>.png`, verifies `512x512` sizes, computes PSNR, SSIM, and LPIPS per image and seed plus across-seed summary and pairwise cross-seed spread, and writes `metrics_per_seed.csv` and `metrics_summary_by_image.csv`. **NOT TESTED.** |
-| `scripts/verify_assets.py` | Checks that checkpoint, weights and test bundle are on Drive. |
-| `configs/baseline_realsr_lr128.yaml`, `configs/baseline_realsr_5img_lr128.yaml`, `configs/seed_study_realsr_5img_lr128.yaml` | Corrected configs pointing `input_dir` to `RealSRVal_crop128/test_LR` (`128x128` -> `512x512` at x4) and recording `gt_dir: .../RealSRVal_crop128/test_HR` (`512x512`). **VERIFIED (`251d4a5`).** |
-| `configs/baseline_realsr.yaml`, `configs/baseline_realsr_5img.yaml`, `configs/seed_study_realsr_5img.yaml` | Legacy configs (kept untouched except a warning comment in `baseline_realsr.yaml`). |
+| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook: **`CELL 01`–`CELL 13` are VERIFIED** (`251d4a5`). **`CELL 14` (`compute_metrics.py`) and `CELL 15` (results zip bundle) are NOT TESTED.** |
+| `src/run_dossr.py` | Runner. Reads YAML config, refuses `input_dir` pointing to `test_HR`, supports `--disable-sdpa` and `--disable-vae-sdpa`, writes logs and `run_manifest.json`. |
+| `src/dossr_inference_compat.py` | Launcher around upstream `inference.py`. Enables fp16 autocast, mmap checkpoint load, SDPA patches (unless disabled), and `--profile-memory`. |
+| `src/attention_compat.py` | Runtime SDPA patches for `CrossAttention` and VAE `AttnBlock`. |
+| `scripts/run_seed_study.py` | Multi-seed runner with input (`128x128`) and output (`512x512`) size checks. **VERIFIED (`251d4a5`).** |
+| `scripts/compute_metrics.py` | Computes PSNR, SSIM, and LPIPS (`<stem>_0.png` vs `test_HR/<stem>.png`) and across-seed spread (`--device auto|cpu|cuda`). **NOT TESTED.** |
+| `scripts/make_text_contact_sheets.py` | CPU-only script (`Pillow` + `pathlib`) that builds numbered contact sheets of `test_HR` with pixel ruler ticks and creates the canonical CSV template `image,box_id,x,y,w,h,transcript,readable`. **NOT TESTED.** |
+| `data/text_boxes_realsr_template.csv` | Canonical CSV header (`image,box_id,x,y,w,h,transcript,readable`) shared across Members 2, 3, and 4. |
+| `docs/lora_feasibility_and_loss_design.md` | Read-only audit of `external/DOSSR` training code, prompts, `pred_x0` equations, caveats, and LoRA trial estimates (`ESTIMATE — NOT TESTED`). |
+| `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Simple-English handoff instructions for Members 2, 3, and 4. |
 | `docs/after_01_dossr_baseline_discovery.md`, `docs/plans/` | Discovery report (`2026-11-05`) and numbered implementation plans archive. |
-| `docs/setup_notes.md`, `docs/phase2_plan.md`, `docs/colab_workflow.md` | Notes, workflow guide, and phase 2 plan. |
 
-## 3. Environment (Colab)
+## 5. Environment & Verified Findings So Far
 
-- torch 2.11.0+cu130, Python 3.13.16, Linux. **No xformers.**
-- **Confirmed GPU (`CELL 03`, Nov 5, 2026):** `NVIDIA A100-SXM4-80GB` (`79.25 GiB` total VRAM).
-- Paths on Colab:
-  - Drive base: `/content/drive/MyDrive/lemmepass/`
-  - Checkpoint: `.../weights/dossr_default.ckpt`
-  - Logs: `.../logs/`
-  - Test data (`RealSRVal_crop128` contains two subfolders with identical filenames `Canon_001_LR4.png`..):
-    - **LR inputs (`128x128`, 100 images):** `.../data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_LR`
-    - **HR ground truth (`512x512`, 100 images):** `.../data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR`
-  - Outputs: `/content/drive/MyDrive/lemmepass/outputs/...` (or `/content/outputs/...` which is wiped when Colab restarts)
-- Baseline settings: steps 5, solver_order 3, `sr_scale` 4, color fix wavelet, preprocessor RealESRNet, seed 42, no condition-encoder offload.
+1. **Colab GPU (`CELL 03`, Nov 5, 2026):** `NVIDIA A100-SXM4-80GB` (`79.25 GiB`), torch `2.11.0+cu130`, Python `3.13.16`.
+2. **RealSR Dataset (`CELL 04`, `251d4a5`):**
+   - `RealSRVal_crop128/test_LR`: `100` images, `128x128`.
+   - `RealSRVal_crop128/test_HR`: `100` images, `512x512`.
+   - Old `2048x2048` folders on Drive are quarantined with `README_DO_NOT_USE_AS_BASELINE.txt`.
+3. **1-Image `test_LR` (`128x128 -> 512x512`) FP16 Profile (`CELL 08`–`CELL 09`, `251d4a5`):**
+   - **SDPA ON:** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.29 GiB`, `sampler = 1.24 s`, `image = 1.75 s`.
+   - **SDPA OFF (`--disable-sdpa`):** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.28 GiB`, `sampler = 1.42 s`, `image = 1.92 s`.
+   - **Pixel diff (SDPA ON vs OFF, `0..255`):** `max_abs_diff = 2.0000`, `mean_abs_diff = 0.0334`.
+4. **Seed Sensitivity & 5-Image / 5-Seed Study (`CELL 11`–`CELL 13`, `251d4a5`):**
+   - `42 vs 42-repeat`: `0.0` diff. `42 vs 43`: `mean_abs_diff = 8.8237`.
+   - All 25 outputs (`5 images x 5 seeds 42..46`) verified at `512x512`. On `Canon_001_LR4`, DoSSR restored the `"eduroam"` sign as `"odaroam"`.
+5. **Verified Source Findings in `external/DOSSR` (Tasks A.2 & C.9):**
+   - **Inference prompt:** `scripts/inference.py:75-78` calls `shift_sample_3_order(..., cfg_scale=1.0)` which uses `positive_prompt="clean, high-resolution, 8k"` (`model/shift_sampler.py:200, 257, 322`).
+   - **Training prompt:** `dataset/realesrgan.py:179` uses `"txt": ""` (empty prompt).
+   - **Training entry point & loss:** `scripts/train.py:10-30` and `configs/train_cldm.yaml` run `ControlLDM.shared_step` (`model/cldm.py:346-356`), which calls `predict_x0_out_mix(x, preprocess_x, c, t, noise=...)` (`ldm/models/diffusion/ddpm.py:909-917`) and minimizes `(x - pred_x0).abs().mean()`.
 
-## 4. What is done
+## 6. Rules
 
-1. Assets on Drive, `verify_assets.py` passed.
-2. First run (unpatched FP16 on `512x512 -> 2048x2048`) failed: `torch.OutOfMemoryError`, 80 GiB request, in `external/DOSSR/ldm/modules/attention.py` line 178 (`einsum('b i d, b j d -> b i j', q, k)`). Only that first, unpatched FP16 run hit the 80 GiB OOM.
-3. Upstream `--tiled --tile_size --tile_stride` **do not do real tiling** (checked in the code). Do not suggest them as a memory fix.
-4. Fix 1 (`CrossAttention` SDPA patch) + Fix 2 (`VAE AttnBlock` SDPA patch, `cdc9a71` / `5e6a777`):
-   - Verified on `512x512 -> 2048x2048` (`test_HR` input stress test):
+- Follow the **Team Notebook & Experimentation Guidelines**: keep Colab runs in `notebooks/`.
+- Before coding, create/update a numbered plan (`<NN>_<brief_context>.md`), get approval, and archive in `docs/plans/`.
+- **Never edit `external/`.** Use runtime wrappers or our own scripts.
+- Use a **new `output_root` for every run**.
+- The runner must stop if `run_manifest.json` does not record `precision: "fp16"` for FP16 baseline runs.
+- Mark all unexecuted code and engineering estimates as **`NOT TESTED`** (or **`ESTIMATE — NOT TESTED`**) until Colab logs arrive.
+- Do not invent facts about **CCSR**, **PNFS**, **TADiSR**, or **Real-CE**. Mark `TODO: confirm` and ask.
+- Write docs in **simple English, short sentences**.
+- End each task group with: commit hash, changed files, and `git push origin feat/baseline-runner`.
 
-| Precision & Patches (`512x512 -> 2048x2048`) | `peak_allocated` | `peak_reserved` | Sampler time | Image time |
-|---|---|---|---|---|
-| `fp32` (`CrossAttention` SDPA only) | `49.29 GiB` | `60.48 GiB` | `18.17 s` | `21.05 s` |
-| `fp16` (`CrossAttention` SDPA only, before VAE patch) | `36.04 GiB` | `52.70 GiB` | `4.61 s` | `7.68 s` |
-| **`fp16` (`CrossAttention` + `VAE AttnBlock` SDPA, `5e6a777`)** | **`20.51 GiB`** | **`34.71 GiB`** | **`5.28 s`** | **`8.33 s`** |
+## 7. Open Questions (`TODO: confirm`)
 
-5. Verified resume check (`OUTPUT CACHE | hits=1 | misses=0`) and 1-image seed control on `2048x2048` (`5e6a777`):
-   - `42 vs 42-repeat`: `max_abs_diff = 0.0`, `mean_abs_diff = 0.0` (8-bit pixel levels `0..255`).
-   - `42 vs 43`: `max_abs_diff = 168.0`, `mean_abs_diff = 2.9309`.
-6. **Critical Dataset Discovery (`CELL 04`, Nov 5, 2026):**
-   - Earlier configs pointed `input_dir` at the parent `RealSRVal_crop128` directory. Because `rglob("*")` sorted paths alphabetically, `test_HR` (`512x512`) was picked before `test_LR` (`128x128`) and upscaled by `sr_scale: 4` to `2048x2048`.
-   - **Quarantine rule:** All old `2048x2048` output folders (`baseline-smoke-l4-fp16`, `baseline-smoke-vae-sdpa-fp16`, `seed-sanity-repeat42-fp16`, `seed-sanity-seed43-fp16`, `baseline-realsr-5img`) have been marked with `README_DO_NOT_USE_AS_BASELINE.txt` (`CELL 04`, `251d4a5`) and must **not** be used as the RealSR baseline.
-7. **Verified True `test_LR` (`128x128 -> 512x512` at `sr_scale: 4`) Runs (`CELL 04`–`CELL 13`, `251d4a5`):**
-   - **1-image `test_LR` SDPA ON vs. SDPA OFF (`--disable-sdpa`) (`CELL 08`–`CELL 09`):**
-     - **SDPA ON:** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.29 GiB`, `sampler = 1.24 s`, `image = 1.75 s`.
-     - **SDPA OFF (`--disable-sdpa`):** `peak_allocated = 7.32 GiB`, `peak_reserved = 8.28 GiB`, `sampler = 1.42 s`, `image = 1.92 s`.
-     - **Pixel diff (SDPA ON vs. OFF, 8-bit `0..255`):** `max_abs_diff = 2.0000`, `mean_abs_diff = 0.0334`.
-     - **Hardware fit:** At `8.29 GiB` peak reserved, `128x128 -> 512x512` runs fit comfortably on standard Colab **T4 (`14.56 GiB`)** or **L4 (`22.5 GiB`)** GPUs (with High-RAM enabled for host checkpoint loading) without requiring an A100.
-   - **3-image `test_LR` (`Canon_001`..`Canon_003`) seed sensitivity check (`CELL 11`):**
-     - `42 vs 42-repeat`: `max_abs_diff = 0.0000`, `mean_abs_diff = 0.0000` across all 3 images.
-     - `42 vs 43`: `max_abs_diff = 255.0000`, `mean_abs_diff = 8.8237` (`5.1717`, `11.9893`, `9.3100` on `Canon_001`..`003`).
-   - **5-image / 5-seed study (`seeds 42..46` on `test_LR` in `CELL 12`–`CELL 13`):**
-     - All 25 outputs (`5 images x 5 seeds`) in `seed-study-realsr-5img-lr128-fp16` verified at `(512, 512)` in FP16.
-
-## 5. What is NOT done
-
-- **Running `scripts/compute_metrics.py` (`CELL 14` & `CELL 15` of `notebooks/01_dossr_baseline.ipynb`, `NOT TESTED`):**
-  - `scripts/compute_metrics.py` is written locally (`NOT TESTED` on Colab) to pair `<stem>_0.png` (`512x512`) with `test_HR/<stem>.png` (`512x512`), compute **PSNR**, **SSIM**, and **LPIPS** per image and seed plus across-seed summary and pairwise cross-seed spread, and write `metrics_per_seed.csv` and `metrics_summary_by_image.csv`.
-- **Scaling up beyond 5 images:** 20-image and 100-image `test_LR` runs across seeds are not run yet.
-- Text conditioning is **not designed or built**. The method is undecided.
-
-## 6. Next tasks, in order
-
-1. **Run `CELL 14` and `CELL 15` of `notebooks/01_dossr_baseline.ipynb` (`NOT TESTED`):**
-   - Pull the latest commit (`CELL 02`), run `CELL 14` (`scripts/compute_metrics.py` on the 25 verified images in `seed-study-realsr-5img-lr128-fp16`), and run `CELL 15` to package `sc203_baseline_results_bundle.zip`.
-2. **Plot & analyze seed variance (Teammate 2):** build boxplots/tables from `metrics_per_seed.csv` and `metrics_summary_by_image.csv`, plus per-pixel variance heatmaps across seeds.
-3. **Scale up (Member 1):** test 20 `test_LR` images first and measure real time, then the full 100-image `test_LR` set.
-4. **Text conditioning & instruction prompts (Teammates 3 & 4):** prepare restoration instructions (`RealSRVal_crop128/test_LR`) and propose/prototype 2 lightweight instruction-conditioning designs (referencing InstructIR). Do not build the full training pipeline until the team and mentor choose.
-5. **Docs:** keep `docs/`, `docs/plans/`, and the weekly report updated.
-
-## 7. Rules
-
-- Always follow the **Team Notebook & Experimentation Guidelines**: whenever a task requires running code on Google Colab, create or update the `.ipynb` notebook in `notebooks/` rather than giving isolated snippets.
-- Before coding or modifying anything, create a numbered implementation plan (`<NN>_<brief_context>.md`) for the user to review, ask questions if needed, and wait for explicit permission. Only add the plan file into `docs/plans/` in the repo **after** the user approves/proceeds.
-- Do not edit anything under `external/`. Use runtime patches or our own files.
-- Do not change a working config. Make a new one, and use a **new `output_root` for every run** (the runner keeps a manifest and `--skip_if_exist`).
-- fp16 only happens with `--fp16` (or `precision: fp16` in the config). Check that the log has `enabling CUDA float16 autocast`. Check that the log has `using PyTorch scaled_dot_product_attention`.
-- Never claim a result you did not see in a log. Say **NOT TESTED** for code that was not run. If you did not run it (no GPU here), say so.
-- Do not invent numbers, dates, paper details or file contents. Write `TODO: confirm` and ask.
-- Keep changes small. Show a diff, the exact Colab instructions/notebook cells, the expected success signal, and what to send back if it fails (last 50 log lines and the full traceback).
-- End each task with: commit hash, changed files, and the push command (`git push origin feat/baseline-runner`). The user pushes and pulls by hand.
-- Write docs and explanations in **simple English, short sentences**. The user asked for simpler words several times.
-- Credit clearly: the model, the method, the checkpoint and `external/DOSSR` are the DoSSR authors'. Our code is the runner, the compatibility launcher, the patches, the checks and the study scripts. Say if AI agents helped write code when asked.
-
-## 8. Open questions for the user (ask, do not guess)
-
-1. ~~Exact GPU model in Colab?~~ **Confirmed:** `NVIDIA A100-SXM4-80GB` (`79.25 GiB`), and verified that `test_LR` (`128x128 -> 512x512`) uses only `7.32 GiB` allocated / `8.29 GiB` reserved (`1.75 s/img`), so T4 or L4 also fits easily.
-2. ~~Do we have HR images for RealSR?~~ **Confirmed:** `RealSRVal_crop128/test_HR` (`100` images, `512x512`). TODO: confirm if the course or mentor wants any additional metrics beyond PSNR, SSIM, and LPIPS.
-3. ~~How many images are in the full RealSR folder, and what are their sizes?~~ **Confirmed:** `100` LR images (`128x128`) in `test_LR` and `100` HR images (`512x512`) in `test_HR`.
-4. Course deadlines and the plan per stage?
-5. Who on the team does what?
-6. Has the mentor replied, and what did they advise?
-
-## 9. Quick Colab execution
-
-Since `CELL 01`–`CELL 13` are already verified and all 25 images are saved on Drive (`seed-study-realsr-5img-lr128-fp16`), open `notebooks/01_dossr_baseline.ipynb` in Google Colab and run `CELL 01` $\rightarrow$ `CELL 02` (`git pull`) $\rightarrow$ `CELL 14` (`compute_metrics.py`) $\rightarrow$ `CELL 15` (export `.zip`).
+1. **Team Member Names:** Which teammate (`Hoàng Nguyên Anh`, `Nguyễn Phan Minh Nhật`, `Huỳnh Trần Gia Hân`, `Hồ Quang Minh`) is Member 1, Member 2, Member 3, and Member 4?
+2. **Next Report Deadline:** What is the exact date/deadline for the next mentor report?
+3. **Readable Text Region Count in RealSR (`B.5-Label`):** How many `readable=yes` text boxes does Member 2 find in `RealSRVal_crop128/test_HR`, and what is the exact `(x, y, w, h)` box for `eduroam` in `Canon_001_LR4.png`?
+4. **`Real-CE x4` Access:** If RealSR has too few readable text boxes, do we already have `Real-CE x4` on Drive or need to download it?
+5. **OCR Choice (`B.6`):** Which OCR option (EasyOCR, RapidOCR/ONNXRuntime, or Tesseract) does the team select for `scripts/text_eval.py`?
