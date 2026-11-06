@@ -66,10 +66,10 @@
 2. **What upstream inference uses:**
    - [`external/DOSSR/model/shift_sampler.py:200, 257, 322`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/shift_sampler.py#L322) defaults to `positive_prompt: str="clean, high-resolution, 8k"`.
    - [`external/DOSSR/scripts/inference.py:75-78`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/scripts/inference.py#L75-L78) calls `sampler.shift_sample_3_order(..., cfg_scale=1.0)` without passing a prompt, so it always feeds `"clean, high-resolution, 8k"` at test time.
-3. **What this means for our 3 LoRA versions `(A, B, C)`:**
+3. **Prompt Proposal for our 3 LoRA versions `(A, B, C)` (`TODO: decision for user and mentor`):**
    - First, our 10-seed baseline study (Group A) compares `prompt_mode=default` (`"clean, high-resolution, 8k"`) vs `prompt_mode=empty` (`""`) on the frozen checkpoint.
-   - Second, when we train LoRA `(A)`, `(B)`, and `(C)`, **all three versions must use the exact same prompt mode, and training and inference must use the same prompt** (either all three train and test with `""`, matching `realesrgan.py:179`, or all three train and test with `"clean, high-resolution, 8k"`, matching whichever prompt wins the Group A baseline).
-   - Recommended default for LoRA `(A, B, C)`: use the **same prompt as the chosen baseline** (and log the exact string in `run_manifest.json`) so there is zero train/test mismatch and zero difference between `A`, `B`, and `C`.
+   - **Proposal (`TODO: confirm with user and mentor`):** **Train LoRA versions `A`, `B`, and `C` with the empty prompt `""` (as DoSSR training does in [`dataset/realesrgan.py:179`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/realesrgan.py#L179)) and evaluate them with the same empty-prompt mode.**
+   - Do **not** switch the LoRA prompt based on whichever prompt wins Group A without explicit confirmation from the user and mentor. All three versions (`A`, `B`, `C`) must use the exact same prompt mode and log the exact prompt string in `lora_run_manifest.json`.
 
 ---
 
@@ -131,17 +131,56 @@ For every training step, given a paired sample $(x_0, \hat{x}_{\text{LR}}, c, M_
      $$\mathcal{L}_{\text{text-cons}} = \frac{\| M_{\text{lat}} \odot (\hat{x}_0^{(1)} - \hat{x}_0^{(2)}) \|_1}{\text{mean}(M_{\text{lat}}) + \varepsilon}$$
 
 ### The Three Fair-Comparison LoRA Configurations
-All three versions draw **2 noise samples per step**, run **2 forward passes per step**, and use the **exact same data, prompt, LoRA target modules, rank, optimizer, and step budget**:
+**Critical fairness rule:** All three versions (`A`, `B`, and `C`) draw **two independent noise samples $\epsilon_1, \epsilon_2$ per step** at the same timestep $t$, run **two forward passes per step**, and use **both** $\hat{x}_0^{(1)}$ and $\hat{x}_0^{(2)}$ inside the normal loss $\mathcal{L}_{\text{orig}}$ (and inside $\mathcal{L}_{\text{text-rec}}$ for `B` and `C`). This guarantees that `C` does not get more gradient signal or more noise samples than `A` or `B`.
 
-| LoRA Version | Loss Formula | Purpose in Ablation |
-|---|---|---|
-| **LoRA `(A)`** | $\mathcal{L}_A = \mathcal{L}_{\text{orig}}$ | Baseline LoRA with original DoSSR loss (using 2 noise samples so `(C)` gets no extra gradient signal). |
-| **LoRA `(B)`** | $\mathcal{L}_B = \mathcal{L}_{\text{orig}} + \lambda_{\text{rec}} \, \mathcal{L}_{\text{text-rec}}$ | Tests whether simply weighting the text region higher is enough. |
-| **LoRA `(C)`** | $\mathcal{L}_C = \mathcal{L}_{\text{orig}} + \lambda_{\text{rec}} \, \mathcal{L}_{\text{text-rec}} + \lambda_{\text{cons}} \, \mathcal{L}_{\text{text-cons}}$ | **B vs. C** directly isolates what the cross-noise text-region consistency loss ($\mathcal{L}_{\text{text-cons}}$) adds. |
+| LoRA Version | Noise Samples / Step | Loss Formula | Purpose in Ablation |
+|---|---|---|---|
+| **LoRA `(A)`** | **2** ($\epsilon_1, \epsilon_2$) | $\mathcal{L}_A = \mathcal{L}_{\text{orig}} = \frac{1}{2}\big(\|x_0 - \hat{x}_0^{(1)}\|_1 + \|x_0 - \hat{x}_0^{(2)}\|_1\big)$ | Baseline LoRA with original DoSSR loss averaged over **both** noise samples so `(C)` gets no extra gradient signal. |
+| **LoRA `(B)`** | **2** ($\epsilon_1, \epsilon_2$) | $\mathcal{L}_B = \mathcal{L}_{\text{orig}} + \lambda_{\text{rec}} \, \mathcal{L}_{\text{text-rec}}$ | Uses **both** noise samples for $\mathcal{L}_{\text{orig}}$ and $\mathcal{L}_{\text{text-rec}}$; tests whether higher text-region weight alone is enough. |
+| **LoRA `(C)`** | **2** ($\epsilon_1, \epsilon_2$) | $\mathcal{L}_C = \mathcal{L}_{\text{orig}} + \lambda_{\text{rec}} \, \mathcal{L}_{\text{text-rec}} + \lambda_{\text{cons}} \, \mathcal{L}_{\text{text-cons}}$ | **B vs. C** directly isolates what the cross-noise text-region consistency loss ($\mathcal{L}_{\text{text-cons}}$) adds. |
+
+> [!IMPORTANT]
+> **Phase 1 Goal (Next Mentor Report Deliverable):** Before running the full `A / B / C` comparison, **Phase 1 aims at a short trial run of version `C` on Colab Pro with peak VRAM (`peak_allocated_gib`, `peak_reserved_gib`) and step time logged.**
 
 ---
 
-## 6. Task C.10: LoRA Trial Estimates (`ESTIMATE — NOT TESTED`)
+## 6. Training, Validation, and Test Data Question (Open Decision — Ask User)
+
+We need an HR dataset with text bounding boxes that **does NOT overlap** the 100 RealSR evaluation images (`RealSRVal_crop128/test_LR` and `test_HR`). We do **not** decide this automatically; the options are listed below for the user and mentor to choose.
+
+### 6.1 What Upstream DoSSR Training Config Expects (`VERIFIED` in `external/DOSSR`)
+In [`external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml:1-62`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L1-L62) and [`external/DOSSR/dataset/realesrgan.py:114-180`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/realesrgan.py#L114-L180):
+- **`meta_info: preset/train_datasets/training_datasets.txt`:** A plain-text list of file paths to HR training images (`preset/train_datasets/training_datasets.txt` is **not** shipped in the public `external/DOSSR` repo).
+- **`out_size: 512`, `crop_type: random`, `use_hflip: True`:** Each HR image is randomly cropped to `512x512` on CPU (`realesrgan.py:124-136`) and paired with synthetic blur kernels (`kernel1`, `kernel2`, `sinc_kernel`).
+- **On-GPU degradation (`RealESRGANBatchTransform` in `batch_transform.py:136-270`):** Synthesizes $4\times$ degraded LR (`128x128`) from the `512x512` HR patch using second-order blur + resize + Gaussian/Poisson noise + JPEG compression, then bicubic-upsamples LR back to `512x512` (`hint`).
+- **No validation data loader in `train_cldm.yaml`:** Upstream `DataModule` ([`dataset/data_module.py:21-40`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/data_module.py#L21-L40)) only sets up `train_dataloader` unless `val_config` is added.
+
+### 6.2 What Our Text-Region LoRA Pipeline Needs per Split
+1. **Training split (Disjoint from Test):**
+   - Clean HR images (`>= 512x512`) that contain readable text regions, plus word/line bounding boxes `(x, y, w, h)` in HR coordinates.
+   - Either paired real `(LR 128x128, HR 512x512, text_boxes)` crops, OR clean `(HR 512x512, text_boxes)` crops degraded by DoSSR's Real-ESRGAN degradation (with `_dequeue_and_enqueue` disabled so each mask stays paired with its image).
+2. **Validation split (Disjoint from Train and Test):**
+   - Small held-out set (e.g., `10–20` text-containing image pairs) used only to check loss curves, pick $\lambda_{\text{rec}}, \lambda_{\text{cons}}$, and check for overfitting before testing.
+3. **Test split (Strictly Held Out — Never Used in Training or Hyperparameter Tuning):**
+   - `RealSRVal_crop128` (`test_LR` `128x128` $\rightarrow$ `test_HR` `512x512`, 100 images, labeled by Member 2 in `data/text_boxes_realsr.csv`).
+   - If `RealSRVal_crop128` has too few `readable=yes` text boxes, the mentor requested **`Real-CE x4`** for text evaluation.
+
+### 6.3 Candidate Data Options (`TODO: confirm — Ask User to Choose`)
+- **Option 1 — `Real-CE` (`Real-CE x4`):**
+  - Can provide real-world paired LR-HR images with text/character regions.
+  - **`TODO: confirm` (Unknowns we do not guess):**
+    1. Is `Real-CE x4` already on the team Drive, or where should we download it?
+    2. What are the official train / val / test split sizes and image dimensions in `Real-CE x4`?
+    3. Does `Real-CE x4` include ground-truth text bounding boxes and transcripts, or do we need to label boxes with our CSV tool?
+- **Option 2 — Public Scene-Text HR Dataset (e.g., ICDAR 2015 / TextOCR / HierText) + DoSSR Real-ESRGAN Degradation:**
+  - Uses existing scene-text HR images that already have human-verified word bounding boxes and transcripts, cropped to `512x512` around text regions, with $4\times$ LR (`128x128`) synthesized by DoSSR's own Real-ESRGAN degradation (`batch_transform.py` without `_dequeue_and_enqueue`).
+  - Completely disjoint from both `RealSR` and `Real-CE`.
+- **Option 3 — Official RealSR Training Split (Filtered for Text Signs, Disjoint from `RealSRVal_crop128`):**
+  - Extract `512x512` paired `(LR, HR)` crops containing text from the RealSR **training** camera folders (verifying zero filename/scene overlap with the 100 `RealSRVal_crop128` test images) and annotate text boxes using `make_text_contact_sheets.py`.
+
+---
+
+## 7. Task C.10: LoRA Trial Estimates (`ESTIMATE — NOT TESTED`)
 
 > [!WARNING]
 > Every number in the table below is an **engineering estimate (`ESTIMATE — NOT TESTED`)**. None of these numbers have been run on Colab yet.

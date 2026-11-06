@@ -37,21 +37,21 @@ You are joining Team 1 (LEMMEPASS) in SC203 Scientific Methods (class 25A02). Th
 
 | Task | Description | Owner | Status | Blocked By |
 |---|---|---|---|---|
-| **B.5** | Contact sheet generator (`scripts/make_text_contact_sheets.py`) & CSV template (`data/text_boxes_realsr_template.csv`, header: `image,box_id,x,y,w,h,transcript,readable`) | Member 2 | `NOT TESTED` (Script & template created locally) | None — ready for Member 2 today |
-| **B.5-Label** | Run `make_text_contact_sheets.py` on `test_HR`, count readable text boxes, fill `data/text_boxes_realsr.csv`, check if `Real-CE x4` is needed | Member 2 | `NOT TESTED` | B.5 |
+| **B.5** | Contact sheet generator (`scripts/make_text_contact_sheets.py`, with `--check` mode and blank default `readable`) & CSV template (`data/text_boxes_realsr_template.csv`) | Member 2 | `NOT TESTED` (Script & template ready) | None — ready for Member 2 today |
+| **B.5-Label** | Run `make_text_contact_sheets.py` on `test_HR`, fill `data/text_boxes_realsr.csv`, run `--check`, check if `Real-CE x4` is needed | Member 2 | `NOT TESTED` | B.5 |
 | **C.9** | Read-only audit of DoSSR training entry point (`scripts/train.py`, `configs/train_cldm.yaml`), training prompt (`""` in `realesrgan.py:179`), loss & `pred_x0` (`model/cldm.py`, `ddpm.py`), and queue/no_grad caveats (`docs/lora_feasibility_and_loss_design.md`) | Member 3 | **Done (`VERIFIED` in `external/DOSSR` source)** | None — ready for Member 3 today |
-| **C.10** | LoRA trial parameter, batch/patch size, VRAM & logging estimates (`docs/lora_feasibility_and_loss_design.md`) | Member 3 | **`ESTIMATE — NOT TESTED`** (Documented in `docs/lora_feasibility_and_loss_design.md`) | None — ready for Member 3 today |
+| **C.10** | LoRA trial parameter, batch/patch size, VRAM & logging estimates, training data options, and Phase 1 target (`short trial run of version C with VRAM logged`, `docs/lora_feasibility_and_loss_design.md`) | Member 3 | **`ESTIMATE — NOT TESTED`** (Documented in `docs/lora_feasibility_and_loss_design.md`) | None — ready for Member 3 today |
 | **Handoffs** | `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Member 1 | **Done** | None — ready to hand off today |
-| **A.1** | Create `configs/seeds_10.yaml` (`42..51`) | Member 1 | `NOT TESTED` (Next in Group 2) | None |
+| **A.1** | Create `configs/seeds_10.yaml` (`42..51`) | Member 1 | `NOT TESTED` (Created & committed before any 10-seed run) | None |
 | **A.2** | Audit `external/DOSSR` inference vs training prompt (`"clean, high-resolution, 8k"` vs `""`) | Member 1 | **Done (`VERIFIED` in `external/DOSSR` source)** | None |
-| **A.3** | Add `--prompt-mode {default,empty}`, log prompt & SDPA mode in `run_manifest.json`, and stop if `precision != "fp16"` | Member 1 | `NOT TESTED` (Next in Group 2) | A.1 |
-| **A.4** | Prepare 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`) & `CELL 16`–`CELL 17` in `notebooks/01_dossr_baseline.ipynb` | Member 1 | `NOT TESTED` (Next in Group 2) | A.1, A.3 |
-| **A.4-Run** | Run `CELL 16` (1-image prompt check) and `CELL 17` (100-image $\times$ 10-seed $\times$ 2-prompt study) on Colab Pro | Member 1 | `NOT TESTED` | A.4 |
-| **B.6** | Choose OCR option & write `scripts/text_eval.py` (using exact text rules in `docs/handoff_member2.md`) | Member 2 | `NOT TESTED` (Group 3) | OCR choice; final run blocked by B.5-Label & A.4-Run |
+| **A.3** | Add `--prompt-mode {default,empty,unwrapped}`, log prompt & SDPA mode in `run_manifest.json`, and stop if `precision != "fp16"` | Member 1 | `NOT TESTED` (Implemented in `src/dossr_inference_compat.py`, `src/run_dossr.py`, `scripts/run_seed_study.py`) | None |
+| **A.4** | Prepare 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`) & `CELL 16`–`CELL 17` in `notebooks/01_dossr_baseline.ipynb` | Member 1 | `NOT TESTED` (Configs & `CELL 16`–`CELL 17` prepared) | None |
+| **A.4-Run** | Run `CELL 16` (1-image prompt wrapper check) and `CELL 17` (100-image $\times$ 10-seed $\times$ 2-prompt study) on Colab Pro | Member 1 | `NOT TESTED` | A.4 |
+| **B.6** | Choose OCR option & write `scripts/text_eval.py` (using exact text rules in `docs/handoff_member2.md`) | Member 2 | `NOT TESTED` (Next in Group 3) | OCR choice; final run blocked by B.5-Label & A.4-Run |
 | **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS) | Member 4 | `NOT TESTED` (Created in `81382ae`; ready to test on 5-seed outputs now) | Final 10-seed table blocked by A.4-Run |
-| **B.8** | Write `scripts/plot_eduroam_figure.py` (`Canon_001_LR4` side-by-side zoomed figure) | Member 4 | `NOT TESTED` (Group 3) | Crop box `(x,y,w,h)` from User/Member 2 + `CELL 16` outputs |
-| **C-Trial** | Implement & run trial LoRA `(A, B, C)` on Colab Pro with VRAM logged | Member 3 & Member 1 | `NOT TESTED` | Member 3 plan + B.5-Label |
-| **D-Report** | 10-seed baseline table, 1-page CCSR/PNFS/TADiSR comparison, and trial LoRA VRAM report | Member 4 & All | `NOT TESTED` | A.4-Run, B.6, B.7, B.8, C-Trial |
+| **B.8** | Write `scripts/plot_eduroam_figure.py` (`Canon_001_LR4` side-by-side zoomed figure) | Member 4 | `NOT TESTED` (Next in Group 3) | Crop box `(x,y,w,h)` from User/Member 2 + `CELL 16` outputs |
+| **C-Trial** | Implement & run short Phase 1 trial of LoRA version `C` on Colab Pro with VRAM logged (and full `A, B, C` comparison) | Member 3 & Member 1 | `NOT TESTED` | Training data decision + Member 3 plan + B.5-Label |
+| **D-Report** | 10-seed baseline table, 1-page CCSR/PNFS/TADiSR comparison, and trial LoRA `C` VRAM report | Member 4 & All | `NOT TESTED` | A.4-Run, B.6, B.7, B.8, C-Trial |
 
 ## 4. Repo & Known Files
 
@@ -65,13 +65,15 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
 
 | Path | What it is |
 |---|---|
-| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook: **`CELL 01`–`CELL 13` are VERIFIED** (`251d4a5`). **`CELL 14` (`compute_metrics.py`) and `CELL 15` (results zip bundle) are NOT TESTED.** |
-| `src/run_dossr.py` | Runner. Reads YAML config, refuses `input_dir` pointing to `test_HR`, supports `--disable-sdpa` and `--disable-vae-sdpa`, writes logs and `run_manifest.json`. |
-| `src/dossr_inference_compat.py` | Launcher around upstream `inference.py`. Enables fp16 autocast, mmap checkpoint load, SDPA patches (unless disabled), and `--profile-memory`. |
+| `notebooks/01_dossr_baseline.ipynb` | Standardized team Colab notebook: **`CELL 01`–`CELL 13` are VERIFIED** (`251d4a5`). **`CELL 14` (`compute_metrics.py`), `CELL 15` (results zip), `CELL 16` (1-image prompt wrapper check: `unwrapped` vs `default` vs `empty`, SDPA OFF), and `CELL 17` (prepared `100 test_LR × 10 seeds × 2 prompts` runner, SDPA OFF) are NOT TESTED.** |
+| `src/run_dossr.py` | Runner. Reads YAML config, refuses `input_dir` pointing to `test_HR`, supports `--disable-sdpa`, `--disable-vae-sdpa`, and `--prompt-mode {default,empty,unwrapped}`, writes `run_manifest.json`, and **stops with an error if `run_manifest.json` does not say `precision: "fp16"`**. |
+| `src/dossr_inference_compat.py` | Launcher around upstream `inference.py`. Enables fp16 autocast, mmap checkpoint load, SDPA patches (unless disabled), `--prompt-mode {default,empty,unwrapped}` (printing exact prompt strings), and `--profile-memory`. |
 | `src/attention_compat.py` | Runtime SDPA patches for `CrossAttention` and VAE `AttnBlock`. |
-| `scripts/run_seed_study.py` | Multi-seed runner with input (`128x128`) and output (`512x512`) size checks. **VERIFIED (`251d4a5`).** |
+| `scripts/run_seed_study.py` | Multi-seed runner supporting `seeds_file: configs/seeds_10.yaml`, input (`128x128`) and output (`512x512`) size checks, and `run_manifest.json` `precision == "fp16"` verification. |
+| `configs/seeds_10.yaml` | Fixed list of 10 seeds (`42..51`), committed before running any 10-seed study. |
+| `configs/baseline_realsr_100img_lr128_{default,empty}_prompt_sdpa_off.yaml`, `configs/seed_study_realsr_100img_10seed_{default,empty}_prompt_sdpa_off.yaml` | Prepared 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`, `precision: fp16`, `steps: 5`, new `output_root`s). **NOT TESTED.** |
 | `scripts/compute_metrics.py` | Computes PSNR, SSIM, and LPIPS (`<stem>_0.png` vs `test_HR/<stem>.png`) and across-seed spread (`--device auto|cpu|cuda`). **NOT TESTED.** |
-| `scripts/make_text_contact_sheets.py` | CPU-only script (`Pillow` + `pathlib`) that builds numbered contact sheets of `test_HR` with pixel ruler ticks and creates the canonical CSV template `image,box_id,x,y,w,h,transcript,readable`. **NOT TESTED.** |
+| `scripts/make_text_contact_sheets.py` | CPU-only script (`Pillow` + `pathlib`) that builds numbered contact sheets of `test_HR`, generates the CSV with `readable` left blank (`""` = not yet labeled), and provides `--check` to fail if any blank `readable` rows remain. **NOT TESTED.** |
 | `data/text_boxes_realsr_template.csv` | Canonical CSV header (`image,box_id,x,y,w,h,transcript,readable`) shared across Members 2, 3, and 4. |
 | `docs/lora_feasibility_and_loss_design.md` | Read-only audit of `external/DOSSR` training code, prompts, `pred_x0` equations, caveats, and LoRA trial estimates (`ESTIMATE — NOT TESTED`). |
 | `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Simple-English handoff instructions for Members 2, 3, and 4. |
@@ -115,3 +117,5 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
 3. **Readable Text Region Count in RealSR (`B.5-Label`):** How many `readable=yes` text boxes does Member 2 find in `RealSRVal_crop128/test_HR`, and what is the exact `(x, y, w, h)` box for `eduroam` in `Canon_001_LR4.png`?
 4. **`Real-CE x4` Access:** If RealSR has too few readable text boxes, do we already have `Real-CE x4` on Drive or need to download it?
 5. **OCR Choice (`B.6`):** Which OCR option (EasyOCR, RapidOCR/ONNXRuntime, or Tesseract) does the team select for `scripts/text_eval.py`?
+6. **LoRA Training Data (`C.9/C.10`):** Which disjoint HR dataset with text boxes (Option 1: `Real-CE`, Option 2: scene-text HR dataset like ICDAR/TextOCR/HierText + Real-ESRGAN degradation, or Option 3: disjoint RealSR train split) should we use for train/val?
+7. **LoRA Prompt Mode (`C.9/C.10`):** Confirm the proposal to train LoRA `A`, `B`, and `C` with the empty prompt `""` (matching `realesrgan.py:179`) and evaluate with the same empty-prompt mode.

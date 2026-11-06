@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""NOT TESTED: generate numbered contact sheets from an HR image folder and create a text-box CSV template.
+"""NOT TESTED: generate numbered contact sheets from an HR image folder, create a text-box CSV template, and check CSV labeling status.
 
 Designed for CPU execution on Windows, macOS, or free Google Colab with no GPU required
 and no hard-coded /content paths.
@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import csv
 import math
+import sys
 from pathlib import Path
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".webp"}
@@ -49,6 +50,7 @@ def write_csv_template(
     image_paths: list[Path] | None = None,
     overwrite: bool = False,
 ) -> bool:
+    """Write the CSV header and one blank-readable row per image (blank = not yet labeled)."""
     if csv_path.exists() and not overwrite:
         return False
     csv_path.parent.mkdir(parents=True, exist_ok=True)
@@ -57,8 +59,108 @@ def write_csv_template(
         writer.writerow(CSV_HEADER)
         if image_paths:
             for img_path in image_paths:
-                writer.writerow([img_path.name, 0, "", "", "", "", "", "no"])
+                # readable is left blank ("") by default to indicate 'not yet labeled'
+                writer.writerow([img_path.name, 0, "", "", "", "", "", ""])
     return True
+
+
+def check_csv_labels(csv_path: Path) -> int:
+    """Verify that no rows have blank readable values and that readable=yes rows are complete."""
+    if not csv_path.is_file():
+        print(f"CSV CHECK FAILED | file not found: {csv_path}", file=sys.stderr)
+        return 1
+
+    with csv_path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.reader(handle)
+        try:
+            header = [col.strip() for col in next(reader)]
+        except StopIteration:
+            print(f"CSV CHECK FAILED | file is empty: {csv_path}", file=sys.stderr)
+            return 1
+
+        if header != CSV_HEADER:
+            print(
+                f"CSV CHECK FAILED | invalid header {header}, expected {CSV_HEADER}",
+                file=sys.stderr,
+            )
+            return 1
+
+        blank_images: list[str] = []
+        invalid_rows: list[str] = []
+        total_rows = 0
+        readable_yes = 0
+        readable_no = 0
+        images_seen: set[str] = set()
+        images_with_yes: set[str] = set()
+
+        for line_num, row in enumerate(reader, start=2):
+            if not any(cell.strip() for cell in row):
+                continue
+            total_rows += 1
+            if len(row) != len(CSV_HEADER):
+                invalid_rows.append(
+                    f"line {line_num}: expected {len(CSV_HEADER)} columns, found {len(row)}"
+                )
+                continue
+            image, box_id, x, y, w, h, transcript, readable = [c.strip() for c in row]
+            images_seen.add(image)
+            r_low = readable.lower()
+            if r_low == "":
+                blank_images.append(f"{image} (line {line_num})")
+            elif r_low == "yes":
+                readable_yes += 1
+                images_with_yes.add(image)
+                try:
+                    bid = int(box_id)
+                    xi, yi, wi, hi = int(x), int(y), int(w), int(h)
+                    if bid < 1 or wi <= 0 or hi <= 0 or xi < 0 or yi < 0:
+                        invalid_rows.append(
+                            f"line {line_num} ({image}): readable=yes requires box_id>=1, x>=0, y>=0, w>0, h>0"
+                        )
+                except ValueError:
+                    invalid_rows.append(
+                        f"line {line_num} ({image}): readable=yes requires integer box_id,x,y,w,h"
+                    )
+                if not transcript:
+                    invalid_rows.append(
+                        f"line {line_num} ({image}): readable=yes requires non-empty transcript"
+                    )
+            elif r_low == "no":
+                readable_no += 1
+            else:
+                invalid_rows.append(
+                    f"line {line_num} ({image}): readable must be 'yes' or 'no', got '{readable}'"
+                )
+
+    if total_rows == 0:
+        print(
+            f"CSV CHECK FAILED | {csv_path} has header only (0 data rows)",
+            file=sys.stderr,
+        )
+        return 1
+
+    if blank_images or invalid_rows:
+        print(
+            f"CSV CHECK FAILED | total_rows={total_rows} | unlabeled_blank={len(blank_images)} "
+            f"| invalid_rows={len(invalid_rows)} | file={csv_path}",
+            file=sys.stderr,
+        )
+        if blank_images:
+            print("Images with blank 'readable' (not yet labeled):", file=sys.stderr)
+            for item in blank_images:
+                print(f"  - {item}", file=sys.stderr)
+        if invalid_rows:
+            print("Invalid rows:", file=sys.stderr)
+            for item in invalid_rows:
+                print(f"  - {item}", file=sys.stderr)
+        return 1
+
+    print(
+        f"CSV CHECK PASSED | total_rows={total_rows} | unique_images={len(images_seen)} "
+        f"| images_with_readable_text={len(images_with_yes)} | readable_yes_boxes={readable_yes} "
+        f"| readable_no_rows={readable_no} | unlabeled_blank=0 | file={csv_path}"
+    )
+    return 0
 
 
 def make_contact_sheets(
@@ -134,9 +236,20 @@ def make_contact_sheets(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
+        "--check",
+        nargs="?",
+        const="",
+        default=None,
+        metavar="CSV_PATH",
+        help=(
+            "Check a CSV file for blank 'readable' rows (not yet labeled) or invalid fields, "
+            "and fail (exit 1) if any exist. Uses CSV_PATH if given, else --csv-out."
+        ),
+    )
+    parser.add_argument(
         "--hr-dir",
         type=Path,
-        required=True,
+        default=None,
         help="Path to the ground-truth HR folder (for example, .../RealSRVal_crop128/test_HR)",
     )
     parser.add_argument(
@@ -144,14 +257,14 @@ def main() -> int:
         "--out-dir",
         dest="output_dir",
         type=Path,
-        required=True,
+        default=None,
         help="Directory where contact sheet PNGs will be saved",
     )
     parser.add_argument(
         "--csv-out",
         type=Path,
-        default=Path("data/text_boxes_realsr_template.csv"),
-        help="Path to write the blank CSV template if it does not already exist",
+        default=Path("data/text_boxes_realsr.csv"),
+        help="Path to write or check the CSV file (default: data/text_boxes_realsr.csv)",
     )
     parser.add_argument(
         "--overwrite-csv",
@@ -184,6 +297,13 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.check is not None:
+        target_csv = Path(args.check) if args.check else args.csv_out
+        return check_csv_labels(target_csv.expanduser().resolve())
+
+    if args.hr_dir is None or args.output_dir is None:
+        parser.error("--hr-dir and --output-dir/--out-dir are required unless --check is passed")
+
     if args.cols <= 0 or args.rows <= 0 or args.thumb_size <= 0:
         raise ValueError("--cols, --rows, and --thumb-size must all be positive integers")
 
@@ -210,7 +330,9 @@ def main() -> int:
     for sheet in sheets:
         print(f"  - {sheet}")
     if wrote_csv:
-        print(f"Wrote CSV template ({','.join(CSV_HEADER)}): {csv_out}")
+        print(
+            f"Wrote CSV ({','.join(CSV_HEADER)}) with 'readable' left blank (not yet labeled): {csv_out}"
+        )
     else:
         print(f"CSV file already exists (kept untouched; pass --overwrite-csv to replace): {csv_out}")
     return 0

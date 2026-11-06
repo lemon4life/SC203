@@ -73,8 +73,8 @@ python scripts/make_text_contact_sheets.py \
 ### Step 3: Check that it worked (Success Signal)
 1. The terminal prints:
    `DONE | total_images=100 | sheets_written=5 | csv=...`
-2. `outputs/text_contact_sheets/` contains `contact_sheet_01.png` through `contact_sheet_05.png` (20 `512x512` HR images per sheet, with `0, 128, 256, 384, 512` pixel tick marks on every tile border).
-3. `data/text_boxes_realsr.csv` exists with 100 rows and the exact header below.
+2. `outputs/text_contact_sheets/` contains `contact_sheet_01_imgs_001_to_020.png` through `contact_sheet_05_imgs_081_to_100.png` (20 `512x512` HR images per sheet, with `25% / 50% / 75%` pixel tick marks on every tile border).
+3. `data/text_boxes_realsr.csv` exists with 100 rows and the exact header below. Notice that `readable` is left **blank (`""`)** by default for every image (`blank = not yet labeled`).
 
 ---
 
@@ -98,8 +98,17 @@ image,box_id,x,y,w,h,transcript,readable
   - *Tip:* Add a small margin (`4` to `8` pixels) around the letters so the crop does not cut off edges.
 - `transcript`: The ground-truth text written in `test_HR` (see Text Rules below).
 - `readable`:
+  - **Blank (`""`)** when first generated (`not yet labeled`). You **must** fill `yes` or `no` for every row before submitting.
   - `yes` if a human looking at `test_HR` can read the text clearly and unambiguously.
   - `no` if the image has no text, or if the text in `test_HR` is too blurry/tiny for a human to read.
+
+### Step 4: Verify Your Completed CSV with `--check`
+After you label all 100 images in `data/text_boxes_realsr.csv`, run the built-in checker:
+```bash
+python scripts/make_text_contact_sheets.py --check data/text_boxes_realsr.csv
+```
+- **If any image still has a blank `readable` column** (or if a `readable=yes` row is missing `box_id >= 1`, `x, y, w, h`, or `transcript`), the script lists every unlabeled/invalid row and fails with exit code `1`.
+- **Success signal:** Prints `CSV CHECK PASSED | total_rows=... | unique_images=100 | images_with_readable_text=... | readable_yes_boxes=... | readable_no_rows=... | unlabeled_blank=0`.
 
 ### Text Transcription & Normalization Rules (Used by Member 2 and `scripts/text_eval.py`)
 1. **One word or one short single-line phrase per box:**

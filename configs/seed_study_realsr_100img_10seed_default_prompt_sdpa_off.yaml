@@ -1,0 +1,8 @@
+# NOT TESTED: 100 test_LR images (128x128 -> 512x512) x 10 fixed seeds (42..51)
+# with prompt_mode: default ("clean, high-resolution, 8k"), SDPA OFF (disable_sdpa: true), FP16, 5 steps.
+baseline_config: configs/baseline_realsr_100img_lr128_default_prompt_sdpa_off.yaml
+seeds_file: configs/seeds_10.yaml
+prompt_mode: default
+disable_sdpa: true
+output_root: /content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16
+log_dir: /content/drive/MyDrive/lemmepass/logs

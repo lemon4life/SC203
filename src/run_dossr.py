@@ -27,6 +27,8 @@ from src.env_info import DEFAULT_LOG_DIR, configure_logging, log_run_info  # noq
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 ANSI_ESCAPE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 IMAGE_TIME = re.compile(r"Execution time:\s*([0-9]+(?:\.[0-9]+)?)\s*seconds")
+UPSTREAM_DEFAULT_POSITIVE_PROMPT = "clean, high-resolution, 8k"
+VALID_PROMPT_MODES = ("default", "empty", "unwrapped")
 REQUIRED_CONFIG = {
     "seed",
     "input_dir",
@@ -62,6 +64,10 @@ def output_path(config: dict[str, Any]) -> Path:
 
 
 def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
+    prompt_mode = str(config.get("prompt_mode", "default"))
+    positive_prompt = "" if prompt_mode == "empty" else UPSTREAM_DEFAULT_POSITIVE_PROMPT
+    disable_sdpa = bool(config.get("disable_sdpa", False))
+    disable_vae_sdpa = bool(config.get("disable_vae_sdpa", False))
     manifest: dict[str, Any] = {
         "seed": int(config["seed"]),
         "input_dir": str(Path(config["input_dir"]).expanduser()),
@@ -75,15 +81,19 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         "color_fix_type": config["color_fix_type"],
         "preprocessor": config["preprocessor"],
         "precision": config.get("precision", "fp32"),
+        "prompt_mode": prompt_mode,
+        "positive_prompt": positive_prompt,
+        "sdpa_enabled": not disable_sdpa,
+        "vae_sdpa_enabled": (not disable_sdpa) and (not disable_vae_sdpa),
         "offload_condition_encoder": bool(config.get("offload_condition_encoder", False)),
         "tiled": config.get("tiled", False),
         "tile_size": int(config.get("tile_size", 512)),
         "tile_stride": int(config.get("tile_stride", 256)),
         "output_root": str(Path(config["output_root"]).expanduser()),
     }
-    if bool(config.get("disable_sdpa", False)):
+    if disable_sdpa:
         manifest["disable_sdpa"] = True
-    if bool(config.get("disable_vae_sdpa", False)):
+    if disable_vae_sdpa:
         manifest["disable_vae_sdpa"] = True
     return manifest
 
@@ -99,6 +109,12 @@ def validate_runtime(config: dict[str, Any]) -> None:
         raise ValueError("The vanilla multi-step checkpoint uses the RealESRNet preprocessor")
     if config.get("precision", "fp32") not in {"fp32", "fp16"}:
         raise ValueError("precision must be one of: fp32, fp16")
+    if config.get("precision", "fp32") != "fp16":
+        raise ValueError(
+            f"Runner stopped: precision must be 'fp16' for baseline runs, got {config.get('precision', 'fp32')!r}"
+        )
+    if config.get("prompt_mode", "default") not in VALID_PROMPT_MODES:
+        raise ValueError(f"prompt_mode must be one of: {', '.join(VALID_PROMPT_MODES)}")
     if config.get("precision", "fp32") == "fp16" and config["device"] != "cuda":
         raise ValueError("fp16 autocast is currently supported only with device: cuda")
     if config.get("offload_condition_encoder", False) and config["device"] != "cuda":
@@ -135,8 +151,23 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
         elif manifest_path.is_file():
             with manifest_path.open(encoding="utf-8") as stream:
                 existing = json.load(stream)
-            # Older FP32 manifests predate the precision field.
+            # Older manifests predate precision / prompt_mode / sdpa fields.
             existing.setdefault("precision", "fp32")
+            if existing.get("precision") != "fp16":
+                raise RuntimeError(
+                    f"Runner stopped: existing run_manifest.json at {manifest_path} does not say "
+                    f"precision 'fp16' (found {existing.get('precision')!r})."
+                )
+            existing.setdefault("prompt_mode", manifest["prompt_mode"])
+            existing.setdefault("positive_prompt", manifest["positive_prompt"])
+            existing.setdefault(
+                "sdpa_enabled", not bool(existing.get("disable_sdpa", False))
+            )
+            existing.setdefault(
+                "vae_sdpa_enabled",
+                (not bool(existing.get("disable_sdpa", False)))
+                and (not bool(existing.get("disable_vae_sdpa", False))),
+            )
             existing.setdefault("offload_condition_encoder", False)
             existing.setdefault("tiled", False)
             existing.setdefault("tile_size", 512)
@@ -153,13 +184,24 @@ def prepare_output(directory: Path, manifest: dict[str, Any], overwrite: bool) -
                 "Choose a new output_root/seed or pass --overwrite to replace it."
             )
 
+    if manifest.get("precision") != "fp16":
+        raise RuntimeError(
+            f"Runner stopped: run_manifest.json requires precision 'fp16', got {manifest.get('precision')!r}."
+        )
     directory.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    written_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if written_manifest.get("precision") != "fp16":
+        raise RuntimeError(
+            f"Runner stopped: {manifest_path} does not say precision 'fp16' "
+            f"(found {written_manifest.get('precision')!r})."
+        )
 
 
 def build_command(
     config: dict[str, Any], output_dir: Path, *, profile_memory: bool = False
 ) -> list[str]:
+    prompt_mode = str(config.get("prompt_mode", "default"))
     command = [
         sys.executable,
         "-u",
@@ -168,6 +210,8 @@ def build_command(
         str(Path(config["inference_script"]).expanduser()),
         "--precision",
         str(config.get("precision", "fp32")),
+        "--prompt-mode",
+        prompt_mode,
         "--",
         "--ckpt",
         str(Path(config["checkpoint"]).expanduser()),
@@ -294,6 +338,15 @@ def main() -> int:
         action="store_true",
         help="Disable only the runtime VAE AttnBlock SDPA patch while keeping CrossAttention SDPA",
     )
+    parser.add_argument(
+        "--prompt-mode",
+        choices=VALID_PROMPT_MODES,
+        default=None,
+        help=(
+            "Override YAML prompt_mode: 'default' ('clean, high-resolution, 8k'), "
+            "'empty' (''), or 'unwrapped' (no wrapper on SpacedSampler)."
+        ),
+    )
     args = parser.parse_args()
 
     try:
@@ -308,6 +361,10 @@ def main() -> int:
             config["precision"] = args.precision
         else:
             config["precision"] = config_precision
+        if args.prompt_mode is not None:
+            config["prompt_mode"] = args.prompt_mode
+        else:
+            config["prompt_mode"] = str(config.get("prompt_mode", "default"))
         if args.offload_condition_encoder:
             config["offload_condition_encoder"] = True
         else:

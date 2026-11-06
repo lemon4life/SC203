@@ -19,6 +19,8 @@ from pathlib import Path
 AUTHOR_OPENCLIP_CHECKPOINT = Path(
     "/group/ossmodelzoo/qinpecui/downloads/open_clip_pytorch_model.bin"
 )
+UPSTREAM_DEFAULT_POSITIVE_PROMPT = "clean, high-resolution, 8k"
+UPSTREAM_DEFAULT_NEGATIVE_PROMPT = ""
 
 
 def main() -> int:
@@ -26,6 +28,16 @@ def main() -> int:
     parser.add_argument("--inference-script", type=Path, required=True)
     parser.add_argument("--precision", choices=("fp32", "fp16"), default=None)
     parser.add_argument("--fp16", action="store_true", help="Enable CUDA float16 autocast")
+    parser.add_argument(
+        "--prompt-mode",
+        choices=("default", "empty", "unwrapped"),
+        default="unwrapped",
+        help=(
+            "Prompt conditioning mode for SpacedSampler: 'default' explicitly passes "
+            "upstream's 'clean, high-resolution, 8k'; 'empty' passes ''; 'unwrapped' "
+            "leaves SpacedSampler.shift_sample_*_order untouched."
+        ),
+    )
     parser.add_argument(
         "--profile-memory",
         action="store_true",
@@ -227,6 +239,60 @@ def main() -> int:
 
     torch.load = torch_load_with_mmap
     dossr_common.load_state_dict = load_state_dict_with_progress
+
+    if args.prompt_mode in {"default", "empty"}:
+        from model.shift_sampler import SpacedSampler
+
+        target_positive_prompt = (
+            UPSTREAM_DEFAULT_POSITIVE_PROMPT if args.prompt_mode == "default" else ""
+        )
+        target_negative_prompt = UPSTREAM_DEFAULT_NEGATIVE_PROMPT
+        print(
+            "DoSSR prompt wrapper | "
+            f"prompt_mode={args.prompt_mode} | "
+            f"wrapper_installed=True | "
+            f"positive_prompt={target_positive_prompt!r} | "
+            f"negative_prompt={target_negative_prompt!r}",
+            flush=True,
+        )
+
+        def _wrap_sampler_method(orig_fn, method_name: str):
+            logged_once = False
+
+            def _wrapped(sampler, *sample_args, **sample_kwargs):
+                nonlocal logged_once
+                sample_kwargs["positive_prompt"] = target_positive_prompt
+                sample_kwargs["negative_prompt"] = target_negative_prompt
+                if not logged_once:
+                    print(
+                        "DoSSR sampler prompt check | "
+                        f"method={method_name} | "
+                        f"prompt_mode={args.prompt_mode} | "
+                        f"positive_prompt={sample_kwargs['positive_prompt']!r} | "
+                        f"negative_prompt={sample_kwargs['negative_prompt']!r}",
+                        flush=True,
+                    )
+                    logged_once = True
+                return orig_fn(sampler, *sample_args, **sample_kwargs)
+
+            return _wrapped
+
+        for _mname in ("shift_sample_1_order", "shift_sample_2_order", "shift_sample_3_order"):
+            if hasattr(SpacedSampler, _mname):
+                setattr(
+                    SpacedSampler,
+                    _mname,
+                    _wrap_sampler_method(getattr(SpacedSampler, _mname), _mname),
+                )
+    else:
+        print(
+            "DoSSR prompt wrapper | "
+            "prompt_mode=unwrapped | "
+            "wrapper_installed=False | "
+            f"positive_prompt={UPSTREAM_DEFAULT_POSITIVE_PROMPT!r} | "
+            f"negative_prompt={UPSTREAM_DEFAULT_NEGATIVE_PROMPT!r}",
+            flush=True,
+        )
 
     if args.profile_memory:
         if torch.cuda.is_available():

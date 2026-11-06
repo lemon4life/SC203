@@ -34,14 +34,16 @@ Read [`docs/lora_feasibility_and_loss_design.md`](file:///Users/lemon4life/Proje
 
 1. **Full training entry point exists in `external/DOSSR`:**
    - [`external/DOSSR/scripts/train.py:10-30`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/scripts/train.py#L10-L30) and [`external/DOSSR/configs/train_cldm.yaml:1-47`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/train_cldm.yaml#L1-L47).
-2. **Training prompt vs. Inference prompt:**
+2. **Training prompt vs. Inference prompt (`TODO: confirm with user & mentor`):**
    - Upstream training ([`dataset/realesrgan.py:179`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/realesrgan.py#L179)) always passes `"txt": ""` (empty prompt).
    - Upstream inference ([`model/shift_sampler.py:322`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/shift_sampler.py#L322)) passes `"clean, high-resolution, 8k"`.
-   - **Rule for LoRA `(A, B, C)`:** All three versions must use the **exact same prompt** at both train time and test time so there is no train/test mismatch and no unfair difference between `A`, `B`, and `C`.
-3. **Where the loss and clean-latent prediction $\hat{x}_0$ live:**
+   - **Proposal for LoRA `(A, B, C)` (`TODO: decision for Member 1 and the mentor`):** Train `A`, `B`, and `C` with the **empty prompt `""`** (as DoSSR training does) and evaluate them with the same empty-prompt mode.
+3. **Where the loss and clean-latent prediction $\hat{x}_0$ live (and why `A` and `B` also draw 2 noises):**
    - [`ControlLDM.shared_step` (`model/cldm.py:346-356`)](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L346-L356) calls `pred_x0 = self.predict_x0_out_mix(x, preprocess_x, c, t, **kwargs)` and computes `loss_preprocess_diff = (x - pred_x0).abs().mean()`.
    - [`LatentDiffusion.predict_x0_out_mix` (`ldm/models/diffusion/ddpm.py:909-917`)](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L909-L917) already takes an optional `noise=` tensor!
-   - To draw two independent noise samples $\epsilon_1, \epsilon_2 \sim \mathcal{N}(0, I)$ for the same $(x, \text{preprocess\_x}, c, t)$, we simply call `predict_x0_out_mix` twice (`noise=eps_1` and `noise=eps_2`).
+   - To draw two independent noise samples $\epsilon_1, \epsilon_2 \sim \mathcal{N}(0, I)$ for the same $(x, \text{preprocess\_x}, c, t)$, we call `predict_x0_out_mix` twice (`noise=eps_1` and `noise=eps_2`).
+   - **Fairness rule:** Versions `A` and `B` **also** draw two noise samples ($\epsilon_1, \epsilon_2$) and average the normal loss over both predictions, so `C` does not receive extra signal.
+   - **Phase 1 target:** For the next report, we aim at a **short trial run of version `C` on Colab Pro with VRAM logged** (`ESTIMATE — NOT TESTED`).
 4. **Two critical code traps we found in `external/DOSSR`:**
    - **Trap 1 (`batch_transform.py:98-134`):** `RealESRGANBatchTransform._dequeue_and_enqueue` shuffles a 256-image GPU queue (`torch.randperm`) without shuffling extra batch keys like a text mask. Our LoRA data loader must **not** call `_dequeue_and_enqueue` unless the mask is queued with identical indices (or better: use a direct paired dataset without the queue).
    - **Trap 2 (`model/cldm.py:27-35`):** `ControlledUnetModel.forward` wraps `self.input_blocks` and `self.middle_block` in `with torch.no_grad():`. Put LoRA adapters in `self.control_model` (ControlNet) and `diffusion_model.output_blocks` (or override `ControlledUnetModel.forward` in our wrapper).

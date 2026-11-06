@@ -1,0 +1,14 @@
+# Fixed list of 10 seeds for the SC203 RealSR baseline and LoRA evaluations.
+# Chosen and committed before running any 10-seed experiment.
+# Used identically for every RealSR test_LR image across prompt modes and LoRA variants.
+seeds:
+  - 42
+  - 43
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 49
+  - 50
+  - 51

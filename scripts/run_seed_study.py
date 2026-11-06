@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -11,7 +12,6 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,6 +50,23 @@ def main() -> int:
         help="Override baseline_config from the study YAML (for example, the staged Colab config)",
     )
     parser.add_argument(
+        "--seeds-file",
+        type=Path,
+        default=None,
+        help="Optional YAML file containing 'seeds: [...]' (for example, configs/seeds_10.yaml)",
+    )
+    parser.add_argument(
+        "--prompt-mode",
+        choices=("default", "empty", "unwrapped"),
+        default=None,
+        help="Optional override for prompt_mode across all seeds",
+    )
+    parser.add_argument(
+        "--disable-sdpa",
+        action="store_true",
+        help="Force disable_sdpa=True across all seeds",
+    )
+    parser.add_argument(
         "--expected-input-size",
         type=int,
         default=128,
@@ -76,12 +93,21 @@ def main() -> int:
     logger.info("Log file: %s", log_path)
 
     try:
+        from PIL import Image
+
         baseline_value = args.baseline_config or study.get("baseline_config")
         if not baseline_value:
             raise ValueError("Study YAML must set baseline_config")
         baseline_path = resolve_path(baseline_value)
         baseline = read_mapping(baseline_path, "Baseline config")
-        seeds = study.get("seeds")
+        seeds_file_value = args.seeds_file or study.get("seeds_file")
+        if seeds_file_value:
+            seeds_file_path = resolve_path(seeds_file_value)
+            seeds_mapping = read_mapping(seeds_file_path, "Seeds file")
+            seeds = seeds_mapping.get("seeds")
+            logger.info("Loaded seeds from %s: %s", seeds_file_path, seeds)
+        else:
+            seeds = study.get("seeds")
         if not isinstance(seeds, list) or not seeds:
             raise ValueError("Study YAML seeds must be a non-empty list")
         if any(not isinstance(seed, int) or isinstance(seed, bool) or seed < 0 for seed in seeds):
@@ -129,6 +155,14 @@ def main() -> int:
                     "output_root": str(output_root),
                     "log_dir": str(log_dir),
                 }
+                if "prompt_mode" in study:
+                    seed_config["prompt_mode"] = study["prompt_mode"]
+                if args.prompt_mode is not None:
+                    seed_config["prompt_mode"] = args.prompt_mode
+                if "disable_sdpa" in study:
+                    seed_config["disable_sdpa"] = bool(study["disable_sdpa"])
+                if args.disable_sdpa:
+                    seed_config["disable_sdpa"] = True
                 temp_config = Path(temp_dir) / f"seed_{seed}.yaml"
                 temp_config.write_text(
                     yaml.safe_dump(seed_config, sort_keys=False), encoding="utf-8"
@@ -158,6 +192,17 @@ def main() -> int:
                     raise subprocess.CalledProcessError(return_code, command)
 
                 seed_out_dir = output_root / f"seed_{seed}"
+                manifest_path = seed_out_dir / "run_manifest.json"
+                if not manifest_path.is_file():
+                    raise RuntimeError(
+                        f"Seed {seed} missing run_manifest.json at {manifest_path}"
+                    )
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if manifest.get("precision") != "fp16":
+                    raise RuntimeError(
+                        f"Seed study stopped: {manifest_path} does not say precision 'fp16' "
+                        f"(found {manifest.get('precision')!r})"
+                    )
                 out_images = sorted(
                     p
                     for p in seed_out_dir.iterdir()
