@@ -9,9 +9,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
-import yaml
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -30,6 +27,8 @@ def digest(path: Path) -> str:
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
+    import yaml
+
     with path.open(encoding="utf-8") as stream:
         value = yaml.safe_load(stream)
     if not isinstance(value, dict):
@@ -41,6 +40,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--config",
+        "--source-config",
+        dest="config",
         type=Path,
         default=REPO_ROOT / "configs" / "baseline_realsr.yaml",
         help="Baseline YAML config to copy and adjust for a smoke or small-batch run",
@@ -53,16 +54,36 @@ def main() -> int:
     )
     parser.add_argument(
         "--image-count",
+        "--limit",
+        dest="image_count",
         type=int,
         default=1,
         help="Number of lexically first images to stage (default: 1)",
     )
-    parser.add_argument("--smoke-dir", type=Path, default=Path("/content/realsr_smoke"))
-    parser.add_argument("--config-out", type=Path, default=Path("/content/baseline_smoke.yaml"))
+    parser.add_argument(
+        "--smoke-dir",
+        "--staging-dir",
+        dest="smoke_dir",
+        type=Path,
+        default=Path("/content/realsr_smoke"),
+    )
+    parser.add_argument(
+        "--config-out",
+        "--output-config",
+        dest="config_out",
+        type=Path,
+        default=Path("/content/baseline_smoke.yaml"),
+    )
     parser.add_argument(
         "--output-root",
         type=Path,
         default=Path("/content/outputs/baseline-smoke"),
+    )
+    parser.add_argument(
+        "--expected-size",
+        type=int,
+        default=None,
+        help="Optional expected square width/height of staged images in pixels (for example, 128)",
     )
     parser.add_argument("--log-dir", type=Path, default=DEFAULT_LOG_DIR)
     args = parser.parse_args()
@@ -82,6 +103,9 @@ def main() -> int:
     logger.info("Log file: %s", log_path)
 
     try:
+        import yaml
+        from PIL import Image
+
         if args.image_count < 1:
             raise ValueError("--image-count must be at least 1")
         input_dir = (
@@ -119,6 +143,13 @@ def main() -> int:
                 f"Input directory {input_dir} contains mixed image sizes {summary}. "
                 "All images in the source directory must share a uniform size."
             )
+        if args.expected_size is not None:
+            expected_dim = (int(args.expected_size), int(args.expected_size))
+            actual_dim = next(iter(observed_sizes.keys()))
+            if actual_dim != expected_dim:
+                raise ValueError(
+                    f"Input directory {input_dir} has image size {actual_dim}, expected {expected_dim}"
+                )
 
         selected_images = images[: args.image_count]
         selected_names = {image.name for image in selected_images}
