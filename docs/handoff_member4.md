@@ -57,13 +57,12 @@ You can download those folders from Google Drive to your laptop, or mount Drive 
 
 - **What you can do right now (Not Blocked):**
   1. **Run `scripts/compute_metrics.py` on the existing 5-image / 5-seed outputs** (`seed-study-realsr-5img-lr128-fp16`) to verify PSNR, SSIM, and LPIPS on CPU or Free Colab.
-  2. **Write the one-page comparison with CCSR, PNFS, and TADiSR** (`docs/related_methods_ccsr_pnfs_tadisr.md`).
+  2. **Run `scripts/plot_eduroam_figure.py` on `Canon_001_LR4.png`** (`CELL 16` outputs for `default` and `empty` prompts are now **VERIFIED and saved on Drive** under `lemmepass/outputs/prompt-check-1img-lr128-{default,empty}-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png`!).
+  3. **Fill in the one-page comparison with CCSR, PNFS, and TADiSR** in [`docs/related_methods_ccsr_pnfs_tadisr.md`](file:///Users/lemon4life/Projects/SC203/docs/related_methods_ccsr_pnfs_tadisr.md).
      - *Important rule:* Do **not** guess or invent paper facts. Only write facts verified from the actual CCSR, PNFS, and TADiSR papers, or mark `TODO: confirm`.
 - **What waits for Member 1 and Member 2:**
-  - Final 10-seed whole-image metrics table waits for Member 1's 10-seed runs.
-  - Final `Canon_001_LR4` (`eduroam`) zoomed figure waits for:
-    1. Member 2's confirmed `(x, y, w, h)` crop box for `eduroam` in `data/text_boxes_realsr.csv` (or `--crop x,y,w,h` CLI flag).
-    2. Member 1's `Canon_001_LR4_0.png` outputs for `prompt_mode=default` and `prompt_mode=empty` (`CELL 16`).
+  - Final 10-seed whole-image metrics table waits for Member 1's 10-seed runs (`CELL 17`).
+  - Final `eduroam` crop coordinates `(x, y, w, h)` in `data/text_boxes_realsr.csv` will be confirmed by Member 1 / Member 2.
 
 ---
 
@@ -87,12 +86,25 @@ python scripts/compute_metrics.py \
   --device cpu
 ```
 
-### Step 3: Check that it worked (Success Signal)
+### Step 3: Check that `compute_metrics.py` worked (Success Signal)
 1. The terminal prints a summary table with `PSNR (dB)`, `SSIM`, `LPIPS (alex)`, and `Pairwise Seed Diff (0..255)` for each image stem, plus `[OVERALL MEAN ACROSS IMAGES]`.
 2. Two CSV files are created inside `<STUDY_ROOT>`:
    - `metrics_per_seed.csv`
    - `metrics_summary_by_image.csv`
 3. Every image is verified as `512x512` (the script stops with an error if any output or HR image is not `512x512`).
+
+### Step 4: Run `scripts/plot_eduroam_figure.py` (Task B.8, `NOT TESTED`)
+Replace `<DATA_ROOT>` and `<OUT_BASE>` with your local or Drive paths, and `<X,Y,W,H>` with the confirmed crop box (for example `145,5,110,65`):
+```bash
+python scripts/plot_eduroam_figure.py \
+  --lr-image "<DATA_ROOT>/test_LR/Canon_001_LR4.png" \
+  --hr-image "<DATA_ROOT>/test_HR/Canon_001_LR4.png" \
+  --default-image "<OUT_BASE>/prompt-check-1img-lr128-default-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
+  --empty-image "<OUT_BASE>/prompt-check-1img-lr128-empty-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
+  --crop "145,5,110,65" \
+  --output "outputs/figures/canon_001_eduroam_default_vs_empty.png"
+```
+- **Success signal:** Prints `EDUROAM FIGURE SAVED | crop=(145, 5, 110, 65) | path=...` and saves the 4-panel PNG (`LR`, `HR`, `Default Prompt`, `Empty Prompt` with zoomed text region).
 
 ---
 

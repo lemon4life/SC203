@@ -44,14 +44,14 @@ You are joining Team 1 (LEMMEPASS) in SC203 Scientific Methods (class 25A02). Th
 | **Handoffs** | `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Member 1 | **Done** | None — ready to hand off today |
 | **A.1** | Create `configs/seeds_10.yaml` (`42..51`) | Member 1 | `NOT TESTED` (Created & committed before any 10-seed run) | None |
 | **A.2** | Audit `external/DOSSR` inference vs training prompt (`"clean, high-resolution, 8k"` vs `""`) | Member 1 | **Done (`VERIFIED` in `external/DOSSR` source)** | None |
-| **A.3** | Add `--prompt-mode {default,empty,unwrapped}`, log prompt & SDPA mode in `run_manifest.json`, and stop if `precision != "fp16"` | Member 1 | `NOT TESTED` (Implemented in `src/dossr_inference_compat.py`, `src/run_dossr.py`, `scripts/run_seed_study.py`) | None |
-| **A.4** | Prepare 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`) & `CELL 16`–`CELL 17` in `notebooks/01_dossr_baseline.ipynb` | Member 1 | `NOT TESTED` (Configs & `CELL 16`–`CELL 17` prepared) | None |
-| **A.4-Run** | Run `CELL 16` (1-image prompt wrapper check) and `CELL 17` (100-image $\times$ 10-seed $\times$ 2-prompt study) on Colab Pro | Member 1 | `NOT TESTED` | A.4 |
-| **B.6** | Choose OCR option & write `scripts/text_eval.py` (using exact text rules in `docs/handoff_member2.md`) | Member 2 | `NOT TESTED` (Next in Group 3) | OCR choice; final run blocked by B.5-Label & A.4-Run |
-| **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS) | Member 4 | `NOT TESTED` (Created in `81382ae`; ready to test on 5-seed outputs now) | Final 10-seed table blocked by A.4-Run |
-| **B.8** | Write `scripts/plot_eduroam_figure.py` (`Canon_001_LR4` side-by-side zoomed figure) | Member 4 | `NOT TESTED` (Next in Group 3) | Crop box `(x,y,w,h)` from User/Member 2 + `CELL 16` outputs |
+| **A.3** | Add `--prompt-mode {default,empty,unwrapped}`, log prompt & SDPA mode in `run_manifest.json`, and stop if `precision != "fp16"` | Member 1 | **Done (`VERIFIED` in `CELL 16`, Nov 7, 2026)** | None |
+| **A.4** | Prepare 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`) & `CELL 16`–`CELL 17` in `notebooks/01_dossr_baseline.ipynb` | Member 1 | **`CELL 16` VERIFIED (`default == unwrapped` diff `0.0`; `empty != default` max diff `50.0`, mean `0.3704`); `CELL 17` prepared (`NOT TESTED`)** | None |
+| **A.4-Run** | Run `CELL 17` (100-image $\times$ 10-seed $\times$ 2-prompt study) on Colab Pro | Member 1 | `NOT TESTED` | None — ready to run when Member 1 enables `RUN_100IMG_10SEED_PROMPT_STUDY = True` |
+| **B.6** | Choose OCR option & write `scripts/text_eval.py` (using exact text rules in `docs/handoff_member2.md`, `IMAGE` as statistical unit) | Member 2 | `NOT TESTED` (`scripts/text_eval.py` created; awaiting OCR choice confirmation & `B.5-Label`) | OCR choice; final run blocked by B.5-Label & A.4-Run |
+| **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS) | Member 4 | **`VERIFIED` on 5-seed study in `CELL 14`–`15` (`810e844`, `metrics_per_seed.csv` & `metrics_summary_by_image.csv` packaged in `sc203_baseline_results_bundle.zip`); 10-seed run `NOT TESTED`** | Final 10-seed table blocked by A.4-Run |
+| **B.8** | Write `scripts/plot_eduroam_figure.py` (`Canon_001_LR4` side-by-side zoomed figure) & `CELL 18` | Member 4 | `NOT TESTED` (`scripts/plot_eduroam_figure.py` and `CELL 18` created; `CELL 16` outputs ready on Drive) | Exact crop box `(x,y,w,h)` from User/Member 2 |
 | **C-Trial** | Implement & run short Phase 1 trial of LoRA version `C` on Colab Pro with VRAM logged (and full `A, B, C` comparison) | Member 3 & Member 1 | `NOT TESTED` | Training data decision + Member 3 plan + B.5-Label |
-| **D-Report** | 10-seed baseline table, 1-page CCSR/PNFS/TADiSR comparison, and trial LoRA `C` VRAM report | Member 4 & All | `NOT TESTED` | A.4-Run, B.6, B.7, B.8, C-Trial |
+| **D-Report** | 10-seed baseline table, 1-page CCSR/PNFS/TADiSR comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`), and trial LoRA `C` VRAM report | Member 4 & All | `NOT TESTED` (Template `docs/related_methods_ccsr_pnfs_tadisr.md` created) | A.4-Run, B.6, B.7, B.8, C-Trial |
 
 ## 4. Repo & Known Files
 
@@ -74,8 +74,11 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
 | `configs/baseline_realsr_100img_lr128_{default,empty}_prompt_sdpa_off.yaml`, `configs/seed_study_realsr_100img_10seed_{default,empty}_prompt_sdpa_off.yaml` | Prepared 100-image $\times$ 10-seed $\times$ 2-prompt configs (`SDPA OFF`, `precision: fp16`, `steps: 5`, new `output_root`s). **NOT TESTED.** |
 | `scripts/compute_metrics.py` | Computes PSNR, SSIM, and LPIPS (`<stem>_0.png` vs `test_HR/<stem>.png`) and across-seed spread (`--device auto|cpu|cuda`). **NOT TESTED.** |
 | `scripts/make_text_contact_sheets.py` | CPU-only script (`Pillow` + `pathlib`) that builds numbered contact sheets of `test_HR`, generates the CSV with `readable` left blank (`""` = not yet labeled), and provides `--check` to fail if any blank `readable` rows remain. **NOT TESTED.** |
+| `scripts/text_eval.py` | Crops each `readable=yes` box from `<stem>_0.png`, runs OCR (`--ocr-backend {rapidocr,easyocr,tesseract}` kept in one place), applies the `docs/handoff_member2.md` text normalization rules, computes `>=1 wrong char`, `CER`, and seed disagreement with **IMAGE** as the statistical unit, and supports paired `(image, seed)` comparison (`--compare-study-root`). **NOT TESTED.** |
+| `scripts/plot_eduroam_figure.py` | CPU-only script (`Pillow` + `pathlib`) that builds the 4-panel `Canon_001_LR4` (`eduroam`) comparison (`LR`, `HR`, `Default Prompt`, `Empty Prompt`) with the same zoomed text region (`--crop x,y,w,h` or `--boxes-csv`). **NOT TESTED.** |
 | `data/text_boxes_realsr_template.csv` | Canonical CSV header (`image,box_id,x,y,w,h,transcript,readable`) shared across Members 2, 3, and 4. |
-| `docs/lora_feasibility_and_loss_design.md` | Read-only audit of `external/DOSSR` training code, prompts, `pred_x0` equations, caveats, and LoRA trial estimates (`ESTIMATE — NOT TESTED`). |
+| `docs/lora_feasibility_and_loss_design.md` | Read-only audit of `external/DOSSR` training code, prompts, `pred_x0` equations, caveats, training data options, and LoRA trial estimates (`ESTIMATE — NOT TESTED`). |
+| `docs/related_methods_ccsr_pnfs_tadisr.md` | One-page comparison template for Member 4 comparing DoSSR + our text-region consistency loss against **CCSR**, **PNFS**, and **TADiSR** (`TODO: confirm` markers for paper specifics). |
 | `docs/handoff_member2.md`, `docs/handoff_member3.md`, `docs/handoff_member4.md` | Simple-English handoff instructions for Members 2, 3, and 4. |
 | `docs/after_01_dossr_baseline_discovery.md`, `docs/plans/` | Discovery report (`2026-11-05`) and numbered implementation plans archive. |
 
@@ -97,6 +100,13 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
    - **Inference prompt:** `scripts/inference.py:75-78` calls `shift_sample_3_order(..., cfg_scale=1.0)` which uses `positive_prompt="clean, high-resolution, 8k"` (`model/shift_sampler.py:200, 257, 322`).
    - **Training prompt:** `dataset/realesrgan.py:179` uses `"txt": ""` (empty prompt).
    - **Training entry point & loss:** `scripts/train.py:10-30` and `configs/train_cldm.yaml` run `ControlLDM.shared_step` (`model/cldm.py:346-356`), which calls `predict_x0_out_mix(x, preprocess_x, c, t, noise=...)` (`ldm/models/diffusion/ddpm.py:909-917`) and minimizes `(x - pred_x0).abs().mean()`.
+6. **Verified `CELL 16` Prompt Wrapper Check (`Canon_001_LR4.png`, `seed 42`, `SDPA OFF`, `FP16`, Nov 7, 2026):**
+   - `unwrapped` (`wrapper_installed=False`, `positive_prompt='clean, high-resolution, 8k'`): `Execution time: 2.02 s`.
+   - `default` (`wrapper_installed=True`, `positive_prompt='clean, high-resolution, 8k'`): `Execution time: 2.01 s`.
+   - `empty` (`wrapper_installed=True`, `positive_prompt=''`): `Execution time: 2.01 s`.
+   - **`default` vs `unwrapped` (8-bit `0..255`):** `max_abs_diff = 0.0000`, `mean_abs_diff = 0.0000` (exact match).
+   - **`empty` vs `default` (8-bit `0..255`):** `max_abs_diff = 50.0000`, `mean_abs_diff = 0.3704` (verified different picture).
+   - All three `run_manifest.json` files verified with `"precision": "fp16"`, `"sdpa_enabled": false`, `"disable_sdpa": true`.
 
 ## 6. Rules
 

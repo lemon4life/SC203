@@ -167,5 +167,14 @@ Verified 5 image(s) in /content/realsr_batch_5_lr128 all have size (128, 128).
 CELL 13 READY
 ```
 
-### E. Next Step (`Status: NOT TESTED`): Full-Reference & Cross-Seed Metrics (`CELL 14` & `CELL 15`)
-- `scripts/compute_metrics.py` (`CELL 14`) pairs each `<stem>_0.png` (`512x512`) in `seed_42`..`seed_46` with `test_HR/<stem>.png` (`512x512`), computes **PSNR**, **SSIM**, and **LPIPS** per image and seed plus across-seed `mean`, `std`, `min`, `max`, `range`, and pairwise cross-seed spread, and writes `metrics_per_seed.csv` and `metrics_summary_by_image.csv`. (`NOT TESTED` until `CELL 14` Colab logs are returned.)
+### E. Full-Reference & Cross-Seed Metrics (`CELL 14` & `CELL 15` — Executed in `810e844`)
+- `scripts/compute_metrics.py` (`CELL 14`) and `CELL 15` ran on Colab (`810e844`) and packaged `metrics_per_seed.csv` (`7,210` bytes) and `metrics_summary_by_image.csv` (`2,159` bytes) into `/content/drive/MyDrive/lemmepass/outputs/sc203_baseline_results_bundle.zip`. (`TODO: confirm` exact summary table values from the CSV bundle.)
+
+### F. Verified `CELL 16`: 1-Image Prompt Wrapper Check (`unwrapped` vs `default` vs `empty`, SDPA OFF, FP16 — Nov 7, 2026)
+- Tested `Canon_001_LR4.png` (`128x128 -> 512x512`, `seed 42`, `5 steps`, `precision: fp16`, `--disable-sdpa`):
+  - `unwrapped` (`wrapper_installed=False`, `positive_prompt='clean, high-resolution, 8k'`): `Execution time: 2.02 s`.
+  - `default` (`wrapper_installed=True`, `positive_prompt='clean, high-resolution, 8k'`): `Execution time: 2.01 s`.
+  - `empty` (`wrapper_installed=True`, `positive_prompt=''`): `Execution time: 2.01 s`.
+  - **`default` vs `unwrapped` (`0..255`):** `max_abs_diff = 0.0000`, `mean_abs_diff = 0.0000`.
+  - **`empty` vs `default` (`0..255`):** `max_abs_diff = 50.0000`, `mean_abs_diff = 0.3704`.
+  - Confirmed `run_manifest.json` in all three output directories records `"precision": "fp16"`, `"sdpa_enabled": false`, `"disable_sdpa": true`.

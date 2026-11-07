@@ -135,8 +135,19 @@ python scripts/make_text_contact_sheets.py --check data/text_boxes_realsr.csv
    - Starting coordinate for `Canon_001_LR4.png` (`eduroam`): check around `x=155, y=15, w=100, h=45` on the `512x512` HR image and confirm the exact `(x, y, w, h)` box.
 2. **Check if we need `Real-CE x4`:**
    - If RealSR `test_HR` has too few readable text boxes (for example fewer than 15–20 readable boxes), our mentor asked us to check **`Real-CE x4`** for text evaluation.
-3. **Pick 1 OCR tool for `scripts/text_eval.py` (Task B.6):**
-   - In Group 3, we will compare 3 lightweight OCR options (EasyOCR, RapidOCR/ONNXRuntime, Tesseract) and let you/Member 1 pick one.
+3. **Pick 1 OCR tool and run `scripts/text_eval.py` (Task B.6, `NOT TESTED`):**
+   - `scripts/text_eval.py` is ready and keeps the OCR choice in one place (`DEFAULT_OCR_BACKEND` / `--ocr-backend {rapidocr,easyocr,tesseract}`):
+     - **Option 1 — `rapidocr` (`pip install rapidocr-onnxruntime`):** `~50 MB` total download, pure CPU ONNXRuntime (no PyTorch/CUDA needed), fast (`~20–50 ms/crop` on CPU), strong scene-text recognition (PP-OCRv4).
+     - **Option 2 — `easyocr` (`pip install easyocr`):** `~100 MB` model weights + PyTorch (`~800 MB–2 GB`), supports 80+ languages, runs on CPU or GPU.
+     - **Option 3 — `tesseract` (`pip install pytesseract` + system `tesseract-ocr` binary):** `~30 MB`, CPU-only, classic document OCR (weaker on curved/noisy scene signs unless tightly cropped).
+   - Command to evaluate a 10-seed study (and optionally compare `empty` vs `default` paired on `(image, seed)` with `IMAGE` as the statistical unit):
+     ```bash
+     python scripts/text_eval.py \
+       --study-root "<PATH_TO_DEFAULT_10SEED_STUDY>" \
+       --compare-study-root "<PATH_TO_EMPTY_10SEED_STUDY>" \
+       --boxes-csv "data/text_boxes_realsr.csv" \
+       --ocr-backend rapidocr
+     ```
 
 ---
 
