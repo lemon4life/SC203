@@ -132,7 +132,7 @@ python scripts/make_text_contact_sheets.py --check data/text_boxes_realsr.csv
 1. **Count readable text boxes in RealSR `test_HR`:**
    - How many images out of 100 have at least one `readable=yes` text box?
    - How many total `readable=yes` boxes exist across all 100 images?
-   - Starting coordinate for `Canon_001_LR4.png` (`eduroam`): check around `x=155, y=15, w=100, h=45` on the `512x512` HR image and confirm the exact `(x, y, w, h)` box.
+   - Starting coordinate for `Canon_001_LR4.png` (`eduroam`): check around `x=325, y=22, w=185, h=60` (tight around the word `eduroam`) or `x=310, y=5, w=202, h=85` (with the logo arcs) on the `512x512` HR image and confirm the exact `(x, y, w, h)` box.
 2. **Check if we need `Real-CE x4`:**
    - If RealSR `test_HR` has too few readable text boxes (for example fewer than 15–20 readable boxes), our mentor asked us to check **`Real-CE x4`** for text evaluation.
 3. **Pick 1 OCR tool and run `scripts/text_eval.py` (Task B.6, `NOT TESTED`):**

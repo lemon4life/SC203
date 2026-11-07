@@ -94,17 +94,17 @@ python scripts/compute_metrics.py \
 3. Every image is verified as `512x512` (the script stops with an error if any output or HR image is not `512x512`).
 
 ### Step 4: Run `scripts/plot_eduroam_figure.py` (Task B.8, `NOT TESTED`)
-Replace `<DATA_ROOT>` and `<OUT_BASE>` with your local or Drive paths, and `<X,Y,W,H>` with the confirmed crop box (for example `145,5,110,65`):
+Replace `<DATA_ROOT>` and `<OUT_BASE>` with your local or Drive paths, and `<X,Y,W,H>` with the confirmed crop box (for example `310,5,202,85` for the sign + text, or `325,22,185,60` tightly around the letters):
 ```bash
 python scripts/plot_eduroam_figure.py \
   --lr-image "<DATA_ROOT>/test_LR/Canon_001_LR4.png" \
   --hr-image "<DATA_ROOT>/test_HR/Canon_001_LR4.png" \
   --default-image "<OUT_BASE>/prompt-check-1img-lr128-default-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
   --empty-image "<OUT_BASE>/prompt-check-1img-lr128-empty-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
-  --crop "145,5,110,65" \
+  --crop "310,5,202,85" \
   --output "outputs/figures/canon_001_eduroam_default_vs_empty.png"
 ```
-- **Success signal:** Prints `EDUROAM FIGURE SAVED | crop=(145, 5, 110, 65) | path=...` and saves the 4-panel PNG (`LR`, `HR`, `Default Prompt`, `Empty Prompt` with zoomed text region).
+- **Success signal:** Prints `EDUROAM FIGURE SAVED | crop=(310, 5, 202, 85) | path=...` and saves the 4-panel PNG (`LR`, `HR`, `Default Prompt`, `Empty Prompt` with zoomed text region).
 
 ---
 
