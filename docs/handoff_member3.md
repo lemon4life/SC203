@@ -1,34 +1,138 @@
-# Handoff Note for Member 3 — LoRA & Text-Region Loss Lead
+# Handoff Note for Member 3 (Hồ Quang Minh, `25125060`) — Text Labeling (Images 51–100), HR OCR Check & LoRA (Paused Until Tue 11/11)
 
-**Branch:** `feat/lora-loss`  
-**Hardware needed right now:** Any laptop (Windows or Mac) to read the audit and design the LoRA config. Member 1 will run the GPU trial on Colab Pro.  
-**Status of audit:** Read-only audit in [`docs/lora_feasibility_and_loss_design.md`](file:///Users/lemon4life/Projects/SC203/docs/lora_feasibility_and_loss_design.md) is **complete (`VERIFIED` in `external/DOSSR`)**. Trial numbers are **`ESTIMATE — NOT TESTED`**.
-
----
-
-## 1. Team Git & Communication Rules
-
-1. **Work on your own branch:** `feat/lora-loss`.
-2. **Only edit your own files:**
-   - `docs/lora_feasibility_and_loss_design.md`
-   - `docs/handoff_member3.md`
-   - Future files when approved: `src/lora_text_loss.py`, `configs/lora_*.yaml`
-3. **Do NOT edit `context.md` or anything inside `external/DOSSR/`.** Report your decisions and updates in the team chat. Member 1 will update `context.md` and merge your Pull Request (PR).
+**Current Priority (Assignment 4 — Due Tue 10/11 07:00):**
+- **LoRA work is paused until Tuesday `11/11/2026`.** (Your LoRA notes remain in Section 6 below for Tuesday.)
+- **Assigned Labeling Range:** **Images `51–100` (`#051` to `#100`)** in `data/text_boxes_realsr_m3.csv`
+  - **Contact sheet 3 is shared:** Member 2 (Gia Hân) labels `#041`–`#050` (first 10 images on sheet 3), and **you label `#051`–`#060`** (last 10 images on sheet 3), plus all of **Contact sheet 4 (`#061`–`#080`)** and **Contact sheet 5 (`#081`–`#100`)**.
+- **Hardware needed:** Any CPU laptop (Windows or Mac) or Free Google Colab (CPU). **No GPU needed.**
+- **Status of scripts:** `scripts/make_text_contact_sheets.py` and `scripts/check_text_boxes.py` are created (`NOT TESTED`).
 
 ---
 
-## 2. What Is Blocked vs. What You Can Do Right Now
+## 1. Deadlines & No-Git Rule (Assignment 4)
 
-- **Blocked by Member 2 (`data/text_boxes_realsr.csv`):**
-  - Training on real ground-truth text masks requires Member 2's CSV (`image,box_id,x,y,w,h,transcript,readable`).
-- **What you can do right now (Not Blocked):**
-  1. Read [`docs/lora_feasibility_and_loss_design.md`](file:///Users/lemon4life/Projects/SC203/docs/lora_feasibility_and_loss_design.md) (Tasks C.9 & C.10 report).
-  2. Inspect the upstream training files in `external/DOSSR` (read-only).
-  3. Decide the hyperparameters and plan for the three LoRA versions `(A)`, `(B)`, and `(C)` and prototype the loss with a synthetic dummy mask `(B, 1, 64, 64)`.
+- **Sun `08/11 21:00`:** Finish labeling images `51–100` in `data/text_boxes_realsr_m3.csv`, validate with `scripts/check_text_boxes.py`, report how many images out of `51–100` have `readable=yes` text, and send `data/text_boxes_realsr_m3.csv` to Member 1 (Nguyên Anh) or upload to shared Google Drive (`lemmepass/`).
+- **Sun `08/11` night (after `21:30` CSV merge):** Run the OCR check on the sharp `test_HR` crops (`1x`, `2x`, `4x` crop upscale) and tell the team which OCR backend (`rapidocr` vs `easyocr`) and upscale factor read the most `test_HR` boxes accurately.
+- **Mon `09/11 12:00`:** Run `scripts/text_eval.py` on `seed_42` to verify there are no runtime errors and help Member 2 debug if needed.
+- **Tue `11/11`:** Resume LoRA work (`Section 6` below).
+- **No Git required:** Save files to shared Google Drive (`lemmepass/`) or send them directly to Member 1 in chat. Do **not** edit `context.md` or `external/`.
 
 ---
 
-## 3. Key Findings You Need from Tasks C.9 & C.10
+## 2. Task A (Sunday Before 21:00): Label Images 51–100 in `data/text_boxes_realsr_m3.csv`
+
+### Step 1: Clone the repo and install Pillow
+```bash
+git clone https://github.com/lemon4life/SC203
+cd SC203
+git checkout feat/baseline-runner
+pip install "Pillow>=10.0.0"
+```
+
+### Step 2: Generate Contact Sheets & Your CSV (`data/text_boxes_realsr_m3.csv`, Images 51–100)
+Replace `<PATH_TO_TEST_HR>` with your local or Drive path to `RealSRVal_crop128/test_HR` (on Windows, use `py` if `python` is not on PATH):
+```bash
+python scripts/make_text_contact_sheets.py \
+  --hr-dir "<PATH_TO_TEST_HR>" \
+  --out-dir "outputs/text_contact_sheets" \
+  --csv-out "data/text_boxes_realsr_m3.csv" \
+  --range 51-100
+```
+- **Success signal:**
+  1. Prints: `DONE | total_images=100 | sheets_written=5 | csv_range=51-100 (50 images) | csv=...`
+  2. `outputs/text_contact_sheets/` has `contact_sheet_01` through `contact_sheet_05` (with `25% / 50% / 75%` pixel ticks at `128, 256, 384` px).
+  3. `data/text_boxes_realsr_m3.csv` has **50 rows** for images `#051` through `#100` with `readable` left blank (`""` = not yet labeled).
+
+---
+
+## 3. Canonical CSV Format, Worked Examples & Text Labeling Rules (MUST FOLLOW)
+
+You and Member 2 must use the **exact same CSV format and text rules** so Member 1 can merge `data/text_boxes_realsr_m2.csv` (`1–50`) and `data/text_boxes_realsr_m3.csv` (`51–100`) into `data/text_boxes_realsr.csv`.
+
+### Exact CSV Header
+```csv
+image,box_id,x,y,w,h,transcript,readable
+```
+
+### Column Definitions
+- `image`: Exact file name in `test_HR` (for example `Nikon_001_LR4.png`).
+- `box_id`: Integer starting at `1` for each image (`1`, `2`, `3`, ...). If an image has **no** readable text at all, keep **one** row with `box_id=0`, leave `x,y,w,h,transcript` empty, and set `readable=no`. If an image has multiple readable text boxes, create one row per box (`box_id=1`, `box_id=2`, ...).
+- `x,y,w,h`: Integer pixel box in the **`512x512` `test_HR` image**:
+  - `x`: Left pixel column (`0` to `511`).
+  - `y`: Top pixel row (`0` to `511`).
+  - `w`: Box width in pixels (`> 0`, with `x + w <= 512`).
+  - `h`: Box height in pixels (`> 0`, with `y + h <= 512`).
+  - *Tip:* Add a `4` to `8` pixel margin around the letters so the crop does not cut off strokes.
+- `transcript`: Exact text read from `test_HR` (do **not** guess).
+- `readable`: Must be `yes` or `no` for every row (no blanks).
+
+### Worked Label Examples (`EXAMPLE ONLY — NOT REAL DATA`)
+
+> **IMPORTANT:** The 4 rows below are **synthetic worked examples** to illustrate the format. They are **NOT** real data from `test_HR`.
+> - **`Canon_001_LR4.png` (`eduroam`) box:** `TODO` — Member 1 will send the confirmed `eduroam` text crop box; do not hardcode an unconfirmed box.
+
+```csv
+image,box_id,x,y,w,h,transcript,readable
+EXAMPLE_sign_one_word.png,1,120,40,160,55,STOP,yes
+EXAMPLE_sign_two_words.png,1,80,100,110,42,CAFE,yes
+EXAMPLE_sign_two_words.png,2,205,100,140,42,OPEN,yes
+EXAMPLE_nature_no_text.png,0,,,,,no
+EXAMPLE_blurry_unreadable_plate.png,0,,,,,no
+```
+
+### Text Transcription & Normalization Rules (Shared with Member 2 and `scripts/text_eval.py`)
+1. **One word or one short single-line phrase per box:** Prefer **one word per box**. If words are tightly joined on a single line, you may put that single line in one box, **never multiple lines in one box**.
+2. **Case:** Write the exact characters as they appear in `test_HR` (`eduroam`, `STOP`, etc.). `scripts/text_eval.py` evaluates both case-insensitive (primary) and case-sensitive (secondary).
+3. **Spaces:** Strip leading/trailing spaces and use a single space `" "` between words if a box has more than one word.
+4. **Punctuation and Symbols:** Only include standard ASCII/Latin letters and digits (`A-Z`, `a-z`, `0-9`) in `transcript` unless punctuation is a core part of a number/code. Do **not** include decorative logos or icons.
+
+### Step 3: Validate Your CSV & Draw Box Previews (`scripts/check_text_boxes.py`)
+After labeling images `51–100` in `data/text_boxes_realsr_m3.csv`, run:
+```bash
+python scripts/check_text_boxes.py \
+  --csv "data/text_boxes_realsr_m3.csv" \
+  --hr-dir "<PATH_TO_TEST_HR>" \
+  --range 51-100 \
+  --preview-dir "outputs/previews_m3"
+```
+- **Visual check:** Inspect `outputs/previews_m3/<image>_boxes.png` to verify your green boxes fit the words in `test_HR`.
+- **Success signal:** Prints:
+  `CHECK PASSED | file=.../data/text_boxes_realsr_m3.csv | range=51-100 (50 images) | total_rows=... | images_with_readable_text=... | readable_yes_boxes=... | readable_no_rows=... | previews_saved=...`
+
+---
+
+## 4. Task B (Sunday Night): Check OCR on Sharp `test_HR` Crops (`scripts/ocr_check_hr.py`)
+
+Why this matters: If the OCR tool cannot even read the sharp ground-truth `test_HR` crops, then its scores on DoSSR outputs are meaningless.
+1. Install `rapidocr-onnxruntime` (and optionally `easyocr` to compare):
+   ```bash
+   pip install rapidocr-onnxruntime
+   ```
+2. Run `scripts/ocr_check_hr.py` (added in Group 2) on `data/text_boxes_realsr.csv` (or your `_m3.csv` first) across `--upscale 1`, `2`, and `4`:
+   ```bash
+   python scripts/ocr_check_hr.py \
+     --boxes-csv "data/text_boxes_realsr.csv" \
+     --hr-dir "<PATH_TO_TEST_HR>" \
+     --ocr-backend rapidocr \
+     --upscale 2 \
+     --output-csv "outputs/ocr_check_hr_rapidocr_x2.csv"
+   ```
+3. Report to the team on Sunday night: which `--ocr-backend` (`rapidocr` or `easyocr`) and which `--upscale` (`1`, `2`, or `4`) read the highest number of `test_HR` boxes **exactly right** (`exact_right / total_boxes`).
+
+---
+
+## 5. Task C (Monday Before 12:00): Smoke-Test `scripts/text_eval.py` on `seed_42`
+
+Run `scripts/text_eval.py` on `seed_42` (`--seeds 42`) of the default-prompt 10-seed folder (`/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`) to make sure it runs cleanly and help Member 2 debug any issue.
+
+**What to Send Back to Member 1 (Nguyên Anh):**
+1. **Sun `21:00`:** `data/text_boxes_realsr_m3.csv` + the `CHECK PASSED` line from `scripts/check_text_boxes.py` (how many images out of `51–100` have `readable=yes` text).
+2. **Sun night:** The output of `scripts/ocr_check_hr.py` (`exact_right / total_boxes` for `1x`, `2x`, `4x`), the output CSV, and your recommended OCR backend + upscale factor.
+3. **Mon `12:00`:** Confirmation that `scripts/text_eval.py` succeeded on `seed_42` (or full traceback if any error occurred).
+
+---
+
+## 6. LoRA & Text-Region Loss Reference (PAUSED Until Tuesday 11/11/2026)
 
 Read [`docs/lora_feasibility_and_loss_design.md`](file:///Users/lemon4life/Projects/SC203/docs/lora_feasibility_and_loss_design.md) first. Here is the short summary:
 

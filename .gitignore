@@ -8,6 +8,16 @@ outputs/
 *.ckpt
 *.safetensors
 .ipynb_checkpoints/
+.DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.out
+*.toc
+*.log
 
 
 # Byte-compiled / optimized / DLL files

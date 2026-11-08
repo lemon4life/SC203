@@ -45,6 +45,27 @@ def discover_images(hr_dir: Path, expected_size: int | None) -> list[Path]:
     return files
 
 
+def parse_image_range(range_str: str | None, csv_out: Path, total_images: int) -> tuple[int, int]:
+    """Return 1-based inclusive (start_idx, end_idx) for the CSV template rows."""
+    if range_str is None:
+        name_low = csv_out.name.lower()
+        if name_low.endswith("_m2.csv"):
+            return (1, min(50, total_images))
+        if name_low.endswith("_m3.csv") and total_images >= 51:
+            return (51, total_images)
+        return (1, total_images)
+    cleaned = range_str.strip().replace(":", "-")
+    parts = cleaned.split("-")
+    if len(parts) != 2 or not parts[0].strip().isdigit() or not parts[1].strip().isdigit():
+        raise ValueError(f"Invalid --range '{range_str}'. Expected format START-END (for example 1-50 or 51-100).")
+    start_idx, end_idx = int(parts[0].strip()), int(parts[1].strip())
+    if start_idx < 1 or end_idx < start_idx or end_idx > total_images:
+        raise ValueError(
+            f"--range {start_idx}-{end_idx} is out of bounds for {total_images} images (valid: 1-{total_images})."
+        )
+    return (start_idx, end_idx)
+
+
 def write_csv_template(
     csv_path: Path,
     image_paths: list[Path] | None = None,
@@ -267,6 +288,13 @@ def main() -> int:
         help="Path to write or check the CSV file (default: data/text_boxes_realsr.csv)",
     )
     parser.add_argument(
+        "--range",
+        dest="image_range",
+        type=str,
+        default=None,
+        help="Optional 1-based inclusive image index range for CSV template rows (for example 1-50 or 51-100). Auto-detected for *_m2.csv (1-50) and *_m3.csv (51-100).",
+    )
+    parser.add_argument(
         "--overwrite-csv",
         action="store_true",
         help="Overwrite --csv-out even if it already exists",
@@ -320,10 +348,13 @@ def main() -> int:
         rows=args.rows,
         thumb_size=args.thumb_size,
     )
-    wrote_csv = write_csv_template(csv_out, image_paths=image_paths, overwrite=args.overwrite_csv)
+    start_idx, end_idx = parse_image_range(args.image_range, csv_out, len(image_paths))
+    csv_image_paths = image_paths[start_idx - 1 : end_idx]
+    wrote_csv = write_csv_template(csv_out, image_paths=csv_image_paths, overwrite=args.overwrite_csv)
 
     print(
-        f"DONE | total_images={len(image_paths)} | sheets_written={len(sheets)} | csv={csv_out}"
+        f"DONE | total_images={len(image_paths)} | sheets_written={len(sheets)} "
+        f"| csv_range={start_idx}-{end_idx} ({len(csv_image_paths)} images) | csv={csv_out}"
     )
     print(f"Verified {len(image_paths)} HR image(s) in {hr_dir}")
     print(f"Saved {len(sheets)} contact sheet PNG(s) in {output_dir}:")
