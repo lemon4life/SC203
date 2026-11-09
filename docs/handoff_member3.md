@@ -101,34 +101,69 @@ python scripts/check_text_boxes.py \
 
 ---
 
-## 4. Task B (Sunday Night): Check OCR on Sharp `test_HR` Crops (`scripts/ocr_check_hr.py`)
+## 4. Task B (Can Run Right Now!): Check OCR on Sharp `test_HR` Crops (`scripts/ocr_check_hr.py`)
+
+> **Update:** Your `data/text_boxes_realsr_nikon.csv` (`6b4cca6`) is **merged and verified** (`50` Nikon images, `15` images with readable text, `143` `readable=yes` boxes, `0` errors; also saved as `data/text_boxes_realsr_m3.csv`). You do **not** need to wait for Member 2 to run Task B and Task C — run them right now on `data/text_boxes_realsr_m3.csv`!
 
 Why this matters: If the OCR tool cannot even read the sharp ground-truth `test_HR` crops, then its scores on DoSSR outputs are meaningless.
 1. Install `rapidocr-onnxruntime` (and optionally `easyocr` to compare):
    ```bash
    pip install rapidocr-onnxruntime
    ```
-2. Run `scripts/ocr_check_hr.py` (added in Group 2) on `data/text_boxes_realsr.csv` (or your `_m3.csv` first) across `--upscale 1`, `2`, and `4`:
+2. Run `scripts/ocr_check_hr.py` on `data/text_boxes_realsr_m3.csv` (and later on the merged `data/text_boxes_realsr.csv`) across `--upscale 1`, `2`, and `4`:
    ```bash
    python scripts/ocr_check_hr.py \
-     --boxes-csv "data/text_boxes_realsr.csv" \
+     --boxes-csv "data/text_boxes_realsr_m3.csv" \
+     --hr-dir "<PATH_TO_TEST_HR>" \
+     --ocr-backend rapidocr \
+     --upscale 1 \
+     --output-csv "outputs/ocr_check_hr_rapidocr_x1.csv"
+
+   python scripts/ocr_check_hr.py \
+     --boxes-csv "data/text_boxes_realsr_m3.csv" \
      --hr-dir "<PATH_TO_TEST_HR>" \
      --ocr-backend rapidocr \
      --upscale 2 \
      --output-csv "outputs/ocr_check_hr_rapidocr_x2.csv"
+
+   python scripts/ocr_check_hr.py \
+     --boxes-csv "data/text_boxes_realsr_m3.csv" \
+     --hr-dir "<PATH_TO_TEST_HR>" \
+     --ocr-backend rapidocr \
+     --upscale 4 \
+     --output-csv "outputs/ocr_check_hr_rapidocr_x4.csv"
    ```
-3. Report to the team on Sunday night: which `--ocr-backend` (`rapidocr` or `easyocr`) and which `--upscale` (`1`, `2`, or `4`) read the highest number of `test_HR` boxes **exactly right** (`exact_right / total_boxes`).
+- **Success signal:** Each command prints:
+  `OCR HR CHECK DONE | backend=rapidocr | upscale=<1|2|4>x | exact_right=<K>/<N> (...) | exact_case_sensitive=... | box_mean_cer=... | csv=...`
+- Report in chat: which `--ocr-backend` (`rapidocr` or `easyocr`) and which `--upscale` (`1`, `2`, or `4`) read the highest number of `test_HR` boxes **exactly right** (`exact_right / 143`).
 
 ---
 
-## 5. Task C (Monday Before 12:00): Smoke-Test `scripts/text_eval.py` on `seed_42`
+## 5. Task C (Can Run Right Now!): Smoke-Test `scripts/text_eval.py` on `seed_42`
 
-Run `scripts/text_eval.py` on `seed_42` (`--seeds 42`) of the default-prompt 10-seed folder (`/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`) to make sure it runs cleanly and help Member 2 debug any issue.
+All 2,000 10-seed images are already generated on shared Google Drive:
+- Default prompt: `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`
+- Empty prompt: `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-empty-prompt-sdpa-off-fp16`
+
+Run `scripts/text_eval.py` on `seed_42` (`--seeds 42`) using your Nikon CSV (`data/text_boxes_realsr_m3.csv`), including `--hr-dir` (HR ceiling) and `--lr-dir` (bicubic $\times 4$ floor):
+```bash
+python scripts/text_eval.py \
+  --study-root "<DEFAULT_10SEED_ROOT>" \
+  --compare-study-root "<EMPTY_10SEED_ROOT>" \
+  --hr-dir "<PATH_TO_TEST_HR>" \
+  --lr-dir "<PATH_TO_TEST_LR>" \
+  --boxes-csv "data/text_boxes_realsr_m3.csv" \
+  --ocr-backend rapidocr \
+  --upscale 2 \
+  --seeds 42 \
+  --output-dir "outputs/text_eval_nikon_seed42"
+```
+- **Success signal:** Prints `HR CEILING`, `BICUBIC x4 FLOOR`, `TEXT EVAL SUMMARY`, and `PAIRED COMPARISON`, and writes the 5 summary CSVs into `outputs/text_eval_nikon_seed42/`.
 
 **What to Send Back to Member 1 (Nguyên Anh):**
-1. **Sun `21:00`:** `data/text_boxes_realsr_m3.csv` + the `CHECK PASSED` line from `scripts/check_text_boxes.py` (how many images out of `51–100` have `readable=yes` text).
-2. **Sun night:** The output of `scripts/ocr_check_hr.py` (`exact_right / total_boxes` for `1x`, `2x`, `4x`), the output CSV, and your recommended OCR backend + upscale factor.
-3. **Mon `12:00`:** Confirmation that `scripts/text_eval.py` succeeded on `seed_42` (or full traceback if any error occurred).
+1. **Task A (`data/text_boxes_realsr_nikon.csv`):** **DONE & MERGED (`15` readable images, `143` boxes, `0` errors).**
+2. **Task B:** The 3 `OCR HR CHECK DONE` lines (`1x`, `2x`, `4x`), the output CSVs, and your recommended `--ocr-backend` + `--upscale` factor.
+3. **Task C:** Confirmation that `scripts/text_eval.py --seeds 42` succeeded (plus its output lines, or full traceback if any error occurred).
 
 ---
 

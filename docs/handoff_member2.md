@@ -164,16 +164,30 @@ Once Member 1 sends you the merged `data/text_boxes_realsr.csv` (Sun `21:30`) an
      `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`
    - **Empty prompt (`""`):**
      `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-empty-prompt-sdpa-off-fp16`
-3. **Test on 1 seed (`seed_42`) first, then run on all 10 seeds (`42..51`):**
-   Replace `<DEFAULT_10SEED_ROOT>` and `<EMPTY_10SEED_ROOT>` with your local or Drive paths to the two folders above:
+3. **Test on 1 seed (`--seeds 42`) first, then run on all 10 seeds (`42..51`) with HR ceiling (`--hr-dir`) and bicubic floor (`--lr-dir`):**
+   Replace `<DEFAULT_10SEED_ROOT>`, `<EMPTY_10SEED_ROOT>`, `<PATH_TO_TEST_HR>`, and `<PATH_TO_TEST_LR>` with your local or Drive paths (and set `--upscale` to the value Member 3 recommends from `ocr_check_hr.py`, e.g. `1`, `2`, or `4`):
    ```bash
+   # Step A: Quick 1-seed smoke test on seed_42
+   python scripts/text_eval.py \
+     --study-root "<DEFAULT_10SEED_ROOT>" \
+     --boxes-csv "data/text_boxes_realsr.csv" \
+     --ocr-backend rapidocr \
+     --upscale 2 \
+     --seeds 42 \
+     --output-dir "outputs/text_eval_smoke_seed42"
+
+   # Step B: Full 10-seed evaluation (default vs empty + HR ceiling + bicubic x4 floor)
    python scripts/text_eval.py \
      --study-root "<DEFAULT_10SEED_ROOT>" \
      --compare-study-root "<EMPTY_10SEED_ROOT>" \
+     --hr-dir "<PATH_TO_TEST_HR>" \
+     --lr-dir "<PATH_TO_TEST_LR>" \
      --boxes-csv "data/text_boxes_realsr.csv" \
-     --ocr-backend rapidocr
+     --ocr-backend rapidocr \
+     --upscale 2 \
+     --output-dir "outputs/text_eval_10seed"
    ```
-   - **Success signal:** Prints the summary table (`wrong_char_rate`, `CER`, `cross_seed_disagreement` aggregated with **IMAGE** as the statistical unit, plus paired `(image, seed)` comparison) and writes `text_eval_per_box_seed.csv`, `text_eval_summary_by_image.csv`, and `text_eval_paired_comparison.csv`.
+   - **Success signal:** Prints `HR CEILING`, `BICUBIC x4 FLOOR`, `TEXT EVAL SUMMARY`, and `PAIRED COMPARISON`, and writes `text_eval_per_box_seed.csv`, `text_eval_summary_by_image.csv`, `text_eval_paired_comparison_by_image.csv`, `text_eval_hr_ceiling_by_image.csv`, and `text_eval_bicubic_floor_by_image.csv` inside `--output-dir`.
 
 ---
 
@@ -183,5 +197,5 @@ Once Member 1 sends you the merged `data/text_boxes_realsr.csv` (Sun `21:30`) an
    - Your validated `data/text_boxes_realsr_m2.csv` (upload to shared Drive or send in chat).
    - The `CHECK PASSED` line from `scripts/check_text_boxes.py` showing `images_with_readable_text` and `readable_yes_boxes` in images `1–50`.
 2. **By Monday `09/11 15:00`:**
-   - The terminal output and generated CSV files (`text_eval_per_box_seed.csv`, `text_eval_summary_by_image.csv`, `text_eval_paired_comparison.csv`) from `scripts/text_eval.py`.
+   - The terminal output and generated CSV files (`text_eval_per_box_seed.csv`, `text_eval_summary_by_image.csv`, `text_eval_paired_comparison_by_image.csv`, `text_eval_hr_ceiling_by_image.csv`, `text_eval_bicubic_floor_by_image.csv`) from `scripts/text_eval.py`.
 3. **If any command fails:** Send the **exact command** you ran and the **full error traceback** immediately in chat.

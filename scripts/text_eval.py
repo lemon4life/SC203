@@ -4,6 +4,9 @@
 Designed for CPU or GPU execution on Windows, macOS, or Google Colab with no hard-coded /content paths.
 - Keeps the OCR backend choice in ONE place (DEFAULT_OCR_BACKEND / run_ocr_on_crop).
 - Uses the exact same text normalization rules defined in docs/handoff_member2.md.
+- Supports optional --upscale {1,2,4} to bicubic-enlarge each text crop before OCR.
+- Supports optional --seeds (for example --seeds 42) to smoke-test on a subset of seeds.
+- Supports optional --hr-dir (HR ceiling on test_HR crops) and --lr-dir (bicubic x4 floor on test_LR crops).
 - Treats the IMAGE as the primary unit of statistical analysis (the 10 seeds of one image are not independent)
   and pairs comparisons on (image, seed) pairs when --compare-study-root is provided.
 """
@@ -28,6 +31,7 @@ CSV_HEADER = ["image", "box_id", "x", "y", "w", "h", "transcript", "readable"]
 # ============================================================================
 DEFAULT_OCR_BACKEND = "rapidocr"
 VALID_OCR_BACKENDS = ("rapidocr", "easyocr", "tesseract")
+VALID_UPSCALE_FACTORS = (1, 2, 4)
 _OCR_ENGINE_CACHE: dict[str, Any] = {}
 
 
@@ -68,6 +72,17 @@ def levenshtein_distance(a: str, b: str) -> int:
 def compute_cer(pred: str, gt: str) -> float:
     """Compute Character Error Rate: edit_distance(pred, gt) / max(1, len(gt))."""
     return float(levenshtein_distance(pred, gt)) / float(max(1, len(gt)))
+
+
+def crop_and_upscale(rgb_img: Any, x: int, y: int, w: int, h: int, upscale: int = 1) -> Any:
+    """Crop (x, y, x+w, y+h) from a PIL RGB image and optionally bicubic-enlarge by upscale."""
+    from PIL import Image
+
+    crop = rgb_img.crop((x, y, x + w, y + h))
+    if upscale > 1:
+        resample = getattr(Image, "Resampling", Image).BICUBIC
+        crop = crop.resize((w * upscale, h * upscale), resample=resample)
+    return crop
 
 
 def get_ocr_engine(backend: str, device: str = "cpu") -> Any:
@@ -123,7 +138,6 @@ def run_ocr_on_crop(crop_pil: Any, *, backend: str, device: str = "cpu") -> str:
         result, _ = engine(arr)
         if not result:
             return ""
-        # Sort detected boxes left-to-right / top-to-bottom and join text spans
         texts = [str(item[1]) for item in result if len(item) >= 2 and item[1]]
         return " ".join(texts)
 
@@ -135,7 +149,6 @@ def run_ocr_on_crop(crop_pil: Any, *, backend: str, device: str = "cpu") -> str:
         return " ".join(str(t) for t in texts if t)
 
     if backend == "tesseract":
-        # PSM 7 treats the cropped box as a single text line
         text = engine.image_to_string(rgb, config="--psm 7")
         return str(text or "").strip()
 
@@ -197,7 +210,10 @@ def load_readable_boxes(csv_path: Path) -> list[dict[str, Any]]:
     return boxes
 
 
-def discover_seed_dirs(study_root: Path) -> list[tuple[int, Path]]:
+def discover_seed_dirs(
+    study_root: Path,
+    selected_seeds: set[int] | None = None,
+) -> list[tuple[int, Path]]:
     if not study_root.is_dir():
         raise FileNotFoundError(f"Study root not found: {study_root}")
     seed_dirs: list[tuple[int, Path]] = []
@@ -205,10 +221,22 @@ def discover_seed_dirs(study_root: Path) -> list[tuple[int, Path]]:
         if child.is_dir() and child.name.startswith("seed_"):
             suffix = child.name.removeprefix("seed_")
             if suffix.isdigit():
-                seed_dirs.append((int(suffix), child))
+                seed_num = int(suffix)
+                if selected_seeds is None or seed_num in selected_seeds:
+                    seed_dirs.append((seed_num, child))
     seed_dirs.sort(key=lambda item: item[0])
     if not seed_dirs:
-        raise ValueError(f"No seed_<N> directories found in {study_root}")
+        raise ValueError(
+            f"No matching seed_<N> directories found in {study_root} "
+            f"(selected_seeds={sorted(selected_seeds) if selected_seeds else 'all'})"
+        )
+    if selected_seeds is not None:
+        found_seeds = {s for s, _ in seed_dirs}
+        missing = sorted(selected_seeds - found_seeds)
+        if missing:
+            raise FileNotFoundError(
+                f"Requested --seeds {missing} not found under {study_root} (found {sorted(found_seeds)})"
+            )
     return seed_dirs
 
 
@@ -225,6 +253,102 @@ def resolve_pred_image(seed_dir: Path, stem: str) -> Path:
     )
 
 
+def evaluate_single_folder_reference(
+    folder_path: Path,
+    boxes: list[dict[str, Any]],
+    *,
+    ocr_backend: str,
+    device: str,
+    expected_hr_size: int = 512,
+    upscale_crop: int = 1,
+    pre_upscale_image_to: int | None = None,
+    reference_label: str = "HR_CEILING",
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Evaluate a single reference folder (test_HR ceiling or test_LR x4 bicubic floor)."""
+    from PIL import Image
+
+    if not folder_path.is_dir():
+        raise FileNotFoundError(f"{reference_label} directory not found: {folder_path}")
+
+    per_box_rows: list[dict[str, Any]] = []
+    for box in boxes:
+        image_name = box["image"]
+        stem = box["stem"]
+        bid = box["box_id"]
+        x, y, w, h = box["x"], box["y"], box["w"], box["h"]
+        gt_raw = box["transcript"]
+        gt_norm = normalize_text(gt_raw, case_sensitive=False)
+        gt_cs = normalize_text(gt_raw, case_sensitive=True)
+
+        img_path = folder_path / image_name
+        if not img_path.is_file():
+            img_path = resolve_pred_image(folder_path, stem)
+
+        with Image.open(img_path) as im:
+            rgb = im.convert("RGB")
+            if pre_upscale_image_to is not None and rgb.size != (pre_upscale_image_to, pre_upscale_image_to):
+                resample = getattr(Image, "Resampling", Image).BICUBIC
+                rgb = rgb.resize((pre_upscale_image_to, pre_upscale_image_to), resample=resample)
+            if expected_hr_size > 0 and rgb.size != (expected_hr_size, expected_hr_size):
+                raise ValueError(
+                    f"{reference_label} image {img_path} has size {rgb.size}, expected {(expected_hr_size, expected_hr_size)}"
+                )
+            crop = crop_and_upscale(rgb, x, y, w, h, upscale=upscale_crop)
+
+        raw_ocr = run_ocr_on_crop(crop, backend=ocr_backend, device=device)
+        pred_norm = normalize_text(raw_ocr, case_sensitive=False)
+        pred_cs = normalize_text(raw_ocr, case_sensitive=True)
+
+        wrong_char = 0 if pred_norm == gt_norm else 1
+        wrong_char_cs = 0 if pred_cs == gt_cs else 1
+        cer = compute_cer(pred_norm, gt_norm)
+        cer_cs = compute_cer(pred_cs, gt_cs)
+
+        per_box_rows.append(
+            {
+                "reference": reference_label,
+                "image": image_name,
+                "stem": stem,
+                "box_id": bid,
+                "x": x,
+                "y": y,
+                "w": w,
+                "h": h,
+                "crop_upscale": upscale_crop,
+                "gt_transcript": gt_raw,
+                "gt_norm": gt_norm,
+                "ocr_raw": raw_ocr,
+                "ocr_norm": pred_norm,
+                "exact_match": 1 - wrong_char,
+                "wrong_char": wrong_char,
+                "wrong_char_yes_no": "yes" if wrong_char else "no",
+                "cer": cer,
+                "wrong_char_case_sensitive": wrong_char_cs,
+                "cer_case_sensitive": cer_cs,
+            }
+        )
+
+    rows_by_image: dict[str, list[dict[str, Any]]] = {}
+    for row in per_box_rows:
+        rows_by_image.setdefault(row["stem"], []).append(row)
+
+    image_summary_rows: list[dict[str, Any]] = []
+    for stem in sorted(rows_by_image):
+        img_rows = rows_by_image[stem]
+        image_summary_rows.append(
+            {
+                "reference": reference_label,
+                "image": img_rows[0]["image"],
+                "stem": stem,
+                "num_boxes": len(img_rows),
+                "crop_upscale": upscale_crop,
+                "wrong_char_rate": sum(r["wrong_char"] for r in img_rows) / len(img_rows),
+                "cer_mean": sum(r["cer"] for r in img_rows) / len(img_rows),
+            }
+        )
+    return per_box_rows, image_summary_rows
+
+
 def evaluate_study(
     study_root: Path,
     boxes: list[dict[str, Any]],
@@ -232,12 +356,14 @@ def evaluate_study(
     ocr_backend: str,
     device: str,
     expected_size: int,
+    upscale_crop: int = 1,
+    selected_seeds: set[int] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Evaluate all (box, seed) crops and aggregate to image level."""
     import numpy as np
     from PIL import Image
 
-    seed_dirs = discover_seed_dirs(study_root)
+    seed_dirs = discover_seed_dirs(study_root, selected_seeds=selected_seeds)
     per_box_seed_rows: list[dict[str, Any]] = []
     crops_by_box: dict[tuple[str, int], list[Any]] = {}
     preds_by_box: dict[tuple[str, int], list[str]] = {}
@@ -261,10 +387,11 @@ def evaluate_study(
                         f"Output image {img_path} has size {im.size}, expected {(expected_size, expected_size)}"
                     )
                 rgb = im.convert("RGB")
-                crop = rgb.crop((x, y, x + w, y + h))
-                crop_arr = np.asarray(crop, dtype=np.float32)
+                raw_crop = rgb.crop((x, y, x + w, y + h))
+                crop_arr = np.asarray(raw_crop, dtype=np.float32)
+                ocr_crop = crop_and_upscale(rgb, x, y, w, h, upscale=upscale_crop)
 
-            raw_ocr = run_ocr_on_crop(crop, backend=ocr_backend, device=device)
+            raw_ocr = run_ocr_on_crop(ocr_crop, backend=ocr_backend, device=device)
             pred_norm = normalize_text(raw_ocr, case_sensitive=False)
             pred_cs = normalize_text(raw_ocr, case_sensitive=True)
 
@@ -286,6 +413,7 @@ def evaluate_study(
                     "y": y,
                     "w": w,
                     "h": h,
+                    "crop_upscale": upscale_crop,
                     "gt_transcript": gt_raw,
                     "gt_norm": gt_norm,
                     "ocr_raw": raw_ocr,
@@ -345,6 +473,7 @@ def evaluate_study(
                 "stem": stem,
                 "num_boxes": len(box_ids),
                 "num_seeds": len(seed_dirs),
+                "crop_upscale": upscale_crop,
                 "wrong_char_rate": mean_wrong,
                 "cer_mean": mean_cer,
                 "ocr_seed_disagreement_rate": mean_disagree,
@@ -377,6 +506,21 @@ def mean_and_se(values: list[float]) -> tuple[float, float]:
     return m, math.sqrt(var / len(values))
 
 
+def parse_seeds_arg(seeds_arg: list[str] | None) -> set[int] | None:
+    if not seeds_arg:
+        return None
+    seeds: set[int] = set()
+    for token in seeds_arg:
+        for part in token.split(","):
+            p = part.strip()
+            if not p:
+                continue
+            if not p.isdigit():
+                raise ValueError(f"Invalid seed in --seeds: {p!r}")
+            seeds.add(int(p))
+    return seeds or None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -398,10 +542,35 @@ def main() -> int:
         help="Optional second seed study root for paired (image, seed) comparison (e.g., empty vs default prompt)",
     )
     parser.add_argument(
+        "--hr-dir",
+        type=Path,
+        default=None,
+        help="Optional path to test_HR (512x512) to compute the HR ceiling reference scores on ground-truth crops",
+    )
+    parser.add_argument(
+        "--lr-dir",
+        type=Path,
+        default=None,
+        help="Optional path to test_LR (128x128) to compute the bicubic x4 floor reference scores",
+    )
+    parser.add_argument(
         "--ocr-backend",
         choices=VALID_OCR_BACKENDS,
         default=DEFAULT_OCR_BACKEND,
         help=f"OCR backend (default: {DEFAULT_OCR_BACKEND})",
+    )
+    parser.add_argument(
+        "--upscale",
+        type=int,
+        choices=VALID_UPSCALE_FACTORS,
+        default=1,
+        help="Bicubic upscale factor applied to each text crop before OCR (1, 2, or 4; default: 1)",
+    )
+    parser.add_argument(
+        "--seeds",
+        nargs="+",
+        default=None,
+        help="Optional seed filter (e.g. --seeds 42 or --seeds 42,43) to evaluate a subset of seeds",
     )
     parser.add_argument(
         "--device",
@@ -425,14 +594,74 @@ def main() -> int:
     study_root = args.study_root.expanduser().resolve()
     boxes_csv = args.boxes_csv.expanduser().resolve()
     out_dir = (args.output_dir or study_root).expanduser().resolve()
+    selected_seeds = parse_seeds_arg(args.seeds)
 
     boxes = load_readable_boxes(boxes_csv)
+
+    if args.hr_dir is not None:
+        hr_dir = args.hr_dir.expanduser().resolve()
+        hr_box_rows, hr_img_rows = evaluate_single_folder_reference(
+            hr_dir,
+            boxes,
+            ocr_backend=args.ocr_backend,
+            device=args.device,
+            expected_hr_size=args.expected_size,
+            upscale_crop=args.upscale,
+            pre_upscale_image_to=None,
+            reference_label="HR_CEILING",
+        )
+        hr_box_csv = out_dir / "text_eval_hr_ceiling_per_box.csv"
+        hr_img_csv = out_dir / "text_eval_hr_ceiling_by_image.csv"
+        write_csv_dicts(hr_box_csv, hr_box_rows)
+        write_csv_dicts(hr_img_csv, hr_img_rows)
+        hr_wrong_m, hr_wrong_se = mean_and_se([r["wrong_char_rate"] for r in hr_img_rows])
+        hr_cer_m, hr_cer_se = mean_and_se([r["cer_mean"] for r in hr_img_rows])
+        exact_boxes = sum(r["exact_match"] for r in hr_box_rows)
+        print(
+            f"HR CEILING (test_HR, unit = IMAGE, n_images={len(hr_img_rows)}, "
+            f"boxes_exact={exact_boxes}/{len(hr_box_rows)}, backend={args.ocr_backend}, upscale={args.upscale}x)"
+        )
+        print(f"  Share with >=1 wrong char : {hr_wrong_m:.4f} +/- {hr_wrong_se:.4f} (SE across images)")
+        print(f"  Character Error Rate (CER): {hr_cer_m:.4f} +/- {hr_cer_se:.4f} (SE across images)")
+        print(f"  Wrote: {hr_box_csv}")
+        print(f"  Wrote: {hr_img_csv}\n")
+
+    if args.lr_dir is not None:
+        lr_dir = args.lr_dir.expanduser().resolve()
+        lr_box_rows, lr_img_rows = evaluate_single_folder_reference(
+            lr_dir,
+            boxes,
+            ocr_backend=args.ocr_backend,
+            device=args.device,
+            expected_hr_size=args.expected_size,
+            upscale_crop=args.upscale,
+            pre_upscale_image_to=args.expected_size if args.expected_size > 0 else 512,
+            reference_label="BICUBIC_X4_FLOOR",
+        )
+        lr_box_csv = out_dir / "text_eval_bicubic_floor_per_box.csv"
+        lr_img_csv = out_dir / "text_eval_bicubic_floor_by_image.csv"
+        write_csv_dicts(lr_box_csv, lr_box_rows)
+        write_csv_dicts(lr_img_csv, lr_img_rows)
+        lr_wrong_m, lr_wrong_se = mean_and_se([r["wrong_char_rate"] for r in lr_img_rows])
+        lr_cer_m, lr_cer_se = mean_and_se([r["cer_mean"] for r in lr_img_rows])
+        exact_boxes = sum(r["exact_match"] for r in lr_box_rows)
+        print(
+            f"BICUBIC x4 FLOOR (test_LR -> 512x512, unit = IMAGE, n_images={len(lr_img_rows)}, "
+            f"boxes_exact={exact_boxes}/{len(lr_box_rows)}, backend={args.ocr_backend}, upscale={args.upscale}x)"
+        )
+        print(f"  Share with >=1 wrong char : {lr_wrong_m:.4f} +/- {lr_wrong_se:.4f} (SE across images)")
+        print(f"  Character Error Rate (CER): {lr_cer_m:.4f} +/- {lr_cer_se:.4f} (SE across images)")
+        print(f"  Wrote: {lr_box_csv}")
+        print(f"  Wrote: {lr_img_csv}\n")
+
     per_seed_rows, image_rows = evaluate_study(
         study_root,
         boxes,
         ocr_backend=args.ocr_backend,
         device=args.device,
         expected_size=args.expected_size,
+        upscale_crop=args.upscale,
+        selected_seeds=selected_seeds,
     )
 
     per_seed_csv = out_dir / "text_eval_per_box_seed.csv"
@@ -446,7 +675,8 @@ def main() -> int:
     dis_m, dis_se = mean_and_se([r["ocr_seed_disagreement_rate"] for r in image_rows])
 
     print(
-        f"TEXT EVAL SUMMARY (unit = IMAGE, n_images={n_img}, boxes={len(boxes)}, backend={args.ocr_backend})"
+        f"TEXT EVAL SUMMARY (unit = IMAGE, n_images={n_img}, boxes={len(boxes)}, "
+        f"backend={args.ocr_backend}, upscale={args.upscale}x)"
     )
     print(f"  Share with >=1 wrong char : {wrong_m:.4f} +/- {wrong_se:.4f} (SE across images)")
     print(f"  Character Error Rate (CER): {cer_m:.4f} +/- {cer_se:.4f} (SE across images)")
@@ -462,8 +692,9 @@ def main() -> int:
             ocr_backend=args.ocr_backend,
             device=args.device,
             expected_size=args.expected_size,
+            upscale_crop=args.upscale,
+            selected_seeds=selected_seeds,
         )
-        # Pair on exact (stem, box_id, seed) first, then average within each IMAGE (unit of analysis)
         base_map = {(r["stem"], r["box_id"], r["seed"]): r for r in per_seed_rows}
         comp_map = {(r["stem"], r["box_id"], r["seed"]): r for r in comp_seed_rows}
         shared_keys = sorted(set(base_map).intersection(comp_map))
