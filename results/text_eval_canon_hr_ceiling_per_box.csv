@@ -1,0 +1,51 @@
+reference,image,stem,box_id,x,y,w,h,crop_upscale,gt_transcript,gt_norm,ocr_raw,ocr_norm,exact_match,wrong_char,wrong_char_yes_no,cer,wrong_char_case_sensitive,cer_case_sensitive
+HR_CEILING,Canon_001_LR4.png,Canon_001_LR4,1,320,38,192,48,2,eduroam,eduroam,S ( @aae eduroam,s ( @aae eduroam,0,1,yes,1.2857142857142858,1,1.2857142857142858
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,1,55,18,130,32,2,SIEMENS,siemens,SIEMENS,siemens,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,2,330,18,125,32,2,SIEMENS,siemens,SIEMENS,siemens,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,3,195,123,117,27,2,SIEMENS,siemens,SIEMENS,siemens,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,4,55,218,54,26,2,Ying,ying,Ying,ying,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,5,112,218,57,26,2,Feng,feng,Feng,feng,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,6,331,215,54,25,2,Ying,ying,Ying,ying,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,7,386,215,57,25,2,Feng,feng,Feng,feng,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,8,195,318,54,27,2,Ying,ying,Ying,ying,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,9,250,318,57,27,2,Feng,feng,Feng,feng,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,10,65,412,83,23,2,Building,building,Building,building,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,11,65,430,100,25,2,Diagnostic,diagnostic,Diagnosue,diagnosue,0,1,yes,0.3,1,0.3
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,12,65,450,115,25,2,Consultants,consultants,Consultants,consultants,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,13,340,408,82,24,2,Building,building,Building,building,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,14,340,428,101,24,2,Diagnostic,diagnostic,Diagnostc,diagnostc,0,1,yes,0.1,1,0.1
+HR_CEILING,Canon_002_LR4.png,Canon_002_LR4,15,340,445,115,25,2,Consultants,consultants,Consultants,consultants,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,1,10,40,233,80,2,Wonton,wonton,Wonton,wonton,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,2,256,38,139,80,2,with,with,with,with,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,3,404,51,107,70,2,por,por,por,por,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,4,10,135,239,80,2,Sausage,sausage,Sausage,sausage,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,5,10,240,310,78,2,Dumpling,dumpling,Dumplingg,dumplingg,0,1,yes,0.125,1,0.125
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,6,10,330,150,75,2,Beef,beef,Beef,beef,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,7,170,324,210,80,2,brisket,brisket,brisket,brisket,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,8,10,424,105,80,2,Pig,pig,Pig,pig,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_003_LR4.png,Canon_003_LR4,9,120,420,135,80,2,skin,skin,skin,skin,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_004_LR4.png,Canon_004_LR4,1,140,180,220,95,2,5500,5500,5500,5500,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_004_LR4.png,Canon_004_LR4,2,410,161,102,93,2,47,47,47,47,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_004_LR4.png,Canon_004_LR4,3,55,315,95,80,2,WE,we,WE,we,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_004_LR4.png,Canon_004_LR4,4,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_004_LR4.png,Canon_004_LR4,5,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_009_LR4.png,Canon_009_LR4,1,18,155,55,40,2,3rd,3rd,3rd,3rd,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_009_LR4.png,Canon_009_LR4,2,68,138,93,45,2,Waterfall,waterfall,Watertall |,watertall,0,1,yes,0.1111111111111111,1,0.1111111111111111
+HR_CEILING,Canon_009_LR4.png,Canon_009_LR4,3,50,443,46,40,2,gyo,gyo,SyO [,syo,0,1,yes,0.3333333333333333,1,0.6666666666666666
+HR_CEILING,Canon_009_LR4.png,Canon_009_LR4,4,90,420,70,45,2,Bridge,bridge,"Bridse,",bridse,0,1,yes,0.16666666666666666,1,0.16666666666666666
+HR_CEILING,Canon_045_LR4.png,Canon_045_LR4,1,35,270,55,48,2,10,10,10,10,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_045_LR4.png,Canon_045_LR4,2,435,260,55,48,2,36,36,36,36,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_046_LR4.png,Canon_046_LR4,1,6,45,70,20,2,Camille,camille,Camille,camille,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_046_LR4.png,Canon_046_LR4,2,76,45,80,20,2,Pissarro,pissarro,"Pissatio,",pissatio,0,1,yes,0.25,1,0.25
+HR_CEILING,Canon_046_LR4.png,Canon_046_LR4,3,157,45,47,20,2,1830,1830,18305,18305,0,1,yes,0.25,1,0.25
+HR_CEILING,Canon_046_LR4.png,Canon_046_LR4,4,216,45,47,20,2,1903,1903,1903,1903,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_047_LR4.png,Canon_047_LR4,1,145,55,30,35,2,3,3,3,3,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_047_LR4.png,Canon_047_LR4,2,320,55,30,35,2,2,2,2,2,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_048_LR4.png,Canon_048_LR4,1,236,410,76,20,2,Europaische,europaische,Europuiecha,europuiecha,0,1,yes,0.2727272727272727,1,0.2727272727272727
+HR_CEILING,Canon_048_LR4.png,Canon_048_LR4,2,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,Gcidte Beechichtc,gcidte beechichtc,0,1,yes,0.35294117647058826,1,0.35294117647058826
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,1,225,165,140,40,2,MARTINI,martini,MARTIN,martin,0,1,yes,0.14285714285714285,1,0.14285714285714285
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,2,0,255,120,100,2,664,664,504,504,0,1,yes,0.6666666666666666,1,0.6666666666666666
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,3,30,143,53,18,2,BLANCHE,blanche,BLANCAE,blancae,0,1,yes,0.14285714285714285,1,0.14285714285714285
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,4,2,160,47,18,2,WHEAT,wheat,WHEAT,wheat,1,0,no,0.0,0,0.0
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,5,49,160,30,17,2,BEER,beer,Beet,beet,0,1,yes,0.25,1,0.75
+HR_CEILING,Canon_050_LR4.png,Canon_050_LR4,6,235,215,65,40,2,ITALIA,italia,VTAIA,vtaia,0,1,yes,0.3333333333333333,1,0.3333333333333333

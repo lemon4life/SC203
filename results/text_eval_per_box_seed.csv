@@ -1,0 +1,1931 @@
+image,stem,box_id,seed,x,y,w,h,crop_upscale,gt_transcript,gt_norm,ocr_raw,ocr_norm,wrong_char,wrong_char_yes_no,cer,wrong_char_case_sensitive,cer_case_sensitive
+Canon_001_LR4.png,Canon_001_LR4,1,42,320,38,192,48,2,eduroam,eduroam,{n L N W D L odureani,n l n w d l odureani,1,yes,2.2857142857142856,1,2.2857142857142856
+Canon_001_LR4.png,Canon_001_LR4,1,43,320,38,192,48,2,eduroam,eduroam,eaneEd D ] aduronm,eaneed d ] aduronm,1,yes,1.7142857142857142,1,1.7142857142857142
+Canon_001_LR4.png,Canon_001_LR4,1,44,320,38,192,48,2,eduroam,eduroam,R( 4 4 4 = W L odareum,r( 4 4 4 = w l odareum,1,yes,2.7142857142857144,1,2.7142857142857144
+Canon_001_LR4.png,Canon_001_LR4,1,45,320,38,192,48,2,eduroam,eduroam,4eaE oduroant,4eae oduroant,1,yes,1.0,1,1.0
+Canon_001_LR4.png,Canon_001_LR4,1,46,320,38,192,48,2,eduroam,eduroam,YS U G1 _ 0 edureain,ys u g1 _ 0 edureain,1,yes,2.142857142857143,1,2.142857142857143
+Canon_001_LR4.png,Canon_001_LR4,1,47,320,38,192,48,2,eduroam,eduroam,Tey  36d cduroniv,tey 36d cduroniv,1,yes,1.5714285714285714,1,1.5714285714285714
+Canon_001_LR4.png,Canon_001_LR4,1,48,320,38,192,48,2,eduroam,eduroam,Vnee adaroam,vnee adaroam,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_001_LR4.png,Canon_001_LR4,1,49,320,38,192,48,2,eduroam,eduroam,L/ Uuue odoroam,l/ uuue odoroam,1,yes,1.2857142857142858,1,1.2857142857142858
+Canon_001_LR4.png,Canon_001_LR4,1,50,320,38,192,48,2,eduroam,eduroam,3t L odaroain,3t l odaroain,1,yes,1.2857142857142858,1,1.2857142857142858
+Canon_001_LR4.png,Canon_001_LR4,1,51,320,38,192,48,2,eduroam,eduroam,Rne/E aduronm,rne/e aduronm,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,42,55,18,130,32,2,SIEMENS,siemens,PAMENL,pamenl,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_002_LR4.png,Canon_002_LR4,1,43,55,18,130,32,2,SIEMENS,siemens,SlMlE ],slmle,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,44,55,18,130,32,2,SIEMENS,siemens,EALMMTA,ealmmta,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,45,55,18,130,32,2,SIEMENS,siemens,fUMO,fumo,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,46,55,18,130,32,2,SIEMENS,siemens,DUNLA,dunla,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,47,55,18,130,32,2,SIEMENS,siemens,E:NAA,e:naa,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,48,55,18,130,32,2,SIEMENS,siemens,EIMILL,eimill,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,49,55,18,130,32,2,SIEMENS,siemens,BJ}T<,bj}t,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,50,55,18,130,32,2,SIEMENS,siemens,DIMDHO,dimdho,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,51,55,18,130,32,2,SIEMENS,siemens,51433,51433,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,42,330,18,125,32,2,SIEMENS,siemens,MAMLAY,mamlay,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,43,330,18,125,32,2,SIEMENS,siemens,ELME],elme,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,44,330,18,125,32,2,SIEMENS,siemens,EcLME 4,eclme 4,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,45,330,18,125,32,2,SIEMENS,siemens,TLMOC,tlmoc,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,46,330,18,125,32,2,SIEMENS,siemens,DNJL/ L,dnjl/ l,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,47,330,18,125,32,2,SIEMENS,siemens,B:ITA,b:ita,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,48,330,18,125,32,2,SIEMENS,siemens,PIM-Tl,pim-tl,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,49,330,18,125,32,2,SIEMENS,siemens,BSA[EA,bsa[ea,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,50,330,18,125,32,2,SIEMENS,siemens,M4MZIO,m4mzio,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,51,330,18,125,32,2,SIEMENS,siemens,54Ia4,54ia4,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,42,195,123,117,27,2,SIEMENS,siemens,MMLAI,mmlai,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,43,195,123,117,27,2,SIEMENS,siemens,EiA,eia,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,44,195,123,117,27,2,SIEMENS,siemens,ESMTa,esmta,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,45,195,123,117,27,2,SIEMENS,siemens,fxmoz,fxmoz,1,yes,0.8571428571428571,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,46,195,123,117,27,2,SIEMENS,siemens,DANLS,danls,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,47,195,123,117,27,2,SIEMENS,siemens,BavChl,bavchl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,48,195,123,117,27,2,SIEMENS,siemens,PINIITI,piniiti,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,49,195,123,117,27,2,SIEMENS,siemens,KHS41S,khs41s,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,50,195,123,117,27,2,SIEMENS,siemens,DIMIIO,dimiio,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,3,51,195,123,117,27,2,SIEMENS,siemens,57la3,57la3,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,42,55,218,54,26,2,Ying,ying,Dad,dad,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,43,55,218,54,26,2,Ying,ying,FESEE,fesee,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,4,44,55,218,54,26,2,Ying,ying,FOS,fos,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,45,55,218,54,26,2,Ying,ying,1A,1a,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,46,55,218,54,26,2,Ying,ying,red,red,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,47,55,218,54,26,2,Ying,ying,pr8,pr8,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,48,55,218,54,26,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,49,55,218,54,26,2,Ying,ying,Fn,fn,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,4,50,55,218,54,26,2,Ying,ying,09,09,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,51,55,218,54,26,2,Ying,ying,Ne,ne,1,yes,0.75,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,42,112,218,57,26,2,Feng,feng,4m1z,4m1z,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,43,112,218,57,26,2,Feng,feng,"#""argh",argh,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,44,112,218,57,26,2,Feng,feng,Je,je,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,5,45,112,218,57,26,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,46,112,218,57,26,2,Feng,feng,557,557,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,47,112,218,57,26,2,Feng,feng,2C15],2c15,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,48,112,218,57,26,2,Feng,feng,uM,um,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,49,112,218,57,26,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,50,112,218,57,26,2,Feng,feng,Ceo,ceo,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,5,51,112,218,57,26,2,Feng,feng,177&,177,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,42,331,215,54,25,2,Ying,ying,DA,da,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,43,331,215,54,25,2,Ying,ying,EEE,eee,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,44,331,215,54,25,2,Ying,ying,Pcg,pcg,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,6,45,331,215,54,25,2,Ying,ying,D35,d35,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,46,331,215,54,25,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,47,331,215,54,25,2,Ying,ying,DAO,dao,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,48,331,215,54,25,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,49,331,215,54,25,2,Ying,ying,RA[,ra,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,50,331,215,54,25,2,Ying,ying,DO,do,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,51,331,215,54,25,2,Ying,ying,rer,rer,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,42,386,215,57,25,2,Feng,feng,LSBE,lsbe,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,43,386,215,57,25,2,Feng,feng,#TEzIl,tezil,1,yes,1.0,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,44,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,45,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,46,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,47,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,48,386,215,57,25,2,Feng,feng,Luay,luay,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,49,386,215,57,25,2,Feng,feng,C (-J',c (-j,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,50,386,215,57,25,2,Feng,feng,naApI,naapi,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,51,386,215,57,25,2,Feng,feng,{velj,velj,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,8,42,195,318,54,27,2,Ying,ying,Pa,pa,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,43,195,318,54,27,2,Ying,ying,EEP?;,eep,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,44,195,318,54,27,2,Ying,ying,Fot?,fot,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,45,195,318,54,27,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,46,195,318,54,27,2,Ying,ying,Feu,feu,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,47,195,318,54,27,2,Ying,ying,DFg,dfg,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,8,48,195,318,54,27,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,49,195,318,54,27,2,Ying,ying,ERS,ers,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,50,195,318,54,27,2,Ying,ying,4),4,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,51,195,318,54,27,2,Ying,ying,Fe,fe,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,42,250,318,57,27,2,Feng,feng,USTE,uste,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,43,250,318,57,27,2,Feng,feng,(eeESK L,eeesk l,1,yes,1.5,1,1.5
+Canon_002_LR4.png,Canon_002_LR4,9,44,250,318,57,27,2,Feng,feng,Tl>,tl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,45,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,46,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,47,250,318,57,27,2,Feng,feng,MD,md,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,48,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,49,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,50,250,318,57,27,2,Feng,feng,Leos?,leos,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,9,51,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,42,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,43,65,412,83,23,2,Building,building,EeNI EIEI,eeni eiei,1,yes,0.875,1,1.125
+Canon_002_LR4.png,Canon_002_LR4,10,44,65,412,83,23,2,Building,building,Baviirzoc (IcJS,baviirzoc (icjs,1,yes,1.5,1,1.625
+Canon_002_LR4.png,Canon_002_LR4,10,45,65,412,83,23,2,Building,building,Aesl BC0I],aesl bc0i,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,46,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,47,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,48,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,49,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,50,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,51,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,42,65,430,100,25,2,Diagnostic,diagnostic,Dar4E,dar4e,1,yes,0.8,1,0.8
+Canon_002_LR4.png,Canon_002_LR4,11,43,65,430,100,25,2,Diagnostic,diagnostic,Ccg - EJI],ccg - eji,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,44,65,430,100,25,2,Diagnostic,diagnostic,BegTT=,begtt,1,yes,0.8,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,45,65,430,100,25,2,Diagnostic,diagnostic,0'),0,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,46,65,430,100,25,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,47,65,430,100,25,2,Diagnostic,diagnostic,DeC APU,dec apu,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,48,65,430,100,25,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,49,65,430,100,25,2,Diagnostic,diagnostic,E3w 945177,e3w 945177,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,50,65,430,100,25,2,Diagnostic,diagnostic,DO ELT,do elt,1,yes,0.8,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,51,65,430,100,25,2,Diagnostic,diagnostic,Nevz,nevz,1,yes,0.9,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,42,65,450,115,25,2,Consultants,consultants,Eor,eor,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,12,43,65,450,115,25,2,Consultants,consultants,"ETCUI""JEEETT7E","etcui""jeeett7e",1,yes,1.0909090909090908,1,1.1818181818181819
+Canon_002_LR4.png,Canon_002_LR4,12,44,65,450,115,25,2,Consultants,consultants,VEFEELTTE 3 GCSS_,vefeeltte 3 gcss,1,yes,1.1818181818181819,1,1.4545454545454546
+Canon_002_LR4.png,Canon_002_LR4,12,45,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,46,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,47,65,450,115,25,2,Consultants,consultants,ElLi,elli,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,12,48,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,49,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,50,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,51,65,450,115,25,2,Consultants,consultants,Eoora,eoora,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_002_LR4.png,Canon_002_LR4,13,42,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,43,340,408,82,24,2,Building,building,LESGFbzL,lesgfbzl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,44,340,408,82,24,2,Building,building,Eocimi i EFbbk,eocimi i efbbk,1,yes,1.5,1,1.5
+Canon_002_LR4.png,Canon_002_LR4,13,45,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,46,340,408,82,24,2,Building,building,354085[,354085,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,47,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,48,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,49,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,50,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,51,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,42,340,428,101,24,2,Diagnostic,diagnostic,PW 4ETE,pw 4ete,1,yes,0.9,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,43,340,428,101,24,2,Diagnostic,diagnostic,"Eh""is F ZLiBL","eh""is f zlibl",1,yes,1.1,1,1.1
+Canon_002_LR4.png,Canon_002_LR4,14,44,340,428,101,24,2,Diagnostic,diagnostic,PuznJ B5 /,puznj b5,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,45,340,428,101,24,2,Diagnostic,diagnostic,Truao-,truao,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,46,340,428,101,24,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,47,340,428,101,24,2,Diagnostic,diagnostic,nne AEI,nne aei,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,48,340,428,101,24,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,49,340,428,101,24,2,Diagnostic,diagnostic,Pos g '9 (/,pos g '9,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,50,340,428,101,24,2,Diagnostic,diagnostic,DOIAFIn,doiafin,1,yes,0.7,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,51,340,428,101,24,2,Diagnostic,diagnostic,"Fvvs *dh,Eaj","fvvs *dh,eaj",1,yes,1.2,1,1.2
+Canon_002_LR4.png,Canon_002_LR4,15,42,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,43,340,445,115,25,2,Consultants,consultants,BiauTe re ,biaute re,1,yes,0.8181818181818182,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,15,44,340,445,115,25,2,Consultants,consultants,69 rgo5tri €56eY3,69 rgo5tri €56ey3,1,yes,1.4545454545454546,1,1.4545454545454546
+Canon_002_LR4.png,Canon_002_LR4,15,45,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,46,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,47,340,445,115,25,2,Consultants,consultants,LATE EETES6,late eetes6,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,48,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,49,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,50,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,51,340,445,115,25,2,Consultants,consultants,Diagesin EoJitinateno,diagesin eojitinateno,1,yes,1.5454545454545454,1,1.5454545454545454
+Canon_003_LR4.png,Canon_003_LR4,1,42,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,43,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,44,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,45,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,46,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,47,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,48,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,49,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,50,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,51,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,42,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,43,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,44,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,45,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,46,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,47,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,48,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,49,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,50,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,51,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,42,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,43,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,44,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,45,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,46,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,47,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,48,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,49,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,50,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,51,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,42,10,135,239,80,2,Sausage,sausage,Sausnge,sausnge,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,4,43,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,44,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,45,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,46,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,47,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,48,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,49,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,50,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,51,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,42,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,43,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,44,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,45,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,46,10,240,310,78,2,Dumpling,dumpling,Dnmpling,dnmpling,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,47,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,48,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,49,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,50,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,51,10,240,310,78,2,Dumpling,dumpling,Dompling,dompling,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,6,42,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,43,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,44,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,45,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,46,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,47,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,48,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,49,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,50,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,51,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,42,170,324,210,80,2,brisket,brisket,bris ket,bris ket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,43,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,44,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,45,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,46,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,47,170,324,210,80,2,brisket,brisket,bridket,bridket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,48,170,324,210,80,2,brisket,brisket,bris ket,bris ket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,49,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,50,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,51,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,42,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,43,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,44,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,45,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,46,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,47,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,48,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,49,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,50,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,51,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,42,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,43,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,44,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,45,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,46,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,47,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,48,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,49,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,50,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,51,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,42,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,43,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,44,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,45,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,46,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,47,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,48,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,49,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,50,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,51,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,42,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,43,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,44,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,45,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,46,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,47,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,48,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,49,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,50,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,51,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,42,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,43,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,44,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,45,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,46,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,47,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,48,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,49,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,50,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,51,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,42,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,43,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,44,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,45,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,46,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,47,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,48,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,49,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,50,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,51,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,42,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,43,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,44,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,45,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,46,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,47,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,48,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,49,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,50,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,51,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_009_LR4.png,Canon_009_LR4,1,42,18,155,55,40,2,3rd,3rd,84,84,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,43,18,155,55,40,2,3rd,3rd,1l,1l,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,44,18,155,55,40,2,3rd,3rd,54,54,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,45,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,46,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,47,18,155,55,40,2,3rd,3rd,}Bu,bu,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,48,18,155,55,40,2,3rd,3rd,N,n,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,49,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,50,18,155,55,40,2,3rd,3rd,Jn},jn,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,51,18,155,55,40,2,3rd,3rd,xu,xu,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,42,68,138,93,45,2,Waterfall,waterfall,Klep,klep,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,43,68,138,93,45,2,Waterfall,waterfall,Bonaal|,bonaal,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,2,44,68,138,93,45,2,Waterfall,waterfall,BBKSEEE |,bbkseee,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,45,68,138,93,45,2,Waterfall,waterfall,Nezhu ,nezhu,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,46,68,138,93,45,2,Waterfall,waterfall,32n6],32n6,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,47,68,138,93,45,2,Waterfall,waterfall,Bliaet,bliaet,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,48,68,138,93,45,2,Waterfall,waterfall,ni,ni,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,49,68,138,93,45,2,Waterfall,waterfall,5ez:l |,5ez:l,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,2,50,68,138,93,45,2,Waterfall,waterfall,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,51,68,138,93,45,2,Waterfall,waterfall,meha,meha,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,3,42,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,43,50,443,46,40,2,gyo,gyo,3B,3b,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,44,50,443,46,40,2,gyo,gyo,Eia ,eia,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,45,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,46,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,47,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,48,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,49,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,50,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,51,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,42,90,420,70,45,2,Bridge,bridge,'1e3379,1e3379,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,43,90,420,70,45,2,Bridge,bridge,Boksl,boksl,1,yes,0.8333333333333334,1,0.8333333333333334
+Canon_009_LR4.png,Canon_009_LR4,4,44,90,420,70,45,2,Bridge,bridge,REN,ren,1,yes,0.8333333333333334,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,45,90,420,70,45,2,Bridge,bridge,Kwgs,kwgs,1,yes,0.8333333333333334,1,0.8333333333333334
+Canon_009_LR4.png,Canon_009_LR4,4,46,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,47,90,420,70,45,2,Bridge,bridge,JM,jm,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,48,90,420,70,45,2,Bridge,bridge,Kabe! RIJ,kabe! rij,1,yes,1.3333333333333333,1,1.5
+Canon_009_LR4.png,Canon_009_LR4,4,49,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,50,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,51,90,420,70,45,2,Bridge,bridge,Aea,aea,1,yes,1.0,1,1.0
+Canon_045_LR4.png,Canon_045_LR4,1,42,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,43,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,44,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,45,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,46,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,47,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,48,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,49,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,50,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,51,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,42,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,43,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,44,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,45,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,46,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,47,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,48,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,49,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,50,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,51,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_046_LR4.png,Canon_046_LR4,1,42,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,43,6,45,70,20,2,Camille,camille,8id,8id,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_046_LR4.png,Canon_046_LR4,1,44,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,45,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,46,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,47,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,48,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,49,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,50,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,51,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,42,76,45,80,20,2,Pissarro,pissarro,m) Q 7i,m) q 7i,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,43,76,45,80,20,2,Pissarro,pissarro,8 6F 13 3 F0,8 6f 13 3 f0,1,yes,1.5,1,1.5
+Canon_046_LR4.png,Canon_046_LR4,2,44,76,45,80,20,2,Pissarro,pissarro,0,0,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,45,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,46,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,47,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,48,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,49,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,50,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,51,76,45,80,20,2,Pissarro,pissarro,7,7,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,42,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,43,157,45,47,20,2,1830,1830,Amfe,amfe,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,44,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,45,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,46,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,47,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,48,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,49,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,50,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,51,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,42,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,43,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,44,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,45,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,46,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,47,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,48,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,49,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,50,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,51,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_047_LR4.png,Canon_047_LR4,1,42,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,43,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,44,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,45,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,46,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,47,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,48,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,49,145,55,30,35,2,3,3,8,8,1,yes,1.0,1,1.0
+Canon_047_LR4.png,Canon_047_LR4,1,50,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,51,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,42,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,43,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,44,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,45,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,46,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,47,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,48,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,49,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,50,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,51,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_048_LR4.png,Canon_048_LR4,1,42,236,410,76,20,2,Europaische,europaische,BZHNIZEUz,bzhnizeuz,1,yes,0.9090909090909091,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,43,236,410,76,20,2,Europaische,europaische,(BIItAa BC NETULC(,biitaa bc netulc,1,yes,1.1818181818181819,1,1.3636363636363635
+Canon_048_LR4.png,Canon_048_LR4,1,44,236,410,76,20,2,Europaische,europaische,978 Rikie,978 rikie,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_048_LR4.png,Canon_048_LR4,1,45,236,410,76,20,2,Europaische,europaische,6u0 BIOrore,6u0 biorore,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_048_LR4.png,Canon_048_LR4,1,46,236,410,76,20,2,Europaische,europaische,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,47,236,410,76,20,2,Europaische,europaische,Oc nidguiuce,oc nidguiuce,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_048_LR4.png,Canon_048_LR4,1,48,236,410,76,20,2,Europaische,europaische,cnntalbtsiio,cnntalbtsiio,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,49,236,410,76,20,2,Europaische,europaische,OMf 5 Quntocid,omf 5 quntocid,1,yes,1.1818181818181819,1,1.1818181818181819
+Canon_048_LR4.png,Canon_048_LR4,1,50,236,410,76,20,2,Europaische,europaische,33,33,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,51,236,410,76,20,2,Europaische,europaische,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,42,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,43,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,44,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,45,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,46,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,47,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,48,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,49,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,50,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,51,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,42,225,165,140,40,2,MARTINI,martini,MArIN,marin,1,yes,0.2857142857142857,1,0.42857142857142855
+Canon_050_LR4.png,Canon_050_LR4,1,43,225,165,140,40,2,MARTINI,martini,NARiERI,narieri,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_050_LR4.png,Canon_050_LR4,1,44,225,165,140,40,2,MARTINI,martini,Nxstunn,nxstunn,1,yes,0.7142857142857143,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,45,225,165,140,40,2,MARTINI,martini,MaatIC],maatic,1,yes,0.42857142857142855,1,0.7142857142857143
+Canon_050_LR4.png,Canon_050_LR4,1,46,225,165,140,40,2,MARTINI,martini,iraaTiA,iraatia,1,yes,0.7142857142857143,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,47,225,165,140,40,2,MARTINI,martini,MAMTINI,mamtini,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_050_LR4.png,Canon_050_LR4,1,48,225,165,140,40,2,MARTINI,martini,MAXIM,maxim,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_050_LR4.png,Canon_050_LR4,1,49,225,165,140,40,2,MARTINI,martini,RAKI INq,raki inq,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_050_LR4.png,Canon_050_LR4,1,50,225,165,140,40,2,MARTINI,martini,CEABETALR,ceabetalr,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,51,225,165,140,40,2,MARTINI,martini,MARTIRT,martirt,1,yes,0.2857142857142857,1,0.2857142857142857
+Canon_050_LR4.png,Canon_050_LR4,2,42,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,43,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,44,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,45,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,46,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,47,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,48,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,49,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,50,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,51,0,255,120,100,2,664,664,264,264,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,3,42,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,43,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,44,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,45,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,46,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,47,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,48,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,49,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,50,30,143,53,18,2,BLANCHE,blanche,468 ahnh,468 ahnh,1,yes,1.0,1,1.1428571428571428
+Canon_050_LR4.png,Canon_050_LR4,3,51,30,143,53,18,2,BLANCHE,blanche,Ive % Hm;,ive % hm,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,42,2,160,47,18,2,WHEAT,wheat,3,3,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,43,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,44,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,45,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,46,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,47,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,48,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,49,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,50,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,51,2,160,47,18,2,WHEAT,wheat,Innalbt,innalbt,1,yes,1.0,1,1.4
+Canon_050_LR4.png,Canon_050_LR4,5,42,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,43,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,44,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,45,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,46,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,47,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,48,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,49,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,50,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,51,49,160,30,17,2,BEER,beer,Tiong,tiong,1,yes,1.25,1,1.25
+Canon_050_LR4.png,Canon_050_LR4,6,42,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,43,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,44,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,45,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,46,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,47,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,48,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,49,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,50,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,51,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,42,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,43,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,44,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,45,201,9,62,33,1,C778,c778,688,688,1,yes,0.75,1,0.75
+Nikon_001_LR4.png,Nikon_001_LR4,1,46,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,47,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,48,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,49,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,50,201,9,62,33,1,C778,c778,8883,8883,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,1,51,201,9,62,33,1,C778,c778,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,42,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,43,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,44,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,45,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,46,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,47,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,48,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,49,61,126,71,34,1,C777,c777,8812,8812,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,50,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,2,51,61,126,71,34,1,C777,c777,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,42,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,43,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,44,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,45,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,46,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,47,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,48,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,49,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,50,285,87,64,27,1,C761,c761,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,3,51,285,87,64,27,1,C761,c761,3062,3062,1,yes,0.75,1,0.75
+Nikon_001_LR4.png,Nikon_001_LR4,4,42,348,87,57,27,1,C752,c752,201D,201d,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,43,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,44,348,87,57,27,1,C752,c752,2813,2813,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,45,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,46,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,47,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,48,348,87,57,27,1,C752,c752,CIER,cier,1,yes,0.75,1,0.75
+Nikon_001_LR4.png,Nikon_001_LR4,4,49,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,50,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,4,51,348,87,57,27,1,C752,c752,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,42,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,43,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,44,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,45,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,46,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,47,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,48,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,49,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,50,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,5,51,414,88,64,27,1,C746,c746,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,42,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,43,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,44,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,45,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,46,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,47,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,48,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,49,52,293,66,26,1,R573,r573,6330,6330,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,50,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,6,51,52,293,66,26,1,R573,r573,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,42,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,43,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,44,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,45,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,46,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,47,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,48,50,320,68,28,1,C145,c145,1313,1313,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,49,50,320,68,28,1,C145,c145,C868,c868,1,yes,0.75,1,0.75
+Nikon_001_LR4.png,Nikon_001_LR4,7,50,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,7,51,50,320,68,28,1,C145,c145,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,42,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,43,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,44,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,45,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,46,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,47,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,48,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,49,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,50,172,270,24,57,1,R552,r552,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,8,51,172,270,24,57,1,R552,r552,NEN,nen,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,42,193,270,21,58,1,R553,r553,5588,5588,1,yes,0.75,1,0.75
+Nikon_001_LR4.png,Nikon_001_LR4,9,43,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,44,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,45,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,46,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,47,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,48,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,49,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,50,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,9,51,193,270,21,58,1,R553,r553,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,42,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,43,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,44,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,45,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,46,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,47,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,48,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,49,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,50,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,10,51,214,270,21,58,1,R549,r549,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,42,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,43,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,44,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,45,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,46,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,47,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,48,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,49,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,50,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,11,51,232,270,23,58,1,R548,r548,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,42,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,43,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,44,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,45,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,46,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,47,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,48,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,49,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,50,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,14,51,339,194,26,62,1,C114,c114,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,42,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,43,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,44,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,45,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,46,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,47,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,48,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,49,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,50,362,194,22,60,1,C762,c762,3813,3813,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,15,51,362,194,22,60,1,C762,c762,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,42,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,43,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,44,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,45,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,46,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,47,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,48,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,49,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,50,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,16,51,384,194,23,60,1,C755,c755,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,42,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,43,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,44,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,45,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,46,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,47,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,48,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,49,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,50,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,17,51,38,211,20,59,1,R565,r565,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,42,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,43,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,44,58,211,20,59,1,R560,r560,3189,3189,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,45,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,46,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,47,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,48,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,49,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,50,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,18,51,58,211,20,59,1,R560,r560,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,42,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,43,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,44,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,45,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,46,5,210,37,94,1,GPU,gpu,GPu,gpu,0,no,0.0,1,0.3333333333333333
+Nikon_001_LR4.png,Nikon_001_LR4,19,47,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,48,5,210,37,94,1,GPU,gpu,GOU,gou,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_001_LR4.png,Nikon_001_LR4,19,49,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,19,50,5,210,37,94,1,GPU,gpu,GOu,gou,1,yes,0.3333333333333333,1,0.6666666666666666
+Nikon_001_LR4.png,Nikon_001_LR4,19,51,5,210,37,94,1,GPU,gpu,GPU,gpu,0,no,0.0,0,0.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,42,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,43,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,44,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,45,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,46,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,47,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,48,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,49,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,50,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,21,51,263,270,21,57,1,C676,c676,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,42,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,43,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,44,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,45,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,46,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,47,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,48,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,49,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,50,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,22,51,284,270,21,57,1,C758,c758,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,42,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,43,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,44,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,45,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,46,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,47,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,48,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,49,302,271,24,56,1,R556,r556,2980,2980,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,50,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,23,51,302,271,24,56,1,R556,r556,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,42,323,270,24,57,1,R555,r555,8555,8555,1,yes,0.25,1,0.25
+Nikon_001_LR4.png,Nikon_001_LR4,24,43,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,44,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,45,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,46,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,47,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,48,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,49,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,50,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,24,51,323,270,24,57,1,R555,r555,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,42,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,43,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,44,223,247,125,23,1,C767 C776,c767 c776,CISY CTI,cisy cti,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_001_LR4.png,Nikon_001_LR4,25,45,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,46,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,47,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,48,223,247,125,23,1,C767 C776,c767 c776,CIEE CTIR,ciee ctir,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_001_LR4.png,Nikon_001_LR4,25,49,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,50,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_001_LR4.png,Nikon_001_LR4,25,51,223,247,125,23,1,C767 C776,c767 c776,,,1,yes,1.0,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,1,42,91,103,128,44,1,Rhinoceros,rhinoceros,Chloafces,chloafces,1,yes,0.7,1,0.7
+Nikon_002_LR4.png,Nikon_002_LR4,1,43,91,103,128,44,1,Rhinoceros,rhinoceros,CAAGEFEM,caagefem,1,yes,0.9,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,1,44,91,103,128,44,1,Rhinoceros,rhinoceros,KRECOOPCS,krecoopcs,1,yes,0.8,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,1,45,91,103,128,44,1,Rhinoceros,rhinoceros,DaaBeerRe,daabeerre,1,yes,0.8,1,0.8
+Nikon_002_LR4.png,Nikon_002_LR4,1,46,91,103,128,44,1,Rhinoceros,rhinoceros,Runtone cr,runtone cr,1,yes,0.7,1,0.7
+Nikon_002_LR4.png,Nikon_002_LR4,1,47,91,103,128,44,1,Rhinoceros,rhinoceros,Ya1008cca,ya1008cca,1,yes,1.0,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,1,48,91,103,128,44,1,Rhinoceros,rhinoceros,Enkoceres,enkoceres,1,yes,0.5,1,0.5
+Nikon_002_LR4.png,Nikon_002_LR4,1,49,91,103,128,44,1,Rhinoceros,rhinoceros,Haicokero,haicokero,1,yes,0.5,1,0.5
+Nikon_002_LR4.png,Nikon_002_LR4,1,50,91,103,128,44,1,Rhinoceros,rhinoceros,Elaicota,elaicota,1,yes,0.9,1,0.9
+Nikon_002_LR4.png,Nikon_002_LR4,1,51,91,103,128,44,1,Rhinoceros,rhinoceros,RalcoEcenT,ralcoecent,1,yes,0.7,1,0.7
+Nikon_002_LR4.png,Nikon_002_LR4,2,42,108,149,92,34,1,Hornbill,hornbill,Harios),harios,1,yes,0.625,1,0.625
+Nikon_002_LR4.png,Nikon_002_LR4,2,43,108,149,92,34,1,Hornbill,hornbill,NANCO,nanco,1,yes,0.875,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,2,44,108,149,92,34,1,Hornbill,hornbill,Hoorhal,hoorhal,1,yes,0.625,1,0.625
+Nikon_002_LR4.png,Nikon_002_LR4,2,45,108,149,92,34,1,Hornbill,hornbill,Rranf!,rranf,1,yes,0.875,1,0.875
+Nikon_002_LR4.png,Nikon_002_LR4,2,46,108,149,92,34,1,Hornbill,hornbill,Vecplpl,vecplpl,1,yes,0.875,1,0.875
+Nikon_002_LR4.png,Nikon_002_LR4,2,47,108,149,92,34,1,Hornbill,hornbill,Kemd,kemd,1,yes,1.0,1,1.0
+Nikon_002_LR4.png,Nikon_002_LR4,2,48,108,149,92,34,1,Hornbill,hornbill,icties!,icties,1,yes,0.875,1,0.875
+Nikon_002_LR4.png,Nikon_002_LR4,2,49,108,149,92,34,1,Hornbill,hornbill,Veintul,veintul,1,yes,0.75,1,0.75
+Nikon_002_LR4.png,Nikon_002_LR4,2,50,108,149,92,34,1,Hornbill,hornbill,Rgole,rgole,1,yes,0.75,1,0.875
+Nikon_002_LR4.png,Nikon_002_LR4,2,51,108,149,92,34,1,Hornbill,hornbill,Pet'ncc?,pet'ncc,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,42,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,43,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,44,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,45,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,46,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,47,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,48,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,49,96,33,37,34,1,23,23,23,23,0,no,0.0,0,0.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,50,96,33,37,34,1,23,23,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,1,51,96,33,37,34,1,23,23,60,60,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,42,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,43,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,44,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,45,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,46,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,47,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,48,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,49,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,50,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,2,51,211,28,44,37,1,19,19,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,42,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,43,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,44,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,45,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,46,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,47,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,48,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,49,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,50,125,164,37,27,1,26,26,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,3,51,125,164,37,27,1,26,26,23,23,1,yes,0.5,1,0.5
+Nikon_010_LR4.png,Nikon_010_LR4,4,42,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,43,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,44,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,45,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,46,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,47,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,48,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,49,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,50,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,4,51,55,236,50,40,1,34,34,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,42,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,43,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,44,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,45,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,46,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,47,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,48,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,49,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,50,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,5,51,82,316,38,35,1,39,39,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,42,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,43,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,44,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,45,259,326,44,40,1,20,20,30,30,1,yes,0.5,1,0.5
+Nikon_010_LR4.png,Nikon_010_LR4,6,46,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,47,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,48,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,49,259,326,44,40,1,20,20,89,89,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,50,259,326,44,40,1,20,20,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,6,51,259,326,44,40,1,20,20,90,90,1,yes,0.5,1,0.5
+Nikon_010_LR4.png,Nikon_010_LR4,7,42,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,43,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,44,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,45,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,46,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,47,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,48,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,49,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,50,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,7,51,468,265,22,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,42,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,43,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,44,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,45,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,46,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,47,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,48,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,49,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,50,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,8,51,413,414,21,27,1,8,8,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,42,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,43,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,44,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,45,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,46,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,47,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,48,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,49,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,50,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,9,51,62,453,36,28,1,27,27,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,42,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,43,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,44,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,45,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,46,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,47,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,48,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,49,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,50,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_010_LR4.png,Nikon_010_LR4,10,51,490,383,18,31,1,1,1,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,42,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,43,220,38,66,31,1,Toilet,toilet,Tofine,tofine,1,yes,0.5,1,0.5
+Nikon_011_LR4.png,Nikon_011_LR4,1,44,220,38,66,31,1,Toilet,toilet,Puart,puart,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_011_LR4.png,Nikon_011_LR4,1,45,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,46,220,38,66,31,1,Toilet,toilet,Crono,crono,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,47,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,48,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,49,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,50,220,38,66,31,1,Toilet,toilet,Bevisk,bevisk,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,1,51,220,38,66,31,1,Toilet,toilet,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,42,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,43,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,44,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,45,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,46,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,47,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,48,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,49,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,50,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,2,51,0,77,137,42,1,China HK City,china hk city,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,42,446,53,66,29,1,Bird L,bird l,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,43,446,53,66,29,1,Bird L,bird l,EAAMIO,eaamio,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,44,446,53,66,29,1,Bird L,bird l,PntU,pntu,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,45,446,53,66,29,1,Bird L,bird l,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,46,446,53,66,29,1,Bird L,bird l,CYE,cye,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,47,446,53,66,29,1,Bird L,bird l,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,48,446,53,66,29,1,Bird L,bird l,,,1,yes,1.0,1,1.0
+Nikon_011_LR4.png,Nikon_011_LR4,3,49,446,53,66,29,1,Bird L,bird l,DAARL,daarl,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_011_LR4.png,Nikon_011_LR4,3,50,446,53,66,29,1,Bird L,bird l,Biatt,biatt,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_011_LR4.png,Nikon_011_LR4,3,51,446,53,66,29,1,Bird L,bird l,BeR,ber,1,yes,0.6666666666666666,1,0.8333333333333334
+Nikon_016_LR4.png,Nikon_016_LR4,1,42,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,43,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,44,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,45,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,46,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,47,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,48,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,49,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,50,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_016_LR4.png,Nikon_016_LR4,1,51,0,149,444,363,1,U,u,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,42,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,43,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,44,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,45,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,46,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,47,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,48,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,49,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,50,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_017_LR4.png,Nikon_017_LR4,1,51,462,407,48,70,1,P,p,,,1,yes,1.0,1,1.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,42,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,43,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,44,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,45,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,46,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,47,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,48,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,49,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,50,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_020_LR4.png,Nikon_020_LR4,1,51,118,49,372,126,1,Nikon,nikon,Nikon,nikon,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,42,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,43,0,71,33,27,1,de,de,de,de,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,44,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,45,0,71,33,27,1,de,de,ce,ce,1,yes,0.5,1,0.5
+Nikon_024_LR4.png,Nikon_024_LR4,1,46,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,47,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,48,0,71,33,27,1,de,de,ede,ede,1,yes,0.5,1,0.5
+Nikon_024_LR4.png,Nikon_024_LR4,1,49,0,71,33,27,1,de,de,to,to,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,50,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,1,51,0,71,33,27,1,de,de,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,2,42,31,71,49,27,1,120,120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,2,43,31,71,49,27,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,2,44,31,71,49,27,1,120,120,190,190,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,2,45,31,71,49,27,1,120,120,119,119,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,2,46,31,71,49,27,1,120,120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,2,47,31,71,49,27,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,2,48,31,71,49,27,1,120,120,110,110,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,2,49,31,71,49,27,1,120,120,110,110,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,2,50,31,71,49,27,1,120,120,110,110,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,2,51,31,71,49,27,1,120,120,110,110,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,3,42,78,75,52,24,1,mm,mm,ERRE,erre,1,yes,2.0,1,2.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,43,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,44,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,45,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,46,78,75,52,24,1,mm,mm,Ero,ero,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,3,47,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,48,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,49,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,50,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,3,51,78,75,52,24,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,4,42,95,145,97,28,1,Frontal,frontal,Preotab,preotab,1,yes,0.5714285714285714,1,0.5714285714285714
+Nikon_024_LR4.png,Nikon_024_LR4,4,43,95,145,97,28,1,Frontal,frontal,Foatd,foatd,1,yes,0.5714285714285714,1,0.5714285714285714
+Nikon_024_LR4.png,Nikon_024_LR4,4,44,95,145,97,28,1,Frontal,frontal,Peeotast,peeotast,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,4,45,95,145,97,28,1,Frontal,frontal,Preco.t,preco.t,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,4,46,95,145,97,28,1,Frontal,frontal,Freatrf,freatrf,1,yes,0.5714285714285714,1,0.5714285714285714
+Nikon_024_LR4.png,Nikon_024_LR4,4,47,95,145,97,28,1,Frontal,frontal,Prevbu,prevbu,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,4,48,95,145,97,28,1,Frontal,frontal,ProtM,protm,1,yes,0.5714285714285714,1,0.5714285714285714
+Nikon_024_LR4.png,Nikon_024_LR4,4,49,95,145,97,28,1,Frontal,frontal,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,4,50,95,145,97,28,1,Frontal,frontal,Peeoisb,peeoisb,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,4,51,95,145,97,28,1,Frontal,frontal,Fuetiet,fuetiet,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,5,42,190,145,58,28,1,dual,dual,deal,deal,1,yes,0.25,1,0.25
+Nikon_024_LR4.png,Nikon_024_LR4,5,43,190,145,58,28,1,dual,dual,Cett,cett,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,5,44,190,145,58,28,1,dual,dual,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,5,45,190,145,58,28,1,dual,dual,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,5,46,190,145,58,28,1,dual,dual,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,5,47,190,145,58,28,1,dual,dual,den,den,1,yes,0.75,1,0.75
+Nikon_024_LR4.png,Nikon_024_LR4,5,48,190,145,58,28,1,dual,dual,doc,doc,1,yes,0.75,1,0.75
+Nikon_024_LR4.png,Nikon_024_LR4,5,49,190,145,58,28,1,dual,dual,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,5,50,190,145,58,28,1,dual,dual,dee,dee,1,yes,0.75,1,0.75
+Nikon_024_LR4.png,Nikon_024_LR4,5,51,190,145,58,28,1,dual,dual,cect,cect,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,42,246,146,50,27,1,140,140,1880,1880,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,6,43,246,146,50,27,1,140,140,1A0,1a0,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,6,44,246,146,50,27,1,140,140,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,45,246,146,50,27,1,140,140,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,46,246,146,50,27,1,140,140,140,140,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,47,246,146,50,27,1,140,140,180,180,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,6,48,246,146,50,27,1,140,140,LAD,lad,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,49,246,146,50,27,1,140,140,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,6,50,246,146,50,27,1,140,140,1A0,1a0,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,6,51,246,146,50,27,1,140,140,1A0,1a0,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,7,42,294,145,105,30,1,mm/120,mm/120,naa/110,naa/110,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,7,43,294,145,105,30,1,mm/120,mm/120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,7,44,294,145,105,30,1,mm/120,mm/120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,7,45,294,145,105,30,1,mm/120,mm/120,net/129,net/129,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,7,46,294,145,105,30,1,mm/120,mm/120,FERE8/920,fere8/920,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,7,47,294,145,105,30,1,mm/120,mm/120,NF120,nf120,1,yes,0.5,1,0.5
+Nikon_024_LR4.png,Nikon_024_LR4,7,48,294,145,105,30,1,mm/120,mm/120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,7,49,294,145,105,30,1,mm/120,mm/120,030,030,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_024_LR4.png,Nikon_024_LR4,7,50,294,145,105,30,1,mm/120,mm/120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,7,51,294,145,105,30,1,mm/120,mm/120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,42,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,43,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,44,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,45,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,46,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,47,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,48,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,49,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,50,385,148,63,26,1,mm,mm,Bben,bben,1,yes,2.0,1,2.0
+Nikon_024_LR4.png,Nikon_024_LR4,8,51,385,148,63,26,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,9,42,252,182,99,27,1,Trasero,trasero,Yeatorel,yeatorel,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,9,43,252,182,99,27,1,Trasero,trasero,1odeze.,1odeze,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,9,44,252,182,99,27,1,Trasero,trasero,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,9,45,252,182,99,27,1,Trasero,trasero,tonera,tonera,1,yes,0.5714285714285714,1,0.7142857142857143
+Nikon_024_LR4.png,Nikon_024_LR4,9,46,252,182,99,27,1,Trasero,trasero,TYAretOJ,tyaretoj,1,yes,0.5714285714285714,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,9,47,252,182,99,27,1,Trasero,trasero,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,9,48,252,182,99,27,1,Trasero,trasero,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,9,49,252,182,99,27,1,Trasero,trasero,1s332601,1s332601,1,yes,1.1428571428571428,1,1.1428571428571428
+Nikon_024_LR4.png,Nikon_024_LR4,9,50,252,182,99,27,1,Trasero,trasero,VneRto,vnerto,1,yes,0.7142857142857143,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,9,51,252,182,99,27,1,Trasero,trasero,Yosprul,yosprul,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_024_LR4.png,Nikon_024_LR4,10,42,350,183,49,26,1,120,120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,43,350,183,49,26,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,44,350,183,49,26,1,120,120,1Z3,1z3,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,10,45,350,183,49,26,1,120,120,126,126,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,10,46,350,183,49,26,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,47,350,183,49,26,1,120,120,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,48,350,183,49,26,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,49,350,183,49,26,1,120,120,129,129,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,10,50,350,183,49,26,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,10,51,350,183,49,26,1,120,120,120,120,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,42,396,187,52,23,1,mm,mm,AETB,aetb,1,yes,2.0,1,2.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,43,396,187,52,23,1,mm,mm,DYO,dyo,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,11,44,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,45,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,46,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,47,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,48,396,187,52,23,1,mm,mm,BIS,bis,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,11,49,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,11,50,396,187,52,23,1,mm,mm,aen,aen,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,11,51,396,187,52,23,1,mm,mm,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,42,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,43,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,44,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,45,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,46,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,47,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,48,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,49,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,50,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,12,51,425,249,23,27,1,7,7,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,13,42,13,315,200,27,1,MOTHERBOARD,motherboard,MOTIA REOADCK,motia reoadck,1,yes,0.6363636363636364,1,0.6363636363636364
+Nikon_024_LR4.png,Nikon_024_LR4,13,43,13,315,200,27,1,MOTHERBOARD,motherboard,KOTHISOOAROL,kothisooarol,1,yes,0.5454545454545454,1,0.5454545454545454
+Nikon_024_LR4.png,Nikon_024_LR4,13,44,13,315,200,27,1,MOTHERBOARD,motherboard,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,13,45,13,315,200,27,1,MOTHERBOARD,motherboard,HOOEPGCARIM,hooepgcarim,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,13,46,13,315,200,27,1,MOTHERBOARD,motherboard,MOT HRTEO LItOK,mot hrteo litok,1,yes,0.9090909090909091,1,0.9090909090909091
+Nikon_024_LR4.png,Nikon_024_LR4,13,47,13,315,200,27,1,MOTHERBOARD,motherboard,HODHSSOSEO,hodhssoseo,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,13,48,13,315,200,27,1,MOTHERBOARD,motherboard,MODORAORROL,modoraorrol,1,yes,0.6363636363636364,1,0.6363636363636364
+Nikon_024_LR4.png,Nikon_024_LR4,13,49,13,315,200,27,1,MOTHERBOARD,motherboard,NODUTOOLRU,nodutoolru,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,13,50,13,315,200,27,1,MOTHERBOARD,motherboard,MODLROBBARER,modlrobbarer,1,yes,0.6363636363636364,1,0.6363636363636364
+Nikon_024_LR4.png,Nikon_024_LR4,13,51,13,315,200,27,1,MOTHERBOARD,motherboard,NOCIURTOAROT,nociurtoarot,1,yes,0.6363636363636364,1,0.6363636363636364
+Nikon_024_LR4.png,Nikon_024_LR4,14,42,157,352,61,29,1,ATX,atx,ATX,atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,14,43,157,352,61,29,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,14,44,157,352,61,29,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,14,45,157,352,61,29,1,ATX,atx,ADC,adc,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,14,46,157,352,61,29,1,ATX,atx,"ATX,",atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,14,47,157,352,61,29,1,ATX,atx,ADC,adc,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,14,48,157,352,61,29,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,14,49,157,352,61,29,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,14,50,157,352,61,29,1,ATX,atx,ATX,atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,14,51,157,352,61,29,1,ATX,atx,ADC,adc,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,15,42,217,351,55,28,1,Mini,mini,POAL,poal,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,43,217,351,55,28,1,Mini,mini,FOat,foat,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,44,217,351,55,28,1,Mini,mini,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,45,217,351,55,28,1,Mini,mini,KM,km,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,46,217,351,55,28,1,Mini,mini,FRXI,frxi,1,yes,0.75,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,47,217,351,55,28,1,Mini,mini,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,48,217,351,55,28,1,Mini,mini,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,49,217,351,55,28,1,Mini,mini,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,50,217,351,55,28,1,Mini,mini,POtl,potl,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,15,51,217,351,55,28,1,Mini,mini,Nbi,nbi,1,yes,0.75,1,0.75
+Nikon_024_LR4.png,Nikon_024_LR4,16,42,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,43,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,44,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,45,271,353,53,29,1,ITX,itx,IX,ix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,16,46,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,47,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,48,271,353,53,29,1,ITX,itx,DX,dx,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,16,49,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,50,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,16,51,271,353,53,29,1,ITX,itx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,42,323,352,72,27,1,Micro,micro,FOoto,footo,1,yes,0.8,1,0.8
+Nikon_024_LR4.png,Nikon_024_LR4,17,43,323,352,72,27,1,Micro,micro,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,44,323,352,72,27,1,Micro,micro,5Herc,5herc,1,yes,0.8,1,0.8
+Nikon_024_LR4.png,Nikon_024_LR4,17,45,323,352,72,27,1,Micro,micro,NiDo,nido,1,yes,0.6,1,0.6
+Nikon_024_LR4.png,Nikon_024_LR4,17,46,323,352,72,27,1,Micro,micro,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,47,323,352,72,27,1,Micro,micro,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,48,323,352,72,27,1,Micro,micro,FBOD,fbod,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,49,323,352,72,27,1,Micro,micro,Krro,krro,1,yes,0.6,1,0.6
+Nikon_024_LR4.png,Nikon_024_LR4,17,50,323,352,72,27,1,Micro,micro,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,17,51,323,352,72,27,1,Micro,micro,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,18,42,392,352,55,27,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,18,43,392,352,55,27,1,ATX,atx,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,18,44,392,352,55,27,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,18,45,392,352,55,27,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,18,46,392,352,55,27,1,ATX,atx,ATX,atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,18,47,392,352,55,27,1,ATX,atx,AD,ad,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,18,48,392,352,55,27,1,ATX,atx,ATX,atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,18,49,392,352,55,27,1,ATX,atx,ATX,atx,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,18,50,392,352,55,27,1,ATX,atx,AIX,aix,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,18,51,392,352,55,27,1,ATX,atx,AX,ax,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_024_LR4.png,Nikon_024_LR4,19,42,0,418,101,26,1,FRENTE,frente,PENCKTIL,pencktil,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,19,43,0,418,101,26,1,FRENTE,frente,IRI2DD,iri2dd,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_024_LR4.png,Nikon_024_LR4,19,44,0,418,101,26,1,FRENTE,frente,RENTE,rente,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,19,45,0,418,101,26,1,FRENTE,frente,BSITE,bsite,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,19,46,0,418,101,26,1,FRENTE,frente,FBIMNO.,fbimno,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_024_LR4.png,Nikon_024_LR4,19,47,0,418,101,26,1,FRENTE,frente,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,19,48,0,418,101,26,1,FRENTE,frente,/ROOC,rooc,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_024_LR4.png,Nikon_024_LR4,19,49,0,418,101,26,1,FRENTE,frente,eaDme,eadme,1,yes,0.8333333333333334,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,19,50,0,418,101,26,1,FRENTE,frente,ADITO,adito,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_024_LR4.png,Nikon_024_LR4,19,51,0,418,101,26,1,FRENTE,frente,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,42,299,419,55,26,1,USB,usb,DED,ded,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,43,299,419,55,26,1,USB,usb,109,109,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,44,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,45,299,419,55,26,1,USB,usb,r30,r30,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,46,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,47,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,48,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,49,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,50,299,419,55,26,1,USB,usb,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,20,51,299,419,55,26,1,USB,usb,DiD,did,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,42,352,419,42,26,1,3.0,3.0,AD,ad,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,43,352,419,42,26,1,3.0,3.0,LO,lo,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,44,352,419,42,26,1,3.0,3.0,X0,x0,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,21,45,352,419,42,26,1,3.0,3.0,220,220,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_024_LR4.png,Nikon_024_LR4,21,46,352,419,42,26,1,3.0,3.0,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,47,352,419,42,26,1,3.0,3.0,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,48,352,419,42,26,1,3.0,3.0,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,49,352,419,42,26,1,3.0,3.0,3.0,3.0,0,no,0.0,0,0.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,50,352,419,42,26,1,3.0,3.0,AD,ad,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,21,51,352,419,42,26,1,3.0,3.0,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,42,392,419,55,29,1,(x2),x2,an,an,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,43,392,419,55,29,1,(x2),x2,DOY,doy,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,22,44,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,45,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,46,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,47,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,48,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,49,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,50,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,22,51,392,419,55,29,1,(x2),x2,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,23,42,258,455,135,27,1,Auriculares,auriculares,Ac31000FR,ac31000fr,1,yes,0.8181818181818182,1,0.9090909090909091
+Nikon_024_LR4.png,Nikon_024_LR4,23,43,258,455,135,27,1,Auriculares,auriculares,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,23,44,258,455,135,27,1,Auriculares,auriculares,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,23,45,258,455,135,27,1,Auriculares,auriculares,Aerkuo ,aerkuo,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,23,46,258,455,135,27,1,Auriculares,auriculares,AoY7or08,aoy7or08,1,yes,0.8181818181818182,1,0.8181818181818182
+Nikon_024_LR4.png,Nikon_024_LR4,23,47,258,455,135,27,1,Auriculares,auriculares,Aalorkctl,aalorkctl,1,yes,0.8181818181818182,1,0.8181818181818182
+Nikon_024_LR4.png,Nikon_024_LR4,23,48,258,455,135,27,1,Auriculares,auriculares,Azicboot,azicboot,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,23,49,258,455,135,27,1,Auriculares,auriculares,ADAE30TEL,adae30tel,1,yes,0.8181818181818182,1,0.9090909090909091
+Nikon_024_LR4.png,Nikon_024_LR4,23,50,258,455,135,27,1,Auriculares,auriculares,A33000,a33000,1,yes,0.9090909090909091,1,0.9090909090909091
+Nikon_024_LR4.png,Nikon_024_LR4,23,51,258,455,135,27,1,Auriculares,auriculares,AtDler,atdler,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_024_LR4.png,Nikon_024_LR4,24,42,392,456,55,28,1,(x1),x1,an,an,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,43,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,44,392,456,55,28,1,(x1),x1,BOD,bod,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,24,45,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,46,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,47,392,456,55,28,1,(x1),x1,LOO,loo,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,24,48,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,49,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,50,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,24,51,392,456,55,28,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,42,272,491,121,21,1,Micrófono,micrófono,cIOAehA,cioaeha,1,yes,0.8888888888888888,1,0.8888888888888888
+Nikon_024_LR4.png,Nikon_024_LR4,25,43,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,44,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,45,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,46,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,47,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,48,272,491,121,21,1,Micrófono,micrófono,Pleo MLao,pleo mlao,1,yes,0.8888888888888888,1,0.8888888888888888
+Nikon_024_LR4.png,Nikon_024_LR4,25,49,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,50,272,491,121,21,1,Micrófono,micrófono,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,25,51,272,491,121,21,1,Micrófono,micrófono,YCMTEO,ycmteo,1,yes,0.7777777777777778,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,42,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,43,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,44,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,45,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,46,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,47,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,48,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,49,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,50,392,492,55,20,1,(x1),x1,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,26,51,392,492,55,20,1,(x1),x1,DRA,dra,1,yes,1.5,1,1.5
+Nikon_024_LR4.png,Nikon_024_LR4,27,42,0,248,69,24,1,SIÓN,sión,20G,20g,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,43,0,248,69,24,1,SIÓN,sión,HOM,hom,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,44,0,248,69,24,1,SIÓN,sión,BrOBC,brobc,1,yes,1.25,1,1.25
+Nikon_024_LR4.png,Nikon_024_LR4,27,45,0,248,69,24,1,SIÓN,sión,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,46,0,248,69,24,1,SIÓN,sión,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,47,0,248,69,24,1,SIÓN,sión,HOR,hor,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,48,0,248,69,24,1,SIÓN,sión,,,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,49,0,248,69,24,1,SIÓN,sión,vore,vore,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,50,0,248,69,24,1,SIÓN,sión,DOR,dor,1,yes,1.0,1,1.0
+Nikon_024_LR4.png,Nikon_024_LR4,27,51,0,248,69,24,1,SIÓN,sión,LOR,lor,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,42,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,43,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,44,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,45,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,46,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,47,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,48,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,49,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,50,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,1,51,206,21,51,77,1,2,2,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,42,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,43,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,44,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,45,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,46,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,47,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,48,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,49,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,50,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,2,51,381,21,56,78,1,3,3,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,42,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,43,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,44,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,45,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,46,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,47,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,48,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,49,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,50,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,3,51,204,202,53,78,1,9,9,,,1,yes,1.0,1,1.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,42,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,43,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,44,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,45,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,46,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,47,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,48,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,49,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,50,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,4,51,363,204,95,77,1,10,10,10,10,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,42,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,43,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,44,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,45,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,46,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,47,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,48,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,49,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,50,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,5,51,185,384,91,78,1,16,16,16,16,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,42,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,43,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,44,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,45,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,46,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,47,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,48,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,49,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,50,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_025_LR4.png,Nikon_025_LR4,6,51,364,386,90,77,1,17,17,17,17,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,1,42,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,43,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,44,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,45,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,46,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,47,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,48,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,49,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,50,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,1,51,0,64,82,50,1,eme,eme,me,me,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_033_LR4.png,Nikon_033_LR4,2,42,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,43,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,44,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,45,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,46,0,125,83,39,1,2020,2020,20RO,20ro,1,yes,0.5,1,0.5
+Nikon_033_LR4.png,Nikon_033_LR4,2,47,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,48,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,49,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,50,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,2,51,0,125,83,39,1,2020,2020,2020,2020,0,no,0.0,0,0.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,42,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,43,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,44,270,443,76,43,1,PolyU,polyu,060,060,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,45,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,46,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,47,270,443,76,43,1,PolyU,polyu,nGt,ngt,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,48,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,49,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,50,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,3,51,270,443,76,43,1,PolyU,polyu,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,42,412,420,92,16,1,THE HONG,the hong,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,43,412,420,92,16,1,THE HONG,the hong,016 315868,016 315868,1,yes,1.125,1,1.125
+Nikon_033_LR4.png,Nikon_033_LR4,4,44,412,420,92,16,1,THE HONG,the hong,Menep,menep,1,yes,0.875,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,45,412,420,92,16,1,THE HONG,the hong,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,46,412,420,92,16,1,THE HONG,the hong,AABAAC,aabaac,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,47,412,420,92,16,1,THE HONG,the hong,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,48,412,420,92,16,1,THE HONG,the hong,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,49,412,420,92,16,1,THE HONG,the hong,LALOFELS,lalofels,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,50,412,420,92,16,1,THE HONG,the hong,IELLYEES,iellyees,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,4,51,412,420,92,16,1,THE HONG,the hong,LFEEIBAE,lfeeibae,1,yes,0.875,1,0.875
+Nikon_033_LR4.png,Nikon_033_LR4,5,42,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,43,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,44,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,45,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,46,412,437,100,15,1,POLYTECHN,polytechn,LAISDRA,laisdra,1,yes,0.8888888888888888,1,0.8888888888888888
+Nikon_033_LR4.png,Nikon_033_LR4,5,47,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,48,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,49,412,437,100,15,1,POLYTECHN,polytechn,RNECAHEK,rnecahek,1,yes,0.8888888888888888,1,0.8888888888888888
+Nikon_033_LR4.png,Nikon_033_LR4,5,50,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_033_LR4.png,Nikon_033_LR4,5,51,412,437,100,15,1,POLYTECHN,polytechn,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,42,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,43,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,44,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,45,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,46,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,47,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,48,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,49,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,50,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,1,51,0,26,264,172,1,NK,nk,NK,nk,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,42,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,43,296,29,216,169,1,YO,yo,YQ,yq,1,yes,0.5,1,0.5
+Nikon_034_LR4.png,Nikon_034_LR4,2,44,296,29,216,169,1,YO,yo,YQ,yq,1,yes,0.5,1,0.5
+Nikon_034_LR4.png,Nikon_034_LR4,2,45,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,46,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,47,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,48,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,49,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,50,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,2,51,296,29,216,169,1,YO,yo,,,1,yes,1.0,1,1.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,42,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUks,hk/lpuks,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,43,0,350,212,53,1,hk/LpUks,hk/lpuks,hkiLpUks,hkilpuks,1,yes,0.125,1,0.125
+Nikon_034_LR4.png,Nikon_034_LR4,3,44,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUks,hk/lpuks,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,45,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUks,hk/lpuks,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,46,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUk9,hk/lpuk9,1,yes,0.125,1,0.125
+Nikon_034_LR4.png,Nikon_034_LR4,3,47,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUks,hk/lpuks,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,48,0,350,212,53,1,hk/LpUks,hk/lpuks,hkiLpUks,hkilpuks,1,yes,0.125,1,0.125
+Nikon_034_LR4.png,Nikon_034_LR4,3,49,0,350,212,53,1,hk/LpUks,hk/lpuks,hkiLpUks,hkilpuks,1,yes,0.125,1,0.125
+Nikon_034_LR4.png,Nikon_034_LR4,3,50,0,350,212,53,1,hk/LpUks,hk/lpuks,hk/LpUks,hk/lpuks,0,no,0.0,0,0.0
+Nikon_034_LR4.png,Nikon_034_LR4,3,51,0,350,212,53,1,hk/LpUks,hk/lpuks,hklLpUks,hkllpuks,1,yes,0.125,1,0.125
+Nikon_035_LR4.png,Nikon_035_LR4,1,42,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,43,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,44,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,45,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,46,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,47,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,48,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,49,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,50,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,1,51,0,24,175,61,1,would,would,would,would,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,42,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,43,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,44,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,45,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,46,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,47,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,48,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,49,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,50,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,2,51,188,25,182,60,1,rather,rather,rather,rather,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,42,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,43,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,44,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,45,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,46,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,47,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,48,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,49,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,50,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,3,51,72,155,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,42,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,43,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,44,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,45,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,46,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,47,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,48,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,49,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,50,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,4,51,188,156,230,71,1,identity,identity,identity,identity,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,42,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,43,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,44,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,45,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,46,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,47,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,48,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,49,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,50,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,5,51,426,153,71,62,1,of,of,of,of,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,42,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,43,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,44,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,45,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,46,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,47,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,48,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,49,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,50,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,6,51,53,243,105,61,1,the,the,the,the,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,42,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,43,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,44,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,45,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,46,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,47,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,48,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,49,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,50,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,7,51,167,243,165,61,1,other,other,other,other,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,42,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,43,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,44,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,45,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,46,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,47,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,48,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,49,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,50,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,8,51,343,241,156,62,1,hand,hand,hand,hand,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,42,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,43,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,44,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,45,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,46,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,47,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,48,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,49,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,50,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,9,51,0,331,168,60,1,While,while,While,while,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,42,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,43,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,44,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,45,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,46,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,47,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,48,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,49,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,50,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,10,51,179,335,310,68,1,protection,protection,protection,protection,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,42,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,43,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,44,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,45,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,46,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,47,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,48,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,49,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,50,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,11,51,225,430,114,53,1,can,can,can,can,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,42,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,43,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,44,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,45,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,46,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,47,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,48,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,49,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,50,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,12,51,348,418,81,62,1,be,be,be,be,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,42,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,43,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,44,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,45,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,46,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,47,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,48,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,49,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,50,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,13,51,381,24,131,77,1,keep,keep,keep,keep,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,42,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,43,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,44,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,45,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,46,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,47,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,48,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,49,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,50,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,14,51,0,162,65,56,1,ct,ct,ct,ct,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,42,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,43,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,44,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,45,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,46,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,47,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,48,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,49,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,50,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,15,51,1,427,219,66,1,censing,censing,censing,censing,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,42,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,43,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,44,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,45,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,46,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,47,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,48,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,49,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,50,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,16,51,0,259,43,42,1,n,n,,,1,yes,1.0,1,1.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,42,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,43,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,44,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,45,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,46,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,47,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,48,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,49,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,50,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_035_LR4.png,Nikon_035_LR4,17,51,435,435,77,44,1,ve,ve,ve,ve,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,1,42,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,43,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,44,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,45,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,46,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,47,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,48,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,49,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,50,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,1,51,0,224,142,60,1,strial,strial,stria,stria,1,yes,0.16666666666666666,1,0.16666666666666666
+Nikon_039_LR4.png,Nikon_039_LR4,2,42,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,43,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,44,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,45,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,46,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,47,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,48,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,49,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,50,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_039_LR4.png,Nikon_039_LR4,2,51,182,215,216,57,1,Centre,centre,Centre,centre,0,no,0.0,0,0.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,42,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,43,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,44,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,45,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,46,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,47,91,40,128,17,1,GH Podium Annexe,gh podium annexe,BOSEASTONE8S8DD,boseastone8s8dd,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,48,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,49,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,50,91,40,128,17,1,GH Podium Annexe,gh podium annexe,EFO&SEYTE,efo&seyte,1,yes,0.875,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,1,51,91,40,128,17,1,GH Podium Annexe,gh podium annexe,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,42,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,43,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,44,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,45,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,46,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,47,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,48,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,49,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,50,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,2,51,2,82,57,18,1,Sze Yuen,sze yuen,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,42,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,43,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,44,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,45,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,46,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,47,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,48,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,49,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,50,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,3,51,64,89,40,36,1,G,g,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,42,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,43,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,44,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,45,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,46,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,47,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,48,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,49,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,50,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,4,51,235,80,40,40,1,H,h,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,42,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,43,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,44,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,45,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,46,352,13,79,17,1,Shaw Sports,shaw sports,Ssk Foente,ssk foente,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_040_LR4.png,Nikon_040_LR4,6,47,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,48,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,6,49,352,13,79,17,1,Shaw Sports,shaw sports,Gonetvors,gonetvors,1,yes,0.7272727272727273,1,0.7272727272727273
+Nikon_040_LR4.png,Nikon_040_LR4,6,50,352,13,79,17,1,Shaw Sports,shaw sports,UASRSTE,uasrste,1,yes,0.7272727272727273,1,0.9090909090909091
+Nikon_040_LR4.png,Nikon_040_LR4,6,51,352,13,79,17,1,Shaw Sports,shaw sports,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,42,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,43,363,27,56,18,1,Complex,complex,Eorgeo,eorgeo,1,yes,0.7142857142857143,1,0.7142857142857143
+Nikon_040_LR4.png,Nikon_040_LR4,7,44,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,45,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,46,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,47,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,48,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,49,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,50,363,27,56,18,1,Complex,complex,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,7,51,363,27,56,18,1,Complex,complex,Catbaa,catbaa,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_040_LR4.png,Nikon_040_LR4,8,42,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,43,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,44,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,45,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,46,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,47,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,48,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,49,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,50,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,8,51,337,160,110,18,1,Fong Shu Chuen Hall,fong shu chuen hall,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,42,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,43,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,44,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,45,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,46,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,47,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,48,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,49,234,146,48,18,1,Stanley,stanley,Ene see,ene see,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_040_LR4.png,Nikon_040_LR4,9,50,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,9,51,234,146,48,18,1,Stanley,stanley,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,42,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,43,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,44,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,45,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,46,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,47,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,48,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,49,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,50,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,10,51,246,158,24,18,1,Ho,ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,42,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,43,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,44,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,45,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,46,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,47,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,48,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,49,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,50,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,11,51,233,171,46,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,42,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,43,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,44,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,45,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,46,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,47,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,48,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,49,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,50,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,12,51,72,256,38,37,1,F,f,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,42,71,324,40,17,1,Chan,chan,COA,coa,1,yes,0.5,1,0.75
+Nikon_040_LR4.png,Nikon_040_LR4,13,43,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,44,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,45,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,46,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,47,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,48,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,49,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,50,71,324,40,17,1,Chan,chan,See,see,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,13,51,71,324,40,17,1,Chan,chan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,42,70,337,48,16,1,Sui Wai,sui wai,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,43,70,337,48,16,1,Sui Wai,sui wai,Caets,caets,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,44,70,337,48,16,1,Sui Wai,sui wai,0168,0168,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,45,70,337,48,16,1,Sui Wai,sui wai,Bes Hve,bes hve,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_040_LR4.png,Nikon_040_LR4,14,46,70,337,48,16,1,Sui Wai,sui wai,Saethng,saethng,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_040_LR4.png,Nikon_040_LR4,14,47,70,337,48,16,1,Sui Wai,sui wai,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,48,70,337,48,16,1,Sui Wai,sui wai,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,49,70,337,48,16,1,Sui Wai,sui wai,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,50,70,337,48,16,1,Sui Wai,sui wai,BD86,bd86,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,14,51,70,337,48,16,1,Sui Wai,sui wai,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,42,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,43,71,350,50,17,1,Building,building,Deseta,deseta,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,44,71,350,50,17,1,Building,building,acio,acio,1,yes,0.875,1,0.875
+Nikon_040_LR4.png,Nikon_040_LR4,15,45,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,46,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,47,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,48,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,49,71,350,50,17,1,Building,building,Bbirod,bbirod,1,yes,0.75,1,0.75
+Nikon_040_LR4.png,Nikon_040_LR4,15,50,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,15,51,71,350,50,17,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,42,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,43,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,44,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,45,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,46,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,47,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,48,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,49,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,50,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,16,51,75,412,43,41,1,E,e,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,42,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,43,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,44,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,45,0,418,53,16,1,Che Woo,che woo,8560,8560,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,46,0,418,53,16,1,Che Woo,che woo,it Bore,it bore,1,yes,0.8571428571428571,1,0.8571428571428571
+Nikon_040_LR4.png,Nikon_040_LR4,17,47,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,48,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,49,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,50,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,17,51,0,418,53,16,1,Che Woo,che woo,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,42,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,43,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,44,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,45,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,46,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,47,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,48,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,49,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,50,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,18,51,0,431,42,16,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,42,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,43,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,44,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,45,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,46,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,47,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,22,48,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,Resrre Benco,resrre benco,1,yes,0.9166666666666666,1,0.9166666666666666
+Nikon_040_LR4.png,Nikon_040_LR4,22,49,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,Paye iop iges,paye iop iges,1,yes,0.8333333333333334,1,0.8333333333333334
+Nikon_040_LR4.png,Nikon_040_LR4,22,50,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,Punt EISS RFE,punt eiss rfe,1,yes,0.9166666666666666,1,0.9166666666666666
+Nikon_040_LR4.png,Nikon_040_LR4,22,51,156,473,85,18,1,Pao Yue-Kong,pao yue-kong,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,42,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,43,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,44,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,45,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,46,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,47,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,48,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,49,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,50,177,487,46,18,1,Library,library,pence,pence,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,23,51,177,487,46,18,1,Library,library,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,42,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,43,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,44,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,45,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,46,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,47,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,48,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,49,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,50,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,24,51,145,247,72,19,1,Chan Tai Ho,chan tai ho,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,42,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,43,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,44,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,45,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,46,156,261,50,18,1,Building,building,Dontaflcas,dontaflcas,1,yes,1.25,1,1.25
+Nikon_040_LR4.png,Nikon_040_LR4,25,47,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,48,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,49,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,50,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,25,51,156,261,50,18,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,42,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,43,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,44,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,45,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,46,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,47,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,48,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,49,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,50,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,26,51,426,280,77,20,1,Suen Chi Sun,suen chi sun,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,42,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,43,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,44,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,45,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,46,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,47,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,48,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,49,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,50,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,27,51,361,344,88,17,1,Li Ka Shing Tower,li ka shing tower,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,42,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,43,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,44,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,45,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,46,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,47,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,48,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,49,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,50,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,28,51,392,380,33,33,1,M,m,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,42,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,43,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,44,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,45,111,55,25,16,1,GH,gh,00,00,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,46,111,55,25,16,1,GH,gh,P28,p28,1,yes,1.5,1,1.5
+Nikon_040_LR4.png,Nikon_040_LR4,29,47,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,48,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,49,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,50,111,55,25,16,1,GH,gh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,29,51,111,55,25,16,1,GH,gh,00,00,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,42,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,43,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,44,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,45,0,232,52,15,1,hoi Road,hoi road,1786028,1786028,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,46,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,47,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,48,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,49,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,50,0,232,52,15,1,hoi Road,hoi road,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,30,51,0,232,52,15,1,hoi Road,hoi road,806,806,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,42,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,43,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,44,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,45,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,46,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,47,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,48,0,254,60,15,1,Ping Yuan,ping yuan,ertemgo,ertemgo,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,49,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,50,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,31,51,0,254,60,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,42,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,43,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,44,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,45,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,46,0,268,40,14,1,uilding,uilding,etoutiroo,etoutiroo,1,yes,1.1428571428571428,1,1.1428571428571428
+Nikon_040_LR4.png,Nikon_040_LR4,32,47,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,48,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,49,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,50,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,32,51,0,268,40,14,1,uilding,uilding,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,42,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,43,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,44,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,45,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,46,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,47,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,48,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,49,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,50,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,33,51,0,188,54,15,1,Ping Yuan,ping yuan,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,42,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,43,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,44,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,45,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,46,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,47,0,203,32,13,1,quare,quare,80,80,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,48,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,49,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,50,0,203,32,13,1,quare,quare,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,34,51,0,203,32,13,1,quare,quare,CRE,cre,1,yes,0.6,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,42,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,43,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,44,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,45,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,46,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,47,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,48,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,49,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,50,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,35,51,70,174,40,13,1,W. Tang,w. tang,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,42,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,43,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,44,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,45,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,46,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,47,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,48,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,49,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,50,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,36,51,71,184,40,12,1,Building,building,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,42,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,43,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,44,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,45,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,46,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,47,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,48,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,49,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,50,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,37,51,237,241,43,35,1,J,j,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,42,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,43,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,44,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,45,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,46,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,47,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,48,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,49,494,148,17,22,1,Sh,sh,02,02,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,50,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_040_LR4.png,Nikon_040_LR4,38,51,494,148,17,22,1,Sh,sh,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,42,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,43,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,44,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,45,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,46,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,47,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,48,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,49,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,50,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,1,51,42,0,100,253,1,bette,bette,bette,bette,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,42,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,43,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,44,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,45,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,46,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,47,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,48,143,103,69,108,1,fair,fair,fait,fait,1,yes,0.25,1,0.25
+Nikon_050_LR4.png,Nikon_050_LR4,2,49,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,50,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,2,51,143,103,69,108,1,fair,fair,fair,fair,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,42,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,43,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,44,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,45,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,46,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,47,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,48,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,49,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,50,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,3,51,225,170,50,72,1,got,got,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,4,42,41,257,292,57,1,community,community,oommunrty,oommunrty,1,yes,0.2222222222222222,1,0.2222222222222222
+Nikon_050_LR4.png,Nikon_050_LR4,4,43,41,257,292,57,1,community,community,oomniunty,oomniunty,1,yes,0.4444444444444444,1,0.4444444444444444
+Nikon_050_LR4.png,Nikon_050_LR4,4,44,41,257,292,57,1,community,community,oonmuniby,oonmuniby,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_050_LR4.png,Nikon_050_LR4,4,45,41,257,292,57,1,community,community,oonununrby,oonununrby,1,yes,0.6666666666666666,1,0.6666666666666666
+Nikon_050_LR4.png,Nikon_050_LR4,4,46,41,257,292,57,1,community,community,GRnuuioo,grnuuioo,1,yes,0.7777777777777778,1,0.7777777777777778
+Nikon_050_LR4.png,Nikon_050_LR4,4,47,41,257,292,57,1,community,community,oemnnunrty,oemnnunrty,1,yes,0.5555555555555556,1,0.5555555555555556
+Nikon_050_LR4.png,Nikon_050_LR4,4,48,41,257,292,57,1,community,community,oommuniby,oommuniby,1,yes,0.2222222222222222,1,0.2222222222222222
+Nikon_050_LR4.png,Nikon_050_LR4,4,49,41,257,292,57,1,community,community,comununny,comununny,1,yes,0.4444444444444444,1,0.4444444444444444
+Nikon_050_LR4.png,Nikon_050_LR4,4,50,41,257,292,57,1,community,community,ooimmunity,ooimmunity,1,yes,0.2222222222222222,1,0.2222222222222222
+Nikon_050_LR4.png,Nikon_050_LR4,4,51,41,257,292,57,1,community,community,oommunrty,oommunrty,1,yes,0.2222222222222222,1,0.2222222222222222
+Nikon_050_LR4.png,Nikon_050_LR4,5,42,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,43,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,44,39,332,186,59,1,Young,young,yeung,yeung,1,yes,0.2,1,0.4
+Nikon_050_LR4.png,Nikon_050_LR4,5,45,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,46,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,47,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,48,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,49,39,332,186,59,1,Young,young,SunoA,sunoa,1,yes,0.8,1,0.8
+Nikon_050_LR4.png,Nikon_050_LR4,5,50,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,5,51,39,332,186,59,1,Young,young,young,young,0,no,0.0,1,0.2
+Nikon_050_LR4.png,Nikon_050_LR4,6,42,70,417,119,51,1,Today,today,Kepor,kepor,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,43,70,417,119,51,1,Today,today,Today,today,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,44,70,417,119,51,1,Today,today,Kepo1,kepo1,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,45,70,417,119,51,1,Today,today,Anpo ),anpo,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,46,70,417,119,51,1,Today,today,Aepo.!!,aepo,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,47,70,417,119,51,1,Today,today,Aepo1,aepo1,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,48,70,417,119,51,1,Today,today,Aepo1,aepo1,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,49,70,417,119,51,1,Today,today,Today,today,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,50,70,417,119,51,1,Today,today,Aepol,aepol,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,6,51,70,417,119,51,1,Today,today,Kepor,kepor,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,7,42,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,43,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,44,222,388,132,89,1,paid,paid,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,7,45,222,388,132,89,1,paid,paid,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,7,46,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,47,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,48,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,49,222,388,132,89,1,paid,paid,prer,prer,1,yes,0.75,1,0.75
+Nikon_050_LR4.png,Nikon_050_LR4,7,50,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,7,51,222,388,132,89,1,paid,paid,pred,pred,1,yes,0.5,1,0.5
+Nikon_050_LR4.png,Nikon_050_LR4,8,42,170,0,56,89,1,Rep,rep,Rop,rop,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_050_LR4.png,Nikon_050_LR4,8,43,170,0,56,89,1,Rep,rep,Rep,rep,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,44,170,0,56,89,1,Rep,rep,Rep,rep,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,45,170,0,56,89,1,Rep,rep,Rop,rop,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_050_LR4.png,Nikon_050_LR4,8,46,170,0,56,89,1,Rep,rep,Rop,rop,1,yes,0.3333333333333333,1,0.3333333333333333
+Nikon_050_LR4.png,Nikon_050_LR4,8,47,170,0,56,89,1,Rep,rep,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,48,170,0,56,89,1,Rep,rep,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,49,170,0,56,89,1,Rep,rep,Rep,rep,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,50,170,0,56,89,1,Rep,rep,Rep,rep,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,8,51,170,0,56,89,1,Rep,rep,Rep,rep,0,no,0.0,0,0.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,42,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,43,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,44,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,45,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,46,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,47,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,48,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,49,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,50,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
+Nikon_050_LR4.png,Nikon_050_LR4,9,51,227,47,80,112,1,na,na,,,1,yes,1.0,1,1.0
