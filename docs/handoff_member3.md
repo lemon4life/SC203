@@ -69,7 +69,7 @@ image,box_id,x,y,w,h,transcript,readable
 ### Worked Label Examples (`EXAMPLE ONLY — NOT REAL DATA`)
 
 > **IMPORTANT:** The 4 rows below are **synthetic worked examples** to illustrate the format. They are **NOT** real data from `test_HR`.
-> - **`Canon_001_LR4.png` (`eduroam`) box:** `TODO` — Member 1 will send the confirmed `eduroam` text crop box; do not hardcode an unconfirmed box.
+> - **Confirmed real `Canon_001_LR4.png` (`eduroam`) box (from `data/text_boxes_realsr_m2.csv`):** `Canon_001_LR4.png,1,320,38,192,48,eduroam,yes` (and full sign crop for figure: `EDUROAM_CROP = '310,5,202,85'`).
 
 ```csv
 image,box_id,x,y,w,h,transcript,readable
@@ -154,7 +154,9 @@ python scripts/text_eval.py \
   --lr-dir "<PATH_TO_TEST_LR>" \
   --boxes-csv "data/text_boxes_realsr_m3.csv" \
   --ocr-backend rapidocr \
-  --upscale 2 \
+  --rec-only \
+  --rotate-vertical \
+  --upscale 1 \
   --seeds 42 \
   --output-dir "outputs/text_eval_nikon_seed42"
 ```

@@ -104,7 +104,7 @@ image,box_id,x,y,w,h,transcript,readable
 ### Worked Label Examples (`EXAMPLE ONLY — NOT REAL DATA`)
 
 > **IMPORTANT:** The 4 rows below are **synthetic worked examples** to show the CSV format. They are **NOT** real data from `test_HR`.
-> - **`Canon_001_LR4.png` (`eduroam`) box:** `TODO` — Member 1 will send the confirmed `eduroam` text crop box; do not hardcode an unconfirmed box.
+> - **Confirmed real `Canon_001_LR4.png` (`eduroam`) box (from `data/text_boxes_realsr_m2.csv`):** `Canon_001_LR4.png,1,320,38,192,48,eduroam,yes` (and full sign crop for figure: `EDUROAM_CROP = '310,5,202,85'`).
 
 ```csv
 image,box_id,x,y,w,h,transcript,readable
@@ -172,7 +172,9 @@ Once Member 1 sends you the merged `data/text_boxes_realsr.csv` (Sun `21:30`) an
      --study-root "<DEFAULT_10SEED_ROOT>" \
      --boxes-csv "data/text_boxes_realsr.csv" \
      --ocr-backend rapidocr \
-     --upscale 2 \
+     --rec-only \
+     --rotate-vertical \
+     --upscale 1 \
      --seeds 42 \
      --output-dir "outputs/text_eval_smoke_seed42"
 
@@ -184,7 +186,9 @@ Once Member 1 sends you the merged `data/text_boxes_realsr.csv` (Sun `21:30`) an
      --lr-dir "<PATH_TO_TEST_LR>" \
      --boxes-csv "data/text_boxes_realsr.csv" \
      --ocr-backend rapidocr \
-     --upscale 2 \
+     --rec-only \
+     --rotate-vertical \
+     --upscale 1 \
      --output-dir "outputs/text_eval_10seed"
    ```
    - **Success signal:** Prints `HR CEILING`, `BICUBIC x4 FLOOR`, `TEXT EVAL SUMMARY`, and `PAIRED COMPARISON`, and writes `text_eval_per_box_seed.csv`, `text_eval_summary_by_image.csv`, `text_eval_paired_comparison_by_image.csv`, `text_eval_hr_ceiling_by_image.csv`, and `text_eval_bicubic_floor_by_image.csv` inside `--output-dir`.
