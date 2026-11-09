@@ -32,11 +32,11 @@
   3. Builds `data_module = instantiate_from_config(config.data)` $\rightarrow$ [`dataset.data_module.DataModule`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/data_module.py#L12-L70).
   4. Builds `model = instantiate_from_config(OmegaConf.load(config.model.config))` $\rightarrow$ [`model.cldm.ControlLDM`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L244-L450).
   5. Loads `config.model.resume` via `load_state_dict(..., strict=True)`.
-  6. Creates `pl.Trainer(**config.lightning, callbacks=callbacks, logger=logger)` and calls `trainer.fit(model, datamodule=data_module)` ([`line 26`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/scripts/train.py#L26)).
+  6. Creates `pl.Trainer(callbacks=callbacks, **config.lightning.trainer)` (no custom logger) and calls `trainer.fit(model, datamodule=data_module)` ([`lines 28-29`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/scripts/train.py#L28-L29)).
 
 ### 2.2 Dataset and GPU Degradation Pipeline
 - **CPU dataset ([`external/DOSSR/dataset/realesrgan.py:86-180`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/realesrgan.py#L86-L180)):**
-  - Loads HR images from a file list (`meta_info`), center-crops or random-crops to `out_size: 512` ([`general_deg_realesrgan_train.yaml:13`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L13)), generates blur kernels (`kernel1`, `kernel2`, `sinc_kernel`), and returns:
+  - Loads HR images from a file list (`file_list`), center-crops (`crop_type: center`) to `out_size: 512` ([`general_deg_realesrgan_train.yaml:5-7`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L5-L7)), generates blur kernels (`kernel1`, `kernel2`, `sinc_kernel`), and returns:
     ```python
     return_d = {
         "hq": img_hq,
@@ -81,32 +81,36 @@ def shared_step(self, batch, **kwargs):
     x, c = self.get_input(batch, self.first_stage_key)
     preprocess_x = c['c_preprocess'][0]
     t = torch.randint(0, self.num_timesteps, (x.shape[0],), device=self.device).long()
+    # predict x0 with preprocess LR in
     pred_x0 = self.predict_x0_out_mix(x, preprocess_x, c, t, **kwargs)
+    # L1 loss
     loss_preprocess_diff = (x - pred_x0).abs().mean()
-    loss = loss_preprocess_diff
-    return loss, {'train/loss_preprocess_diff': loss_preprocess_diff}
+    self.log("loss_preprocess_diff", loss_preprocess_diff,
+        prog_bar=True, logger=True, on_step=True, on_epoch=False)
+    return loss_preprocess_diff
 ```
 Where:
 - `x` ($x_0 \in \mathbb{R}^{B \times 4 \times 64 \times 64}$): Clean HR latent from `self.encode_first_stage(jpg)` scaled by `scale_factor = 0.18215` ([`ddpm.py:780-785`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L780-L785)).
-- `preprocess_x` ($\hat{x}_{\text{LR}} \in \mathbb{R}^{B \times 4 \times 64 \times 64}$): Preprocessed LR latent from [`ControlLDM.preprocess`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L338-L343):
+- `preprocess_x` ($\hat{x}_{\text{LR}} \in \mathbb{R}^{B \times 4 \times 64 \times 64}$): Preprocessed LR latent, computed inside [`ControlLDM.get_input`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L327-L344) (there is no separate `preprocess` method):
   1. Bicubic downsample `hint` by $1/4$ to `128x128`.
   2. Run frozen `RealESRNet` (`self.preprocess_model`) to `512x512` and normalize to `[-1, 1]`.
   3. Encode with `self.cond_encoder(c).mode() * 0.18215`.
 - `c`: Dictionary with:
   - `c_crossattn`: `[FrozenOpenCLIPEmbedder(txt)]` ($\in \mathbb{R}^{B \times 77 \times 1024}$)
-  - `c_concat`: `[hint]` ($\in \mathbb{R}^{B \times 3 \times 512 \times 512}$)
-  - `c_preprocess`: `[preprocess_x]` ($\in \mathbb{R}^{B \times 4 \times 64 \times 64}$)
+  - `c_latent`: `[preprocess_x]` ($\in \mathbb{R}^{B \times 4 \times 64 \times 64}$). **This is the ControlNet hint** ([`cldm.py:385-388`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L385-L388)).
+  - `lq`: `[hint]` and `c_concat`: `[hint]` ($\in \mathbb{R}^{B \times 3 \times 512 \times 512}$). Used for image logging, not fed to ControlNet in `apply_model`.
+  - `c_preprocess`: `[preprocess_x]` (same tensor as `c_latent`; used as $\hat{x}_{\text{LR}}$ in the domain shift)
 
 ### 4.2 How `pred_x0` Is Defined in `eps`-Prediction Mode with the Domain-Shift Schedule ([`external/DOSSR/ldm/models/diffusion/ddpm.py:909-917`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L909-L917))
 - `DDPM.__init__` sets `self.parameterization = "eps"` ([`ddpm.py:75, 87`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L75)).
-- `DDPM.register_schedule` ([`ddpm.py:162-164`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L162-L164)) registers the domain-shift schedule `self.lambdas = make_eta_schedule("trunc_12", timesteps)` ([`ldm/modules/diffusionmodules/util.py:29-48`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/modules/diffusionmodules/util.py#L29-L48)), where $\lambda_t \in [0, 0.999]$ increases linearly from $0$ at $t=0$ to $0.999$ at $t = 500$ and stays $0.999$ for $t \in [500, 999]$.
+- `DDPM.register_schedule` ([`ddpm.py:162-164`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L162-L164)) registers the domain-shift schedule `self.lambdas = make_eta_schedule("trunc_12", timesteps)` ([`ldm/modules/diffusionmodules/util.py:29-48`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/modules/diffusionmodules/util.py#L29-L48)), where, for $t < 500$, $\lambda_t = (1 - \cos(\pi s_t))/2$ with $s_t$ spaced linearly from $0.001$ to $0.999$ (a cosine ramp from $\approx 0$ to $\approx 1$), and $\lambda_t = 1.0$ exactly for $t \in [500, 999]$. **Consequence:** for $t \ge 500$, $x_{\text{rect}} = \hat{x}_{\text{LR}}$, so the noisy input carries no HR information; $x_0$ enters only as the loss target.
 - Given HR latent $x_0$, preprocessed LR latent $\hat{x}_{\text{LR}}$, conditioning $c$, timestep $t$, and Gaussian noise $\epsilon \sim \mathcal{N}(0, I)$, [`predict_x0_out_mix`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L909-L917) computes:
   1. **Domain-shifted clean latent interpolation ([`ddpm.py:913`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L913)):**
      $$x_{\text{rect}}(t) = \lambda_t \, \hat{x}_{\text{LR}} + (1 - \lambda_t) \, x_0$$
   2. **Forward noisy latent ([`ddpm.py:914`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L914) & [`q_sample` at `ddpm.py:365-368`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L365-L368)):**
      $$x_t(\epsilon) = \sqrt{\bar{\alpha}_t} \, x_{\text{rect}}(t) + \sqrt{1 - \bar{\alpha}_t} \, \epsilon$$
   3. **UNet + ControlNet $\epsilon$-prediction ([`ddpm.py:915`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L915) & [`cldm.py:376-392`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/model/cldm.py#L376-L392)):**
-     $$\hat{\epsilon}_\theta(x_t(\epsilon), t, c) = \text{ControlledUNet}\big(x_t(\epsilon), t, c_{\text{crossattn}}, \text{ControlNet}(x_t(\epsilon), c_{\text{concat}}, t, c_{\text{crossattn}})\big)$$
+     $$\hat{\epsilon}_\theta(x_t(\epsilon), t, c) = \text{ControlledUNet}\big(x_t(\epsilon), t, c_{\text{crossattn}}, \text{ControlNet}(x_t(\epsilon), c_{\text{latent}}, t, c_{\text{crossattn}})\big)$$
   4. **One-step clean-latent prediction $\hat{x}_0(\epsilon)$ ([`ddpm.py:916`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L916) & [`predict_start_from_noise` at `ddpm.py:293-297`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/ldm/models/diffusion/ddpm.py#L293-L297)):**
      $$\hat{x}_0(\epsilon) = \frac{1}{\sqrt{\bar{\alpha}_t}} \, x_t(\epsilon) - \sqrt{\frac{1}{\bar{\alpha}_t} - 1} \; \hat{\epsilon}_\theta(x_t(\epsilon), t, c)$$
 
@@ -150,8 +154,8 @@ We need an HR dataset with text bounding boxes that **does NOT overlap** the 100
 
 ### 6.1 What Upstream DoSSR Training Config Expects (`VERIFIED` in `external/DOSSR`)
 In [`external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml:1-62`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L1-L62) and [`external/DOSSR/dataset/realesrgan.py:114-180`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/realesrgan.py#L114-L180):
-- **`meta_info: preset/train_datasets/training_datasets.txt`:** A plain-text list of file paths to HR training images (`preset/train_datasets/training_datasets.txt` is **not** shipped in the public `external/DOSSR` repo).
-- **`out_size: 512`, `crop_type: random`, `use_hflip: True`:** Each HR image is randomly cropped to `512x512` on CPU (`realesrgan.py:124-136`) and paired with synthetic blur kernels (`kernel1`, `kernel2`, `sinc_kernel`).
+- **`file_list: train_set/train.list`:** A plain-text list of file paths to HR training images, created by `scripts/make_file_list.py` (the list itself is **not** shipped in the public `external/DOSSR` repo).
+- **`out_size: 512`, `crop_type: center`, `use_hflip: false`, `use_rot: false`:** Each HR image is center-cropped to `512x512` on CPU (`realesrgan.py:97-104`) and paired with synthetic blur kernels (`kernel1`, `kernel2`, `sinc_kernel`).
 - **On-GPU degradation (`RealESRGANBatchTransform` in `batch_transform.py:136-270`):** Synthesizes $4\times$ degraded LR (`128x128`) from the `512x512` HR patch using second-order blur + resize + Gaussian/Poisson noise + JPEG compression, then bicubic-upsamples LR back to `512x512` (`hint`).
 - **No validation data loader in `train_cldm.yaml`:** Upstream `DataModule` ([`dataset/data_module.py:21-40`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/dataset/data_module.py#L21-L40)) only sets up `train_dataloader` unless `val_config` is added.
 
@@ -191,7 +195,7 @@ In [`external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml:1-62`](fil
 | **LoRA Target Modules** | `to_q`, `to_k`, `to_v`, `to_out.0` in `CrossAttention` layers of `self.control_model` (ControlNet) and `self.model.diffusion_model.output_blocks` (UNet decoder) | Avoids the `with torch.no_grad():` block in `ControlledUnetModel.forward` (`input_blocks` / `middle_block`) without needing to unfreeze the whole UNet. |
 | **LoRA Rank & Trainable Parameters (`ESTIMATE`)** | Rank `r = 4`: **`~0.8M – 1.6M`** trainable params (`< 0.15%` of total)<br>Rank `r = 8`: **`~1.6M – 3.2M`** trainable params (`< 0.25%` of total) | Small enough to prevent overfitting on a small text-rich training set and keeps optimizer state under `~25 MiB`. |
 | **Patch Size (`ESTIMATE`)** | HR: **`512 × 512`** (`jpg`, `hint`, `M_HR`)<br>LR: **`128 × 128`**<br>Latent (`x`, `preprocess_x`, `pred_x0`, `M_lat`): **`4 × 64 × 64`** (`1 × 64 × 64` for mask) | Matches [`configs/dataset/general_deg_realesrgan_train.yaml:13`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L13) (`out_size: 512`) and `image_size: 64` in [`cldm_v21.yaml:16`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/model/cldm_v21.yaml#L16). |
-| **Batch Size & Grad Accumulation (`ESTIMATE`)** | Micro-batch size **`1` or `2`** per GPU step, with `accumulate_grad_batches = 8` or `4` (effective batch size **`8`**) | Upstream full-ControlNet training used `batch_size: 8` across big GPUs ([`general_deg_realesrgan_train.yaml:57`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L57)); for single-GPU Colab with 2 noise samples per step, `batch_size = 1` or `2` is safest. |
+| **Batch Size & Grad Accumulation (`ESTIMATE`)** | Micro-batch size **`1` or `2`** per GPU step, with `accumulate_grad_batches = 8` or `4` (effective batch size **`8`**) | Upstream full-ControlNet training used `batch_size: 4` per GPU on 4 GPUs (DDP, `gpus: [1, 5, 6, 7]`) ([`general_deg_realesrgan_train.yaml:31`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/dataset/general_deg_realesrgan_train.yaml#L31), [`train_cldm.yaml:19-23`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/train_cldm.yaml#L19-L23)); for single-GPU Colab with 2 noise samples per step, `batch_size = 1` or `2` is safest. |
 | **Peak VRAM (`ESTIMATE`)** | **`~12 – 18 GiB`** (`batch_size = 1`, FP16 autocast, `use_checkpoint: True`, 2 noise samples)<br>**`~16 – 24 GiB`** (`batch_size = 2`, FP16 autocast, `use_checkpoint: True`, 2 noise samples) | Inference uses `7.32 GiB` allocated / `8.29 GiB` reserved (`VERIFIED`). Training keeps gradients for `ControlNet` + `UNet output_blocks` (with activation checkpointing enabled at [`cldm_v21.yaml:28, 61`](file:///Users/lemon4life/Projects/SC203/external/DOSSR/configs/model/cldm_v21.yaml#L28)). Note: we can backward on $\epsilon_1$ and $\epsilon_2$ sequentially (or keep $\hat{x}_0^{(1)}.\text{detach}()$ as target in a symmetric stop-grad or concatenate batch `2*B`) to bound peak activation memory. Fits easily on **Colab Pro L4 (`22.5 GiB`) / A100 (`80 GiB`)**. |
 | **Trial Step Time (`ESTIMATE`)** | **`~0.8 – 1.8 s / step`** (`batch_size = 1`, 2 noise samples per step on A100/L4) | 100-step trial run should take **`~2 – 4 minutes`** (`ESTIMATE — NOT TESTED`) after checkpoint loading. |
 
