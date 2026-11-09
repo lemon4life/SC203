@@ -56,7 +56,9 @@
 - `5c.` Vietnamese handoff notes (`docs/handoff_member2.vi.md`, `docs/handoff_member3.vi.md`, `docs/handoff_member4.vi.md`) marked `TODO: review by a Vietnamese speaker`.
 - `5d.` Optional `notebooks/02_member_starter.ipynb` (CPU-friendly starter notebook).
 
-### Group 6: Final Documentation Sync
-- `6a.` Update `context.md` with student names/IDs, A4/A5 schedule, status table, dependency graph, and open questions.
-- `6b.` Add top note to `docs/phase2_plan.md` pointing to `docs/ke_hoach_nhom_A4_A5.md`.
-- `6d.` Document `results/` convention for small summary CSVs vs. Drive for large outputs.
+### Group 6: Final Documentation Sync (`COMPLETED` in `feat/baseline-runner`)
+- `6a.` Update `context.md` with student names/IDs, A4/A5 schedule, status table, dependency graph, and open questions (**Done**).
+- `6b.` Add top note to `docs/phase2_plan.md` pointing to `docs/ke_hoach_nhom_A4_A5.md` (**Done**).
+- `6c.` Update `docs/plans/05_a4_a5_team_support.md` with completion status (**Done**).
+- `6d.` Document `results/` convention for small summary CSVs vs. Drive for large outputs in `results/README.md` (**Done**).
+

@@ -1,5 +1,7 @@
 # Seed-robust RealSR phase: preparation plan
 
+> **Note (`2026-11-08`):** This earlier preparation plan is superseded by **[`docs/ke_hoach_nhom_A4_A5.md`](file:///Users/lemon4life/Projects/SC203/docs/ke_hoach_nhom_A4_A5.md)**, **[`docs/plans/05_a4_a5_team_support.md`](file:///Users/lemon4life/Projects/SC203/docs/plans/05_a4_a5_team_support.md)**, and **[`docs/fact_sheet_for_report.md`](file:///Users/lemon4life/Projects/SC203/docs/fact_sheet_for_report.md)**.
+
 No batch or seed-study inference has been run. The existing one-image smoke config was not changed.
 
 ## Prepared files
