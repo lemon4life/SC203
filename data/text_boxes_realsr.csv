@@ -1,5 +1,5 @@
 image,box_id,x,y,w,h,transcript,readable
-Canon_001_LR4.png,1,320,38,192,48,eduroam,yes
+Canon_001_LR4.png,1,320,38,192,46,eduroam,yes
 Canon_002_LR4.png,1,55,18,130,32,SIEMENS,yes
 Canon_002_LR4.png,2,330,18,125,32,SIEMENS,yes
 Canon_002_LR4.png,3,195,123,117,27,SIEMENS,yes
@@ -75,8 +75,8 @@ Canon_044_LR4.png,0,,,,,,no
 Canon_045_LR4.png,1,35,270,55,48,10,yes
 Canon_045_LR4.png,2,435,260,55,48,36,yes
 Canon_046_LR4.png,1,6,45,70,20,Camille,yes
-Canon_046_LR4.png,2,76,45,80,20,Pissarro,yes
-Canon_046_LR4.png,3,157,45,47,20,1830,yes
+Canon_046_LR4.png,2,76,45,79,20,Pissarro,yes
+Canon_046_LR4.png,3,157,45,44,20,1830,yes
 Canon_046_LR4.png,4,216,45,47,20,1903,yes
 Canon_047_LR4.png,1,145,55,30,35,3,yes
 Canon_047_LR4.png,2,320,55,30,35,2,yes

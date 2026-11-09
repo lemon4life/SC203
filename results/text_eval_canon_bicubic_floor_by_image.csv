@@ -1,5 +1,5 @@
 reference,image,stem,num_boxes,crop_upscale,wrong_char_rate,cer_mean
-BICUBIC_X4_FLOOR,Canon_001_LR4.png,Canon_001_LR4,1,2,1.0,1.0
+BICUBIC_X4_FLOOR,Canon_001_LR4.png,Canon_001_LR4,1,2,1.0,0.5714285714285714
 BICUBIC_X4_FLOOR,Canon_002_LR4.png,Canon_002_LR4,15,2,1.0,1.0
 BICUBIC_X4_FLOOR,Canon_003_LR4.png,Canon_003_LR4,9,2,0.7777777777777778,0.19775132275132273
 BICUBIC_X4_FLOOR,Canon_004_LR4.png,Canon_004_LR4,5,2,0.0,0.0

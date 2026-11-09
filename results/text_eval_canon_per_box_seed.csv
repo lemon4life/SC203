@@ -1,14 +1,14 @@
 image,stem,box_id,seed,x,y,w,h,crop_upscale,gt_transcript,gt_norm,ocr_raw,ocr_norm,wrong_char,wrong_char_yes_no,cer,wrong_char_case_sensitive,cer_case_sensitive
-Canon_001_LR4.png,Canon_001_LR4,1,42,320,38,192,48,2,eduroam,eduroam,{n L N W D L odureani,n l n w d l odureani,1,yes,2.2857142857142856,1,2.2857142857142856
-Canon_001_LR4.png,Canon_001_LR4,1,43,320,38,192,48,2,eduroam,eduroam,eaneEd D ] aduronm,eaneed d ] aduronm,1,yes,1.7142857142857142,1,1.7142857142857142
-Canon_001_LR4.png,Canon_001_LR4,1,44,320,38,192,48,2,eduroam,eduroam,R( 4 4 4 = W L odareum,r( 4 4 4 = w l odareum,1,yes,2.7142857142857144,1,2.7142857142857144
-Canon_001_LR4.png,Canon_001_LR4,1,45,320,38,192,48,2,eduroam,eduroam,4eaE oduroant,4eae oduroant,1,yes,1.0,1,1.0
-Canon_001_LR4.png,Canon_001_LR4,1,46,320,38,192,48,2,eduroam,eduroam,YS U G1 _ 0 edureain,ys u g1 _ 0 edureain,1,yes,2.142857142857143,1,2.142857142857143
-Canon_001_LR4.png,Canon_001_LR4,1,47,320,38,192,48,2,eduroam,eduroam,Tey  36d cduroniv,tey 36d cduroniv,1,yes,1.5714285714285714,1,1.5714285714285714
-Canon_001_LR4.png,Canon_001_LR4,1,48,320,38,192,48,2,eduroam,eduroam,Vnee adaroam,vnee adaroam,1,yes,0.8571428571428571,1,0.8571428571428571
-Canon_001_LR4.png,Canon_001_LR4,1,49,320,38,192,48,2,eduroam,eduroam,L/ Uuue odoroam,l/ uuue odoroam,1,yes,1.2857142857142858,1,1.2857142857142858
-Canon_001_LR4.png,Canon_001_LR4,1,50,320,38,192,48,2,eduroam,eduroam,3t L odaroain,3t l odaroain,1,yes,1.2857142857142858,1,1.2857142857142858
-Canon_001_LR4.png,Canon_001_LR4,1,51,320,38,192,48,2,eduroam,eduroam,Rne/E aduronm,rne/e aduronm,1,yes,1.0,1,1.0
+Canon_001_LR4.png,Canon_001_LR4,1,42,320,38,192,46,2,eduroam,eduroam,{n L N W D L odureani,n l n w d l odureani,1,yes,2.2857142857142856,1,2.2857142857142856
+Canon_001_LR4.png,Canon_001_LR4,1,43,320,38,192,46,2,eduroam,eduroam,eaneEd D ] aduronm,eaneed d ] aduronm,1,yes,1.7142857142857142,1,1.7142857142857142
+Canon_001_LR4.png,Canon_001_LR4,1,44,320,38,192,46,2,eduroam,eduroam,J 4 4 4 = W L odareum,j 4 4 4 = w l odareum,1,yes,2.5714285714285716,1,2.5714285714285716
+Canon_001_LR4.png,Canon_001_LR4,1,45,320,38,192,46,2,eduroam,eduroam,4eaE oduroant,4eae oduroant,1,yes,1.0,1,1.0
+Canon_001_LR4.png,Canon_001_LR4,1,46,320,38,192,46,2,eduroam,eduroam,YS U G1 _ 0 edureain,ys u g1 _ 0 edureain,1,yes,2.142857142857143,1,2.142857142857143
+Canon_001_LR4.png,Canon_001_LR4,1,47,320,38,192,46,2,eduroam,eduroam,Tey * Ret C u cduroniv,tey * ret c u cduroniv,1,yes,2.4285714285714284,1,2.4285714285714284
+Canon_001_LR4.png,Canon_001_LR4,1,48,320,38,192,46,2,eduroam,eduroam,neeo adaroam,neeo adaroam,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_001_LR4.png,Canon_001_LR4,1,49,320,38,192,46,2,eduroam,eduroam,L U / Uuue Odoroam,l u / uuue odoroam,1,yes,1.7142857142857142,1,1.7142857142857142
+Canon_001_LR4.png,Canon_001_LR4,1,50,320,38,192,46,2,eduroam,eduroam,3t L Ddaroain,3t l ddaroain,1,yes,1.2857142857142858,1,1.2857142857142858
+Canon_001_LR4.png,Canon_001_LR4,1,51,320,38,192,46,2,eduroam,eduroam,Rne/E aduronm,rne/e aduronm,1,yes,1.0,1,1.0
 Canon_002_LR4.png,Canon_002_LR4,1,42,55,18,130,32,2,SIEMENS,siemens,PAMENL,pamenl,1,yes,0.5714285714285714,1,0.5714285714285714
 Canon_002_LR4.png,Canon_002_LR4,1,43,55,18,130,32,2,SIEMENS,siemens,SlMlE ],slmle,1,yes,0.7142857142857143,1,0.7142857142857143
 Canon_002_LR4.png,Canon_002_LR4,1,44,55,18,130,32,2,SIEMENS,siemens,EALMMTA,ealmmta,1,yes,0.8571428571428571,1,0.8571428571428571
@@ -369,26 +369,26 @@ Canon_046_LR4.png,Canon_046_LR4,1,48,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,
 Canon_046_LR4.png,Canon_046_LR4,1,49,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
 Canon_046_LR4.png,Canon_046_LR4,1,50,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
 Canon_046_LR4.png,Canon_046_LR4,1,51,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,42,76,45,80,20,2,Pissarro,pissarro,m) Q 7i,m) q 7i,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,43,76,45,80,20,2,Pissarro,pissarro,8 6F 13 3 F0,8 6f 13 3 f0,1,yes,1.5,1,1.5
-Canon_046_LR4.png,Canon_046_LR4,2,44,76,45,80,20,2,Pissarro,pissarro,0,0,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,45,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,46,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,47,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,48,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,49,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,50,76,45,80,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,2,51,76,45,80,20,2,Pissarro,pissarro,7,7,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,42,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,43,157,45,47,20,2,1830,1830,Amfe,amfe,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,44,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,45,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,46,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,47,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,48,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,49,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,50,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
-Canon_046_LR4.png,Canon_046_LR4,3,51,157,45,47,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,42,76,45,79,20,2,Pissarro,pissarro,m) Q 7i,m) q 7i,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,43,76,45,79,20,2,Pissarro,pissarro,4 60 132,4 60 132,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,44,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,45,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,46,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,47,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,48,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,49,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,50,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,51,76,45,79,20,2,Pissarro,pissarro,7,7,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,42,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,43,157,45,44,20,2,1830,1830,Amf,amf,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,44,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,45,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,46,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,47,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,48,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,49,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,50,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,51,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
 Canon_046_LR4.png,Canon_046_LR4,4,42,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
 Canon_046_LR4.png,Canon_046_LR4,4,43,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
 Canon_046_LR4.png,Canon_046_LR4,4,44,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
