@@ -126,33 +126,71 @@ def get_ocr_engine(backend: str, device: str = "cpu") -> Any:
     return engine
 
 
-def run_ocr_on_crop(crop_pil: Any, *, backend: str, device: str = "cpu") -> str:
-    """Run the selected OCR backend on a cropped PIL RGB image and return raw text."""
+def _ocr_with_score(rgb: Any, *, backend: str, device: str, rec_only: bool) -> tuple[str, float]:
     import numpy as np
 
     engine = get_ocr_engine(backend, device=device)
-    rgb = crop_pil.convert("RGB")
+    arr = np.asarray(rgb)
 
     if backend == "rapidocr":
-        arr = np.asarray(rgb)
-        result, _ = engine(arr)
-        if not result:
-            return ""
-        texts = [str(item[1]) for item in result if len(item) >= 2 and item[1]]
-        return " ".join(texts)
+        if rec_only and hasattr(engine, "use_text_det"):
+            prev = engine.use_text_det
+            engine.use_text_det = False
+            try:
+                result, _ = engine(arr)
+            finally:
+                engine.use_text_det = prev
+        elif rec_only:
+            result, _ = engine(arr, use_det=False, use_cls=False, use_rec=True)
+        else:
+            result, _ = engine(arr)
+        items = [(str(r[-2]), float(r[-1])) for r in (result or []) if len(r) >= 2 and str(r[-2]).strip()]
+        if not items:
+            return "", 0.0
+        return " ".join(t for t, _ in items), sum(sc for _, sc in items) / len(items)
 
     if backend == "easyocr":
-        arr = np.asarray(rgb)
+        if rec_only:
+            h, w = arr.shape[:2]
+            result = engine.recognize(arr, horizontal_list=[[0, w, 0, h]], free_list=[], detail=1)
+            items = [(str(r[1]), float(r[2])) for r in (result or []) if r[1]]
+            if not items:
+                return "", 0.0
+            return " ".join(t for t, _ in items), sum(sc for _, sc in items) / len(items)
         texts = engine.readtext(arr, detail=0, paragraph=True)
-        if not texts:
-            return ""
-        return " ".join(str(t) for t in texts if t)
+        return " ".join(str(t) for t in (texts or []) if t), 1.0
 
     if backend == "tesseract":
         text = engine.image_to_string(rgb, config="--psm 7")
-        return str(text or "").strip()
+        return str(text or "").strip(), 1.0
 
     raise ValueError(f"Unsupported OCR backend: {backend!r}")
+
+
+def run_ocr_on_crop(
+    crop_pil: Any,
+    *,
+    backend: str,
+    device: str = "cpu",
+    rec_only: bool = False,
+    rotate_vertical: bool = False,
+) -> str:
+    """Run the selected OCR backend on a cropped PIL RGB image and return raw text.
+
+    rec_only: skip text detection and recognize the whole crop (the labeled box already locates the text).
+    rotate_vertical: for tall boxes (h > 1.5 w), also try 90-degree rotations and keep the most confident reading.
+    """
+    rgb = crop_pil.convert("RGB")
+    candidates = [rgb]
+    if rotate_vertical and rgb.height > 1.5 * rgb.width:
+        candidates += [rgb.rotate(-90, expand=True), rgb.rotate(90, expand=True)]
+
+    best_text, best_score = "", -1.0
+    for cand in candidates:
+        text, score = _ocr_with_score(cand, backend=backend, device=device, rec_only=rec_only)
+        if text and score > best_score:
+            best_text, best_score = text, score
+    return best_text
 
 
 def load_readable_boxes(csv_path: Path) -> list[dict[str, Any]]:
@@ -263,6 +301,7 @@ def evaluate_single_folder_reference(
     upscale_crop: int = 1,
     pre_upscale_image_to: int | None = None,
     reference_label: str = "HR_CEILING",
+    ocr_opts: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Evaluate a single reference folder (test_HR ceiling or test_LR x4 bicubic floor)."""
     from PIL import Image
@@ -295,7 +334,7 @@ def evaluate_single_folder_reference(
                 )
             crop = crop_and_upscale(rgb, x, y, w, h, upscale=upscale_crop)
 
-        raw_ocr = run_ocr_on_crop(crop, backend=ocr_backend, device=device)
+        raw_ocr = run_ocr_on_crop(crop, backend=ocr_backend, device=device, **(ocr_opts or {}))
         pred_norm = normalize_text(raw_ocr, case_sensitive=False)
         pred_cs = normalize_text(raw_ocr, case_sensitive=True)
 
@@ -358,6 +397,7 @@ def evaluate_study(
     expected_size: int,
     upscale_crop: int = 1,
     selected_seeds: set[int] | None = None,
+    ocr_opts: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Evaluate all (box, seed) crops and aggregate to image level."""
     import numpy as np
@@ -391,7 +431,7 @@ def evaluate_study(
                 crop_arr = np.asarray(raw_crop, dtype=np.float32)
                 ocr_crop = crop_and_upscale(rgb, x, y, w, h, upscale=upscale_crop)
 
-            raw_ocr = run_ocr_on_crop(ocr_crop, backend=ocr_backend, device=device)
+            raw_ocr = run_ocr_on_crop(ocr_crop, backend=ocr_backend, device=device, **(ocr_opts or {}))
             pred_norm = normalize_text(raw_ocr, case_sensitive=False)
             pred_cs = normalize_text(raw_ocr, case_sensitive=True)
 
@@ -566,6 +606,12 @@ def main() -> int:
         default=1,
         help="Bicubic upscale factor applied to each text crop before OCR (1, 2, or 4; default: 1)",
     )
+    parser.add_argument("--rec-only", action="store_true", help="Skip OCR text detection; recognize the whole crop")
+    parser.add_argument(
+        "--rotate-vertical",
+        action="store_true",
+        help="For tall boxes, also try 90-degree rotations and keep the most confident reading",
+    )
     parser.add_argument(
         "--seeds",
         nargs="+",
@@ -595,6 +641,7 @@ def main() -> int:
     boxes_csv = args.boxes_csv.expanduser().resolve()
     out_dir = (args.output_dir or study_root).expanduser().resolve()
     selected_seeds = parse_seeds_arg(args.seeds)
+    ocr_opts = {"rec_only": args.rec_only, "rotate_vertical": args.rotate_vertical}
 
     boxes = load_readable_boxes(boxes_csv)
 
@@ -608,6 +655,7 @@ def main() -> int:
             expected_hr_size=args.expected_size,
             upscale_crop=args.upscale,
             pre_upscale_image_to=None,
+            ocr_opts=ocr_opts,
             reference_label="HR_CEILING",
         )
         hr_box_csv = out_dir / "text_eval_hr_ceiling_per_box.csv"
@@ -636,6 +684,7 @@ def main() -> int:
             expected_hr_size=args.expected_size,
             upscale_crop=args.upscale,
             pre_upscale_image_to=args.expected_size if args.expected_size > 0 else 512,
+            ocr_opts=ocr_opts,
             reference_label="BICUBIC_X4_FLOOR",
         )
         lr_box_csv = out_dir / "text_eval_bicubic_floor_per_box.csv"
@@ -662,6 +711,7 @@ def main() -> int:
         expected_size=args.expected_size,
         upscale_crop=args.upscale,
         selected_seeds=selected_seeds,
+        ocr_opts=ocr_opts,
     )
 
     per_seed_csv = out_dir / "text_eval_per_box_seed.csv"
@@ -694,6 +744,7 @@ def main() -> int:
             expected_size=args.expected_size,
             upscale_crop=args.upscale,
             selected_seeds=selected_seeds,
+            ocr_opts=ocr_opts,
         )
         base_map = {(r["stem"], r["box_id"], r["seed"]): r for r in per_seed_rows}
         comp_map = {(r["stem"], r["box_id"], r["seed"]): r for r in comp_seed_rows}

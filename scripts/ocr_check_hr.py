@@ -77,6 +77,12 @@ def main() -> int:
         default=512,
         help="Expected HR image width and height in pixels (default: 512)",
     )
+    parser.add_argument("--rec-only", action="store_true", help="Skip OCR text detection; recognize the whole crop")
+    parser.add_argument(
+        "--rotate-vertical",
+        action="store_true",
+        help="For tall boxes, also try 90-degree rotations and keep the most confident reading",
+    )
     args = parser.parse_args()
 
     boxes_csv = args.boxes_csv.expanduser().resolve()
@@ -97,6 +103,7 @@ def main() -> int:
         upscale_crop=args.upscale,
         pre_upscale_image_to=None,
         reference_label="HR_CHECK",
+        ocr_opts={"rec_only": args.rec_only, "rotate_vertical": args.rotate_vertical},
     )
 
     write_csv_dicts(out_csv, per_box_rows)
