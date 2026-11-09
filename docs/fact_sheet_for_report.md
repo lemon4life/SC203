@@ -15,7 +15,7 @@
 | **Member 1** | Hoàng Nguyên Anh | `25125002` | GPU & Pipeline Lead (`notebooks/01_dossr_baseline.ipynb` `CELL 01`–`18`, `2,000` 10-seed `512x512` PNGs on Drive), CSV merge, final PDF assembly | `VERIFIED` |
 | **Member 2** | Huỳnh Trần Gia Hân | `25125042` | Canon text-box labeling (`images 1–50`, `data/text_boxes_realsr_canon.csv` / `_m2.csv`: `10` readable images, `50` boxes) & 10-seed Canon `text_eval.py` (`results/text_eval_10seed_canon/`) | `VERIFIED` |
 | **Member 3** | Hồ Quang Minh | `25125060` | Nikon text-box labeling (`images 51–100`, `data/text_boxes_realsr_nikon.csv` / `_m3.csv`: `15` readable images, `143` boxes), `--rec-only --rotate-vertical` OCR fix (`ca127fe`), HR OCR ceiling check, & 10-seed Nikon `text_eval.py` (`results/text_eval_nikon_*.csv`) | `VERIFIED` |
-| **Member 4** | Nguyễn Phan Minh Nhật | `25125033` | LaTeX report (`A4` & `A5`), whole-image metrics (`scripts/compute_metrics.py`), 1-page related-methods comparison (`CCSR`, `PNFS`, `TADiSR`) | `IN PROGRESS` |
+| **Member 4** | Nguyễn Phan Minh Nhật | `25125033` | LaTeX report (`docs/main.tex` / `docs/A4_sota_limitations.tex`), whole-image metrics (`scripts/compute_metrics.py`, `results/metrics_10seed_*.csv`), 1-page related-methods comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`) | `VERIFIED` |
 
 ---
 
@@ -108,10 +108,22 @@
 
 ---
 
-## 6. Pending Items (`PENDING` — Do Not Invent Numbers)
+## 6. Whole-Image 10-Seed Metrics (`100` Images $\times$ `10` Seeds `42..51` = `2,000` PNGs vs `test_HR`, `VERIFIED`)
+
+*Source CSVs committed in `results/` (`7564c85`):*
+- `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
+- `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
+
+| Prompt Mode (`100` images $\times$ `10` seeds `42..51`, `SDPA OFF`, `fp16`) | `PSNR_RGB` (dB) (`mean ± std`, `range`) | `SSIM_RGB` (`mean ± std`, `range`) | `PSNR_Y` (dB) (`mean ± std`, `range`) | `SSIM_Y` (`mean ± std`, `range`) | `LPIPS` (AlexNet) (`mean ± std`, `range`) | Pairwise Cross-Seed Pixel Diff (`0..255` `mean` / `max`) | Pairwise Cross-Seed `LPIPS` (`mean` / `max`) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`default` (`"clean, high-resolution, 8k"`)** | **`22.6353 ± 0.5961`** (`1.8966` dB) | **`0.6406 ± 0.0182`** (`0.0573`) | **`24.1610 ± 0.6170`** (`1.9616` dB) | **`0.6820 ± 0.0179`** (`0.0564`) | **`0.3382 ± 0.0191`** (`0.0608`) | **`10.4508`** / `229.67` | **`0.1727`** / `0.2064` |
+| **`empty` (`""`)** | **`22.6998 ± 0.6079`** (`1.9232` dB) | **`0.6431 ± 0.0184`** (`0.0574`) | **`24.2262 ± 0.6295`** (`1.9930` dB) | **`0.6845 ± 0.0181`** (`0.0565`) | **`0.3352 ± 0.0191`** (`0.0602`) | **`10.3415`** / `229.07` | **`0.1705`** / `0.2039` |
+| **Difference (`empty - default`)** | `+0.0645` dB | `+0.0025` | `+0.0652` dB | `+0.0025` | `-0.0030` | `-0.1093` px | `-0.0022` |
+
+---
+
+## 7. Future Work for Assignment 5 (`PENDING` — Paused Until Tue `11/11/2026`)
 
 | Item | Owner | Current Status | Where Results Will Go |
 | :--- | :--- | :---: | :--- |
-| **Whole-Image `PSNR`, `SSIM`, `LPIPS`, and Pairwise Whole-Image Seed Spread on the 100-Image 10-Seed Studies (`default` and `empty` prompts)** | Member 4 (Minh Nhật) / Member 1 (Colab GPU) | `PENDING` *(Run `scripts/compute_metrics.py --device cuda` on Colab GPU: ~2 min per 10-seed folder)* | `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_empty_summary_by_image.csv` |
-| **5-Image / 5-Seed `compute_metrics.py` CSV Values (`CELL 14` bundle)** | Member 1 / Member 4 | `PENDING` *(Zip bundle `sc203_baseline_results_bundle.zip` generated on Drive in `810e844`; extract exact numbers before quoting)* | `results/` |
 | **LoRA Variants `(A, B, C)` Short Trial Run & VRAM Profile** | Member 3 (Quang Minh) & Member 1 | `PAUSED until Tue 11/11/2026` *(Design & feasibility verified in `docs/lora_feasibility_and_loss_design.md`; runtime numbers are `ESTIMATE — NOT TESTED`)* | For Assignment 5 (`due 17/11/2026`) |

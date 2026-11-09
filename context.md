@@ -37,8 +37,8 @@ You are joining Team 1 (`LEMMEPASS`) in SC203 Scientific Methods (Class 25A02). 
 | **C.9 & C.10** | Read-only audit of DoSSR training code (`docs/lora_feasibility_and_loss_design.md`, updated in `8565c93`) & LoRA trial design | Member 3 | **Done (`VERIFIED` in `external/DOSSR` source; runtime estimates `ESTIMATE — NOT TESTED`; LoRA coding paused until Tue `11/11/2026`)** | Paused until `11/11/2026` |
 | **A.1–A.4-Run** | 100-image $\times$ 10-seed $\times$ 2-prompt (`default` vs `empty`, `SDPA OFF`, `fp16`) study (`CELL 16`–`17b`) | Member 1 | **Done (`VERIFIED` on `131e636`: `2,000` `512x512` PNGs on Drive, all 20 manifests `fp16` + `SDPA OFF`)** | None |
 | **B.8** | `Canon_001_LR4` (`eduroam`) 4-panel figure (`scripts/plot_eduroam_figure.py` & `CELL 18`) | Member 1 & Member 4 | **Done (`VERIFIED` in `CELL 18` with `EDUROAM_CROP = '310,5,202,85'`, `01dc1e2`)** | None |
-| **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS, pairwise seed spread) | Member 4 | **`VERIFIED` on 5-seed study (`CELL 14`–`15`, `810e844`); 10-seed run `PENDING` (`--study-root` alias & live `[i/100]` progress added in `bd53569`)** | None — ready for Member 4 on Colab GPU (`~2 min`) |
-| **D-Report** | `docs/fact_sheet_for_report.md` (`VERIFIED`), `A4` report (due Tue `10/11 07:00`), 1-page CCSR/PNFS/TADiSR comparison, and `A5` report (due Tue `17/11 07:00`) | Member 4 & All | `fact_sheet_for_report.md` **Done (`bd53569`)**; Member 4 writing `A4` & `related_methods` | B.7 (for whole-image table) |
+| **B.7** | Whole-image metrics (`scripts/compute_metrics.py`: PSNR, SSIM, LPIPS, pairwise seed spread) | Member 4 | **Done (`VERIFIED` on all 100 images $\times$ 10 seeds in `7564c85`: `default` `PSNR_RGB = 22.6353±0.5961`, `SSIM_RGB = 0.6406±0.0182`, `LPIPS = 0.3382±0.0191`, `pair_px = 10.4508`; `empty` `PSNR_RGB = 22.6998±0.6079`, `SSIM_RGB = 0.6431±0.0184`, `LPIPS = 0.3352±0.0191`, `pair_px = 10.3415`)** | None |
+| **D-Report** | `docs/fact_sheet_for_report.md` (`VERIFIED`), `docs/main.tex` / `docs/A4_sota_limitations.tex` (due Tue `10/11 07:00`), 1-page CCSR/PNFS/TADiSR comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`), and `A5` report (due Tue `17/11 07:00`) | Member 4 & All | **Assignment 4 Report & Related Methods Done (`VERIFIED` in `7564c85` + `docs/main.tex` / `docs/A4_sota_limitations.tex`)** | None (A5 due `17/11`) |
 
 ## 4. Repo & Key Files
 
@@ -79,8 +79,7 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
    - **Seed Instability Across `seed_42`..`seed_51`:** **`32.83%`** cross-seed OCR disagreement (`31.57%` image-mean), **`3.15` distinct OCR transcripts per box across 10 seeds** (`10.0 / 10` on `Canon_001` `eduroam` and `Nikon_002`), and **`20.28` pixel $L_1$ spread** (`0..255`).
    - **Paired Prompt Comparison (`empty - default`, `1,930` pairs):** $\Delta\text{WCR} = -0.16\%$, $\Delta\text{CER} = +0.0001$ (confirming text hallucination is driven by the diffusion prior and random seed rather than the positive prompt).
 
-## 6. Remaining Open Questions (`TODO: confirm`)
+## 6. Remaining Open Questions (`TODO: confirm` for Assignment 5, after Tue `11/11/2026`)
 
-1. **10-Seed Whole-Image Metrics (`B.7`):** Awaiting `results/metrics_10seed_{default,empty}_summary_by_image.csv` from running `scripts/compute_metrics.py --device cuda` on the two 10-seed folders.
-2. **LoRA Training Data (`C.9/C.10`, for Assignment 5 after `11/11/2026`):** Which disjoint HR dataset with text boxes (`Real-CE`, ICDAR/TextOCR + Real-ESRGAN degradation, or RealSR train split) will we use for the short trial run of LoRA version `C`?
-3. **LoRA Prompt Mode (`C.9/C.10`):** Confirm training and evaluating LoRA `A, B, C` with the empty prompt `""` (matching `realesrgan.py:179`).
+1. **LoRA Training Data (`C.9/C.10`, for Assignment 5 after `11/11/2026`):** Which disjoint HR dataset with text boxes (`Real-CE`, ICDAR/TextOCR + Real-ESRGAN degradation, or RealSR train split) will we use for the short trial run of LoRA version `C`?
+2. **LoRA Prompt Mode (`C.9/C.10`):** Confirm training and evaluating LoRA `A, B, C` with the empty prompt `""` (matching `realesrgan.py:179`).
