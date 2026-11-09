@@ -19,7 +19,7 @@ You are joining Team 1 (`LEMMEPASS`) in SC203 Scientific Methods (Class 25A02). 
 
 | Member | Full Name (`Student ID`) | Role | Branch | Owned Files & Deliverables | Hardware |
 |---|---|---|---|---|---|
-| **Member 1 (User)** | **Hoàng Nguyên Anh (`25125002`)** | GPU & Pipeline Lead | `feat/baseline-runner` | `src/run_dossr.py`, `src/dossr_inference_compat.py`, `src/attention_compat.py`, `scripts/run_seed_study.py`, `scripts/check_study_outputs.py`, `scripts/merge_text_boxes.py`, `configs/*`, `notebooks/01_dossr_baseline.ipynb`, `context.md` | Colab Pro GPU (`A100-SXM4-80GB`) + local Mac |
+| **Member 1 (User)** | **Hoàng Nguyên Anh (`25125002`)** | GPU & Pipeline Lead | `feat/baseline-runner` | `src/run_dossr.py`, `src/dossr_inference_compat.py`, `src/attention_compat.py`, `scripts/run_seed_study.py`, `scripts/check_study_outputs.py`, `scripts/merge_text_boxes.py`, `configs/*`, `notebooks/01_dossr_baseline.ipynb`, `context.md` | Colab Pro GPU (`NVIDIA L4`) + local Mac |
 | **Member 2** | **Huỳnh Trần Gia Hân (`25125042`)** | Text Labeling (`1–50`) & Text Evaluation Lead | `feat/text-labels-canon` (merged) | `data/text_boxes_realsr_canon.csv` (`_m2.csv`), `results/text_eval_10seed_canon/*.csv`, `scripts/make_text_contact_sheets.py`, `docs/handoff_member2.md` | CPU laptop / Free Colab |
 | **Member 3** | **Hồ Quang Minh (`25125060`)** | Text Labeling (`51–100`), OCR Calibration & LoRA Lead | `feat/text-labels-nikon`, `fix/ocr-rec-only`, `feat/lora-loss` (merged) | `data/text_boxes_realsr_nikon.csv` (`_m3.csv`), `scripts/ocr_check_hr.py`, `scripts/text_eval.py` (`--rec-only --rotate-vertical`), `results/text_eval_nikon_*.csv`, `docs/lora_feasibility_and_loss_design.md`, `docs/handoff_member3.md` | CPU laptop / Free Colab (LoRA paused until Tue `11/11/2026`) |
 | **Member 4** | **Nguyễn Phan Minh Nhật (`25125033`)** | Report (`A4`/`A5`), Whole-Image Metrics & Related Work Lead | `feat/report-figures` | `docs/A4_sota_limitations.tex`, `docs/A5_baseline.tex`, `docs/related_methods_ccsr_pnfs_tadisr.md`, `scripts/compute_metrics.py`, `scripts/plot_eduroam_figure.py`, `docs/handoff_member4.md` | CPU laptop / Free Colab GPU (`--device cuda`) |
@@ -62,7 +62,7 @@ git checkout feat/baseline-runner   # main integration branch managed by Member 
 
 ## 5. Summary of Verified Findings (`CELL 01`–`18` & 100-Image `text_eval.py`)
 
-1. **Colab GPU (`CELL 03`):** `NVIDIA A100-SXM4-80GB` (`79.25 GiB`), PyTorch `2.11.0+cu130`, Python `3.13.16`.
+1. **Colab GPU (`CELL 17` / `CELL 03`):** `NVIDIA L4` (`22.5 GiB`, used for the 10-seed studies; `A100` was only used on the Nov 5 `2048x2048` discovery run), PyTorch `2.11.0+cu130`, Python `3.13.16`.
 2. **RealSR Dataset & Text Box Ground Truth (`CELL 04` + `data/text_boxes_realsr.csv`):**
    - `100` paired `test_LR` (`128x128`) and `test_HR` (`512x512`) images.
    - **`25 / 100` images** contain human-readable text (`10` Canon + `15` Nikon), totaling **`193` `readable=yes` word boxes** (`50` Canon + `143` Nikon).

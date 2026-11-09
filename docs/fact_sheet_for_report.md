@@ -38,7 +38,7 @@
 | Fact / Metric | Value | Source (`Log` / `CELL` / `Config`) | Status |
 | :--- | :--- | :--- | :---: |
 | **Paper-Default Sampler Settings** | `steps: 5`, `solver_order: 3`, `t1_fraction: 0.5` ($t_1 = T/2$), `sr_scale: 4`, `color_fix_type: wavelet`, `preprocessor: RealESRNet`, `precision: fp16` | `configs/baseline_realsr_lr128.yaml`, `src/run_dossr.py` | `VERIFIED` |
-| **Colab Hardware & Software Stack** | `NVIDIA A100-SXM4-80GB` (`79.25 GiB` VRAM), Python `3.13.16`, PyTorch `2.11.0+cu130` (`xformers` absent) | `CELL 03` (`docs/after_01_dossr_baseline_discovery.md`) | `VERIFIED` |
+| **Colab Hardware & Software Stack** | `NVIDIA L4` (`22.5 GiB` VRAM, used for the 10-seed studies; earlier `CELL 03` discovery run used `A100-SXM4-80GB`), Python `3.13.16`, PyTorch `2.11.0+cu130` (`xformers` absent) | `CELL 03`, `CELL 17` (`notebooks/01_dossr_baseline.ipynb`) | `VERIFIED` |
 | **True `128x128 -> 512x512` (`test_LR`) VRAM & Latency (`SDPA ON`)** | `peak_allocated = 7.32 GiB`, `peak_reserved = 8.29 GiB`, `sampler = 1.24 s`, `image = 1.75 s` | `CELL 08` & `CELL 09` (`251d4a5`) | `VERIFIED` |
 | **True `128x128 -> 512x512` (`test_LR`) VRAM & Latency (`SDPA OFF`, vanilla upstream math)** | `peak_allocated = 7.32 GiB`, `peak_reserved = 8.28 GiB`, `sampler = 1.42 s`, `image = 1.92 s` | `CELL 09` (`251d4a5`) | `VERIFIED` |
 | **Pixel Difference (`SDPA ON` vs `SDPA OFF` at `512x512`, `0..255`)** | `max_abs_diff = 2.0000`, `mean_abs_diff = 0.0334` | `CELL 09` (`251d4a5`) | `VERIFIED` |
