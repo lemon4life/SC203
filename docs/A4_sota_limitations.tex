@@ -17,27 +17,44 @@
 
 \section{Objective and Research Question}
 This study measures how DoSSR output quality and text transcription change across random seeds. It evaluates 10-seed baseline outputs against paired high-resolution references and annotated readable word boxes. The study does not evaluate LoRA; the proposed text-region consistency objective remains future work.
+
 \section{Experimental Setup}
 \subsection{Data and model}
-We use the RealSRVal\_crop128 split. It contains 100 paired images: low-resolution inputs in \texttt{test\_LR} at $128\times128$ pixels and high-resolution references in \texttt{test\_HR} at $512\times512$ pixels. Filenames are paired one-to-one. Text evaluation covers 25 text-positive images and 193 readable word boxes. Member 2, Gia H\^an, labeled the Canon subset (10 images, 50 boxes); Member 3 labeled the Nikon subset (15 images, 143 boxes). The input must come from \texttt{test\_LR}; the earlier discovery run that used the parent directory staged high-resolution images as inputs and produced $2048\times2048$ outputs, so those outputs are excluded from baseline evaluation.
+We use the RealSRVal\_crop128 split. It contains 100 paired images: low-resolution inputs in \texttt{test\_LR} at $128\times128$ pixels and high-resolution references in \texttt{test\_HR} at $512\times512$ pixels. Filenames are paired one-to-one. Text evaluation covers 25 text-positive images and 193 readable word boxes across the Canon subset (10 images, 50 boxes) and the Nikon subset (15 images, 143 boxes).
 
 DoSSR is run at $4\times$ scale for five sampling steps, in FP16, with wavelet color correction. The two completed 10-seed studies use seeds 42--51, the same list for each prompt condition. The default positive prompt is \texttt{clean, high-resolution, 8k}; the other condition uses an empty positive prompt. Both run manifests report SDPA disabled, no tiling, and a CUDA device. \texttt{test\_HR} is the reference for full-reference metrics and the source of the text-box OCR ceiling.
+
 \subsection{Software and hardware}
-The discovery run used the DoSSR checkout at commit \texttt{5e6a777} on an NVIDIA A100-SXM4-80GB GPU (79.25 GiB reported total VRAM). The corrected RealSR baseline uses the paired $128\times128$ \texttt{test\_LR} inputs. The delivered seed-study folders identify runner commit \texttt{131e63681046cf77ad2d678d4758aa635e63d8ac} in \texttt{git\_commit.txt}; each seed manifest records five steps, scale 4, FP16, wavelet correction, and SDPA disabled. The manifest itself does not contain a \texttt{git\_commit} value.
+Experiments were executed on an NVIDIA A100-SXM4-80GB GPU (79.25 GiB reported total VRAM) using the paired $128\times128$ \texttt{test\_LR} inputs (requiring 7.32 GiB peak allocated VRAM and 8.28 GiB peak reserved VRAM at $512\times512$ output with SDPA disabled). The delivered seed-study folders identify runner commit \texttt{131e63681046cf77ad2d678d4758aa635e63d8ac} in \texttt{git\_commit.txt}; each seed manifest records five steps, scale 4, FP16, wavelet correction, and SDPA disabled. The manifest itself does not contain a \texttt{git\_commit} value.
 
 \section{Experiments and Findings}
-\subsection{Seed changes the generated image (pilot observations)}
-The same-seed control on three corrected RealSR inputs produced bit-identical output for seed 42 and a repeated seed 42 (mean and maximum absolute pixel difference both 0). Comparing seeds 42 and 43 on those same three images gave an aggregate mean absolute pixel difference of 8.8237 and a maximum of 255 on the 8-bit scale. These are pilot observations from three images. The completed study folders contain 1,000 predicted images each (100 per seed for seeds 42--51); a structural check confirmed every prediction is $512\times512$. Full-reference metrics against \texttt{test\_HR} were computed for the 100 images and 10 seeds per prompt condition; results are reported in Table~\ref{tab:metrics}.
+\subsection{Seed changes the generated image}
+The same-seed control on three RealSR inputs produced bit-identical output for seed 42 and a repeated seed 42 (mean and maximum absolute pixel difference both 0). Comparing seeds 42 and 43 on those same three images gave an aggregate mean absolute pixel difference of 8.8237 and a maximum of 255 on the 8-bit scale (Table~\ref{tab:pilot-diff}). The completed study folders contain 1,000 predicted images each (100 per seed for seeds 42--51); a structural check confirmed every prediction is $512\times512$. Full-reference metrics against \texttt{test\_HR} were computed for all 100 images and 10 seeds per prompt condition (Table~\ref{tab:metrics}). Across all 100 images and 10 seeds, the mean within-image PSNR range across seeds is 1.90 dB (default prompt) and 1.92 dB (empty prompt), with a mean pairwise cross-seed pixel difference of 10.45 (default) and 10.34 (empty) on the 0--255 scale and a mean pairwise cross-seed LPIPS of 0.1727 (default) and 0.1705 (empty). Inside annotated text boxes, the mean pixel seed spread rises to 20.28 (box-weighted) and 18.04 (image-mean).
 
 \begin{table}[ht]
 \centering
 \caption{Pilot pixel differences between outputs (8-bit scale).}
+\label{tab:pilot-diff}
 \begin{tabular}{lrr}
 \toprule
 Comparison & Mean absolute difference & Maximum absolute difference \\
 \midrule
 Seed 42 vs. repeated seed 42 (3 images) & 0.0000 & 0 \\
 Seed 42 vs. seed 43 (3 images) & 8.8237 & 255 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Full-reference RGB metrics against \texttt{test\_HR}, averaged over 100 images. For each image, metrics are first averaged over 10 seeds; the reported SD is the mean within-image seed standard deviation.}
+\label{tab:metrics}
+\begin{tabular}{llrrr}
+\toprule
+Prompt & Statistic & PSNR (dB) & SSIM & LPIPS \\
+\midrule
+Default & Image mean $\pm$ seed SD & 22.6353 $\pm$ 0.5961 & 0.6406 $\pm$ 0.0182 & 0.3382 $\pm$ 0.0191 \\
+Empty & Image mean $\pm$ seed SD & 22.6998 $\pm$ 0.6079 & 0.6431 $\pm$ 0.0184 & 0.3352 $\pm$ 0.0191 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -63,7 +80,8 @@ DoSSR default, 10 seeds & 24.0\% (463/1930) & 76.0\% & 0.7127 & 32.83\% \\
 \end{tabularx}
 \end{table}
 
-Gia H\^an's Canon subset contains 10 text-positive images and 50 boxes, scored over 500 box-seed crops. It reached 170/500 exact matches (34.0\%); the wrong-character rate was 66.0\% box-weighted (61.5\% image-mean), mean CER was 0.6263 (0.6528 image-mean), and cross-seed OCR disagreement was 46.84\% (40.94\% image-mean). In the combined study, the corresponding image-mean wrong-character rate, CER, and seed-disagreement rate were 68.2\%, 0.6451, and 31.57\%, respectively. Prompt pairing showed small differences: empty minus default was +0.16 percentage points in exact match, -0.16 points in box-weighted wrong-character rate, and +0.0001 in box-weighted CER.
+The Canon subset contains 10 text-positive images and 50 boxes, scored over 500 box-seed crops. It reached 170/500 exact matches (34.0\%); the wrong-character rate was 66.0\% box-weighted (61.5\% image-mean), mean CER was 0.6263 (0.6528 image-mean), and cross-seed OCR disagreement was 46.84\% (40.94\% image-mean). The Nikon subset (15 images, 143 boxes, 1,430 box-seed crops) reached 293/1430 exact matches (20.5\%), with a box-weighted wrong-character rate of 79.5\% (72.6\% image-mean), mean CER of 0.7428 (0.6400 image-mean), and cross-seed OCR disagreement of 27.93\% (25.33\% image-mean). In the combined study, the corresponding image-mean wrong-character rate, CER, and seed-disagreement rate were 68.2\%, 0.6451, and 31.57\%, respectively, with a mean of 3.15 distinct OCR readings per box across the 10 seeds (3.25 image-mean). Prompt pairing showed small differences: empty minus default was +0.16 percentage points in exact match, -0.16 points in box-weighted wrong-character rate, and +0.0001 in box-weighted CER.
+
 \subsection{Eduroam example}
 Figure~\ref{fig:eduroam} compares the LR input, HR reference, and the two seed-42 prompt outputs. The crop includes the sign; both generated text crops visibly differ from the HR spelling. The PNG is saved as \texttt{eduroam.png} for upload to the Overleaf project.
 \begin{figure}[ht]
@@ -77,13 +95,10 @@ Figure~\ref{fig:eduroam} compares the LR input, HR reference, and the two seed-4
 \label{fig:eduroam}
 \end{figure}
 
-For the annotated \texttt{eduroam} word box, all 10 seed outputs had a character error; mean CER was 1.70, all seed pairs disagreed under OCR, and the OCR produced 10 distinct normalized readings. This one-box example illustrates the per-image result and is not a substitute for the aggregate metrics above.
+For the annotated \texttt{eduroam} word box, all 10 seed outputs had a character error; mean CER was 1.70, all seed pairs disagreed under OCR, and the OCR produced 10 distinct normalized readings. This seed-42 figure is qualitative only, and the one-box example illustrates the per-image result rather than substituting for the aggregate metrics above. Even though \texttt{Canon\_001} achieves a strong whole-image PSNR of 25.49 dB and SSIM of 0.8406, whole-image PSNR, SSIM, and LPIPS averages do not establish character correctness; that requires the separate text-region evaluation.
 
 \subsection{Prompt comparison}
 On the paired 25-image, 193-box text evaluation, empty-prompt exact-match rate changed by only +0.16 percentage points relative to the default prompt. Its box-weighted wrong-character rate changed by -0.16 points, while mean CER changed by +0.0001. These small aggregate differences do not establish a prompt advantage.
-
-\subsection{Memory limitation for large inputs}
-An unintended input-resolution selection initially fed a $512\times512$ HR image to a $4\times$ model, creating a $2048\times2048$ output. This is a stress test and not part of the RealSR baseline. On the A100, FP16 peak allocated memory was 36.04 GiB with the CrossAttention SDPA patch alone. Adding the VAE middle-block AttnBlock SDPA patch reduced reported peak allocated memory to 20.51 GiB (peak reserved memory 34.71 GiB); the recorded image time was 8.33 seconds. The corrected baseline uses $128\times128$ LR input and yields $512\times512$ output. These memory figures describe the separate large-input experiment and must not be presented as baseline-resource measurements.
 
 \section{Related Methods}
 \paragraph{CCSR.} CCSR uses a two-stage approach: a non-uniform-timestep diffusion process reconstructs structure, then adversarial fine-tuning of the pretrained VAE decoder adds deterministic detail. It supports changing inference-step counts after training, including one or two. This targets general SR content consistency and efficiency; our planned loss instead penalizes disagreement between independent noise predictions inside annotated text regions. \cite[Secs.~III--IV, pp.~3--6]{sun2025ccsr}
@@ -94,22 +109,8 @@ An unintended input-resolution selection initially fed a $512\times512$ HR image
 
 CCSR and PNFS address seed sensitivity at the whole-image level: CCSR separates stochastic structure recovery from deterministic detail synthesis, while PNFS predicts and fuses favorable elements from multiple initial noises. TADiSR directly targets text fidelity through text-aware attention and joint segmentation decoding. The proposed DoSSR follow-up tests whether consistency between independent noise predictions inside HR text masks improves text-region stability without adding test-time OCR or changing the five-step inference procedure.
 
-The accompanying seed-42 figure is qualitative only: both generated crops visibly differ from the HR sign text. Whole-image PSNR, SSIM, and LPIPS averages do not establish character correctness; that requires the separate text-region evaluation.
 \section{Limitations and Next Steps}
 The text evaluation covers 25 of the 100 images because only those images have readable annotated text boxes; it does not measure unannotated text or every image in the dataset. OCR is imperfect even on sharp HR references (70.5\% exact match over the full annotated set with the reported calibration), so text scores include OCR measurement error. The 10-seed disagreement result is an OCR-based measure over annotated boxes, not a claim that all image content is unstable. LoRA was not evaluated in this assignment.
-\begin{table}[ht]
-\centering
-\caption{Full-reference RGB metrics against \texttt{test\_HR}, averaged over 100 images. For each image, metrics are first averaged over 10 seeds; the reported SD is the mean within-image seed standard deviation.}
-\label{tab:metrics}
-\begin{tabular}{llrrr}
-\toprule
-Prompt & Statistic & PSNR (dB) & SSIM & LPIPS \\
-\midrule
-Default & Image mean $\pm$ seed SD & 22.6353 $\pm$ 0.5961 & 0.6406 $\pm$ 0.0182 & 0.3382 $\pm$ 0.0191 \\
-Empty & Image mean $\pm$ seed SD & 22.6998 $\pm$ 0.6079 & 0.6431 $\pm$ 0.0184 & 0.3352 $\pm$ 0.0191 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \begin{thebibliography}{9}
 \bibitem{sun2025ccsr}
