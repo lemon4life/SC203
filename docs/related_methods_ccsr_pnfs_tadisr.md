@@ -1,36 +1,17 @@
-# One-Page Comparison Template: DoSSR + Text-Region Consistency Loss vs. CCSR, PNFS, and TADiSR
+# Related Methods: Stability and Text Fidelity in Diffusion SR
 
-**Owner:** Member 4 (`feat/report-figures`)  
-**Status:** Structured template (`TODO: confirm` all paper-specific numbers and citations from the primary papers before finalizing).
+| Method | Mechanism | Relation to our proposed text-region consistency loss |
+|---|---|---|
+| **CCSR** | Uses diffusion for structure recovery, then adversarially fine-tunes the VAE decoder for deterministic detail enhancement. Its non-uniform timestep strategy supports flexible inference step counts, including one or two. | Targets general content stability and sampling efficiency; our loss directly penalizes cross-noise disagreement inside annotated text regions. |
+| **PNFS** | Trains a discrepancy predictor from LR images, initial noise, and HR-derived pseudo-labels. At inference, it probabilistically fuses elements of candidate initial noises before diffusion sampling. | Improves general SR by changing inference noise; our proposed method trains text-region consistency into LoRA weights and keeps the baseline inference path. |
+| **TADiSR** | Fine-tunes latent-diffusion cross-attention with LoRA and replaces the standard decoder with interacting image-SR and text-segmentation decoders. It jointly outputs an SR image and text mask; training uses synthetic FTSR and filtered Real-CE pairs. | The closest task match: it explicitly models text, but changes attention/decoder architecture. Our experiment isolates a text-masked cross-noise loss while retaining the DoSSR architecture. |
 
-> [!IMPORTANT]
-> **Rule from `context.md`:** Do **not** guess or invent facts about **CCSR**, **PNFS**, or **TADiSR**. Every cell marked `TODO: confirm` must be filled directly from the published paper or official repository of that method.
+CCSR and PNFS address seed sensitivity at the whole-image level: CCSR separates stochastic structure recovery from deterministic detail synthesis, while PNFS predicts and fuses favorable elements from multiple initial noises. TADiSR directly targets text fidelity through text-aware attention and joint segmentation decoding. The proposed DoSSR follow-up tests a narrower training change: whether consistency between independent noise predictions inside HR text masks improves text-region stability without adding test-time OCR or changing the five-step inference procedure.
 
----
+The accompanying seed-42 figure is qualitative only: both generated crops visibly differ from the HR sign text. Whole-image PSNR, SSIM, and LPIPS averages do not establish character correctness; that requires the separate text-region evaluation.
 
-## 1. High-Level Comparison Table
+## Primary papers
 
-| Method | Primary Goal | Base Backbone | How It Handles Seed / Sampling Consistency or Text Regions | Training vs. Inference Cost | Key Difference vs. Our Approach |
-|---|---|---|---|---|---|
-| **DoSSR (Baseline)**<br>*(Verified in `external/DOSSR`)* | Fast diffusion real-world SR (`5` steps) | Stable Diffusion 2.1 + ControlNet + RealESRNet preprocessor | Domain-shift schedule (`trunc_12`) + 3rd-order `shift_sample_3_order`. **No text-region loss and no cross-seed consistency loss.** Restores `"eduroam"` as `"odaroam"` on `Canon_001_LR4`. | Inference: `5` steps (`~1.75–2.01 s/img` at `128->512`, FP16). | Our baseline model. |
-| **CCSR**<br>*(`TODO: confirm` full title & venue)* | Content-consistent real-world super-resolution (`TODO: confirm` exact paper formulation) | Diffusion SR backbone (`TODO: confirm` exact SD version & control module) | `TODO: confirm` how CCSR enforces content/structure consistency across diffusion steps or samples. | `TODO: confirm` training stages and inference step count. | `TODO: confirm` whether CCSR uses a general whole-image consistency criterion vs. our localized text-box cross-noise $\hat{x}_0$ consistency loss. |
-| **PNFS**<br>*(`TODO: confirm` full title & venue)* | `TODO: confirm` (check whether PNFS operates at test time in noise/feature space or during training) | `TODO: confirm` backbone | `TODO: confirm` exact mechanism for noise/seed/text handling. | `TODO: confirm` test-time overhead vs. training overhead. | Our method adds **zero extra inference steps** (keeps `5` steps) by learning LoRA weights with a 2-noise text-region loss during training. `TODO: confirm` contrast with PNFS. |
-| **TADiSR**<br>*(`TODO: confirm` full title & venue)* | Text-aware diffusion super-resolution (`TODO: confirm` exact paper formulation) | `TODO: confirm` backbone and text detection/recognition modules | `TODO: confirm` whether TADiSR requires an external OCR/text-encoder module or extra conditioning at inference time. | `TODO: confirm` extra parameters and inference latency. | Our Phase 1 approach requires **no OCR or bounding boxes at test time**: the HR text-box mask is used **only in the training loss** ($\mathcal{L}_{\text{text-cons}}$), while LoRA `(B vs C)` isolates the effect of cross-noise consistency. |
-| **Ours (DoSSR + Text-Region Consistency LoRA `C`)** | Seed-consistent text restoration in 5-step DoSSR without changing inference | Frozen DoSSR (`ControlLDM`) + lightweight LoRA (`r=4` or `8`) | Draws **2 independent noise samples** $(\epsilon_1, \epsilon_2)$ at the same timestep $t$ during LoRA training and penalizes $\|M_{\text{lat}} \odot (\hat{x}_0^{(1)} - \hat{x}_0^{(2)})\|_1$ inside HR text boxes. | Inference: **unchanged** (`5` steps, no test-time OCR/mask needed). Training: 2 forward passes/step on LoRA adapters only. | Directly targets seed-induced character hallucinations (`eduroam` $\rightarrow$ `odaroam`) via a controlled `(A, B, C)` ablation. |
-
----
-
-## 2. Short Narrative Paragraphs for the Next Report (Draft Structure for Member 4)
-
-### 2.1 Problem Statement: Seed Instability in Diffusion Scene-Text SR
-- Diffusion SR models inject random Gaussian noise (`torch.randn_like` in `shift_sampler.py:346, 363`).
-- On `RealSRVal_crop128/test_LR` (`128x128 -> 512x512`), changing the seed from `42` to `43` shifts output pixels by `mean_abs_diff = 8.82` (`max = 255.0`), and on `Canon_001_LR4` the sign `"eduroam"` is hallucinated as `"odaroam"`.
-
-### 2.2 How Prior Methods Address Consistency and Text (`CCSR`, `PNFS`, `TADiSR`)
-- **CCSR:** `TODO: confirm 2–3 short sentences summarizing CCSR from its paper.`
-- **PNFS:** `TODO: confirm 2–3 short sentences summarizing PNFS from its paper.`
-- **TADiSR:** `TODO: confirm 2–3 short sentences summarizing TADiSR from its paper.`
-
-### 2.3 Why Our `(A, B, C)` LoRA Ablation Is Clean and Testable
-- Unlike methods that add test-time OCR modules or extra sampling steps, our loss uses HR text boxes **only during LoRA training**.
-- Because LoRA `(A)`, `(B)`, and `(C)` all draw **2 noise samples per step** with the same data, prompt, and budget, comparing **(B) higher text-region weight** against **(C) higher text-region weight + cross-noise $\hat{x}_0$ consistency loss** directly answers whether penalizing cross-noise disagreement improves character accuracy and seed stability.
+1. Sun et al., [Improving the Stability and Efficiency of Diffusion Models for Content Consistent Super-Resolution](https://arxiv.org/abs/2401.00877), arXiv:2401.00877, 2024.
+2. Jiang et al., [Restabilizing Diffusion Models with Predictive Noise Fusion Strategy for Image Super-Resolution](https://doi.org/10.1609/aaai.v39i4.32421), AAAI 2025, 39(4):4021–4029.
+3. Hu et al., [Text-Aware Real-World Image Super-Resolution via Diffusion Model with Joint Segmentation Decoders](https://proceedings.neurips.cc/paper_files/paper/2025/hash/58ce6a4b9c16d11975f11e4a23871041-Abstract-Conference.html), NeurIPS 2025.
