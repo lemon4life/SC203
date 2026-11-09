@@ -213,6 +213,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--output-root",
+        "--study-root",
+        dest="output_root",
         type=Path,
         required=True,
         help="Root directory containing seed_<N> folders (or a single seed_<N> folder)",
@@ -328,7 +330,8 @@ def main() -> int:
     summary_rows: list[dict[str, Any]] = []
 
     with torch.no_grad():
-        for stem in reference_stems:
+        total_stems = len(reference_stems)
+        for idx, stem in enumerate(reference_stems, start=1):
             gt_path = gt_paths[stem]
             gt_uint8 = load_verified_rgb_uint8(gt_path, args.expected_size)
             gt_tensor = (
@@ -429,6 +432,18 @@ def main() -> int:
                 "pairwise_seed_lpips_max": round(float(np.max(pairwise_lpips_vals)) if pairwise_lpips_vals else 0.0, 6),
             }
             summary_rows.append(summary_row)
+            logger.info(
+                "[%d/%d] %s | PSNR_RGB=%.4f±%.4f | SSIM_RGB=%.4f | LPIPS=%.4f | pair_px=%.4f | pair_lpips=%.4f",
+                idx,
+                total_stems,
+                stem,
+                summary_row["psnr_rgb_mean"],
+                summary_row["psnr_rgb_std"],
+                summary_row["ssim_rgb_mean"],
+                summary_row["lpips_mean"],
+                summary_row["pairwise_seed_px_mean_abs_diff"],
+                summary_row["pairwise_seed_lpips_mean"],
+            )
 
     # Append an overall dataset average row across all evaluated images
     numeric_cols = [

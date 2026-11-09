@@ -1,8 +1,12 @@
-# Handoff Note for Member 4 — Report, Whole-Image Metrics & Figures Lead
+# Handoff Note for Member 4 (Nguyễn Phan Minh Nhật — `25125033`) — Report, Whole-Image Metrics & Figures Lead
 
-**Branch:** `feat/report-figures`  
-**Hardware needed:** Any CPU laptop (Windows or Mac) or Free Google Colab (CPU). **No GPU required** for figures, tables, or the literature comparison (`compute_metrics.py` also runs on CPU with `--device cpu`).  
-**Status of scripts:** `scripts/compute_metrics.py` is created locally (`NOT TESTED`). `scripts/plot_eduroam_figure.py` will be added in Group 3 (`NOT TESTED`).
+**Branch:** `feat/report-figures` (branched from `feat/baseline-runner`)  
+**Deadlines:**
+- **Group Assignment 4 (`SOTA's Limitations`):** Official due **Tue `10/11/2026 07:00`**.
+- **Group Assignment 5 (`Baseline`):** Official due **Tue `17/11/2026 07:00`** (Draft Fri `13/11`, internal submit Mon `16/11` night).
+
+**Read First (`VERIFIED` Numbers & Tables for Report):**  
+👉 **[`docs/fact_sheet_for_report.md`](file:///Users/lemon4life/Projects/SC203/docs/fact_sheet_for_report.md)** has all verified dataset stats (`100` images, `25` readable images, `193` word boxes), hardware/VRAM profiles (`7.32 GiB` at `512x512`), and the complete 100-image 10-seed text evaluation tables (`results/text_eval_*.csv`) from Member 2 (Gia Hân) and Member 3 (Quang Minh)!
 
 ---
 
@@ -10,106 +14,106 @@
 
 1. **Work on your own branch:** `feat/report-figures`.
 2. **Only edit your own files:**
-   - `scripts/compute_metrics.py` (Task B.7)
-   - `scripts/plot_eduroam_figure.py` (Task B.8, added in Group 3)
-   - `scripts/plot_baseline_tables.py` (if you add table/plot helpers)
+   - Your report `.tex` files (`docs/A4_sota_limitations.tex`, `docs/A5_baseline.tex`)
    - `docs/related_methods_ccsr_pnfs_tadisr.md`
-   - `docs/handoff_member4.md`
-3. **Do NOT edit `context.md` or `external/`.** Report your results in the team chat. Member 1 will update `context.md` and merge your Pull Request (PR).
+   - `scripts/compute_metrics.py`, `scripts/plot_eduroam_figure.py`, or any table/plot helper scripts you add
+   - `results/metrics_*.csv` (summary CSVs from `compute_metrics.py`)
+3. **Do NOT edit `context.md` or `external/`.** Do **not** commit LaTeX build artifacts (`*.aux`, `*.fdb_latexmk`, `*.fls`, `*.log`, `*.out`, `*.synctex.gz`, `*.toc`).
 
 ---
 
 ## 2. Python and Package Versions That Work
 
-All Member 4 scripts use `pathlib` and CLI flags (zero hardcoded `/content` paths) so they work on Windows, macOS, and Free Colab CPU.
+All scripts use `pathlib` and CLI flags (zero hardcoded `/content` paths) so they work on Windows, macOS, and Free Colab.
 
 - **Python:** `3.9`, `3.10`, `3.11`, `3.12`, or `3.13`
-- **For figures and tables (`plot_eduroam_figure.py`, CSV summaries):**
-  - `Pillow >= 10.0.0`
-  - `numpy >= 1.24.0`
-  - `matplotlib >= 3.7.0` (optional)
-- **For `scripts/compute_metrics.py` (PSNR, SSIM, LPIPS on CPU or GPU):**
-  - `Pillow >= 10.0.0`, `numpy >= 1.24.0`, `torch >= 2.0.0`, `torchvision >= 0.15.0`, `lpips >= 0.1.4`
-- Install command:
+- **Install command:**
   ```bash
   pip install "Pillow>=10.0.0" "numpy>=1.24.0" "torch>=2.0.0" "torchvision>=0.15.0" "lpips>=0.1.4"
   ```
 
 ---
 
-## 3. How to Reach the Data on Shared Google Drive
+## 3. Verified Shared Google Drive Paths (`2,000` 10-Seed PNGs Ready!)
 
-- **HR ground-truth folder (`512x512`, 100 images):**
-  `lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR`
-- **LR input folder (`128x128`, 100 images):**
-  `lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_LR`
-- **Already-completed 5-image / 5-seed outputs on Drive (`VERIFIED`, `512x512`):**
-  `lemmepass/outputs/seed-study-realsr-5img-lr128-fp16`
-- **Upcoming 10-seed (`default` vs `empty` prompt) outputs on Drive (when Member 1 finishes running Group A):**
-  - `lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`
-  - `lemmepass/outputs/seed-study-realsr-100img-10seed-empty-prompt-sdpa-off-fp16`
-
-You can download those folders from Google Drive to your laptop, or mount Drive in Free Colab (`/content/drive/MyDrive/lemmepass/...`) and pass the paths via CLI flags.
-
----
-
-## 4. What Is Blocked vs. What You Can Do Right Now
-
-- **What you can do right now (Not Blocked):**
-  1. **Run `scripts/compute_metrics.py` on the existing 5-image / 5-seed outputs** (`seed-study-realsr-5img-lr128-fp16`) to verify PSNR, SSIM, and LPIPS on CPU or Free Colab.
-  2. **Run `scripts/plot_eduroam_figure.py` on `Canon_001_LR4.png`** (`CELL 16` outputs for `default` and `empty` prompts are now **VERIFIED and saved on Drive** under `lemmepass/outputs/prompt-check-1img-lr128-{default,empty}-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png`!).
-  3. **Fill in the one-page comparison with CCSR, PNFS, and TADiSR** in [`docs/related_methods_ccsr_pnfs_tadisr.md`](file:///Users/lemon4life/Projects/SC203/docs/related_methods_ccsr_pnfs_tadisr.md).
-     - *Important rule:* Do **not** guess or invent paper facts. Only write facts verified from the actual CCSR, PNFS, and TADiSR papers, or mark `TODO: confirm`.
-- **What waits for Member 1 and Member 2:**
-  - Final 10-seed whole-image metrics table waits for Member 1's 10-seed runs (`CELL 17`).
-  - Final `eduroam` crop coordinates `(x, y, w, h)` in `data/text_boxes_realsr.csv` will be confirmed by Member 1 / Member 2.
+- **HR ground-truth folder (`512x512`, 100 images — needed by `compute_metrics.py`):**
+  `/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR`
+- **LR input folder (`128x128`, 100 images — NOT needed by `compute_metrics.py`, only needed for figures):**
+  `/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_LR`
+- **10-Seed Default Prompt (`"clean, high-resolution, 8k"`, `10 seeds x 100 images = 1,000` `512x512` PNGs, `VERIFIED`):**
+  `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16`
+- **10-Seed Empty Prompt (`""`, `10 seeds x 100 images = 1,000` `512x512` PNGs, `VERIFIED`):**
+  `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-empty-prompt-sdpa-off-fp16`
+- **5-Image / 5-Seed Study (`VERIFIED`):**
+  `/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-5img-lr128-fp16`
 
 ---
 
-## 5. Exact Commands and How to Check They Worked
+## 4. Exact Commands for `scripts/compute_metrics.py` (Run on Free Colab GPU in ~2 Minutes!)
 
-### Step 1: Clone the repo and create your branch
-```bash
-git clone https://github.com/lemon4life/SC203
-cd SC203
-git checkout feat/baseline-runner
-git checkout -b feat/report-figures
-```
+> **Why you should run `compute_metrics.py` on Colab GPU (`--device cuda`) instead of laptop CPU:**
+> For each image in a 10-seed folder, `compute_metrics.py` computes `10` LPIPS calls against `test_HR` **plus** $\binom{10}{2} = 45$ pairwise cross-seed LPIPS calls (`55` AlexNet passes per image $\times 100$ images = **`5,500` LPIPS passes per 10-seed folder**, or `11,000` across both folders). On a laptop CPU this takes **1–2 hours**; on a Free Colab T4 GPU (`--device cuda`) it takes **~1.5–3 minutes per folder** and now logs live `[i/100]` progress!
+> *(Note: `compute_metrics.py` only needs `--output-root` (or `--study-root`) and `--gt-dir` (`test_HR`). It does **not** need `test_LR`.)*
 
-### Step 2: Run `scripts/compute_metrics.py` on the 5-seed study (or 10-seed study later)
-Replace `<STUDY_ROOT>` and `<PATH_TO_TEST_HR>` with your local or Drive paths:
-
+### Command 1: 10-Seed Default Prompt (`1,000` PNGs vs `test_HR`)
 ```bash
 python scripts/compute_metrics.py \
-  --study-root "<STUDY_ROOT>" \
-  --gt-dir "<PATH_TO_TEST_HR>" \
+  --output-root "/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16" \
+  --gt-dir "/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR" \
+  --device cuda \
+  --per-image-csv "results/metrics_10seed_default_per_seed.csv" \
+  --summary-csv "results/metrics_10seed_default_summary_by_image.csv"
+```
+
+### Command 2: 10-Seed Empty Prompt (`1,000` PNGs vs `test_HR`)
+```bash
+python scripts/compute_metrics.py \
+  --output-root "/content/drive/MyDrive/lemmepass/outputs/seed-study-realsr-100img-10seed-empty-prompt-sdpa-off-fp16" \
+  --gt-dir "/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR" \
+  --device cuda \
+  --per-image-csv "results/metrics_10seed_empty_per_seed.csv" \
+  --summary-csv "results/metrics_10seed_empty_summary_by_image.csv"
+```
+
+### Optional Quick Check on Laptop CPU (1 Seed Only = `100` LPIPS calls, ~30–60 seconds):
+If you run on your laptop CPU, pass `--seeds 42` first to test 1 seed quickly:
+```bash
+python scripts/compute_metrics.py \
+  --output-root "<LOCAL_OR_DRIVE_DEFAULT_10SEED_ROOT>" \
+  --gt-dir "<LOCAL_OR_DRIVE_TEST_HR>" \
+  --seeds 42 \
   --device cpu
 ```
 
-### Step 3: Check that `compute_metrics.py` worked (Success Signal)
-1. The terminal prints a summary table with `PSNR (dB)`, `SSIM`, `LPIPS (alex)`, and `Pairwise Seed Diff (0..255)` for each image stem, plus `[OVERALL MEAN ACROSS IMAGES]`.
-2. Two CSV files are created inside `<STUDY_ROOT>`:
-   - `metrics_per_seed.csv`
-   - `metrics_summary_by_image.csv`
-3. Every image is verified as `512x512` (the script stops with an error if any output or HR image is not `512x512`).
-
-### Step 4: Run `scripts/plot_eduroam_figure.py` (Task B.8, `NOT TESTED`)
-Replace `<DATA_ROOT>` and `<OUT_BASE>` with your local or Drive paths, and `<X,Y,W,H>` with the confirmed crop box (for example `310,5,202,85` for the sign + text, or `325,22,185,60` tightly around the letters):
-```bash
-python scripts/plot_eduroam_figure.py \
-  --lr-image "<DATA_ROOT>/test_LR/Canon_001_LR4.png" \
-  --hr-image "<DATA_ROOT>/test_HR/Canon_001_LR4.png" \
-  --default-image "<OUT_BASE>/prompt-check-1img-lr128-default-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
-  --empty-image "<OUT_BASE>/prompt-check-1img-lr128-empty-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
-  --crop "310,5,202,85" \
-  --output "outputs/figures/canon_001_eduroam_default_vs_empty.png"
-```
-- **Success signal:** Prints `EDUROAM FIGURE SAVED | crop=(310, 5, 202, 85) | path=...` and saves the 4-panel PNG (`LR`, `HR`, `Default Prompt`, `Empty Prompt` with zoomed text region).
+### Success Signal for `compute_metrics.py`:
+1. Prints live progress `[1/100] Canon_001_LR4 | PSNR_RGB=... | SSIM_RGB=... | LPIPS=...` through `[100/100]`.
+2. Prints the final `=== Per-Image Across-Seed Summary ===` table ending with the `ALL_IMAGES_MEAN` row.
+3. Writes `metrics_10seed_{default,empty}_per_seed.csv` and `metrics_10seed_{default,empty}_summary_by_image.csv` into `results/`.
 
 ---
 
-## 6. What to Send Back to Member 1
+## 5. Exact Command for the `eduroam` Figure (`scripts/plot_eduroam_figure.py`)
 
-1. When you run `scripts/compute_metrics.py` on `seed-study-realsr-5img-lr128-fp16`: send the terminal output and the two CSV files (`metrics_per_seed.csv` and `metrics_summary_by_image.csv`) in the team chat so we can mark `compute_metrics.py` as `VERIFIED`.
-2. Your one-page comparison draft (`docs/related_methods_ccsr_pnfs_tadisr.md`) via a Pull Request from `feat/report-figures` to `feat/baseline-runner`.
-3. If a command fails: send the exact command you ran and the last 50 lines / full traceback.
+`CELL 18` already generated and verified this figure on Colab with `--crop "310,5,202,85"` (`01dc1e2`), saved on Drive at:
+`/content/drive/MyDrive/lemmepass/outputs/figures/canon_001_eduroam_default_vs_empty.png`
+
+To regenerate it locally or on Colab:
+```bash
+python scripts/plot_eduroam_figure.py \
+  --lr-image "/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_LR/Canon_001_LR4.png" \
+  --hr-image "/content/drive/MyDrive/lemmepass/data/StableSR_testsets/StableSR_testsets/RealSRVal_crop128/test_HR/Canon_001_LR4.png" \
+  --default-image "/content/drive/MyDrive/lemmepass/outputs/prompt-check-1img-lr128-default-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
+  --empty-image "/content/drive/MyDrive/lemmepass/outputs/prompt-check-1img-lr128-empty-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png" \
+  --crop "310,5,202,85" \
+  --output "outputs/figures/canon_001_eduroam_default_vs_empty.png"
+```
+
+---
+
+## 6. What to Send Back to Member 1 (Nguyên Anh)
+
+1. **For Assignment 4 (`SOTA's Limitations` — due Tue `10/11 07:00`):**
+   - Your LaTeX report (`docs/A4_sota_limitations.tex` + compiled PDF) using the verified numbers in [`docs/fact_sheet_for_report.md`](file:///Users/lemon4life/Projects/SC203/docs/fact_sheet_for_report.md) and `results/text_eval_*.csv`.
+   - The `ALL_IMAGES_MEAN` rows and `results/metrics_10seed_{default,empty}_summary_by_image.csv` from `scripts/compute_metrics.py`.
+2. **For Assignment 5 (`Baseline` — due Tue `17/11 07:00`):**
+   - Your 1-page related methods comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`) and `docs/A5_baseline.tex`.
