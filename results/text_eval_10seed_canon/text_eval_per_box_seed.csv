@@ -1,0 +1,501 @@
+image,stem,box_id,seed,x,y,w,h,crop_upscale,gt_transcript,gt_norm,ocr_raw,ocr_norm,wrong_char,wrong_char_yes_no,cer,wrong_char_case_sensitive,cer_case_sensitive
+Canon_001_LR4.png,Canon_001_LR4,1,42,320,38,192,46,2,eduroam,eduroam,{n L N W D L odureani,n l n w d l odureani,1,yes,2.2857142857142856,1,2.2857142857142856
+Canon_001_LR4.png,Canon_001_LR4,1,43,320,38,192,46,2,eduroam,eduroam,eaneEd D ] aduronm,eaneed d ] aduronm,1,yes,1.7142857142857142,1,1.7142857142857142
+Canon_001_LR4.png,Canon_001_LR4,1,44,320,38,192,46,2,eduroam,eduroam,J 4 4 4 = W L odareum,j 4 4 4 = w l odareum,1,yes,2.5714285714285716,1,2.5714285714285716
+Canon_001_LR4.png,Canon_001_LR4,1,45,320,38,192,46,2,eduroam,eduroam,4eaE oduroant,4eae oduroant,1,yes,1.0,1,1.0
+Canon_001_LR4.png,Canon_001_LR4,1,46,320,38,192,46,2,eduroam,eduroam,YS U G1 _ 0 edureain,ys u g1 _ 0 edureain,1,yes,2.142857142857143,1,2.142857142857143
+Canon_001_LR4.png,Canon_001_LR4,1,47,320,38,192,46,2,eduroam,eduroam,Tey * Ret C u cduroniv,tey * ret c u cduroniv,1,yes,2.4285714285714284,1,2.4285714285714284
+Canon_001_LR4.png,Canon_001_LR4,1,48,320,38,192,46,2,eduroam,eduroam,neeo adaroam,neeo adaroam,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_001_LR4.png,Canon_001_LR4,1,49,320,38,192,46,2,eduroam,eduroam,L U / Uuue Odoroam,l u / uuue odoroam,1,yes,1.7142857142857142,1,1.7142857142857142
+Canon_001_LR4.png,Canon_001_LR4,1,50,320,38,192,46,2,eduroam,eduroam,3t L Ddaroain,3t l ddaroain,1,yes,1.2857142857142858,1,1.2857142857142858
+Canon_001_LR4.png,Canon_001_LR4,1,51,320,38,192,46,2,eduroam,eduroam,Rne/E aduronm,rne/e aduronm,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,42,55,18,130,32,2,SIEMENS,siemens,PAMENL,pamenl,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_002_LR4.png,Canon_002_LR4,1,43,55,18,130,32,2,SIEMENS,siemens,SlMlE ],slmle,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,44,55,18,130,32,2,SIEMENS,siemens,EALMMTA,ealmmta,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,45,55,18,130,32,2,SIEMENS,siemens,fUMO,fumo,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,46,55,18,130,32,2,SIEMENS,siemens,DUNLA,dunla,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,47,55,18,130,32,2,SIEMENS,siemens,E:NAA,e:naa,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,1,48,55,18,130,32,2,SIEMENS,siemens,EIMILL,eimill,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,49,55,18,130,32,2,SIEMENS,siemens,BJ}T<,bj}t,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,1,50,55,18,130,32,2,SIEMENS,siemens,DIMDHO,dimdho,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,1,51,55,18,130,32,2,SIEMENS,siemens,51433,51433,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,42,330,18,125,32,2,SIEMENS,siemens,MAMLAY,mamlay,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,43,330,18,125,32,2,SIEMENS,siemens,ELME],elme,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,44,330,18,125,32,2,SIEMENS,siemens,EcLME 4,eclme 4,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,45,330,18,125,32,2,SIEMENS,siemens,TLMOC,tlmoc,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,46,330,18,125,32,2,SIEMENS,siemens,DNJL/ L,dnjl/ l,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,47,330,18,125,32,2,SIEMENS,siemens,B:ITA,b:ita,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,2,48,330,18,125,32,2,SIEMENS,siemens,PIM-Tl,pim-tl,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,2,49,330,18,125,32,2,SIEMENS,siemens,BSA[EA,bsa[ea,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,50,330,18,125,32,2,SIEMENS,siemens,M4MZIO,m4mzio,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,2,51,330,18,125,32,2,SIEMENS,siemens,54Ia4,54ia4,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,42,195,123,117,27,2,SIEMENS,siemens,MMLAI,mmlai,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,43,195,123,117,27,2,SIEMENS,siemens,EiA,eia,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,44,195,123,117,27,2,SIEMENS,siemens,ESMTa,esmta,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,45,195,123,117,27,2,SIEMENS,siemens,fxmoz,fxmoz,1,yes,0.8571428571428571,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,46,195,123,117,27,2,SIEMENS,siemens,DANLS,danls,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,47,195,123,117,27,2,SIEMENS,siemens,BavChl,bavchl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,3,48,195,123,117,27,2,SIEMENS,siemens,PINIITI,piniiti,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,49,195,123,117,27,2,SIEMENS,siemens,KHS41S,khs41s,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_002_LR4.png,Canon_002_LR4,3,50,195,123,117,27,2,SIEMENS,siemens,DIMIIO,dimiio,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_002_LR4.png,Canon_002_LR4,3,51,195,123,117,27,2,SIEMENS,siemens,57la3,57la3,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,42,55,218,54,26,2,Ying,ying,Dad,dad,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,43,55,218,54,26,2,Ying,ying,FESEE,fesee,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,4,44,55,218,54,26,2,Ying,ying,FOS,fos,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,45,55,218,54,26,2,Ying,ying,1A,1a,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,46,55,218,54,26,2,Ying,ying,red,red,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,47,55,218,54,26,2,Ying,ying,pr8,pr8,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,48,55,218,54,26,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,49,55,218,54,26,2,Ying,ying,Fn,fn,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,4,50,55,218,54,26,2,Ying,ying,09,09,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,4,51,55,218,54,26,2,Ying,ying,Ne,ne,1,yes,0.75,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,42,112,218,57,26,2,Feng,feng,4m1z,4m1z,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,43,112,218,57,26,2,Feng,feng,"#""argh",argh,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,44,112,218,57,26,2,Feng,feng,Je,je,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,5,45,112,218,57,26,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,46,112,218,57,26,2,Feng,feng,557,557,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,47,112,218,57,26,2,Feng,feng,2C15],2c15,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,48,112,218,57,26,2,Feng,feng,uM,um,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,49,112,218,57,26,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,5,50,112,218,57,26,2,Feng,feng,Ceo,ceo,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,5,51,112,218,57,26,2,Feng,feng,177&,177,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,42,331,215,54,25,2,Ying,ying,DA,da,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,43,331,215,54,25,2,Ying,ying,EEE,eee,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,44,331,215,54,25,2,Ying,ying,Pcg,pcg,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,6,45,331,215,54,25,2,Ying,ying,D35,d35,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,46,331,215,54,25,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,47,331,215,54,25,2,Ying,ying,DAO,dao,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,48,331,215,54,25,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,49,331,215,54,25,2,Ying,ying,RA[,ra,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,50,331,215,54,25,2,Ying,ying,DO,do,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,6,51,331,215,54,25,2,Ying,ying,rer,rer,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,42,386,215,57,25,2,Feng,feng,LSBE,lsbe,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,43,386,215,57,25,2,Feng,feng,#TEzIl,tezil,1,yes,1.0,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,44,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,45,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,46,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,47,386,215,57,25,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,48,386,215,57,25,2,Feng,feng,Luay,luay,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,7,49,386,215,57,25,2,Feng,feng,C (-J',c (-j,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,50,386,215,57,25,2,Feng,feng,naApI,naapi,1,yes,1.25,1,1.25
+Canon_002_LR4.png,Canon_002_LR4,7,51,386,215,57,25,2,Feng,feng,{velj,velj,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,8,42,195,318,54,27,2,Ying,ying,Pa,pa,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,43,195,318,54,27,2,Ying,ying,EEP?;,eep,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,44,195,318,54,27,2,Ying,ying,Fot?,fot,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,45,195,318,54,27,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,46,195,318,54,27,2,Ying,ying,Feu,feu,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,47,195,318,54,27,2,Ying,ying,DFg,dfg,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,8,48,195,318,54,27,2,Ying,ying,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,49,195,318,54,27,2,Ying,ying,ERS,ers,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,50,195,318,54,27,2,Ying,ying,4),4,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,8,51,195,318,54,27,2,Ying,ying,Fe,fe,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,42,250,318,57,27,2,Feng,feng,USTE,uste,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,43,250,318,57,27,2,Feng,feng,(eeESK L,eeesk l,1,yes,1.5,1,1.5
+Canon_002_LR4.png,Canon_002_LR4,9,44,250,318,57,27,2,Feng,feng,Tl>,tl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,45,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,46,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,47,250,318,57,27,2,Feng,feng,MD,md,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,48,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,49,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,9,50,250,318,57,27,2,Feng,feng,Leos?,leos,1,yes,0.75,1,0.75
+Canon_002_LR4.png,Canon_002_LR4,9,51,250,318,57,27,2,Feng,feng,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,42,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,43,65,412,83,23,2,Building,building,EeNI EIEI,eeni eiei,1,yes,0.875,1,1.125
+Canon_002_LR4.png,Canon_002_LR4,10,44,65,412,83,23,2,Building,building,Baviirzoc (IcJS,baviirzoc (icjs,1,yes,1.5,1,1.625
+Canon_002_LR4.png,Canon_002_LR4,10,45,65,412,83,23,2,Building,building,Aesl BC0I],aesl bc0i,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,46,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,47,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,48,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,49,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,50,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,10,51,65,412,83,23,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,42,65,430,100,25,2,Diagnostic,diagnostic,Dar4E,dar4e,1,yes,0.8,1,0.8
+Canon_002_LR4.png,Canon_002_LR4,11,43,65,430,100,25,2,Diagnostic,diagnostic,Ccg - EJI],ccg - eji,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,44,65,430,100,25,2,Diagnostic,diagnostic,BegTT=,begtt,1,yes,0.8,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,45,65,430,100,25,2,Diagnostic,diagnostic,0'),0,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,46,65,430,100,25,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,47,65,430,100,25,2,Diagnostic,diagnostic,DeC APU,dec apu,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,48,65,430,100,25,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,49,65,430,100,25,2,Diagnostic,diagnostic,E3w 945177,e3w 945177,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,11,50,65,430,100,25,2,Diagnostic,diagnostic,DO ELT,do elt,1,yes,0.8,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,11,51,65,430,100,25,2,Diagnostic,diagnostic,Nevz,nevz,1,yes,0.9,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,42,65,450,115,25,2,Consultants,consultants,Eor,eor,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,12,43,65,450,115,25,2,Consultants,consultants,"ETCUI""JEEETT7E","etcui""jeeett7e",1,yes,1.0909090909090908,1,1.1818181818181819
+Canon_002_LR4.png,Canon_002_LR4,12,44,65,450,115,25,2,Consultants,consultants,VEFEELTTE 3 GCSS_,vefeeltte 3 gcss,1,yes,1.1818181818181819,1,1.4545454545454546
+Canon_002_LR4.png,Canon_002_LR4,12,45,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,46,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,47,65,450,115,25,2,Consultants,consultants,ElLi,elli,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,12,48,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,49,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,50,65,450,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,12,51,65,450,115,25,2,Consultants,consultants,Eoora,eoora,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_002_LR4.png,Canon_002_LR4,13,42,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,43,340,408,82,24,2,Building,building,LESGFbzL,lesgfbzl,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,44,340,408,82,24,2,Building,building,Eocimi i EFbbk,eocimi i efbbk,1,yes,1.5,1,1.5
+Canon_002_LR4.png,Canon_002_LR4,13,45,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,46,340,408,82,24,2,Building,building,354085[,354085,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,47,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,48,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,49,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,50,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,13,51,340,408,82,24,2,Building,building,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,42,340,428,101,24,2,Diagnostic,diagnostic,PW 4ETE,pw 4ete,1,yes,0.9,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,43,340,428,101,24,2,Diagnostic,diagnostic,"Eh""is F ZLiBL","eh""is f zlibl",1,yes,1.1,1,1.1
+Canon_002_LR4.png,Canon_002_LR4,14,44,340,428,101,24,2,Diagnostic,diagnostic,PuznJ B5 /,puznj b5,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,45,340,428,101,24,2,Diagnostic,diagnostic,Truao-,truao,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,46,340,428,101,24,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,47,340,428,101,24,2,Diagnostic,diagnostic,nne AEI,nne aei,1,yes,0.9,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,48,340,428,101,24,2,Diagnostic,diagnostic,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,49,340,428,101,24,2,Diagnostic,diagnostic,Pos g '9 (/,pos g '9,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,14,50,340,428,101,24,2,Diagnostic,diagnostic,DOIAFIn,doiafin,1,yes,0.7,1,0.9
+Canon_002_LR4.png,Canon_002_LR4,14,51,340,428,101,24,2,Diagnostic,diagnostic,"Fvvs *dh,Eaj","fvvs *dh,eaj",1,yes,1.2,1,1.2
+Canon_002_LR4.png,Canon_002_LR4,15,42,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,43,340,445,115,25,2,Consultants,consultants,BiauTe re ,biaute re,1,yes,0.8181818181818182,1,0.9090909090909091
+Canon_002_LR4.png,Canon_002_LR4,15,44,340,445,115,25,2,Consultants,consultants,69 rgo5tri €56eY3,69 rgo5tri €56ey3,1,yes,1.4545454545454546,1,1.4545454545454546
+Canon_002_LR4.png,Canon_002_LR4,15,45,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,46,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,47,340,445,115,25,2,Consultants,consultants,LATE EETES6,late eetes6,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,48,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,49,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,50,340,445,115,25,2,Consultants,consultants,,,1,yes,1.0,1,1.0
+Canon_002_LR4.png,Canon_002_LR4,15,51,340,445,115,25,2,Consultants,consultants,Diagesin EoJitinateno,diagesin eojitinateno,1,yes,1.5454545454545454,1,1.5454545454545454
+Canon_003_LR4.png,Canon_003_LR4,1,42,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,43,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,44,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,45,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,46,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,47,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,48,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,49,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,50,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,1,51,10,40,233,80,2,Wonton,wonton,Wonton,wonton,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,42,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,43,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,44,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,45,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,46,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,47,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,48,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,49,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,50,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,2,51,256,38,139,80,2,with,with,with,with,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,42,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,43,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,44,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,45,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,46,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,47,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,48,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,49,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,50,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,3,51,404,51,107,70,2,por,por,por,por,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,42,10,135,239,80,2,Sausage,sausage,Sausnge,sausnge,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,4,43,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,44,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,45,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,46,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,47,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,48,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,49,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,50,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,4,51,10,135,239,80,2,Sausage,sausage,Sausage,sausage,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,42,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,43,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,44,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,45,10,240,310,78,2,Dumpling,dumpling,Dumplin g,dumplin g,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,46,10,240,310,78,2,Dumpling,dumpling,Dnmpling,dnmpling,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,5,47,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,48,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,49,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,50,10,240,310,78,2,Dumpling,dumpling,Dumpling,dumpling,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,5,51,10,240,310,78,2,Dumpling,dumpling,Dompling,dompling,1,yes,0.125,1,0.125
+Canon_003_LR4.png,Canon_003_LR4,6,42,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,43,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,44,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,45,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,46,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,47,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,48,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,49,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,50,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,6,51,10,330,150,75,2,Beef,beef,Beef,beef,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,42,170,324,210,80,2,brisket,brisket,bris ket,bris ket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,43,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,44,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,45,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,46,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,47,170,324,210,80,2,brisket,brisket,bridket,bridket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,48,170,324,210,80,2,brisket,brisket,bris ket,bris ket,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_003_LR4.png,Canon_003_LR4,7,49,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,50,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,7,51,170,324,210,80,2,brisket,brisket,brisket,brisket,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,42,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,43,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,44,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,45,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,46,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,47,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,48,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,49,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,50,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,8,51,10,424,105,80,2,Pig,pig,Pig,pig,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,42,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,43,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,44,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,45,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,46,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,47,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,48,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,49,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,50,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_003_LR4.png,Canon_003_LR4,9,51,120,420,135,80,2,skin,skin,skin,skin,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,42,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,43,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,44,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,45,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,46,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,47,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,48,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,49,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,50,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,1,51,140,180,220,95,2,5500,5500,5500,5500,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,42,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,43,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,44,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,45,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,46,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,47,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,48,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,49,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,50,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,2,51,410,161,102,93,2,47,47,47,47,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,42,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,43,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,44,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,45,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,46,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,47,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,48,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,49,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,50,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,3,51,55,315,95,80,2,WE,we,WE,we,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,42,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,43,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,44,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,45,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,46,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,47,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,48,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,49,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,50,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,4,51,157,300,338,87,2,APOLOGIZE,apologize,APOLOGIZE,apologize,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,42,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,43,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,44,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,45,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,46,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,47,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,48,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,49,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,50,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_004_LR4.png,Canon_004_LR4,5,51,52,386,460,100,2,INCONVENIENCE,inconvenience,INCONVENIENCE,inconvenience,0,no,0.0,0,0.0
+Canon_009_LR4.png,Canon_009_LR4,1,42,18,155,55,40,2,3rd,3rd,84,84,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,43,18,155,55,40,2,3rd,3rd,1l,1l,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,44,18,155,55,40,2,3rd,3rd,54,54,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,45,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,46,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,47,18,155,55,40,2,3rd,3rd,}Bu,bu,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,48,18,155,55,40,2,3rd,3rd,N,n,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,49,18,155,55,40,2,3rd,3rd,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,50,18,155,55,40,2,3rd,3rd,Jn},jn,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,1,51,18,155,55,40,2,3rd,3rd,xu,xu,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,42,68,138,93,45,2,Waterfall,waterfall,Klep,klep,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,43,68,138,93,45,2,Waterfall,waterfall,Bonaal|,bonaal,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,2,44,68,138,93,45,2,Waterfall,waterfall,BBKSEEE |,bbkseee,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,45,68,138,93,45,2,Waterfall,waterfall,Nezhu ,nezhu,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,46,68,138,93,45,2,Waterfall,waterfall,32n6],32n6,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,47,68,138,93,45,2,Waterfall,waterfall,Bliaet,bliaet,1,yes,0.8888888888888888,1,0.8888888888888888
+Canon_009_LR4.png,Canon_009_LR4,2,48,68,138,93,45,2,Waterfall,waterfall,ni,ni,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,49,68,138,93,45,2,Waterfall,waterfall,5ez:l |,5ez:l,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,2,50,68,138,93,45,2,Waterfall,waterfall,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,2,51,68,138,93,45,2,Waterfall,waterfall,meha,meha,1,yes,0.7777777777777778,1,0.7777777777777778
+Canon_009_LR4.png,Canon_009_LR4,3,42,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,43,50,443,46,40,2,gyo,gyo,3B,3b,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,44,50,443,46,40,2,gyo,gyo,Eia ,eia,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,45,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,46,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,47,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,48,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,49,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,50,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,3,51,50,443,46,40,2,gyo,gyo,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,42,90,420,70,45,2,Bridge,bridge,'1e3379,1e3379,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,43,90,420,70,45,2,Bridge,bridge,Boksl,boksl,1,yes,0.8333333333333334,1,0.8333333333333334
+Canon_009_LR4.png,Canon_009_LR4,4,44,90,420,70,45,2,Bridge,bridge,REN,ren,1,yes,0.8333333333333334,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,45,90,420,70,45,2,Bridge,bridge,Kwgs,kwgs,1,yes,0.8333333333333334,1,0.8333333333333334
+Canon_009_LR4.png,Canon_009_LR4,4,46,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,47,90,420,70,45,2,Bridge,bridge,JM,jm,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,48,90,420,70,45,2,Bridge,bridge,Kabe! RIJ,kabe! rij,1,yes,1.3333333333333333,1,1.5
+Canon_009_LR4.png,Canon_009_LR4,4,49,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,50,90,420,70,45,2,Bridge,bridge,,,1,yes,1.0,1,1.0
+Canon_009_LR4.png,Canon_009_LR4,4,51,90,420,70,45,2,Bridge,bridge,Aea,aea,1,yes,1.0,1,1.0
+Canon_045_LR4.png,Canon_045_LR4,1,42,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,43,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,44,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,45,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,46,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,47,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,48,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,49,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,50,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,1,51,35,270,55,48,2,10,10,10,10,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,42,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,43,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,44,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,45,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,46,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,47,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,48,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,49,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,50,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_045_LR4.png,Canon_045_LR4,2,51,435,260,55,48,2,36,36,36,36,0,no,0.0,0,0.0
+Canon_046_LR4.png,Canon_046_LR4,1,42,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,43,6,45,70,20,2,Camille,camille,8id,8id,1,yes,0.8571428571428571,1,0.8571428571428571
+Canon_046_LR4.png,Canon_046_LR4,1,44,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,45,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,46,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,47,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,48,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,49,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,50,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,1,51,6,45,70,20,2,Camille,camille,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,42,76,45,79,20,2,Pissarro,pissarro,m) Q 7i,m) q 7i,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,43,76,45,79,20,2,Pissarro,pissarro,4 60 132,4 60 132,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,44,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,45,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,46,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,47,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,48,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,49,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,50,76,45,79,20,2,Pissarro,pissarro,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,2,51,76,45,79,20,2,Pissarro,pissarro,7,7,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,42,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,43,157,45,44,20,2,1830,1830,Amf,amf,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,44,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,45,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,46,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,47,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,48,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,49,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,50,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,3,51,157,45,44,20,2,1830,1830,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,42,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,43,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,44,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,45,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,46,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,47,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,48,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,49,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,50,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_046_LR4.png,Canon_046_LR4,4,51,216,45,47,20,2,1903,1903,,,1,yes,1.0,1,1.0
+Canon_047_LR4.png,Canon_047_LR4,1,42,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,43,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,44,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,45,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,46,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,47,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,48,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,49,145,55,30,35,2,3,3,8,8,1,yes,1.0,1,1.0
+Canon_047_LR4.png,Canon_047_LR4,1,50,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,1,51,145,55,30,35,2,3,3,3,3,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,42,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,43,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,44,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,45,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,46,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,47,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,48,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,49,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,50,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_047_LR4.png,Canon_047_LR4,2,51,320,55,30,35,2,2,2,2,2,0,no,0.0,0,0.0
+Canon_048_LR4.png,Canon_048_LR4,1,42,236,410,76,20,2,Europaische,europaische,BZHNIZEUz,bzhnizeuz,1,yes,0.9090909090909091,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,43,236,410,76,20,2,Europaische,europaische,(BIItAa BC NETULC(,biitaa bc netulc,1,yes,1.1818181818181819,1,1.3636363636363635
+Canon_048_LR4.png,Canon_048_LR4,1,44,236,410,76,20,2,Europaische,europaische,978 Rikie,978 rikie,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_048_LR4.png,Canon_048_LR4,1,45,236,410,76,20,2,Europaische,europaische,6u0 BIOrore,6u0 biorore,1,yes,0.8181818181818182,1,0.8181818181818182
+Canon_048_LR4.png,Canon_048_LR4,1,46,236,410,76,20,2,Europaische,europaische,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,47,236,410,76,20,2,Europaische,europaische,Oc nidguiuce,oc nidguiuce,1,yes,0.9090909090909091,1,0.9090909090909091
+Canon_048_LR4.png,Canon_048_LR4,1,48,236,410,76,20,2,Europaische,europaische,cnntalbtsiio,cnntalbtsiio,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,49,236,410,76,20,2,Europaische,europaische,OMf 5 Quntocid,omf 5 quntocid,1,yes,1.1818181818181819,1,1.1818181818181819
+Canon_048_LR4.png,Canon_048_LR4,1,50,236,410,76,20,2,Europaische,europaische,33,33,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,1,51,236,410,76,20,2,Europaische,europaische,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,42,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,43,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,44,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,45,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,46,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,47,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,48,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,49,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,50,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_048_LR4.png,Canon_048_LR4,2,51,218,426,110,20,2,Geistesgeschichte,geistesgeschichte,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,42,225,165,140,40,2,MARTINI,martini,MArIN,marin,1,yes,0.2857142857142857,1,0.42857142857142855
+Canon_050_LR4.png,Canon_050_LR4,1,43,225,165,140,40,2,MARTINI,martini,NARiERI,narieri,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_050_LR4.png,Canon_050_LR4,1,44,225,165,140,40,2,MARTINI,martini,Nxstunn,nxstunn,1,yes,0.7142857142857143,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,45,225,165,140,40,2,MARTINI,martini,MaatIC],maatic,1,yes,0.42857142857142855,1,0.7142857142857143
+Canon_050_LR4.png,Canon_050_LR4,1,46,225,165,140,40,2,MARTINI,martini,iraaTiA,iraatia,1,yes,0.7142857142857143,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,47,225,165,140,40,2,MARTINI,martini,MAMTINI,mamtini,1,yes,0.14285714285714285,1,0.14285714285714285
+Canon_050_LR4.png,Canon_050_LR4,1,48,225,165,140,40,2,MARTINI,martini,MAXIM,maxim,1,yes,0.5714285714285714,1,0.5714285714285714
+Canon_050_LR4.png,Canon_050_LR4,1,49,225,165,140,40,2,MARTINI,martini,RAKI INq,raki inq,1,yes,0.7142857142857143,1,0.7142857142857143
+Canon_050_LR4.png,Canon_050_LR4,1,50,225,165,140,40,2,MARTINI,martini,CEABETALR,ceabetalr,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,1,51,225,165,140,40,2,MARTINI,martini,MARTIRT,martirt,1,yes,0.2857142857142857,1,0.2857142857142857
+Canon_050_LR4.png,Canon_050_LR4,2,42,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,43,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,44,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,45,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,46,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,47,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,48,0,255,120,100,2,664,664,564,564,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,2,49,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,50,0,255,120,100,2,664,664,504,504,1,yes,0.6666666666666666,1,0.6666666666666666
+Canon_050_LR4.png,Canon_050_LR4,2,51,0,255,120,100,2,664,664,264,264,1,yes,0.3333333333333333,1,0.3333333333333333
+Canon_050_LR4.png,Canon_050_LR4,3,42,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,43,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,44,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,45,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,46,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,47,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,48,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,49,30,143,53,18,2,BLANCHE,blanche,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,3,50,30,143,53,18,2,BLANCHE,blanche,468 ahnh,468 ahnh,1,yes,1.0,1,1.1428571428571428
+Canon_050_LR4.png,Canon_050_LR4,3,51,30,143,53,18,2,BLANCHE,blanche,Ive % Hm;,ive % hm,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,42,2,160,47,18,2,WHEAT,wheat,3,3,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,43,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,44,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,45,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,46,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,47,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,48,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,49,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,50,2,160,47,18,2,WHEAT,wheat,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,4,51,2,160,47,18,2,WHEAT,wheat,Innalbt,innalbt,1,yes,1.0,1,1.4
+Canon_050_LR4.png,Canon_050_LR4,5,42,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,43,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,44,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,45,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,46,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,47,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,48,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,49,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,50,49,160,30,17,2,BEER,beer,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,5,51,49,160,30,17,2,BEER,beer,Tiong,tiong,1,yes,1.25,1,1.25
+Canon_050_LR4.png,Canon_050_LR4,6,42,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,43,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,44,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,45,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,46,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,47,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,48,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,49,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,50,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
+Canon_050_LR4.png,Canon_050_LR4,6,51,235,215,65,40,2,ITALIA,italia,,,1,yes,1.0,1,1.0
