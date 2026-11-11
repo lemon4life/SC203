@@ -65,7 +65,12 @@
 - **Finding:** Default `rapidocr` runs a 2-stage pipeline (`text_det` $\rightarrow$ `text_rec`). On tightly cropped single-word boxes, `text_det` frequently fails to detect a text polygon and returns `""` (`18 / 143 = 12.6%` exact on Nikon in Colab; `8 / 50 = 16.0%` on Canon).
 - **Fix (`--rec-only --rotate-vertical` in `scripts/ocr_check_hr.py` & `scripts/text_eval.py`):** Bypassing `text_det` (`--rec-only`, feeding the ground-truth box directly to `text_rec`) and trying $\pm 90^\circ$ rotations on vertical boxes (`h > 1.5 * w`, `--rotate-vertical`) raised `test_HR` exact-match accuracy on Nikon (`143` boxes) from `12.6%` to **`70.6%` (`101/143`, `rapidocr 1.2.3`)** and **`75.5%` (`108/143`, `rapidocr 1.4.4` on Colab)**, outperforming `easyocr` (`76/143 = 53.1%` on Nikon; `35/50 = 70.0%` on Canon at `2x` upscale).
 
-### B. 10-Seed Quantitative Text Evaluation Table (`25` Readable Images, `193` Boxes, `1,930` Box-Seed Crops, `VERIFIED`)
+### B. 10-Seed Quantitative Text Evaluation Table (`25` Readable Images, `193` Boxes, `1,930` Box-Seed Crops, `VERIFIED` as arithmetic on the CSVs)
+
+> **Known caveats (added 11/11, `PENDING` until the unified re-run):**
+> 1. The CSVs do not record which OCR backend/version produced them. Nikon used `--upscale 1`, Canon used `--upscale 2` (`crop_upscale` column). The Canon backend (RapidOCR vs EasyOCR) and version are **not recorded anywhere in the repo**; the `8/50 = 16.0%` Canon default figure comes from a chat message, not from a file.
+> 2. The `NVIDIA L4` statement for the 10-seed runs comes from the team lead; the run manifests on Drive were not checked. The only GPU log in the repo is the `A100` of `CELL 03` (5 Nov).
+> 3. Image-mean values for the HR ceiling were corrected on 11/11 (earlier version had four wrong cells).
 *Source CSVs committed in `results/`:*
 - Combined 100-image tables: `results/text_eval_summary_by_image.csv`, `results/text_eval_paired_comparison_by_image.csv`, `results/text_eval_hr_ceiling_by_image.csv`, `results/text_eval_hr_ceiling_per_box.csv`, `results/text_eval_bicubic_floor_by_image.csv`, `results/text_eval_bicubic_floor_per_box.csv`, `results/text_eval_per_box_seed.csv`
 - Canon subset (`1–50`, `10` images, `50` boxes): `results/text_eval_10seed_canon/*.csv` (and `results/text_eval_canon_*.csv`)
@@ -73,13 +78,13 @@
 
 | Subset & Evaluation Target | Readable Images / Boxes | Box-Seeds Evaluated | Exact Box Match Rate (`wrong_char == 0`) | Wrong-Char Rate (Box-Wt / Img-Mean) | Mean CER (Box-Wt / Img-Mean) | Cross-Seed OCR Disagreement Rate (Box-Wt / Img-Mean) | Mean Distinct OCR Readings / 10 Seeds (Box-Wt / Img-Mean) | Crop Pixel Seed Spread $L_1$ (`0..255`) (Box-Wt / Img-Mean) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Canon (`1–50`)** — `HR_CEILING` (`test_HR`) | `10` / `50` | `50` | **`35 / 50` (`70.0%`)** | `30.0%` / `45.8%` | `0.0938` / `0.1967` | — | — | — |
+| **Canon (`1–50`)** — `HR_CEILING` (`test_HR`) | `10` / `50` | `50` | **`35 / 50` (`70.0%`)** | `30.0%` / `40.8%` | `0.0938` / `0.1967` | — | — | — |
 | **Canon (`1–50`)** — `BICUBIC_X4_FLOOR` (`test_LR`) | `10` / `50` | `50` | `10 / 50` (`20.0%`) | `80.0%` / `72.8%` | `0.6704` / `0.5964` | — | — | — |
 | **Canon (`1–50`)** — **DoSSR 10-Seed (`default`)** | `10` / `50` | `500` | **`170 / 500` (`34.0%`)** | **`66.0%`** / `61.5%` | **`0.6263`** / `0.6528` | **`46.84%`** / `40.94%` | **`4.44`** / `4.11` | **`15.70`** / `17.50` |
-| **Nikon (`51–100`)** — `HR_CEILING` (`test_HR`) | `15` / `143` | `143` | **`101 / 143` (`70.6%`)** *(Colab: `75.5%`)* | `29.4%` / `40.2%` | `0.1896` / `0.2608` | — | — | — |
+| **Nikon (`51–100`)** — `HR_CEILING` (`test_HR`) | `15` / `143` | `143` | **`101 / 143` (`70.6%`)** *(Colab: `75.5%`)* | `29.4%` / `40.2%` | `0.1896` / `0.2864` | — | — | — |
 | **Nikon (`51–100`)** — `BICUBIC_X4_FLOOR` (`test_LR`) | `15` / `143` | `143` | `29 / 143` (`20.3%`) | `79.7%` / `70.6%` | `0.7674` / `0.6407` | — | — | — |
 | **Nikon (`51–100`)** — **DoSSR 10-Seed (`default`)** | `15` / `143` | `1,430` | **`293 / 1430` (`20.5%`)** | **`79.5%`** / `72.6%` | **`0.7428`** / `0.6400` | **`27.93%`** / `25.33%` | **`2.70`** / `2.67` | **`21.88`** / `18.40` |
-| **FULL 100 (`Canon + Nikon`)** — **`HR_CEILING`** | **`25` / `193`** | **`193`** | **`136 / 193` (`70.5%`)** | **`29.5%`** / `42.5%` | **`0.1648`** / `0.2352` | — | — | — |
+| **FULL 100 (`Canon + Nikon`)** — **`HR_CEILING`** | **`25` / `193`** | **`193`** | **`136 / 193` (`70.5%`)** | **`29.5%`** / `40.4%` | **`0.1648`** / `0.2505` | — | — | — |
 | **FULL 100 (`Canon + Nikon`)** — **`BICUBIC_X4_FLOOR`** | **`25` / `193`** | **`193`** | **`39 / 193` (`20.2%`)** | **`79.8%`** / `71.5%` | **`0.7423`** / `0.6230` | — | — | — |
 | **FULL 100 (`Canon + Nikon`)** — **DoSSR 10-Seed (`default`)** | **`25` / `193`** | **`1,930`** | **`463 / 1930` (`24.0%`)** | **`76.0%`** / **`68.2%`** | **`0.7127`** / **`0.6451`** | **`32.83%`** / **`31.57%`** | **`3.15`** / **`3.25`** | **`20.28`** / **`18.04`** |
 | **FULL 100 Paired (`empty - default` prompt)** | **`25` / `193`** | **`1,930` pairs** | $\Delta = +0.16\%$ | **`-0.16%`** / `-0.32%` | **`+0.0001`** / `+0.0068` | — | — | — |
