@@ -68,6 +68,28 @@ def inspect_image_pair(lr_path: Path, hr_path: Path) -> Dict[str, Any]:
     }
 
 
+def find_lr_hr_pairs(data_dir: Path) -> Tuple[List[Path], List[Path]]:
+    """Recursively locate paired LR and HR images in data_dir regardless of folder nesting."""
+    all_images = [
+        p for p in data_dir.rglob("*")
+        if p.is_file() and p.suffix.lower() in [".png", ".jpg", ".jpeg"]
+    ]
+
+    # Check if files have 'lr' or 'hr' in filename or in any parent folder name
+    lr_files = [
+        p for p in all_images
+        if "lr" in p.name.lower() or any(part.lower() == "lr" or "lr" in part.lower() for part in p.parent.parts)
+    ]
+    hr_files = [
+        p for p in all_images
+        if "hr" in p.name.lower() or any(part.lower() == "hr" or "hr" in part.lower() for part in p.parent.parts)
+    ]
+
+    lr_files.sort(key=lambda x: x.name)
+    hr_files.sort(key=lambda x: x.name)
+    return lr_files, hr_files
+
+
 def audit_dataset_structure(data_dir: Path) -> Dict[str, Any]:
     """Scan data_dir for splits, subfolders, and pair counts."""
     if not data_dir.exists():
@@ -79,50 +101,36 @@ def audit_dataset_structure(data_dir: Path) -> Dict[str, Any]:
         }
 
     splits_found: Dict[str, Any] = {}
-    total_pairs = 0
-
-    # Common folder layout patterns in Real-CE / super-resolution datasets:
-    # 1. data_dir / {train, val, test} / {LR, HR}
-    # 2. data_dir / {LR, HR} / {train, val, test}
-    # 3. data_dir / {test_LR, test_HR}
-    candidate_subdirs = [p for p in data_dir.iterdir() if p.is_dir()]
-    split_names = ["train", "val", "test", "test_LR", "test_HR", "LR", "HR"]
+    lr_files, hr_files = find_lr_hr_pairs(data_dir)
 
     for s_name in ["train", "val", "test"]:
         sub = data_dir / s_name
         if sub.is_dir():
-            lr_dir = sub / "LR" if (sub / "LR").is_dir() else (sub / "lr" if (sub / "lr").is_dir() else sub)
-            hr_dir = sub / "HR" if (sub / "HR").is_dir() else (sub / "hr" if (sub / "hr").is_dir() else sub)
-
-            # Search recursively for png/jpg
-            lr_files = sorted([p for p in lr_dir.glob("*.[jp][pn]g") if "LR" in p.name or lr_dir != sub])
-            hr_files = sorted([p for p in hr_dir.glob("*.[jp][pn]g") if "HR" in p.name or hr_dir != sub])
-
+            s_lr = [p for p in lr_files if s_name in str(p)]
+            s_hr = [p for p in hr_files if s_name in str(p)]
             splits_found[s_name] = {
-                "lr_count": len(lr_files),
-                "hr_count": len(hr_files),
-                "lr_dir": str(lr_dir),
-                "hr_dir": str(hr_dir),
+                "lr_count": len(s_lr),
+                "hr_count": len(s_hr),
+                "sample_lr": [p.name for p in s_lr[:2]],
+                "sample_hr": [p.name for p in s_hr[:2]],
             }
-            total_pairs += min(len(lr_files), len(hr_files))
 
-    # If standard split subfolders weren't found, scan flat or top-level LR/HR
     if not splits_found:
-        lr_candidates = sorted([p for p in data_dir.rglob("*.[jp][pn]g") if "lr" in p.name.lower() or "lr" in str(p.parent).lower()])
-        hr_candidates = sorted([p for p in data_dir.rglob("*.[jp][pn]g") if "hr" in p.name.lower() or "hr" in str(p.parent).lower()])
-        splits_found["unpartitioned"] = {
-            "lr_count": len(lr_candidates),
-            "hr_count": len(hr_candidates),
-            "lr_sample": [p.name for p in lr_candidates[:3]],
-            "hr_sample": [p.name for p in hr_candidates[:3]],
+        splits_found["all"] = {
+            "lr_count": len(lr_files),
+            "hr_count": len(hr_files),
+            "sample_lr": [p.name for p in lr_files[:3]],
+            "sample_hr": [p.name for p in hr_files[:3]],
         }
-        total_pairs = min(len(lr_candidates), len(hr_candidates))
 
+    total_pairs = min(len(lr_files), len(hr_files))
     return {
-        "status": "AUDITED",
+        "status": "AUDITED" if total_pairs > 0 else "NO_PAIRS_FOUND",
         "data_dir": str(data_dir),
         "splits": splits_found,
         "total_pairs": total_pairs,
+        "total_lr_found": len(lr_files),
+        "total_hr_found": len(hr_files),
     }
 
 
