@@ -10,9 +10,10 @@ Curated summary CSVs, whole-image metrics tables, and 10-seed text evaluation ta
 - `text_eval_hr_ceiling_by_image.csv` & `text_eval_hr_ceiling_per_box.csv` — OCR upper bound on sharp `512x512` `test_HR` ground-truth crops (`136 / 193 = 70.5%` exact match, `CER = 0.1648`).
 - `text_eval_bicubic_floor_by_image.csv` & `text_eval_bicubic_floor_per_box.csv` — OCR lower bound on `128x128 -> 512x512` bicubic $\times 4$ `test_LR` crops (`39 / 193 = 20.2%` exact match, `CER = 0.7423`).
 - `text_eval_per_box_seed.csv` — All `1,930` `(box, seed)` OCR readings and character error rates across `seed_42`..`seed_51`.
+- `text_eval_a5_cohort_breakdown.csv` & `text_eval_a5_summary.json` — A5 baseline cohort breakdown separating all `193` labeled boxes, the `136` HR-solvable boxes (`HR CER = 0`), and the `57` HR-unsolvable boxes, plus `seed 42` source PNG audit (`scripts/analyze_text_eval_a5.py`).
 
 ### 2. Per-Camera Subset Text Evaluation Tables (`VERIFIED`)
-- **Canon (`images 1–50`, `10` readable images, `50` boxes — Member 2, Gia Hân):** `results/text_eval_10seed_canon/*.csv` and `results/text_eval_canon_*.csv`.
+- **Canon (`images 1–50`, `10` readable images, `50` boxes — Member 2, Gia Hân):** `results/text_eval_canon_*.csv`.
 - **Nikon (`images 51–100`, `15` readable images, `143` boxes — Member 3, Quang Minh):** `results/text_eval_nikon_*.csv`.
 
 ### 3. Whole-Image Metrics (`scripts/compute_metrics.py`)

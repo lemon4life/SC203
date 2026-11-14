@@ -43,7 +43,7 @@ def main() -> int:
         "--source-config",
         dest="config",
         type=Path,
-        default=REPO_ROOT / "configs" / "baseline_realsr.yaml",
+        default=REPO_ROOT / "configs" / "baseline_realsr_lr128.yaml",
         help="Baseline YAML config to copy and adjust for a smoke or small-batch run",
     )
     parser.add_argument(

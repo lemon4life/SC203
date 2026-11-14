@@ -149,14 +149,14 @@ def main() -> int:
     parser.add_argument(
         "--m2",
         type=Path,
-        default=Path("data/text_boxes_realsr_m2.csv"),
-        help="Path to Member 2 CSV (images 1-50, default: data/text_boxes_realsr_m2.csv)",
+        default=Path("data/text_boxes_realsr_canon.csv"),
+        help="Path to Member 2 Canon CSV (images 1-50, default: data/text_boxes_realsr_canon.csv)",
     )
     parser.add_argument(
         "--m3",
         type=Path,
-        default=Path("data/text_boxes_realsr_m3.csv"),
-        help="Path to Member 3 CSV (images 51-100, default: data/text_boxes_realsr_m3.csv)",
+        default=Path("data/text_boxes_realsr_nikon.csv"),
+        help="Path to Member 3 Nikon CSV (images 51-100, default: data/text_boxes_realsr_nikon.csv)",
     )
     parser.add_argument(
         "--out",

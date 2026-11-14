@@ -41,7 +41,7 @@ def main() -> int:
     parser.add_argument(
         "--config",
         type=Path,
-        default=REPO_ROOT / "configs" / "seed_study_realsr_5img.yaml",
+        default=REPO_ROOT / "configs" / "seed_study_realsr_5img_lr128.yaml",
     )
     parser.add_argument(
         "--baseline-config",

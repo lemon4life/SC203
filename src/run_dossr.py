@@ -311,7 +311,7 @@ def main() -> int:
     parser.add_argument(
         "--config",
         type=Path,
-        default=REPO_ROOT / "configs" / "baseline_realsr.yaml",
+        default=REPO_ROOT / "configs" / "baseline_realsr_lr128.yaml",
     )
     parser.add_argument(
         "--overwrite",
