@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
-"""Scene-level train/validation split script for the Real-CE (x4) dataset.
+"""Scene-level train/validation split script for the Real-CE dataset.
+
+Supports the official Real-CE directory structure:
+  <Real-CE>/
+    train/
+      13mm/          # 4x LR inputs
+      26mm/          # 2x LR inputs (ignored when --scale x4)
+      52mm/          # HR ground truth
+      trans_anoon/   # (or trans_annos/) ignored as image inputs
+      valid.txt      # optional split manifest
+    val/             # official held-out evaluation split (untouched during train split)
+
+Also supports generic LR/HR directory layouts as fallback.
 
 Follows mentor guidance strictly:
-1. Split strictly within --split train (holding out test untouched).
+1. Split strictly within --split train (holding out val/test untouched).
 2. Pair (LR, HR) images 1-to-1 with zero missing counterparts.
 3. Group patches/crops by scene/original image ID before splitting so no scene
    appears in both train and validation, without collapsing camera IDs such as
    Canon_001 into Canon.
-4. Optionally extract aligned (LR, HR) patches strictly after scene assignment.
+4. Optionally extract aligned (128x128 LR, 512x512 HR) patches strictly after scene
+   assignment, supporting both 4x-ratio and pre-registered same-canvas focal captures.
 """
 
 from __future__ import annotations
@@ -23,11 +36,21 @@ import re
 import sys
 from typing import Any
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.check_realce_feasibility import (  # noqa: E402
+    ANNOTATION_DIR_TOKENS,
+    parse_valid_txt,
+    resolve_realce_root,
+)
+
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"}
 LR_DIR_TOKENS = {"lr", "lr_x4", "lr_x2", "lr4", "lr2", "lq", "train_lr", "val_lr"}
 HR_DIR_TOKENS = {"hr", "hr_x4", "hr_x2", "hr4", "hr2", "hq", "gt", "train_hr", "val_hr"}
-ROLE_SUFFIX_RE = re.compile(r"(?:_|-)(?:LR\d*|HR|LQ|HQ|GT|x\d+)$", re.IGNORECASE)
+ROLE_SUFFIX_RE = re.compile(r"(?:_|-)(?:13mm|26mm|52mm|LR\d*|HR|LQ|HQ|GT|x\d+)$", re.IGNORECASE)
 PATCH_SUFFIX_RE = re.compile(r"(?:_|-)(?:patch|crop|sub|p)[_-]?\d+$", re.IGNORECASE)
 
 
@@ -42,7 +65,7 @@ class PairedSample:
 
 
 def extract_scene_key(filename_or_stem: str) -> str:
-    """Extract the root scene identifier by stripping explicit scale/patch suffixes only.
+    """Extract the root scene identifier by stripping explicit focal/scale/patch suffixes only.
 
     Camera/capture identifiers such as 'Canon_001' or 'scene_001' are preserved.
     """
@@ -57,7 +80,7 @@ def extract_scene_key(filename_or_stem: str) -> str:
 
 
 def canonical_pair_key(filename_or_stem: str) -> str:
-    """Strip explicit LR/HR/scale suffixes so LR and HR filenames align 1-to-1."""
+    """Strip explicit LR/HR/focal/scale suffixes so LR and HR filenames align 1-to-1."""
     stem = Path(filename_or_stem).stem
     while True:
         updated = ROLE_SUFFIX_RE.sub("", stem)
@@ -69,45 +92,69 @@ def canonical_pair_key(filename_or_stem: str) -> str:
 
 def _resolve_split_root(data_dir: Path, split: str, scale: str) -> Path:
     """Locate the target split directory while never falling back into another split."""
+    root = resolve_realce_root(data_dir)
     scale_clean = scale.lstrip("x")
     scale_candidates = [scale, f"Real-CE_{scale}", f"x{scale_clean}"]
     candidates = [
-        *(data_dir / split / sc for sc in scale_candidates),
-        data_dir / split,
-        *(data_dir / sc / split for sc in scale_candidates),
+        root / split,
+        *(root / split / sc for sc in scale_candidates),
+        *(root / sc / split for sc in scale_candidates),
     ]
     for cand in candidates:
         if cand.is_dir():
             return cand
     raise FileNotFoundError(
-        f"Could not find split directory '{split}' under {data_dir}. Checked: {[str(c) for c in candidates]}"
+        f"Could not find split directory '{split}' under {data_dir} (resolved root: {root}). Checked: {[str(c) for c in candidates]}"
     )
 
 
-def _classify_lr_hr(rel_parts: tuple[str, ...]) -> str | None:
+def _classify_lr_hr(rel_parts: tuple[str, ...], scale: str = "x4") -> str | None:
     """Classify an image's role ('LR' or 'HR') from its path components below split_root."""
     lowered = [p.lower() for p in rel_parts[:-1]]
+    if any(tok in ANNOTATION_DIR_TOKENS or tok.startswith("trans_") for tok in lowered):
+        return None
+
+    scale_clean = scale.lower().lstrip("x")
+    lr_focal = "13mm" if scale_clean == "4" else "26mm"
+    ignored_focal = "26mm" if scale_clean == "4" else "13mm"
+
+    # Real-CE focal-length directory layout: 13mm (4x LR), 26mm (2x LR), 52mm (HR)
+    if any(tok == ignored_focal for tok in lowered):
+        return None
+    if any(tok == lr_focal for tok in lowered):
+        return "LR"
+    if any(tok == "52mm" for tok in lowered):
+        return "HR"
+
+    # Generic fallback for LR/HR layouts
     is_lr = any(tok in LR_DIR_TOKENS or tok.startswith("lr") or tok.endswith("_lr") for tok in lowered)
     is_hr = any(tok in HR_DIR_TOKENS or tok.startswith("hr") or tok.endswith("_hr") for tok in lowered)
     if is_lr and not is_hr:
         return "LR"
     if is_hr and not is_lr:
         return "HR"
+
     stem_lower = Path(rel_parts[-1]).stem.lower()
     if ROLE_SUFFIX_RE.search(stem_lower):
-        if any(tag in stem_lower for tag in ("_lr", "-lr", "_lq")):
+        if any(tag in stem_lower for tag in (f"_{lr_focal}", f"-{lr_focal}", "_lr", "-lr", "_lq")):
             return "LR"
-        if any(tag in stem_lower for tag in ("_hr", "-hr", "_gt", "_hq")):
+        if any(tag in stem_lower for tag in ("_52mm", "-52mm", "_hr", "-hr", "_gt", "_hq")):
             return "HR"
     return None
 
 
 def _rel_parent_context(rel_parts: tuple[str, ...]) -> str:
     """Return non-role relative parent segments so duplicate stems in different subdirs stay distinct."""
+    focal_tokens = {"13mm", "26mm", "52mm"}
     kept = []
     for part in rel_parts[:-1]:
         low = part.lower()
-        if low in LR_DIR_TOKENS or low in HR_DIR_TOKENS or low.startswith(("lr", "hr", "gt", "lq", "hq")):
+        if (
+            low in focal_tokens
+            or low in LR_DIR_TOKENS
+            or low in HR_DIR_TOKENS
+            or low.startswith(("lr", "hr", "gt", "lq", "hq"))
+        ):
             continue
         kept.append(part)
     return "/".join(kept)
@@ -135,7 +182,7 @@ def discover_paired_samples(
         rel_parts = img_path.relative_to(split_root).parts
         if any(part.lower() in other_splits for part in rel_parts[:-1]):
             continue
-        role = _classify_lr_hr(rel_parts)
+        role = _classify_lr_hr(rel_parts, scale=scale)
         if role is None:
             continue
         ctx = _rel_parent_context(rel_parts)
@@ -148,7 +195,8 @@ def discover_paired_samples(
 
     if not lr_entries or not hr_entries:
         raise FileNotFoundError(
-            f"Could not find both LR and HR images under {split_root} (found {len(lr_entries)} LR, {len(hr_entries)} HR)"
+            f"Could not find both LR and HR images under {split_root} for scale={scale} "
+            f"(found {len(lr_entries)} LR, {len(hr_entries)} HR)"
         )
 
     missing_hr = sorted(set(lr_entries) - set(hr_entries))
@@ -159,9 +207,25 @@ def discover_paired_samples(
             f"missing_lr={missing_lr[:5]} (total {len(missing_lr)})"
         )
 
+    # Apply valid.txt filter only when its entries map to discovered pair stems
+    valid_entries = parse_valid_txt(split_root)
+    valid_filter: set[str] | None = None
+    if valid_entries:
+        valid_tokens = {
+            canonical_pair_key(Path(line.split()[0].split(",")[0].strip()).name).lower()
+            for line in valid_entries
+            if line.split()
+        }
+        available_stems = {canonical_pair_key(pid.split("/")[-1]).lower() for pid in lr_entries}
+        overlap = valid_tokens & available_stems
+        if overlap:
+            valid_filter = overlap
+
     pairs: list[PairedSample] = []
     for pair_id in sorted(lr_entries):
         base_name = pair_id.split("/")[-1]
+        if valid_filter is not None and canonical_pair_key(base_name).lower() not in valid_filter:
+            continue
         scene_root = extract_scene_key(base_name)
         ctx = "/".join(pair_id.split("/")[:-1])
         scene_key = f"{ctx}/{scene_root}" if ctx else scene_root
@@ -173,6 +237,8 @@ def discover_paired_samples(
                 hr_path=hr_entries[pair_id],
             )
         )
+    if not pairs:
+        raise FileNotFoundError(f"Zero pairs matched after valid.txt filtering under {split_root}")
     return pairs
 
 
@@ -217,7 +283,12 @@ def extract_aligned_patches(
     lr_patch_size: int = 128,
     stride: int = 256,
 ) -> list[dict[str, Any]]:
-    """Extract aligned (LR, HR) patches strictly inside each split after scene splitting."""
+    """Extract aligned (lr_patch_size, hr_patch_size) patches strictly inside each split.
+
+    Supports both exact 4x-ratio pairs (128x128 LR <-> 512x512 HR) and pre-registered
+    same-canvas focal captures (crop aligned region proportionally and bicubic-resize LR crop
+    to lr_patch_size x lr_patch_size).
+    """
     from PIL import Image
 
     if hr_patch_size <= 0 or lr_patch_size <= 0 or stride <= 0:
@@ -227,9 +298,9 @@ def extract_aligned_patches(
     scale = hr_patch_size // lr_patch_size
     if stride % scale != 0:
         raise ValueError(f"HR stride ({stride}) must be divisible by scale ({scale})")
-    lr_stride = stride // scale
 
     patch_records: list[dict[str, Any]] = []
+    skipped_small = 0
     for subset in ("train", "val"):
         lr_out_dir = patch_dir / subset / "LR"
         hr_out_dir = patch_dir / subset / "HR"
@@ -242,21 +313,29 @@ def extract_aligned_patches(
                 hr_im = hr_im_raw.convert("RGB")
                 lr_w, lr_h = lr_im.size
                 hr_w, hr_h = hr_im.size
-                if (hr_w, hr_h) != (lr_w * scale, lr_h * scale):
-                    raise ValueError(
-                        f"Scale mismatch for {pair.pair_id}: HR={(hr_w, hr_h)} vs LR={(lr_w, lr_h)} * {scale}"
-                    )
-                if hr_w < hr_patch_size or hr_h < hr_patch_size:
+                if lr_w <= 0 or lr_h <= 0 or hr_w < hr_patch_size or hr_h < hr_patch_size:
+                    skipped_small += 1
                     continue
 
+                exact_scale = (hr_w == lr_w * scale) and (hr_h == lr_h * scale)
                 safe_stem = pair.pair_id.replace("/", "__")
                 crop_idx = 0
                 for top_hr in range(0, hr_h - hr_patch_size + 1, stride):
                     for left_hr in range(0, hr_w - hr_patch_size + 1, stride):
-                        top_lr = top_hr // scale
-                        left_lr = left_hr // scale
-                        lr_crop = lr_im.crop((left_lr, top_lr, left_lr + lr_patch_size, top_lr + lr_patch_size))
                         hr_crop = hr_im.crop((left_hr, top_hr, left_hr + hr_patch_size, top_hr + hr_patch_size))
+                        if exact_scale:
+                            top_lr = top_hr // scale
+                            left_lr = left_hr // scale
+                            lr_crop = lr_im.crop((left_lr, top_lr, left_lr + lr_patch_size, top_lr + lr_patch_size))
+                        else:
+                            left_lr = max(0, min(lr_w - 1, int(round(left_hr * lr_w / hr_w))))
+                            top_lr = max(0, min(lr_h - 1, int(round(top_hr * lr_h / hr_h))))
+                            right_lr = max(left_lr + 1, min(lr_w, int(round((left_hr + hr_patch_size) * lr_w / hr_w))))
+                            bottom_lr = max(top_lr + 1, min(lr_h, int(round((top_hr + hr_patch_size) * lr_h / hr_h))))
+                            lr_crop = lr_im.crop((left_lr, top_lr, right_lr, bottom_lr))
+                            if lr_crop.size != (lr_patch_size, lr_patch_size):
+                                lr_crop = lr_crop.resize((lr_patch_size, lr_patch_size), Image.Resampling.BICUBIC)
+
                         crop_name = f"{safe_stem}_patch{crop_idx:03d}.png"
                         lr_dst = lr_out_dir / crop_name
                         hr_dst = hr_out_dir / crop_name
@@ -272,6 +351,8 @@ def extract_aligned_patches(
                             }
                         )
                         crop_idx += 1
+    if skipped_small:
+        print(f"Note: skipped {skipped_small} pair(s) smaller than HR patch size {hr_patch_size}x{hr_patch_size}.")
     return patch_records
 
 
@@ -289,8 +370,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse CLI arguments."""
     parser = argparse.ArgumentParser(description="Split Real-CE train subset by scene with zero leakage.")
     parser.add_argument("--data-dir", type=Path, default=Path("data/Real-CE"), help="Real-CE dataset root directory")
-    parser.add_argument("--split", type=str, default="train", help="Dataset split to partition (default: train; test stays untouched)")
-    parser.add_argument("--scale", type=str, default="x4", help="Scale subdirectory preference (default: x4)")
+    parser.add_argument("--split", type=str, default="train", help="Dataset split to partition (default: train; val stays untouched)")
+    parser.add_argument("--scale", type=str, default="x4", help="Focal scale pair (default: x4 -> 13mm LR + 52mm HR; x2 -> 26mm LR + 52mm HR)")
     parser.add_argument("--val-ratio", type=float, default=0.20, help="Fraction of scenes assigned to validation (default: 0.20)")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for scene shuffling (default: 42)")
     parser.add_argument("--output-manifest", type=Path, default=Path("data/realce_splits_manifest.json"), help="Output JSON manifest")
