@@ -36,6 +36,7 @@ import random
 import re
 import sys
 from typing import Any
+import unicodedata
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
@@ -393,6 +394,8 @@ def load_realce_hr_boxes(anno_path: Path | None, img_w: int, img_h: int) -> list
 
         if not transcript or set(transcript) <= {"#", "*"} or transcript.lower() in {"???", "n/a", "null"}:
             continue
+        if not any(ch.isalnum() for ch in unicodedata.normalize("NFKC", transcript)):
+            continue
 
         xs = coords[0::2]
         ys = coords[1::2]
@@ -615,6 +618,9 @@ def extract_aligned_patches(
         hr_out_dir = patch_dir / subset / "HR"
         lr_out_dir.mkdir(parents=True, exist_ok=True)
         hr_out_dir.mkdir(parents=True, exist_ok=True)
+        for stale_dir in (lr_out_dir, hr_out_dir):
+            for stale_png in stale_dir.glob("*.png"):
+                stale_png.unlink()
 
         if subset == "train":
             uncapped = max_patches_per_scene <= 0

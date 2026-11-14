@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import argparse
 import importlib.metadata
+import importlib.util
 import json
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -66,11 +68,11 @@ def resolve_requirements(path: Path, repo_url: str, logger) -> bool:
         logger.error("Requirements file does not exist: %s", path)
         return False
     if DEFAULT_DOSSR_DIR.exists():
-        logger.error(
-            "DoSSR directory exists but requirements.txt is missing; leaving it untouched: %s",
+        logger.warning(
+            "DoSSR directory exists (%s) but requirements.txt is missing; removing incomplete clone and re-cloning.",
             DEFAULT_DOSSR_DIR,
         )
-        return False
+        shutil.rmtree(DEFAULT_DOSSR_DIR)
     DEFAULT_DOSSR_DIR.parent.mkdir(parents=True, exist_ok=True)
     logger.info("DoSSR clone is absent; cloning upstream source only (no weights).")
     result = run_command(["git", "clone", repo_url, str(DEFAULT_DOSSR_DIR)], logger)
@@ -132,6 +134,17 @@ def main() -> int:
     requirements_path = args.requirements.expanduser().resolve()
     if not resolve_requirements(requirements_path, args.dossr_repo_url, logger):
         return 1
+
+    if importlib.util.find_spec("jedi") is None:
+        logger.info("Installing jedi==0.20.1 required by IPython in fresh Colab runtimes...")
+        jedi_install = run_command(
+            [sys.executable, "-m", "pip", "install", "--quiet", "--no-input", "jedi==0.20.1"],
+            logger,
+        )
+        if jedi_install.returncode != 0:
+            logger.warning("Could not pre-install jedi==0.20.1; continuing with pip check.")
+            log_output(logger, jedi_install.stdout or "", "warning")
+            log_output(logger, jedi_install.stderr or "", "warning")
 
     pip_check = run_command([sys.executable, "-m", "pip", "check"], logger)
     current_conflicts = (pip_check.stdout or "") + (pip_check.stderr or "")

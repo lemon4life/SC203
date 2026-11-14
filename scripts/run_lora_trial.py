@@ -15,6 +15,7 @@ import argparse
 from contextlib import nullcontext
 import csv
 from datetime import datetime, timezone
+import importlib
 import json
 import math
 from pathlib import Path
@@ -193,6 +194,41 @@ class PairedRealCEDataset(Dataset):
         }
 
 
+def _patch_dossr_gradient_checkpointing(dossr_root: Path | None = None) -> int:
+    """Wrap DoSSR's ldm checkpoint() so frozen base params do not break autograd.grad."""
+    if dossr_root is not None:
+        dossr_str = str(dossr_root.expanduser().resolve())
+        if dossr_str not in sys.path:
+            sys.path.insert(0, dossr_str)
+
+    import ldm.modules.diffusionmodules.util as ldm_util
+
+    target_modules: list[Any] = [ldm_util]
+    for mod_name in ("ldm.modules.diffusionmodules.openaimodel", "ldm.modules.attention"):
+        try:
+            target_modules.append(importlib.import_module(mod_name))
+        except ImportError:
+            pass
+
+    if getattr(ldm_util.checkpoint, "_sc203_trainable_patched", False):
+        for mod in target_modules:
+            if hasattr(mod, "checkpoint"):
+                setattr(mod, "checkpoint", ldm_util.checkpoint)
+        return len(target_modules)
+
+    orig_checkpoint = ldm_util.checkpoint
+
+    def _checkpoint_trainable_only(func, inputs, params, flag):
+        trainable_params = [p for p in params if getattr(p, "requires_grad", False)]
+        return orig_checkpoint(func, inputs, trainable_params, flag)
+
+    _checkpoint_trainable_only._sc203_trainable_patched = True  # type: ignore[attr-defined]
+    for mod in target_modules:
+        if hasattr(mod, "checkpoint"):
+            setattr(mod, "checkpoint", _checkpoint_trainable_only)
+    return len(target_modules)
+
+
 def load_dossr_for_lora(
     *,
     dossr_root: Path,
@@ -228,7 +264,13 @@ def load_dossr_for_lora(
     finally:
         open_clip.create_model_and_transforms = orig_create
 
-    ckpt_state = torch.load(str(checkpoint.expanduser().resolve()), map_location="cpu")
+    _patch_dossr_gradient_checkpointing(dossr_root)
+
+    ckpt_path = str(checkpoint.expanduser().resolve())
+    try:
+        ckpt_state = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    except TypeError:
+        ckpt_state = torch.load(ckpt_path, map_location="cpu")
     load_state_dict(model, ckpt_state, strict=True)
 
     model = model.to(device)
@@ -322,6 +364,12 @@ def run_training_loop(
             "cons_loss": 0.0,
         }
 
+        make_autocast = (
+            (lambda: torch.autocast(device_type="cuda", dtype=torch.float16, cache_enabled=False))
+            if use_amp
+            else nullcontext
+        )
+
         for _ in range(grad_accum):
             try:
                 batch = next(data_iter)
@@ -329,25 +377,20 @@ def run_training_loop(
                 data_iter = iter(dataloader)
                 batch = next(data_iter)
 
-            with torch.no_grad():
-                x_hr_lat, cond = model.get_input(batch, model.first_stage_key)
-                preprocess_x = cond["c_preprocess"][0]
-                mask_hr = batch["mask_hr"].to(device=device, dtype=torch.float32)
-                mask_lat = downsample_mask_to_latent(
-                    mask_hr, latent_h=x_hr_lat.shape[-2], latent_w=x_hr_lat.shape[-1]
-                )
-                t = torch.randint(
-                    0, model.num_timesteps, (x_hr_lat.shape[0],), device=device
-                ).long()
-                noise_a = torch.randn_like(x_hr_lat)
-                noise_b = torch.randn_like(x_hr_lat)
+            with make_autocast():
+                with torch.no_grad():
+                    x_hr_lat, cond = model.get_input(batch, model.first_stage_key)
+                    preprocess_x = cond["c_preprocess"][0]
+                    mask_hr = batch["mask_hr"].to(device=device, dtype=torch.float32)
+                    mask_lat = downsample_mask_to_latent(
+                        mask_hr, latent_h=x_hr_lat.shape[-2], latent_w=x_hr_lat.shape[-1]
+                    )
+                    t = torch.randint(
+                        0, model.num_timesteps, (x_hr_lat.shape[0],), device=device
+                    ).long()
+                    noise_a = torch.randn_like(x_hr_lat)
+                    noise_b = torch.randn_like(x_hr_lat)
 
-            autocast_ctx = (
-                torch.autocast(device_type="cuda", dtype=torch.float16)
-                if use_amp
-                else nullcontext()
-            )
-            with autocast_ctx:
                 step_stats = run_two_noise_step(
                     lambda eps: model.predict_x0_out_mix(
                         x_hr_lat, preprocess_x, cond, t, noise=eps
@@ -620,6 +663,31 @@ def run_dry_run_cpu() -> int:
         assert manifest_for(lora_cfg)["per_image_seed"] is True
         cmd = build_command(lora_cfg, tmp / "l")
         assert "--lora-weights" in cmd and "--per-image-seed" in cmd
+
+    dossr_dir = REPO_ROOT / "external" / "DOSSR"
+    if (dossr_dir / "ldm" / "modules" / "diffusionmodules" / "util.py").is_file():
+        _patch_dossr_gradient_checkpointing(dossr_dir)
+        import ldm.modules.diffusionmodules.util as ldm_util
+
+        base_layer = torch.nn.Linear(8, 8)
+        for param in base_layer.parameters():
+            param.requires_grad_(False)
+        lora_a = torch.nn.Parameter(torch.randn(8, 2) * 0.01)
+        lora_b = torch.nn.Parameter(torch.randn(2, 8) * 0.01)
+        x_in = torch.randn(2, 8, requires_grad=True)
+
+        def _ckpt_block(tensor: torch.Tensor) -> torch.Tensor:
+            return base_layer(tensor) + (tensor @ lora_a) @ lora_b
+
+        y_out = ldm_util.checkpoint(
+            _ckpt_block,
+            (x_in,),
+            [base_layer.weight, base_layer.bias, lora_a, lora_b],
+            True,
+        )
+        y_out.sum().backward()
+        assert lora_a.grad is not None and lora_b.grad is not None and x_in.grad is not None
+        assert base_layer.weight.grad is None and base_layer.bias.grad is None
 
     print("[PASS] run_lora_trial.py --dry-run-cpu (LoRA 2, LoRA 3, dataset, checkpoints, run_dossr plumbing)")
     return 0
