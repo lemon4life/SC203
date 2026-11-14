@@ -3,6 +3,8 @@ checkpoints/
 weights/
 data/*
 !data/text_boxes_*.csv
+!data/realce_*.json
+!data/realce_*.csv
 outputs/
 *.pth
 *.ckpt

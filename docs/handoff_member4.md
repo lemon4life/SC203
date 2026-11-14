@@ -115,5 +115,9 @@ python scripts/plot_eduroam_figure.py \
 1. **For Assignment 4 (`SOTA's Limitations` — due Tue `10/11 07:00`):**
    - Your LaTeX report (`docs/A4_sota_limitations.tex` + compiled PDF) using the verified numbers in [`docs/fact_sheet_for_report.md`](file:///Users/lemon4life/Projects/SC203/docs/fact_sheet_for_report.md) and `results/text_eval_*.csv`.
    - The `ALL_IMAGES_MEAN` rows and `results/metrics_10seed_{default,empty}_summary_by_image.csv` from `scripts/compute_metrics.py`.
-2. **For Assignment 5 (`Baseline` — due Tue `17/11 07:00`):**
-   - Your 1-page related methods comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`) and `docs/A5_baseline.tex`.
+2. **For Assignment 5 (`Baseline` — due Tue `17/11 07:00`, freeze Mon `16/11 21:00`):**
+   - Your 1-page related methods comparison (`docs/related_methods_ccsr_pnfs_tadisr.md`).
+   - `docs/A5_baseline.tex` with all verified baseline numbers:
+     * **193 vs. 136 Solvable Subset Table:** Report DoSSR, Bicubic, and HR ceiling separately on all 193 boxes and the 136 solvable boxes where HR OCR matches human transcript ($0.0\%$ HR error rate vs $66.3\%$ DoSSR error rate).
+     * **Exact Mathematical Formula for 32.83% Cross-Seed Disagreement:** Include $\text{Disagreement}(b) = \frac{1}{45}\sum_{i<j} \mathbf{1}(T_i \ne T_j)$ and the box-weighted average $32.83\%$.
+     * **Eduroam Crop Traceability Note:** Explicitly explain why seed 42 looks different across figures: word box crop ($192\times 46$) vs full sign crop ($202\times 85$ with Wi-Fi icon). Both come from `Canon_001_LR4_0.png`.

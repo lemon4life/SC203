@@ -1,4 +1,6 @@
-# Plan 06 — Group Assignment 5 (`Baseline` + Trial LoRA Run) Implementation & Team Split
+# [SUPERSEDED] Plan 06 — Group Assignment 5 (`Baseline` + Trial LoRA Run) Implementation & Team Split
+
+> **Status:** SUPERSEDED by `docs/plans/06c_a5_baseline_implementation_plan.md` and `docs/plans/07_member1_gpu_pilot_and_realce_split_plan.md`. Retained solely for historical design audit. Do not execute tasks from this file.
 
 **Date:** `2026-11-10`  
 **Team:** Team 1 (`LEMMEPASS`, SC203 Scientific Methods — Class 25A02)  

@@ -95,6 +95,10 @@ def manifest_for(config: dict[str, Any]) -> dict[str, Any]:
         manifest["disable_sdpa"] = True
     if disable_vae_sdpa:
         manifest["disable_vae_sdpa"] = True
+    if config.get("lora_weights") is not None:
+        manifest["lora_weights"] = str(Path(str(config["lora_weights"])).expanduser())
+    if config.get("per_image_seed", False):
+        manifest["per_image_seed"] = True
     return manifest
 
 
@@ -239,6 +243,13 @@ def build_command(
         command.insert(command.index("--"), "--disable-sdpa")
     if config.get("disable_vae_sdpa", False):
         command.insert(command.index("--"), "--disable-vae-sdpa")
+    if config.get("lora_weights") is not None:
+        command[command.index("--") : command.index("--")] = [
+            "--lora-weights",
+            str(Path(str(config["lora_weights"])).expanduser()),
+        ]
+    if config.get("per_image_seed", False):
+        command.insert(command.index("--"), "--per-image-seed")
     if profile_memory:
         command.insert(command.index("--"), "--profile-memory")
     if config.get("tiled", False):
@@ -347,6 +358,17 @@ def main() -> int:
             "'empty' (''), or 'unwrapped' (no wrapper on SpacedSampler)."
         ),
     )
+    parser.add_argument(
+        "--lora-weights",
+        type=Path,
+        default=None,
+        help="Optional LoRA weights file (.pt) to inject during inference",
+    )
+    parser.add_argument(
+        "--per-image-seed",
+        action="store_true",
+        help="Enable sorted file ordering and per-image pl.seed_everything(seed)",
+    )
     args = parser.parse_args()
 
     try:
@@ -379,6 +401,14 @@ def main() -> int:
             config["disable_vae_sdpa"] = True
         else:
             config["disable_vae_sdpa"] = bool(config.get("disable_vae_sdpa", False))
+        if args.lora_weights is not None:
+            config["lora_weights"] = str(args.lora_weights.expanduser())
+        else:
+            config["lora_weights"] = config.get("lora_weights", None)
+        if args.per_image_seed:
+            config["per_image_seed"] = True
+        else:
+            config["per_image_seed"] = bool(config.get("per_image_seed", False))
         log_dir = Path(config["log_dir"]).expanduser()
     except Exception as error:
         print(f"Configuration error: {error}", file=sys.stderr)

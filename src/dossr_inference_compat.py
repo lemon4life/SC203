@@ -61,12 +61,29 @@ def main() -> int:
         action="store_true",
         help="Disable only the runtime VAE AttnBlock SDPA patch while keeping CrossAttention SDPA",
     )
+    parser.add_argument(
+        "--lora-weights",
+        type=Path,
+        default=None,
+        help="Optional path to saved LoRA weights (.pt) to inject after base checkpoint loading",
+    )
+    parser.add_argument(
+        "--per-image-seed",
+        action="store_true",
+        help="Sort input images deterministically and reset pl.seed_everything(seed) before each image",
+    )
     args, inference_args = parser.parse_known_args()
     if args.fp16 and args.precision == "fp32":
         parser.error("Use either --fp16 or --precision, not conflicting values")
     precision = "fp16" if args.fp16 else (args.precision or "fp32")
     if inference_args[:1] == ["--"]:
         inference_args = inference_args[1:]
+
+    lora_path: Path | None = None
+    if args.lora_weights is not None:
+        lora_path = args.lora_weights.expanduser().resolve()
+        if not lora_path.is_file():
+            parser.error(f"LoRA weights file not found: {lora_path}")
 
     inference_script = args.inference_script.expanduser().resolve()
     if not inference_script.is_file():
@@ -234,6 +251,17 @@ def main() -> int:
             f"after {time.monotonic() - started:.1f}s.",
             flush=True,
         )
+        if lora_path is not None and load_args:
+            src_dir = str(Path(__file__).resolve().parent)
+            if src_dir not in sys.path:
+                sys.path.insert(0, src_dir)
+            from lora_text_loss import load_lora_state_dict
+
+            loaded_adapters = load_lora_state_dict(load_args[0], lora_path)
+            print(
+                f"DoSSR compatibility: loaded {len(loaded_adapters)} LoRA adapters from {lora_path}.",
+                flush=True,
+            )
         report_cuda_memory("after strict state-dict load")
         return result
 
@@ -291,6 +319,45 @@ def main() -> int:
             "wrapper_installed=False | "
             f"positive_prompt={UPSTREAM_DEFAULT_POSITIVE_PROMPT!r} | "
             f"negative_prompt={UPSTREAM_DEFAULT_NEGATIVE_PROMPT!r}",
+            flush=True,
+        )
+
+    if args.per_image_seed:
+        import pytorch_lightning as pl
+        from model.shift_sampler import SpacedSampler
+        import utils.file as dossr_file
+
+        seed_val = 231
+        for i, tok in enumerate(inference_args):
+            if tok == "--seed" and i + 1 < len(inference_args):
+                seed_val = int(inference_args[i + 1])
+                break
+            if tok.startswith("--seed="):
+                seed_val = int(tok.split("=", 1)[1])
+                break
+
+        if hasattr(dossr_file, "list_image_files"):
+            orig_list_image_files = dossr_file.list_image_files
+            dossr_file.list_image_files = lambda *la, **lkw: sorted(
+                orig_list_image_files(*la, **lkw)
+            )
+
+        def _wrap_per_image_seed(orig_fn):
+            def _seeded(sampler, *sample_args, **sample_kwargs):
+                pl.seed_everything(seed_val)
+                return orig_fn(sampler, *sample_args, **sample_kwargs)
+
+            return _seeded
+
+        for _mname in ("shift_sample_1_order", "shift_sample_2_order", "shift_sample_3_order"):
+            if hasattr(SpacedSampler, _mname):
+                setattr(
+                    SpacedSampler,
+                    _mname,
+                    _wrap_per_image_seed(getattr(SpacedSampler, _mname)),
+                )
+        print(
+            f"DoSSR determinism: per-image seed={seed_val} + sorted file traversal enabled.",
             flush=True,
         )
 

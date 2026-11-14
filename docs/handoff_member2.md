@@ -1,6 +1,12 @@
-# Handoff Note for Member 2 (Huỳnh Trần Gia Hân, `25125042`) — Text Labeling (Images 1–50) & Text Evaluation
+# Handoff Note for Member 2 (Huỳnh Trần Gia Hân, `25125042`) — Text Evaluation & Statistical Refinement Lead
 
-**Assigned Range:** **Images `1–50` (`#001` to `#050`)** in `data/text_boxes_realsr_m2.csv`  
+> [!IMPORTANT]
+> **Assignment 5 & LoRA Pilot Update (Saturday 14/11/2026):**
+> 1. **Baseline Evaluation (A5):** Lock the full 193-box and 136-box solvable subset numbers in `results/text_eval_*.csv` for Member 4 (`Minh Nhật`). Ensure the 4-panel `eduroam` comparison figure is ready.
+> 2. **LoRA Pilot Evaluation (For Mentor Update):** Once Member 1 finishes generating validation outputs on Real-CE for LoRA 2 (text-weighted) and LoRA 3 (text-weighted + consistency), run `scripts/text_eval.py` across the same 10 seeds (`42`–`51`) with 5 inference steps.
+> 3. **Report Delta Table:** Calculate $\Delta \text{Error Rate}$ (boxes with $\ge 1$ wrong char), $\Delta \text{CER}$, $\Delta \text{Seed Disagreement}$, and $\Delta \text{Whole-Image LPIPS}$. Check gating condition: if LoRA 3 reduces error rate without hurting LPIPS, the pilot succeeds!
+
+**Original Scope (A4 History):** Images `1–50` (`#001` to `#050`) in `data/text_boxes_realsr_m2.csv` (Canon, 50 readable boxes).  
 - Contact sheet 1 (`#001`–`#020`), Contact sheet 2 (`#021`–`#040`), and the **first half of Contact sheet 3 (`#041`–`#050`)**.  
 - *(Note: Contact sheet 3 is shared — you label `#041`–`#050`, and Member 3 Quang Minh labels `#051`–`#060`.)*  
 **Hardware needed:** Any CPU laptop (Windows or Mac) or Free Google Colab (CPU). **No GPU needed.**  

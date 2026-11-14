@@ -28,8 +28,9 @@
 | **High-Resolution Ground Truth (`test_HR`)** | `100` PNGs (`Canon_001`–`050`, `Nikon_001`–`050`), all `512x512` RGB ($\times 4$ scale) | `CELL 04` (`251d4a5`) | `VERIFIED` |
 | **Total Images with `readable=yes` Text** | **`25 / 100` images** (`10 / 50` Canon + `15 / 50` Nikon) | `data/text_boxes_realsr.csv` (`scripts/merge_text_boxes.py`) | `VERIFIED` |
 | **Total `readable=yes` Ground-Truth Word Boxes** | **`193` boxes** (`50` Canon boxes + `143` Nikon boxes; `276` total CSV rows including `83` `readable=no` rows) | `data/text_boxes_realsr.csv` (`23bc03b`) | `VERIFIED` |
-| **`Canon_001_LR4.png` (`eduroam`) Word Box** | `x=320, y=38, w=192, h=46`, `transcript=eduroam`, `readable=yes` | `data/text_boxes_realsr_canon.csv` (`daddf0e`) | `VERIFIED` |
-| **`Canon_001_LR4.png` (`eduroam`) Full Sign Crop (Figure)** | `x=310, y=5, w=202, h=85` (`EDUROAM_CROP = '310,5,202,85'`) | `CELL 18` (`01dc1e2`), `scripts/plot_eduroam_figure.py` | `VERIFIED` |
+| **`Canon_001_LR4.png` (`eduroam`) Word Box** | `x=320, y=38, w=192, h=46`, `transcript=eduroam`, `readable=yes` (tight word crop used by OCR scoring) | `data/text_boxes_realsr_canon.csv` (`daddf0e`) | `VERIFIED` |
+| **`Canon_001_LR4.png` (`eduroam`) Full Sign Crop (Figures)** | `x=310, y=5, w=202, h=85` (full sign crop including the 3 Wi-Fi arcs above `eduroam`; used identically by both `plot_eduroam_figure.py` and `plot_eduroam_10seeds.py`) | `CELL 18` (`01dc1e2`), `scripts/plot_eduroam_figure.py`, `scripts/plot_eduroam_10seeds.py` | `VERIFIED` |
+| **Eduroam `seed 42` Source PNG Discrepancy Root Cause** | Both `plot_eduroam_figure.py` and `plot_eduroam_10seeds.py` use the **exact same `(310, 5, 202, 85)` crop**, but read **different source PNGs**:<br>1. `CELL 18` (`plot_eduroam_figure.py`) read `outputs/prompt-check-1img-lr128-{default,empty}-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png` (where `smoke_input_prompt_check_1img` held **1 image**, so `Canon_001` received the **1st RNG draw** after `pl.seed_everything(42)`).<br>2. `plot_eduroam_10seeds.py` & `results/text_eval_per_box_seed.csv` read `outputs/seed-study-realsr-100img-10seed-default-prompt-sdpa-off-fp16/seed_42/Canon_001_LR4_0.png` (where `test_LR` held **100 images** walked via unsorted `os.walk()` in `external/DOSSR/utils/file.py:28` after a single `pl.seed_everything(42)` in `external/DOSSR/scripts/inference.py:149`, giving `Canon_001` a later RNG draw).<br>3. `data/text_boxes_realsr.csv` crops `(320, 38, 192, 46)` for OCR, whereas both visualization scripts crop `(310, 5, 202, 85)` to show the whole sign. | Code trace: `external/DOSSR/scripts/inference.py:149-159`, `utils/file.py:28`, `notebooks/01_dossr_baseline.ipynb` `CELL 16–18`, Nov 14, 2026 | `VERIFIED` |
 
 ---
 
@@ -89,6 +90,30 @@
 | **FULL 100 (`Canon + Nikon`)** — **DoSSR 10-Seed (`default`)** | **`25` / `193`** | **`1,930`** | **`463 / 1930` (`24.0%`)** | **`76.0%`** / **`68.2%`** | **`0.7127`** / **`0.6451`** | **`32.83%`** / **`31.57%`** | **`3.15`** / **`3.25`** | **`20.28`** / **`18.04`** |
 | **FULL 100 Paired (`empty - default` prompt)** | **`25` / `193`** | **`1,930` pairs** | $\Delta = +0.16\%$ | **`-0.16%`** / `-0.32%` | **`+0.0001`** / `+0.0068` | — | — | — |
 
+#### Dedicated Breakdown: Full 193 Boxes vs. 136 OCR-Solvable Subset vs. 57 Unsolvable (`VERIFIED` in CSVs)
+*Per mentor requirement (Dr. Thuận):* "report riêng kết quả trên 193 ô đã gán nhãn và 136 ô mà OCR khớp bản chép trên ảnh HR."
+
+| Evaluation Cohort | Boxes / Images | Method / Condition | Exact Box Match Rate | Box Error Rate (Box-Wt / Img-Mean) | Mean CER (Box-Wt / Img-Mean) | Cross-Seed OCR Disagreement (Box-Wt / Img-Mean) | Distinct Readings / 10 Seeds |
+| :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: |
+| **All Labeled Boxes (`193` Boxes)** | `193` / `25` | **HR Ceiling (`test_HR`)** | `136 / 193` (`70.5%`) | **`29.53%`** / `40.45%` | `0.1648` / `0.2505` | — | — |
+| | `193` / `25` | **Bicubic $\times 4$ Floor** | `39 / 193` (`20.2%`) | **`79.79%`** / `71.50%` | `0.7423` / `0.6230` | — | — |
+| | `193` / `25` | **DoSSR 10-Seed (`default`)** | `463 / 1930` (`24.0%`) | **`76.01%`** / `68.18%` | `0.7127` / `0.6451` | **`32.83%`** / `31.57%` | `3.15` |
+| **OCR-Solvable Subset (`136` Boxes)** | `136` / `20` | **HR Ceiling (`test_HR`)** | `136 / 136` (`100.0%`) | **`0.00%`** / `0.00%` | **`0.0000`** / `0.0000` | — | — |
+| *(Where HR OCR matches human transcript)* | `136` / `20` | **Bicubic $\times 4$ Floor** | `39 / 136` (`28.7%`) | **`71.32%`** / `55.35%` | `0.6626` / `0.5001` | — | — |
+| | `136` / `20` | **DoSSR 10-Seed (`default`)** | `458 / 1360` (`33.7%`) | **`66.32%`** / `52.13%` | **`0.6186`** / `0.4782` | **`34.05%`** / `31.10%` | `3.22` |
+| **OCR-Unsolvable Subset (`57` Boxes)** | `57` / `20` | **HR Ceiling (`test_HR`)** | `0 / 57` (`0.0%`) | `100.00%` / `100.00%` | `0.5579` / `0.5895` | — | — |
+| *(Where HR OCR fails on ground truth)* | `57` / `20` | **Bicubic $\times 4$ Floor** | `0 / 57` (`0.0%`) | `100.00%` / `100.00%` | `0.9323` / `0.8287` | — | — |
+| | `57` / `20` | **DoSSR 10-Seed (`default`)** | `5 / 570` (`0.9%`) | `99.12%` / `97.50%` | `0.9370` / `0.8841` | `29.90%` / `32.14%` | `2.98` |
+
+#### Formal Mathematical Definition of Cross-Seed Disagreement (32.83%) (`VERIFIED`)
+*Per mentor requirement:* "Ghi rõ cách tính mức bất đồng OCR 32,83% giữa các seed."
+For box $b \in \{1, \dots, N\}$ (where $N = 193$ for all labeled boxes, or $N = 136$ for the OCR-solvable subset) evaluated over $K = 10$ seeds (`42..51`), there are $\binom{10}{2} = 45$ unordered pairs of distinct seeds $(i, j)$ with $1 \le i < j \le 10$. Let $T_i(b)$ denote the normalized RapidOCR transcript (`ocr_norm` in `results/text_eval_per_box_seed.csv`) for box $b$ under seed $i$.
+The pairwise disagreement rate for box $b$ is:
+$$\text{Disagreement}(b) = \frac{1}{\binom{K}{2}} \sum_{1 \le i < j \le K} \mathbf{1}\bigl(T_i(b) \ne T_j(b)\bigr) = \frac{1}{45} \sum_{1 \le i < j \le 10} \mathbf{1}\bigl(T_i(b) \ne T_j(b)\bigr)$$
+The dataset-level metrics reported are:
+1. **Box-weighted average (`193` boxes):** $\overline{\text{Disagreement}}_{\text{box}} = \frac{1}{193} \sum_{b=1}^{193} \text{Disagreement}(b) = \mathbf{32.83\%}$ (`34.05%` across the `136` OCR-solvable boxes).
+2. **Image-mean average (`25` images):** $\overline{\text{Disagreement}}_{\text{img}} = \frac{1}{M} \sum_{m=1}^{M} \left( \frac{1}{|B_m|} \sum_{b \in B_m} \text{Disagreement}(b) \right) = \mathbf{31.57\%}$ (`31.10%` across the `20` images containing the `136` solvable boxes).
+
 ### C. Concrete Image-Level Examples of Seed Instability (`VERIFIED` in `results/text_eval_per_box_seed.csv`)
 1. **`Canon_001_LR4.png` (`eduroam`, 1 box, 10 seeds):**
    - `wrong_char_rate = 1.00` (`100%`), `cer_mean = 1.70`, `ocr_seed_disagreement_rate = 1.00` (**`100%` of seed pairs disagree**), `num_distinct_ocr_mean = 10.0` (**10 different readings across 10 seeds**), `crop_pixel_seed_spread_l1 = 19.17`.
@@ -127,8 +152,10 @@
 
 ---
 
-## 7. Future Work for Assignment 5 (`PENDING` — Paused Until Tue `11/11/2026`)
+## 7. Active Pending Items (`PENDING` as of Nov 14, 2026)
 
 | Item | Owner | Current Status | Where Results Will Go |
 | :--- | :--- | :---: | :--- |
-| **LoRA Variants `(A, B, C)` Short Trial Run & VRAM Profile** | Member 3 (Quang Minh) & Member 1 | `PAUSED until Tue 11/11/2026` *(Design & feasibility verified in `docs/lora_feasibility_and_loss_design.md`; runtime numbers are `ESTIMATE — NOT TESTED`)* | For Assignment 5 (`due 17/11/2026`) |
+| **`Bicubic x4` Whole-Image Row (`PSNR/SSIM/LPIPS`)** | Member 1 / Member 4 | `PENDING` *(Command: `python scripts/compute_metrics.py --bicubic-lr-dir ...`)* | `results/metrics_bicubic_summary_by_image.csv` & `docs/A5_baseline.tex` (`Table 1`) |
+| **Unified Single-OCR Re-Run & A5 Stats (`193` vs. `136`)** | Member 2 / Member 1 | `PENDING (Unified Re-Run)` / `VERIFIED (CSV Split-Run)` in `scripts/analyze_text_eval_a5.py` | `results/text_eval_a5_cohort_breakdown.csv` & `docs/A5_baseline.tex` |
+| **Real-CE $\times 4$ Scene-Level Split & LoRA 2 vs. LoRA 3 Pilot** | Member 1 & Member 3 | `ACTIVE (Pilot Priority)` *(Prioritize LoRA 2 vs. LoRA 3; defer LoRA 1 until gating passes; runtime/VRAM numbers `ESTIMATE — NOT TESTED`)* | `results/pilot_lora_manifest.json` & Mentor Update Package (Separate from A5) |

@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "created_at": "2026-11-14T12:34:00.832100+00:00",
+    "split": "train",
+    "scale": "x4",
+    "val_ratio": 0.2,
+    "seed": 42,
+    "note": "Template manifest. Run with --data-dir pointing to Real-CE on Drive/Colab."
+  },
+  "train_scenes": [],
+  "val_scenes": [],
+  "train_pairs": [],
+  "val_pairs": []
+}

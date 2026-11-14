@@ -3,7 +3,7 @@
 2. Run the allowed local checks and review the diff.
 3. Commit the changes on the task branch.
 4. Push that branch with `git push origin <branch>`.
-5. Open `notebooks/01_dossr_baseline.ipynb` (the standardized baseline, VAE SDPA memory profile, and seed-study notebook; status: **NOT TESTED**) or the earlier `notebooks/colab_runner.ipynb` / `notebooks/colab_l4_smoke.ipynb` in Colab and mount Drive.
+5. Open `notebooks/01_dossr_baseline.ipynb` (RealSRVal baseline & 10-seed study), `notebooks/02_realce_feasibility_check.ipynb` (Real-CE feasibility & staging), or `notebooks/03_lora_pilot_colab.ipynb` (Bicubic floor, Real-CE scene split, and LoRA 2 vs. LoRA 3 pilot) in Colab and mount Drive.
 6. Set `BRANCH` to the branch you pushed, then run the pull cell.
 7. Run the setup script; it checks dependencies before installing them.
 8. Call the experiment script; outputs go to `/content/outputs` and logs to Drive.

@@ -1,0 +1,57 @@
+# Controlled LoRA 2 pilot config (text-weighted reconstruction loss, lambda_cons = 0.0)
+# Compatible with both scripts/run_lora_trial.py (training) and src/run_dossr.py (val inference).
+
+# --- Shared model & Colab Drive paths ---
+checkpoint: /content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt
+model_config: /content/SC203/external/DOSSR/configs/model/cldm_v21.yaml
+inference_script: /content/SC203/external/DOSSR/scripts/inference.py
+dossr_root: /content/SC203/external/DOSSR
+log_dir: /content/drive/MyDrive/lemmepass/logs
+
+# --- Study wrapper keys (allows running directly with scripts/run_seed_study.py --config configs/lora2_pilot.yaml) ---
+baseline_config: configs/lora2_pilot.yaml
+seeds_file: configs/seeds_10.yaml
+
+# --- Fixed validation inference config (for src/run_dossr.py) ---
+seed: 42
+input_dir: /content/drive/MyDrive/lemmepass/data/RealCE_patches/val/LR
+gt_dir: /content/drive/MyDrive/lemmepass/data/RealCE_patches/val/HR
+output_root: /content/drive/MyDrive/lemmepass/outputs/pilot-lora2-realce-val-10seed
+lora_weights: /content/drive/MyDrive/lemmepass/outputs/lora2-pilot/lora_weights_final.pt
+per_image_seed: true
+steps: 5
+solver_order: 3
+t1_fraction: 0.5
+device: cuda
+precision: fp16
+prompt_mode: empty
+disable_sdpa: true
+offload_condition_encoder: false
+tiled: false
+tile_size: 512
+tile_stride: 256
+sr_scale: 4
+color_fix_type: wavelet
+preprocessor: RealESRNet
+
+# --- LoRA pilot training hyperparameters (for scripts/run_lora_trial.py) ---
+lora:
+  variant: lora2
+  seed: 231
+  train_manifest: data/realce_train_manifest.csv
+  boxes_csv: data/realce_train_boxes.csv
+  output_dir: /content/drive/MyDrive/lemmepass/outputs/lora2-pilot
+  rank: 8
+  alpha: 16.0
+  lr: 1.0e-4
+  max_steps: 400
+  batch_size: 1
+  grad_accum: 4
+  num_noise_samples: 2
+  alpha_text: 5.0
+  lambda_cons: 0.0
+  alpha_cons_text: 5.0
+  image_size: 512
+  sr_scale: 4
+  log_every: 10
+  save_every: 200

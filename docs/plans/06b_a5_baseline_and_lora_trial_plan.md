@@ -1,4 +1,6 @@
-# Plan 06b — Group Assignment 5 (`Baseline` Report) & Parallel LoRA Trial Plan
+# [SUPERSEDED] Plan 06b — Group Assignment 5 (`Baseline` Report) & Parallel LoRA Trial Plan
+
+> **Status:** SUPERSEDED by `docs/plans/06c_a5_baseline_implementation_plan.md` and `docs/plans/07_member1_gpu_pilot_and_realce_split_plan.md`. Retained solely for historical design audit. Do not execute tasks from this file.
 
 **Date:** Tuesday `2026-11-10`  
 **Team:** Team 1 (`LEMMEPASS`, SC203 Scientific Methods — Class 25A02)  

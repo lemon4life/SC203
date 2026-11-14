@@ -1,11 +1,13 @@
-# Handoff Note for Member 3 (Hồ Quang Minh, `25125060`) — Text Labeling (Images 51–100), HR OCR Check & LoRA (Paused Until Tue 11/11)
+# Handoff Note for Member 3 (Hồ Quang Minh, `25125060`) — LoRA Architecture & Consistency Loss Lead
 
-**Current Priority (Assignment 4 — Due Tue 10/11 07:00):**
-- **LoRA work is paused until Tuesday `11/11/2026`.** (Your LoRA notes remain in Section 6 below for Tuesday.)
-- **Assigned Labeling Range:** **Images `51–100` (`#051` to `#100`)** in `data/text_boxes_realsr_m3.csv`
-  - **Contact sheet 3 is shared:** Member 2 (Gia Hân) labels `#041`–`#050` (first 10 images on sheet 3), and **you label `#051`–`#060`** (last 10 images on sheet 3), plus all of **Contact sheet 4 (`#061`–`#080`)** and **Contact sheet 5 (`#081`–`#100`)**.
-- **Hardware needed:** Any CPU laptop (Windows or Mac) or Free Google Colab (CPU). **No GPU needed.**
-- **Status of scripts:** `scripts/make_text_contact_sheets.py` and `scripts/check_text_boxes.py` are created (`NOT TESTED`).
+> [!IMPORTANT]
+> **LoRA Pilot Update (Saturday 14/11/2026):**
+> 1. **Prioritize LoRA 2 vs. LoRA 3 Pilot (Skip LoRA 1 for now!):** Per Dr. Thuận's directive, we only pilot LoRA 2 (text-weighted) and LoRA 3 (text-weighted + cross-noise latent consistency loss). Defer LoRA 1 (baseline loss) until gating condition passes.
+> 2. **Loss Formulation & Fair Comparison:** Ensure both variants draw 2 independent noise samples $(\epsilon_1, \epsilon_2)$ per step at the exact same timestep $t$ and empty prompt `""`.
+> 3. **CPU Unit Tests:** Confirm tests `(a)`–`(f)` in `src/lora_text_loss.py` pass cleanly.
+> 4. **Pair with Member 1:** Provide the training loss wrapper and monitor peak VRAM & training step time during the Colab run.
+
+**Original Scope (A4 History):** Labeling Images `51–100` (`#051` to `#100`) in `data/text_boxes_realsr_m3.csv` (Nikon, 143 readable boxes) and discovering the RapidOCR `--rec-only --rotate-vertical` fix (`ca127fe`).
 
 ---
 

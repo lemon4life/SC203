@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{caption}
+
+\title{Group Assignment 5: Baseline Super-Resolution Model and Seed Sensitivity Analysis\\
+\large Reproducible DoSSR Baseline, Runtime Compatibility, and Text-Region Robustness on RealSR}
+\author{Team 1 (LEMMEPASS)\\
+Hoang Nguyen Anh (25125002), Huynh Tran Gia Han (25125042),\\
+Ho Quang Minh (25125060), Nguyen Phan Minh Nhat (25125033)\\
+SC203 Scientific Methods, Class 25A02}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report establishes our standardized, reproducible baseline for real-world $4\times$ image super-resolution using DoSSR (Diffusion-based Real-World Super-Resolution). We document runtime compatibility adaptations (optional PyTorch Scaled Dot-Product Attention, FP16 precision enforcement, and prompt-wrapper isolation) alongside bit-exact equivalence verifications. Across a benchmark of 100 paired real-world images from \texttt{RealSRVal\_crop128} evaluated over 10 random seeds (42--51; 2,000 generated $512\times 512$ PNGs across default and empty prompt conditions), DoSSR achieves $\text{PSNR}_Y = 24.1610$~dB, $\text{SSIM}_Y = 0.6820$, and $\text{LPIPS} = 0.3382$ under the default prompt (and $\text{PSNR}_Y = 24.2262$~dB, $\text{SSIM}_Y = 0.6845$, $\text{LPIPS} = 0.3352$ under the empty prompt). However, quantitative text-region evaluation over 193 annotated readable word boxes reveals severe stochastic instability: the cross-seed OCR disagreement rate reaches $32.83\%$ ($34.05\%$ on the 136-box OCR-solvable subset), with an overall box error rate of $76.01\%$ ($66.32\%$ on the 136 solvable boxes). We provide explicit mathematical definitions, source traceability audits, and a systematic comparison against CCSR, PNFS, and TADiSR.
+\end{abstract}
+
+\section{Introduction and Problem Formulation}
+Real-world image super-resolution ($4\times$) requires reconstructing high-frequency visual details from low-resolution observations corrupted by unknown degradations. While diffusion-based SR models synthesize perceptually sharp textures, their generative priors introduce stochastic variations across inference seeds. This seed sensitivity becomes critical in semantic scene text, where latent trajectory differences cause character morphing, insertions, and illegible restorations.
+
+In Assignment 5, we standardize upstream DoSSR on \texttt{RealSRVal\_crop128}, audit runtime compatibility and mathematical equivalence, report 10-seed full-reference whole-image metrics, and quantify text-region errors and cross-seed disagreement across all 193 labeled boxes and the 136-box OCR-solvable subset.
+
+\section{Baseline Model and Implementation Details}
+\subsection{DoSSR Architecture and Sampling Schedule}
+Our baseline is DoSSR (built on Stable Diffusion 2.1 + ControlNet). All baseline runs fix:
+\begin{itemize}
+    \item Super-resolution scale: $4\times$ ($128\times 128 \to 512\times 512$).
+    \item Sampler: 3rd-order ODE solver, strictly 5 sampling steps, \texttt{trunc\_12} schedule ($t_1 = T/2$).
+    \item Preprocessor \& color correction: RealESRNet feature encoder; wavelet color correction.
+    \item Precision \& hardware: \texttt{FP16} on NVIDIA L4 (\texttt{22.5~GiB} VRAM; \texttt{7.32~GiB} allocated / \texttt{8.28~GiB} reserved at $512\times 512$, \texttt{1.92~s/image} with SDPA off).
+\end{itemize}
+
+\subsection{Runtime Compatibility and Equivalence Checks}
+\begin{enumerate}
+    \item \textbf{PyTorch SDPA Integration:} Optional SDPA support reduces memory on large resolutions. At $512\times 512$ on \texttt{test\_LR}, SDPA ON vs.\ OFF produces a mean absolute pixel difference of $0.0334$ (max $2.0$ on \texttt{0..255}). All official 10-seed studies keep \texttt{disable\_sdpa: true} (\texttt{SDPA OFF}) so results reflect 100\% unmodified upstream attention math.
+    \item \textbf{Prompt Wrapper Isolation:} Wrapping DoSSR to test the empty prompt gives bit-exact equivalence ($\Delta = 0.0000$) when configured to upstream default (\texttt{clean, high-resolution, 8k}).
+    \item \textbf{Seed Determinism:} Fixing seed 42 twice on three \texttt{test\_LR} inputs yields bit-identical PNGs ($\text{mean\_abs\_diff} = 0.0000$, $\text{max\_abs\_diff} = 0$), whereas changing seed 42 to seed 43 produces an aggregate pixel difference of $8.8237$ (max $255$).
+\end{enumerate}
+
+\section{Experimental Protocol and Metric Definitions}
+\subsection{Dataset and Ground-Truth Annotation}
+We evaluate on \texttt{RealSRVal\_crop128}: 100 paired PNGs (\texttt{Canon\_001}--\texttt{050}, \texttt{Nikon\_001}--\texttt{050}) mapping $128\times 128$ \texttt{test\_LR} inputs to $512\times 512$ \texttt{test\_HR} references. Human ground-truth labeling identified 25 text-positive images containing 193 readable word boxes (50 Canon, 143 Nikon).
+
+\subsection{Mathematical Metric Formulations}
+\paragraph{Whole-Image Metrics:} Implemented in \texttt{scripts/compute\_metrics.py} in \texttt{float64} on \texttt{[0, 1]} with \texttt{crop\_border=0}: $\text{PSNR} = 10\log_{10}(1.0/(\text{MSE}+10^{-8}))$ and $11\times 11$ Gaussian SSIM ($\sigma=1.5$, valid padding) on both RGB and ITU-R BT.601 luminance ($Y$), plus AlexNet LPIPS (\texttt{normalize=True}).
+\paragraph{Box Error Rate ($1-\text{WCR}$):} A box prediction is marked incorrect if $\ge 1$ character differs from the normalized ground-truth transcript:
+\begin{equation}
+\text{Box Error Rate} = \frac{1}{B} \sum_{b=1}^B \mathbf{1}\bigl(T_{\text{pred}}(b) \ne T_{\text{gt}}(b)\bigr)
+\end{equation}
+\paragraph{Character Error Rate (CER):} $\text{CER} = \text{Levenshtein}(T_{\text{pred}}, T_{\text{gt}}) / \max(1, |T_{\text{gt}}|)$.
+\paragraph{Cross-Seed Disagreement Rate:} For box $b$ evaluated across $K = 10$ seeds (42--51), there are $\binom{10}{2} = 45$ unordered seed pairs $(i, j)$ ($1 \le i < j \le 10$). Letting $T_i(b)$ denote the normalized RapidOCR transcript under seed $i$:
+\begin{equation}
+\text{Disagreement}(b) = \frac{1}{\binom{K}{2}} \sum_{1 \le i < j \le K} \mathbf{1}\bigl(T_i(b) \ne T_j(b)\bigr) = \frac{1}{45} \sum_{1 \le i < j \le 10} \mathbf{1}\bigl(T_i(b) \ne T_j(b)\bigr)
+\end{equation}
+The box-weighted dataset average across all 193 boxes is $\overline{\text{Disagreement}}_{\text{box}} = \frac{1}{193} \sum_{b=1}^{193} \text{Disagreement}(b) = 32.83\%$ (and $34.05\%$ across the 136-box OCR-solvable subset; image-mean averages are $31.57\%$ and $31.10\%$, respectively).
+
+\section{Quantitative and Qualitative Baseline Results}
+\subsection{Whole-Image Benchmark (10 Seeds \texorpdfstring{$\times$}{x} 100 Images)}
+Table~\ref{tab:whole_image} summarizes full-reference quality and pairwise cross-seed spread across all 100 images and 10 seeds (2,000 DoSSR PNGs).
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Whole-image evaluation on RealSRVal (100 images, seeds 42--51, 5 steps, \texttt{FP16}, \texttt{SDPA OFF}).}
+\label{tab:whole_image}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccccc}
+\toprule
+Method / Condition & $\text{PSNR}_{\text{RGB}}$ (dB) & $\text{SSIM}_{\text{RGB}}$ & $\text{PSNR}_Y$ (dB) & $\text{SSIM}_Y$ & LPIPS (Alex) & Pair Pixel $L_1$ & Pair LPIPS \\
+\midrule
+Bicubic $\times 4$ (\texttt{test\_LR} floor) & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} & 0.00 & 0.0000 \\
+DoSSR 10-Seed (Default Prompt) & $22.64 \pm 0.60$ & $0.6406 \pm 0.018$ & $24.16 \pm 0.62$ & $0.6820 \pm 0.018$ & $0.3382 \pm 0.019$ & 10.45 & 0.1727 \\
+DoSSR 10-Seed (Empty Prompt) & $\mathbf{22.70 \pm 0.61}$ & $\mathbf{0.6431 \pm 0.018}$ & $\mathbf{24.23 \pm 0.63}$ & $\mathbf{0.6845 \pm 0.018}$ & $\mathbf{0.3352 \pm 0.019}$ & 10.34 & 0.1705 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Text-Region Evaluation: Full 193 Boxes vs.\ 136 OCR-Solvable Subset}
+To separate diffusion restoration errors from OCR recognizer failures on degraded crops, Table~\ref{tab:text_eval} reports separately on all 193 annotated boxes, the 136 OCR-solvable boxes (where sharp HR crops achieve $100\%$ exact match), and the 57 HR-unsolvable boxes. Paired empty- vs.\ default-prompt differences over 1,930 box-seeds are negligible ($\Delta\text{Error} = -0.16\%$, $\Delta\text{CER} = +0.0001$).
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Text-region evaluation on RealSRVal (RapidOCR \texttt{--rec-only --rotate-vertical}).}
+\label{tab:text_eval}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Evaluation Cohort & Evaluated Target & Exact Match Rate & Box Error Rate (Box / Img) & Mean CER (Box / Img) & Seed Disagreement (Box / Img) \\
+\midrule
+\textbf{All Labeled Boxes} & HR Ceiling (\texttt{test\_HR}) & 136 / 193 (70.5\%) & 29.53\% / 40.45\% & 0.1648 / 0.2505 & --- \\
+(193 boxes, 25 imgs) & Bicubic $\times 4$ Floor & 39 / 193 (20.2\%) & 79.79\% / 71.50\% & 0.7423 / 0.6230 & --- \\
+& DoSSR 10-Seed (Default) & 463 / 1930 (24.0\%) & 76.01\% / 68.18\% & 0.7127 / 0.6451 & \textbf{32.83\%} / 31.57\% \\
+\midrule
+\textbf{OCR-Solvable Subset} & HR Ceiling (\texttt{test\_HR}) & 136 / 136 (100.0\%) & \textbf{0.00\%} / 0.00\% & \textbf{0.0000} / 0.0000 & --- \\
+(136 boxes, 20 imgs) & Bicubic $\times 4$ Floor & 39 / 136 (28.7\%) & 71.32\% / 55.35\% & 0.6626 / 0.5001 & --- \\
+& DoSSR 10-Seed (Default) & 458 / 1360 (33.7\%) & \textbf{66.32\%} / 52.13\% & \textbf{0.6186} / 0.4782 & \textbf{34.05\%} / 31.10\% \\
+\midrule
+\textbf{HR-Unsolvable Subset} & HR Ceiling (\texttt{test\_HR}) & 0 / 57 (0.0\%) & 100.00\% / 100.00\% & 0.5579 / 0.5895 & --- \\
+(57 boxes, 20 imgs) & DoSSR 10-Seed (Default) & 5 / 570 (0.9\%) & 99.12\% / 97.50\% & 0.9370 / 0.8841 & 29.90\% / 32.14\% \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Qualitative Analysis and Eduroam Seed-42 Source Audit}
+On \texttt{Canon\_001\_LR4.png} (``\texttt{eduroam}''), DoSSR fails in 10 out of 10 seeds (42--51), producing 10 distinct full OCR transcripts (whose final tokens across seeds 42--51 are \texttt{odureani}, \texttt{aduronm}, \texttt{odareum}, \texttt{oduroant}, \texttt{edureain}, \texttt{cduroniv}, \texttt{adaroam}, \texttt{odoroam}, \texttt{ddaroain}, and \texttt{aduronm}) and a mean crop pixel spread $L_1 = 19.17$.
+
+\paragraph{Traceability Audit of Earlier Seed-42 Figures:} Earlier qualitative comparisons differed on `seed 42` for two verified reasons: (1) upstream \texttt{inference.py} calls \texttt{pl.seed\_everything(args.seed)} once per folder while \texttt{utils/file.py} traverses \texttt{os.walk()} unsorted; thus \texttt{CELL 18} loaded the 1-image study (\texttt{prompt-check-1img}, 1st RNG draw), whereas \texttt{plot\_eduroam\_10seeds.py} and \texttt{text\_eval.py} loaded the 100-image study (\texttt{seed-study-100img}, later RNG draw); (2) \texttt{data/text\_boxes\_realsr.csv} uses the tight word box ($320,38,192,46$) for OCR, whereas both figure scripts crop ($310,5,202,85$) to show the full sign with Wi-Fi arcs. We standardize all figures to read from the 100-image study directory.
+
+\section{Comparison with Related Diffusion Super-Resolution Approaches}
+Table~\ref{tab:related_methods} contrasts DoSSR against related diffusion SR methods from our literature audit (\texttt{docs/related\_methods\_ccsr\_pnfs\_tadisr.md}).
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Comparison of diffusion SR paradigms targeting stability or text fidelity.}
+\label{tab:related_methods}
+\begin{tabularx}{\textwidth}{lXXXX}
+\toprule
+Dimension & DoSSR + Planned LoRA (Ours) & CCSR (arXiv 2024) & PNFS (AAAI 2025) & TADiSR (NeurIPS 2025) \\
+\midrule
+Core Mechanism & SD 2.1 + ControlNet (5 steps ODE) & Non-uniform diffusion + adversarial VAE & Discrepancy predictor + probabilistic noise fusion & Text-aware LoRA + joint SR/segmentation decoders \\
+Primary Target & Scene-text cross-seed stability & General SR stability and 1--2 step efficiency & General SR initial-noise stability & Explicit text fidelity + mask output \\
+Architecture Change & Retains upstream 5-step path (LoRA only) & Two-stage training + VAE fine-tuning & Adds test-time fusion module & Replaces decoder + adds text-aware attention \\
+Text-Mask Seed Loss & Cross-noise consistency loss inside HR mask & None & None (noise fusion at inference) & Uses text segmentation supervision \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Conclusion and Reproducibility Guide}
+While DoSSR delivers competitive whole-image LPIPS ($0.3352$--$0.3382$), it exhibits $32.83\%$ cross-seed OCR disagreement ($34.05\%$ on OCR-solvable boxes) and $66.32\%$ solvable box error rate. All baseline artifacts are reproducible via:
+\begin{verbatim}
+# 1. 10-Seed DoSSR Inference (SDPA OFF, FP16, 5 steps)
+python src/run_dossr.py --config configs/seed_study_realsr_100img_10seed_default_prompt_sdpa_off.yaml
+
+# 2. Whole-Image Metrics (DoSSR 10-Seed & Bicubic x4 Floor)
+python scripts/compute_metrics.py --bicubic-lr-dir <TEST_LR> --gt-dir <TEST_HR> \
+  --summary-csv results/metrics_bicubic_summary_by_image.csv
+
+# 3. Text Evaluation & A5 Cohort Breakdown (193 vs 136 vs 57)
+python scripts/analyze_text_eval_a5.py
+\end{verbatim}
+
+\end{document}
