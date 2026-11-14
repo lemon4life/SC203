@@ -1,0 +1,112 @@
+{
+  "dataset": "Real-CE",
+  "audit_status": "AUDITED",
+  "resolved_root": "/content/data_local/Real-CE/RealCE",
+  "total_4x_pairs": 945,
+  "total_13mm_lr": 945,
+  "total_52mm_hr": 945,
+  "splits": {
+    "train": {
+      "lr_13mm": 645,
+      "lr_26mm": 645,
+      "hr_52mm": 645,
+      "matched_4x": 645,
+      "valid_txt": 0,
+      "annos": 1935,
+      "anno_dirs": [
+        "trans_annos_13mm",
+        "trans_annos_52mm",
+        "trans_annos_52mm_renov"
+      ]
+    },
+    "val": {
+      "lr_13mm": 300,
+      "lr_26mm": 300,
+      "hr_52mm": 300,
+      "matched_4x": 300,
+      "valid_txt": 0,
+      "annos": 300,
+      "anno_dirs": [
+        "annos"
+      ]
+    }
+  },
+  "sample_dimension_checks": [
+    {
+      "lr_file": "train/13mm/ip11pro_output_testSR_2101225_xwm_renew_0.JPG",
+      "hr_file": "train/52mm/ip11pro_output_testSR_2101225_xwm_renew_0.JPG",
+      "lr_size": [2572, 2492],
+      "hr_size": [2572, 2492],
+      "scale": [1.0, 1.0],
+      "is_exact_4x": false,
+      "same_canvas": true
+    },
+    {
+      "lr_file": "train/13mm/ip11pro_output_testSR_2101225_xwm_renew_1.JPG",
+      "hr_file": "train/52mm/ip11pro_output_testSR_2101225_xwm_renew_1.JPG",
+      "lr_size": [1492, 492],
+      "hr_size": [1492, 492],
+      "scale": [1.0, 1.0],
+      "is_exact_4x": false,
+      "same_canvas": true
+    },
+    {
+      "lr_file": "train/13mm/ip11pro_output_testSR_2101225_xwm_renew_10.JPG",
+      "hr_file": "train/52mm/ip11pro_output_testSR_2101225_xwm_renew_10.JPG",
+      "lr_size": [1544, 804],
+      "hr_size": [1544, 804],
+      "scale": [1.0, 1.0],
+      "is_exact_4x": false,
+      "same_canvas": true
+    },
+    {
+      "lr_file": "train/13mm/ip11pro_output_testSR_2101225_xwm_renew_11.JPG",
+      "hr_file": "train/52mm/ip11pro_output_testSR_2101225_xwm_renew_11.JPG",
+      "lr_size": [644, 412],
+      "hr_size": [644, 412],
+      "scale": [1.0, 1.0],
+      "is_exact_4x": false,
+      "same_canvas": true
+    },
+    {
+      "lr_file": "train/13mm/ip11pro_output_testSR_2101225_xwm_renew_12.JPG",
+      "hr_file": "train/52mm/ip11pro_output_testSR_2101225_xwm_renew_12.JPG",
+      "lr_size": [1396, 1980],
+      "hr_size": [1396, 1980],
+      "scale": [1.0, 1.0],
+      "is_exact_4x": false,
+      "same_canvas": true
+    }
+  ],
+  "annotations": {
+    "has_annotations": true,
+    "annotation_dirs": [
+      "train/trans_annos_13mm",
+      "train/trans_annos_52mm",
+      "train/trans_annos_52mm_renov",
+      "val/annos"
+    ],
+    "annotation_files": 2235,
+    "sample_anno_file": "train/trans_annos_13mm/res_ip11pro_output_TextSR-20211222_renew_0.txt",
+    "detected_format": "quadrilateral_polygon_8pts",
+    "has_english_text": true,
+    "has_chinese_text": true,
+    "valid_txt_files": []
+  },
+  "hr_ocr_baseline": {
+    "engine": "RapidOCR",
+    "status": "COMPLETED",
+    "hr_tested": 30,
+    "hr_readable": 28,
+    "hr_readable_pct": 93.3,
+    "realsr_hr_readable_pct": 70.5
+  },
+  "dossr_smoke_test": {
+    "staged_crops": 3,
+    "crop_size": [128, 128],
+    "staged_dir": "/content/realce_smoke_lr",
+    "forward_pass_status": "SKIPPED",
+    "skip_reason": "Missing: Model Config (/content/SC203/external/DOSSR/configs/model/cldm_v21.yaml)"
+  },
+  "conclusion": "Real-CE train (13mm -> 52mm) ready for scene-level split & LoRA 2/3 pilot."
+}
