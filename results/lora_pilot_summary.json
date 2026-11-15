@@ -1,0 +1,147 @@
+{
+  "status": "VERIFIED",
+  "date": "2026-11-15",
+  "notebook": "notebooks/03_lora_pilot_colab.ipynb",
+  "dataset": {
+    "name": "Real-CE x4 (13mm -> 52mm, scene-disjoint split)",
+    "scene_overlap": 0,
+    "val_patches_evaluated": 30,
+    "eval_seeds": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+    "inference_steps": 5,
+    "solver_order": 3,
+    "t1_fraction": 0.5,
+    "prompt_mode": "empty"
+  },
+  "architecture": {
+    "backbone": "DoSSR (ControlLDM)",
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "target_prefixes": [
+      "control_model.",
+      "model.diffusion_model.output_blocks."
+    ],
+    "target_leaf_suffixes": [
+      ".to_q",
+      ".to_k",
+      ".to_v",
+      ".to_out.0"
+    ],
+    "trainable_params": 1659904
+  },
+  "training_cost_and_vram": {
+    "steps": 400,
+    "batch_size": 1,
+    "grad_accum": 4,
+    "noise_draws_per_sample_K": 2,
+    "seed": 231,
+    "lr": 0.0001,
+    "timestep_sampling": "uniform [0, 1000)",
+    "lora2": {
+      "config": "configs/lora2_pilot.yaml",
+      "alpha_text": 5.0,
+      "lambda_cons": 0.0,
+      "alpha_cons_text": 5.0,
+      "step1_loss": {
+        "total": 0.9776,
+        "rec": 0.9776,
+        "text_l1": 0.3544,
+        "cons": 0.0
+      },
+      "step400_loss": {
+        "total": 0.4878,
+        "rec": 0.4878,
+        "text_l1": 0.2456,
+        "cons": 0.0
+      },
+      "step_time_mean_s": 4.67,
+      "step_time_p95_s": 4.70,
+      "peak_allocated_gib": 8.04,
+      "peak_reserved_gib": 8.52
+    },
+    "lora3": {
+      "config": "configs/lora3_pilot.yaml",
+      "alpha_text": 5.0,
+      "lambda_cons": 0.5,
+      "alpha_cons_text": 5.0,
+      "step1_loss": {
+        "total": 1.0561,
+        "rec": 0.9776,
+        "text_l1": 0.3544,
+        "cons": 0.1571
+      },
+      "step400_loss": {
+        "total": 0.5501,
+        "rec": 0.4851,
+        "text_l1": 0.2475,
+        "cons": 0.1299
+      },
+      "step_time_mean_s": 5.38,
+      "step_time_p95_s": 5.41,
+      "peak_allocated_gib": 8.04,
+      "peak_reserved_gib": 8.52
+    },
+    "overhead_lora3_vs_lora2": {
+      "step_time_pct": 15.20,
+      "extra_peak_allocated_gib": 0.0,
+      "extra_peak_reserved_gib": 0.0
+    }
+  },
+  "whole_patch_10seed_val": {
+    "lora2": {
+      "psnr_y": 17.6980,
+      "ssim_y": 0.6442,
+      "lpips": 0.4231,
+      "pairwise_pixel_diff_mean": 9.2715,
+      "pairwise_lpips_mean": 0.2020
+    },
+    "lora3": {
+      "psnr_y": 18.2828,
+      "ssim_y": 0.6742,
+      "lpips": 0.4711,
+      "pairwise_pixel_diff_mean": 3.9405,
+      "pairwise_lpips_mean": 0.0726
+    },
+    "delta_lora3_minus_lora2": {
+      "psnr_y": 0.5848,
+      "ssim_y": 0.0300,
+      "lpips": 0.0480,
+      "pairwise_pixel_diff_mean": -5.3310,
+      "pairwise_pixel_diff_rel_pct": -57.50,
+      "pairwise_lpips_mean": -0.1294,
+      "pairwise_lpips_rel_pct": -64.06
+    }
+  },
+  "text_eval_default_det_rec_val": {
+    "aggregation": "image_mean across n=30 val patches (from CELL 07)",
+    "ocr_mode": "rapidocr default (det+rec, upscale=1, without --rec-only --rotate-vertical)",
+    "note": "Evaluated with default two-stage RapidOCR (det+rec, upscale=1) on n=30 val patches. Tight word crops trigger DBNet detector border misses (HR ceiling wrong_char=0.9291, CER=0.7334); re-evaluation with --rec-only --rotate-vertical --upscale 2 is recommended on existing saved images.",
+    "hr_ceiling": {
+      "n_images": 30,
+      "wrong_char_rate": 0.9291,
+      "cer": 0.7334
+    },
+    "bicubic_x4": {
+      "n_images": 30,
+      "wrong_char_rate": 0.9889,
+      "cer": 0.9603
+    },
+    "lora2_val": {
+      "n_images": 30,
+      "wrong_char_rate": 0.9838,
+      "cer": 0.8908,
+      "ocr_seed_disagreement": 0.3456
+    },
+    "lora3_val": {
+      "n_images": 30,
+      "wrong_char_rate": 0.9857,
+      "cer": 0.9055,
+      "ocr_seed_disagreement": 0.2470
+    },
+    "delta_lora3_minus_lora2": {
+      "wrong_char_rate": 0.0019,
+      "cer": 0.0147,
+      "ocr_seed_disagreement": -0.0986,
+      "ocr_seed_disagreement_rel_pct": -28.53
+    }
+  }
+}

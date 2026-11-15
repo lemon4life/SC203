@@ -5,7 +5,7 @@
 **Required Submission Format:** One PDF named `<StudentID1>_<StudentID2>_<StudentID3>_<StudentID4>.pdf`  
 **Final Submission Filename:** `25125002_25125042_25125060_25125033.pdf`  
 (Nguyễn Anh `25125002`, Gia Hân `25125042`, Quang Minh `25125060`, Minh Nhật `25125033`)  
-**Last Updated:** Saturday, `14/11/2026` (incorporating Dr. Thuận's latest directives)
+**Last Updated:** Sunday, `15/11/2026` (recording verified LoRA 2 vs. LoRA 3 pilot results from `notebooks/03_lora_pilot_colab.ipynb`)
 
 ---
 
@@ -44,9 +44,9 @@
 
 | Day & Date | Time | Milestone / Deliverable | Owner(s) | Track |
 | :--- | :---: | :--- | :---: | :---: |
-| **Sat `14/11`** | `21:00` | **Task M1-1:** Author `scripts/split_realce_by_scene.py` to create leak-free train/val splits from Real-CE $\times 4$.<br>**Task M3-1:** Verify `src/lora_text_loss.py` CPU unit tests `(a)`–`(f)` and prepare LoRA 2 & 3 pilot configs.<br>**Task M4-1:** Update `docs/A5_baseline.tex` with the 193 vs 136 table, 32.83% formula, and eduroam crop note. | **M1** (`Nguyên Anh`)<br>**M3** (`Quang Minh`)<br>**M4** (`Minh Nhật`) | Track 1 & 2 |
-| **Sun `15/11`** | `14:00` | **Task M1-2 & M3-2:** Launch Colab GPU Pilot of LoRA 2 vs. LoRA 3; log peak VRAM (allocated/reserved) and step time; run 10-seed 5-step inference on fixed validation set. | **M1** (`Nguyên Anh`) & **M3** (`Quang Minh`) | Track 2 |
-| **Sun `15/11`** | `18:00` | **Task M2-2:** Run text evaluation on LoRA 2 vs LoRA 3 pilot validation outputs (Error Rate, CER, Disagreement, LPIPS); evaluate gating condition. | **M2** (`Gia Hân`) | Track 2 |
+| **Sat `14/11`** | `21:00` | **`VERIFIED` Task M1-1:** Scene-disjoint `scripts/split_realce_by_scene.py` (`0` overlap).<br>**`VERIFIED` Task M3-1:** `src/lora_text_loss.py` CPU tests `(a)`–`(f)` + dry run.<br>**Pending Task M4-1:** Update `docs/A5_baseline.tex` with 193 vs 136 table, 32.83% formula, and eduroam crop note. | **M1** (`Nguyên Anh`)<br>**M3** (`Quang Minh`)<br>**M4** (`Minh Nhật`) | Track 1 & 2 |
+| **Sun `15/11`** | `14:00` | **`VERIFIED` Task M1-2 & M3-2:** Colab GPU Pilot (`400` steps each) + 10-seed 5-step Val inference completed (`8.04 GiB` peak alloc for both, `4.67s` vs `5.38s/step`, `-57.5%` pixel / `-64.1%` LPIPS seed diff, `-28.5%` OCR disagreement). | **M1** (`Nguyên Anh`) & **M3** (`Quang Minh`) | Track 2 |
+| **Sun `15/11`** | `18:00` | **Task M2-2 (Follow-Up):** Initial default `det+rec` OCR numbers captured; re-run `text_eval.py --rec-only --rotate-vertical --upscale 2` on saved Drive PNGs + inspect visual failure crops for gating/tuning. | **M2** (`Gia Hân`) & **M3** (`Quang Minh`) | Track 2 |
 | **Sun `15/11`** | `21:00` | **A5 Internal Freeze:** Complete Section 1–6 in `docs/A5_baseline.tex`, compile clean PDF on Overleaf, execute Number-Audit Check against `docs/fact_sheet_for_report.md`. | **M4** (`Minh Nhật`) & **M1** (`Nguyên Anh`) | **Track 1 (`A5`)** |
 | **Mon `16/11`** | **`21:00`** | **INTERNAL SUBMIT DEADLINE:** Final proofread, export `25125002_25125042_25125060_25125033.pdf`, submit Assignment 5, and archive confirmation screenshot. | **M1** (`Nguyên Anh`) & All | **Track 1 (`A5`)** |
 | **Tue `17/11`** | **`07:00`** | **OFFICIAL COURSE DEADLINE: Group Assignment 5 (`Baseline`).** | All | **Track 1 (`A5`)** |
@@ -90,20 +90,16 @@
 ### Member 1: Hoàng Nguyên Anh (`25125002`) — Team Lead, GPU & Integration Lead
 * **Primary Branch:** `feat/baseline-runner`
 * **Core Responsibilities:**
-  1. **Task M1-1: Real-CE $\times 4$ Scene-Level Split Script (`scripts/split_realce_by_scene.py`):**
+  1. **Task M1-1: Real-CE $\times 4$ Scene-Level Split Script (`scripts/split_realce_by_scene.py`) [`VERIFIED` 2026-11-15]:**
      - Group images by base scene / original image prefix before cropping patches.
-     - Partition into `train` (~80%) and `val` (~20%) with zero scene overlap.
-     - Export split manifest `data/realce_splits_manifest.json`.
-     - *Verification:* Assert $\text{scenes}(\text{train}) \cap \text{scenes}(\text{val}) = \emptyset$.
-  2. **Task M1-2: Execute Colab GPU Pilot (LoRA 2 vs. LoRA 3):**
-     - Launch `notebooks/03_lora_pilot_colab.ipynb` or runner script.
-     - Train LoRA 2 (text-weighted) for $N$ steps (e.g. 100 steps) with empty prompt `""`.
-     - Train LoRA 3 (text-weighted + consistency loss) under identical initialization, seed, batch size, and steps.
-     - Record in `results/pilot_lora_manifest.json`: GPU model, peak allocated VRAM, peak reserved VRAM, and average step time (sec/step).
-     - *Verification:* Checkpoints save cleanly to Google Drive; no NaN/Inf in training loss.
-  3. **Task M1-3: Run 10-Seed 5-Step Validation Inference:**
-     - Run both checkpoints (`configs/lora2_pilot.yaml` and `configs/lora3_pilot.yaml`) via `python scripts/run_seed_study.py --config configs/lora{2,3}_pilot.yaml` across seeds `42`–`51` with `--per-image-seed` and `5` inference steps.
-     - Save outputs to Drive: `outputs/pilot-lora2-realce-val-10seed/` and `outputs/pilot-lora3-realce-val-10seed/`.
+     - Partition into `train` (~80%) and `val` (~20%) with zero scene overlap (`0` shared scenes verified in Colab `CELL 04`).
+     - Export split manifest `data/realce_splits_manifest.json` and extract aligned patches + `data/realce_train_manifest.csv` / `data/realce_val_boxes.csv`.
+  2. **Task M1-2: Execute Colab GPU Pilot (LoRA 2 vs. LoRA 3) [`VERIFIED` 2026-11-15]:**
+     - Trained LoRA 2 (`configs/lora2_pilot.yaml`, `lambda_cons=0.0`) and LoRA 3 (`configs/lora3_pilot.yaml`, `lambda_cons=0.5`) for `400` steps each under identical initialization, seed `231`, empty prompt `""`, $K=2$ noise draws, `alpha_text=5.0`, and `1,659,904` trainable LoRA params.
+     - **Verified Compute & VRAM (`results/lora_pilot_summary.json`):** LoRA 2 `4.67 s/step` (`p95=4.70s`), `8.04 GiB` allocated (`8.52 GiB` reserved); LoRA 3 `5.38 s/step` (`p95=5.41s`, `+15.20%`), **`8.04 GiB` allocated (`8.52 GiB` reserved, `0.00 GiB` extra VRAM)**. Clean checkpoints saved to Drive; zero NaN/Inf.
+  3. **Task M1-3: Run 10-Seed 5-Step Validation Inference [`VERIFIED` 2026-11-15]:**
+     - Evaluated both checkpoints (`configs/lora{2,3}_pilot.yaml`) across seeds `42`–`51`, `5` steps (`t1_fraction=0.5`), on `30` held-out Real-CE val patches (`300` PNGs per variant) saved under `/content/drive/MyDrive/lemmepass/outputs/pilot-lora{2,3}-realce-val-10seed/`.
+     - **Verified Whole-Patch & Stability Results (`LoRA 3 - LoRA 2`):** `PSNR_Y` `17.6980 -> 18.2828` (`+0.5848 dB`), `SSIM_Y` `0.6442 -> 0.6742` (`+0.0300`), `LPIPS` `0.4231 -> 0.4711` (`+0.0480`), `pair_px` `9.2715 -> 3.9405` (**`-57.50%`**), `pair_lpips` `0.2020 -> 0.0726` (**`-64.06%`**).
   4. **Task M1-4: Final A5 Assembly & Submission:**
      - Run `scripts/compute_metrics.py --bicubic-lr-dir ...` on Colab to fill the `Bicubic x4` whole-image row in Table 1.
      - Coordinate final number-audit review with Member 4 (`results/text_eval_a5_summary.json` and `docs/fact_sheet_for_report.md`).
@@ -119,42 +115,42 @@
      - Ensure `results/text_eval_*.csv` and `results/text_eval_a5_summary.json` (`scripts/analyze_text_eval_a5.py`) match the verified 193-box / 136-solvable / 57-unsolvable breakdown.
      - Verify the 136-solvable subset stats ($0.0\%$ HR ceiling, $66.32\%$ DoSSR error rate, $71.32\%$ Bicubic floor, $34.05\%$ cross-seed disagreement).
      - Verify the 4-panel `eduroam` comparison figure (`figures/eduroam_10seeds.png` or `figures/eduroam_comparison.png`).
-  2. **Task M2-2: Pilot Evaluation Pipeline (LoRA 2 vs. LoRA 3):**
-     - Run `scripts/text_eval.py` on the validation outputs from Member 1:
+  2. **Task M2-2: Pilot Evaluation Pipeline (LoRA 2 vs. LoRA 3) [`INITIAL VERIFIED` / `--rec-only` RE-RUN `PENDING`]:**
+     - Initial default RapidOCR (`det+rec`, `--upscale 1`, `n=30` patches) recorded in `CELL 07` (`results/lora_pilot_summary.json`):
+       * **HR Ceiling (`n=30`):** `wrong_char=0.9291` | `CER=0.7334` *(tight word crops missed by `DBNet` detector without `--rec-only --upscale 2`)*.
+       * **Bicubic $\times 4$ (`n=30`):** `wrong_char=0.9889` | `CER=0.9603`.
+       * **LoRA 2 VAL:** `wrong_char=0.9838` | `CER=0.8908` | `seed_disagree=0.3456`.
+       * **LoRA 3 VAL:** `wrong_char=0.9857` | `CER=0.9055` | `seed_disagree=0.2470` (**`-28.53%`** relative seed disagreement drop).
+       * **Deltas (`LoRA 3 - LoRA 2`):** $\Delta \text{wrong\_char} = +0.0019$, $\Delta \text{CER} = +0.0147$, $\Delta \text{seed\_disagree} = -0.0986$ (`-28.53%`), $\Delta \text{LPIPS} = +0.0480$ (`0.4231 -> 0.4711`).
+     - **Immediate Zero-GPU Follow-Up:** Re-run `scripts/text_eval.py` on the already-saved Drive outputs with `--rec-only --rotate-vertical --upscale 2` and inspect 3–5 validation crops side-by-side (`LR`, `LoRA 2`, `LoRA 3`, `HR`):
        ```bash
        python scripts/text_eval.py \
-         --study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora3-realce-val-10seed" \
-         --compare-study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora2-realce-val-10seed" \
+         --study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora2-realce-val-10seed" \
+         --compare-study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora3-realce-val-10seed" \
+         --hr-dir "/content/data_local/RealCE_patches/val/HR" \
+         --lr-dir "/content/data_local/RealCE_patches/val/LR" \
          --boxes-csv "data/realce_val_boxes.csv" \
-         --output-dir "results/pilot_lora2_vs_lora3"
+         --rec-only --rotate-vertical --upscale 2 \
+         --output-dir "results/pilot_lora2_vs_lora3_reconly"
        ```
-     - Output the delta comparison table:
-       * $\Delta \text{Box Error Rate} = \text{Error}(\text{LoRA 3}) - \text{Error}(\text{LoRA 2})$
-       * $\Delta \text{CER} = \text{CER}(\text{LoRA 3}) - \text{CER}(\text{LoRA 2})$
-       * $\Delta \text{Seed Disagreement} = \text{Dis}(\text{LoRA 3}) - \text{Dis}(\text{LoRA 2})$
-       * $\Delta \text{LPIPS} = \text{LPIPS}(\text{LoRA 3}) - \text{LPIPS}(\text{LoRA 2})$
-     - *Verification:* Check if $\Delta \text{Box Error Rate} < 0$ and LPIPS does not degrade.
 
 ---
 
 ### Member 3: Hồ Quang Minh (`25125060`) — LoRA Architecture & Consistency Loss Lead
 * **Primary Branch:** `feat/lora-loss`
 * **Core Responsibilities:**
-  1. **Task M3-1: LoRA 2 & LoRA 3 Configurations & CPU Unit Tests:**
-     - Maintain and verify `src/lora_text_loss.py` (`python src/lora_text_loss.py --run-cpu-tests`) and `scripts/run_lora_trial.py --dry-run-cpu`.
-     - Confirm all 6 CPU unit tests pass:
+  1. **Task M3-1: LoRA 2 & LoRA 3 Configurations & CPU Unit Tests [`VERIFIED` 2026-11-15]:**
+     - Verified `python src/lora_text_loss.py --run-cpu-tests` (6/6 passing) and `python scripts/run_lora_trial.py --dry-run-cpu` (`use_checkpoint` & `autocast` patches verified):
        * `(a)` `LoRALinear` zero-init equivalence & base-weight freeze.
        * `(b)` Selective LoRA injection on `control_model` + `output_blocks` skipping `no_grad` encoder/middle blocks.
        * `(c)` HR box mask rasterization (`512x512`) and latent max-pool downsampling (`64x64`).
        * `(d)` Text-weighted L1 equivalence ($\alpha_{\text{text}}=1$) and text-box weighting ($\alpha_{\text{text}}>1$).
        * `(e)` Two-pass chain-rule backward exact gradient equivalence vs. single-graph joint backward.
        * `(f)` LoRA checkpoint save/load roundtrip fidelity.
-  2. **Task M3-2: Support Colab Pilot Execution:**
-     - Assist Member 1 with LoRA hyperparameters ($\lambda_{\text{text}}$, $\lambda_{\text{cons}}$, rank $r=8$ or $16$, learning rate $1\times 10^{-4}$).
-     - Monitor loss curves (diffusion loss vs consistency loss) to ensure stable convergence.
-  3. **Task M3-3: Post-Pilot Decision Action:**
-     - If LoRA 3 passes gating: configure LoRA 1 (baseline loss) for the full 3-variant comparison.
-     - If LoRA 3 fails gating: inspect text masks and gradient magnitudes on failure samples.
+  2. **Task M3-2: Support Colab Pilot Execution [`VERIFIED` 2026-11-15]:**
+     - Verified lockstep convergence (`step 1` identical `rec=0.9776`, `text_l1=0.3544`; `step 400` LoRA 2 `rec=0.4878` vs. LoRA 3 `rec=0.4851`, `cons` `0.1571 -> 0.1299`) at zero extra peak VRAM (`8.04 GiB` allocated).
+  3. **Task M3-3: Post-Pilot Decision Action [`ACTIVE`]:**
+     - Diagnose the stability-vs-sharpness trade-off (`pair_px -57.50%`, `pair_lpips -64.06%`, `seed_disagree -28.53%` vs. `LPIPS +0.0480`, `CER +0.0147`): verify `--rec-only --rotate-vertical --upscale 2` OCR results with M2 and test tuning `lambda_cons` (`0.5 -> 0.1` or `0.2`) and/or restricting consistency to $t \le 500$ (matching inference `t1_fraction=0.5`) if approved by Dr. Thuận before training LoRA 1.
 
 ---
 
@@ -197,22 +193,22 @@
   [ ] Team Number-Audit against docs/fact_sheet_for_report.md (All).
   [ ] Compile and submit 25125002_25125042_25125060_25125033.pdf (Mon 16/11 21:00).
 
-[PHASE 3: Real-CE x4 Dataset Preparation & Leak-Free Split] (SCRIPT READY / COLAB EXECUTION PENDING)
+[PHASE 3: Real-CE x4 Dataset Preparation & Leak-Free Split] (COMPLETED / VERIFIED 2026-11-15)
   [x] Real-CE x4 feasibility check (pairing, 4x scale, annotations, HR OCR).
   [x] Implement & CPU-test scripts/split_realce_by_scene.py (scene-level partitioning, LR/HR pairing, --extract-patches).
-  [ ] Run split script on Real-CE Drive data and populate data/realce_val_boxes.csv / data/realce_train_manifest.csv.
+  [x] Executed split script on Colab Real-CE data with 0 scene overlap (data/realce_val_boxes.csv / data/realce_train_manifest.csv).
 
 [PHASE 4: LoRA Loss Architecture & Unit Testing] (COMPLETED / VERIFIED)
   [x] Mathematical formulation of cross-noise latent consistency loss & two-pass chain rule.
   [x] Pass 6 CPU unit tests (a)-(f) in src/lora_text_loss.py & scripts/run_lora_trial.py --dry-run-cpu.
   [x] Configure LoRA 2 (configs/lora2_pilot.yaml) and LoRA 3 (configs/lora3_pilot.yaml) + notebooks/03_lora_pilot_colab.ipynb.
 
-[PHASE 5: Colab GPU Pilot Run & Gating Evaluation] (TARGET: Sun 15/11)
-  [ ] Run LoRA 2 pilot on Colab GPU (log peak VRAM & sec/step).
-  [ ] Run LoRA 3 pilot on Colab GPU (log peak VRAM & sec/step).
-  [ ] 10-seed 5-step inference on fixed validation set.
-  [ ] Evaluate Δ Error Rate, Δ CER, Δ Disagreement, Δ LPIPS (M2).
-  [ ] Evaluate Gating Condition (LoRA 3 vs LoRA 2).
+[PHASE 5: Colab GPU Pilot Run & Gating Evaluation] (PILOT COMPLETED 2026-11-15 / OCR RE-SCORE PENDING)
+  [x] Run LoRA 2 pilot on Colab GPU (4.67s/step mean, 8.04 GiB alloc / 8.52 GiB reserved).
+  [x] Run LoRA 3 pilot on Colab GPU (5.38s/step mean, 8.04 GiB alloc / 8.52 GiB reserved — 0.00 GiB extra VRAM).
+  [x] 10-seed 5-step inference on fixed validation set (30 patches x 10 seeds: PSNR_Y +0.5848 dB, SSIM_Y +0.0300, LPIPS +0.0480, pair_px -57.50%, pair_lpips -64.06%).
+  [x] Initial default RapidOCR evaluation (-28.53% seed disagreement, delta_wrong_char +0.0019, delta_CER +0.0147; documented in results/lora_pilot_summary.json & docs/after_03_lora_pilot_discovery.md).
+  [ ] Re-run text_eval.py --rec-only --rotate-vertical --upscale 2 on saved Drive PNGs + inspect visual failure crops (M2/M3) before gating decision with Dr. Thuan.
 
 [PHASE 6: Gated Full Training & Gating Decision] (TARGET: Wed 18/11)
   [ ] If Gate Passes: Train LoRA 1 (baseline loss) for the full 3-way ablation.

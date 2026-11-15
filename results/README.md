@@ -20,3 +20,9 @@ Curated summary CSVs, whole-image metrics tables, and 10-seed text evaluation ta
 - Save 10-seed whole-image `PSNR`, `SSIM`, `LPIPS`, and pairwise seed spread summary CSVs here as:
   - `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
   - `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
+
+### 4. LoRA 2 vs. LoRA 3 Pilot Summary on Real-CE $\times 4$ (`VERIFIED`, Nov 15, 2026)
+- `results/lora_pilot_summary.json` — Verified controlled `400`-step Colab pilot results (`notebooks/03_lora_pilot_colab.ipynb` `CELL 05`–`07`, `30` scene-disjoint val patches $\times$ `10` seeds `42..51`, `5` inference steps):
+  - **Training Cost & VRAM (`1,659,904` trainable params):** LoRA 2 `4.67 s/step`, `8.04 GiB` allocated (`8.52 GiB` reserved); LoRA 3 `5.38 s/step` (`+15.20%`), **`8.04 GiB` allocated (`0.00 GiB` extra VRAM)**.
+  - **10-Seed Whole-Patch Metrics (`LoRA 3 - LoRA 2`):** `PSNR_Y` `17.6980 -> 18.2828` (`+0.5848 dB`), `SSIM_Y` `0.6442 -> 0.6742` (`+0.0300`), `LPIPS` `0.4231 -> 0.4711` (`+0.0480`), `pair_px` `9.2715 -> 3.9405` (**`-57.50%`**), `pair_lpips` `0.2020 -> 0.0726` (**`-64.06%`**).
+  - **Text-Box OCR (default RapidOCR `det+rec`, `--upscale 1`, `n=30`):** OCR `seed_disagree` `0.3456 -> 0.2470` (**`-28.53%`**), `wrong_char` `+0.0019` (`0.9838 -> 0.9857`), `CER` `+0.0147` (`0.8908 -> 0.9055`); see `docs/after_03_lora_pilot_discovery.md` for diagnostic notes and `--rec-only --rotate-vertical --upscale 2` follow-up.
