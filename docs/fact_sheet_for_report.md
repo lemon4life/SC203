@@ -158,13 +158,13 @@ The dataset-level metrics reported are:
 | :--- | :--- | :---: | :--- |
 | **`Bicubic x4` Whole-Image Row (`PSNR/SSIM/LPIPS`)** | Member 1 / Member 4 | `PENDING` *(Generated on Colab Drive during `03_lora` `CELL 03` or `compute_metrics.py --bicubic-lr-dir ...`; sync CSV into `results/` if not yet committed)* | `results/metrics_bicubic_summary_by_image.csv` & `docs/A5_baseline.tex` (`Table 1`) |
 | **Unified Single-OCR Re-Run & A5 Stats (`193` vs. `136`)** | Member 2 / Member 1 | `PENDING (Unified Re-Run)` / `VERIFIED (CSV Split-Run)` in `scripts/analyze_text_eval_a5.py` | `results/text_eval_a5_cohort_breakdown.csv` & `docs/A5_baseline.tex` |
-| **Real-CE $\times 4$ Scene-Level Split & LoRA 2 vs. LoRA 3 Pilot** | Member 1 & Member 3 | **`VERIFIED` (Pilot Run Complete, Nov 15, 2026)**; `--rec-only --upscale 2` OCR re-score on saved Drive PNGs `PENDING` (M2/M3) | `results/lora_pilot_summary.json`, `docs/after_03_lora_pilot_discovery.md` & Mentor Update Package *(Separate from A5 except optional 1-paragraph Future Work note)* |
+| **Real-CE $\times 4$ Scene-Level Split & LoRA 2 vs. LoRA 3 Pilot** | Member 1 & Member 3 | **`VERIFIED` (Pilot + `--rec-only` OCR Re-Score + 5-Crop Inspection Complete, Nov 16, 2026)**; ready for Mentor Update & Gate Tuning Proposal | `results/lora_pilot_summary.json`, `docs/after_03_lora_pilot_discovery.md`, `docs/M3_3_pilot_reconly_and_crops_notes.md` & Mentor Update Package |
 
 ---
 
-## 8. Verified LoRA 2 vs. LoRA 3 Pilot Results on Real-CE $\times 4$ (`notebooks/03_lora_pilot_colab.ipynb`, `VERIFIED` Nov 15, 2026)
+## 8. Verified LoRA 2 vs. LoRA 3 Pilot Results on Real-CE $\times 4$ (`notebooks/03_lora_pilot_colab.ipynb` & `M3-3`, `VERIFIED` Nov 15–16, 2026)
 
-*Source:* `CELL 05`–`CELL 07` (`results/lora_pilot_summary.json`, `docs/after_03_lora_pilot_discovery.md`). Strictly separated from Assignment 5 (`RealSRVal_crop128` baseline) per the Dual-Track Decoupling Rule.
+*Source:* `CELL 05`–`CELL 07` (`results/lora_pilot_summary.json`, `docs/after_03_lora_pilot_discovery.md`, `results/pilot_lora2_vs_lora3_reconly/`, `results/pilot_lora2_vs_lora3_crops/`, `docs/M3_3_pilot_reconly_and_crops_notes.md`). Strictly separated from Assignment 5 (`RealSRVal_crop128` baseline) per the Dual-Track Decoupling Rule.
 
 - **Controlled Training Setup:** Scene-disjoint Real-CE $\times 4$ (`13mm -> 52mm`, `0` scene overlap), `400` optimizer steps (`batch_size=1`, `grad_accum=4`, $K=2$ noise draws, `seed=231`, `lr=1e-4`, empty prompt `""`, `rank=8`, `alpha=16.0`, `1,659,904` trainable LoRA parameters in `control_model.` + `output_blocks.`). Both configs use `alpha_text=5.0`; LoRA 2 sets `lambda_cons=0.0`, while LoRA 3 sets `lambda_cons=0.5`, `alpha_cons_text=5.0`.
 - **Training Cost, Convergence & Peak VRAM:**
@@ -173,8 +173,13 @@ The dataset-level metrics reported are:
 - **10-Seed (`42..51`), 5-Step Validation Whole-Patch Metrics (`n=30` patches = `300` PNGs/variant):**
   - **LoRA 2 VAL:** `PSNR_Y=17.6980`, `SSIM_Y=0.6442`, `LPIPS=0.4231`, `pair_px=9.2715`, `pair_lpips=0.2020`.
   - **LoRA 3 VAL:** `PSNR_Y=18.2828` (`+0.5848 dB`), `SSIM_Y=0.6742` (`+0.0300`), `LPIPS=0.4711` (`+0.0480`), `pair_px=3.9405` (**`-57.50%`**), `pair_lpips=0.0726` (**`-64.06%`**).
-- **Text-Box OCR Comparison (`RapidOCR` default `det+rec`, `--upscale 1`, image-mean over `n=30` patches):**
-  - `HR Ceiling`: `wrong_char=0.9291`, `CER=0.7334` *(tight word crops trigger detector border misses without `--rec-only --upscale 2`)*.
-  - `Bicubic x4`: `wrong_char=0.9889`, `CER=0.9603`.
-  - `LoRA 2 VAL`: `wrong_char=0.9838`, `CER=0.8908`, `seed_disagree=0.3456`.
-  - `LoRA 3 VAL`: `wrong_char=0.9857` (`+0.0019`), `CER=0.9055` (`+0.0147`), `seed_disagree=0.2470` (**`-28.53%`**).
+- **Text-Box OCR Comparison — Corrected `--rec-only --rotate-vertical --upscale 2` (`RapidOCR`, `30` patches / `154` boxes, M3 on Nov 16):**
+  - *(Supersedes initial `CELL 07` default `det+rec` run where `DBNet` detector misses artificially degraded `HR Ceiling` to `CER=0.7334` / `wrong_char=0.9291`.)*
+  - **Image-mean (`n = 30` patches):**
+    - `HR Ceiling`: `wrong_char=0.5791 (±0.0491)`, `CER=0.2722 (±0.0538)`.
+    - `Bicubic x4`: `wrong_char=0.7979 (±0.0445)`, `CER=0.5422 (±0.0694)`.
+    - `LoRA 2 VAL`: `wrong_char=0.9141 (±0.0269)`, `CER=0.6914 (±0.0518)`, `seed_disagree=0.5197 (±0.0710)`, `crop_px_l1=15.88`.
+    - `LoRA 3 VAL`: **`wrong_char=0.8878`** `(±0.0291)`, **`CER=0.6650`** `(±0.0549)`, **`seed_disagree=0.4479`** `(±0.0660)`, **`crop_px_l1=7.13`**.
+    - **Paired Delta (`LoRA 3 - LoRA 2`, `n=30`):** **`delta_wrong_char = -0.0262 (±0.0084)`**, **`delta_CER = -0.0264 (±0.0122)`**, `delta_seed_disagree = -0.0718` (**`-13.82%`**), `delta_crop_px_l1 = -8.75` (**`-55.08%`**).
+  - **HR-Solvable Subset (`63 / 154` boxes = `40.9%` where `HR wrong_char == 0`):** `Bicubic x4` `wrong_char=0.5556` (`CER=0.4184`), `LoRA 2` `0.8222` (`0.6144`), `LoRA 3` **`0.7603`** (`0.5803`; **`delta_wrong_char = -0.0619`, `delta_CER = -0.0340`**).
+- **Visual Check (`results/pilot_lora2_vs_lora3_crops/`):** Masks align cleanly; LoRA 3 improves seed consistency and reduces hallucinations relative to LoRA 2, but `lambda_cons=0.5` across all $t \in [0, 999)$ softens strokes (`LPIPS +0.0480`) and erases thin text (e.g. `2024/06/17`), and both 400-step pilots still trail `Bicubic x4` on complex Chinese characters.

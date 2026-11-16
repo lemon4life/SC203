@@ -59,11 +59,13 @@ We tested whether adding **cross-noise consistency (`LoRA 3`)** forces the model
 | **LoRA 3 VAL** | **`18.2828`** | **`0.6742`** | `0.4711` | **`3.9405`** | **`0.0726`** |
 | **Delta (`LoRA 3 - LoRA 2`)** | **`+0.5848` dB** | **`+0.0300`** | `+0.0480` | **`-5.3310` (`-57.50%`)** | **`-0.1294` (`-64.06%`)** |
 
-### C. Text-Box OCR Comparison (`RapidOCR`, `Real-CE Val`, Image-Mean over `n = 30` Patches)
+### C. Text-Box OCR Comparison (`RapidOCR`, `Real-CE Val`, `n = 30` Patches / `154` Boxes)
 
-> **Evaluation mode note:** Run in `CELL 06` using default RapidOCR `det+rec` (`--upscale 1`, without `--rec-only --rotate-vertical`). Re-scoring the saved Drive outputs with `--rec-only --rotate-vertical --upscale 2` is queued for Member 2 (`Gia Hân`) / Member 3 (`Quang Minh`) before deciding whether to retune `lambda_cons` or restrict consistency to $t \le 500$.
+#### 1. Initial Default Two-Stage Run (`det+rec`, `--upscale 1`, `CELL 07`, Nov 15)
 
-| Target (`n = 30`) | `wrong_char` Rate $\downarrow$ | Mean `CER` $\downarrow$ | Cross-Seed OCR Disagreement $\downarrow$ |
+> **Why this run was misleading:** Running RapidOCR in default `det+rec` mode at `--upscale 1` caused `DBNet` to miss tightly cropped boxes — leaving even ground-truth `HR Ceiling` at `CER = 0.7334` (`wrong_char = 0.9291`).
+
+| Target (`n = 30`, image-mean) | `wrong_char` Rate $\downarrow$ | Mean `CER` $\downarrow$ | Cross-Seed OCR Disagreement $\downarrow$ |
 | :--- | :---: | :---: | :---: |
 | **HR Ceiling (`val/HR`)** | `0.9291` | `0.7334` | — |
 | **Bicubic $\times 4$ (`val/LR`)** | `0.9889` | `0.9603` | — |
@@ -71,13 +73,31 @@ We tested whether adding **cross-noise consistency (`LoRA 3`)** forces the model
 | **LoRA 3 VAL (`42..51`)** | `0.9857` | `0.9055` | **`0.2470`** |
 | **Paired Delta (`LoRA 3 - LoRA 2`)** | `+0.0019` | `+0.0147` | **`-0.0986` (`-28.53%`)** |
 
+#### 2. Corrected `--rec-only --rotate-vertical --upscale 2` Re-Score (M3, `VERIFIED` Nov 16)
+
+Re-scoring the **same saved Drive PNGs** (`outputs/pilot-lora{2,3}-realce-val-10seed/`) with `--ocr-backend rapidocr --rec-only --rotate-vertical --upscale 2` ([`docs/M3_3_pilot_reconly_and_crops_notes.md`](M3_3_pilot_reconly_and_crops_notes.md)) fixed the detector misses (`HR Ceiling` CER dropped `0.7334 -> 0.2722`) and **reversed the earlier OCR conclusion**:
+
+| Cohort & Target | `wrong_char` Rate $\downarrow$ | Mean `CER` $\downarrow$ | OCR Seed Disagreement $\downarrow$ | Distinct Reads / 10 | Crop Pixel Spread $L_1$ $\downarrow$ |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Image-Mean (`n = 30` patches) — HR Ceiling** | `0.5791` (`±0.0491`) | `0.2722` (`±0.0538`) | — | — | — |
+| **Image-Mean (`n = 30`) — Bicubic $\times 4$** | `0.7979` (`±0.0445`) | `0.5422` (`±0.0694`) | — | — | — |
+| **Image-Mean (`n = 30`) — LoRA 2 VAL** | `0.9141` (`±0.0269`) | `0.6914` (`±0.0518`) | `0.5197` (`±0.0710`) | `4.88` | `15.88` |
+| **Image-Mean (`n = 30`) — LoRA 3 VAL** | **`0.8878`** (`±0.0291`) | **`0.6650`** (`±0.0549`) | **`0.4479`** (`±0.0660`) | **`4.16`** | **`7.13`** |
+| **Paired Delta (`LoRA 3 - LoRA 2`, `n = 30`)** | **`-0.0262 ± 0.0084`** | **`-0.0264 ± 0.0122`** | **`-0.0718` (`-13.82%`)** | **`-0.72`** | **`-8.75` (`-55.08%`)** |
+| **HR-Solvable Subset (`63 / 154` boxes, HR=0)** — Bicubic | `0.5556` | `0.4184` | — | — | — |
+| **HR-Solvable Subset (`63` boxes)** — LoRA 2 / LoRA 3 | `0.8222` $\to$ **`0.7603`** (`-0.0619`) | `0.6144` $\to$ **`0.5803`** (`-0.0340`) | — | — | — |
+
+#### 3. Visual Inspection of 5 Crop Grids (`results/pilot_lora2_vs_lora3_crops/`)
+- **Mask alignment confirmed:** Text bounding boxes align accurately with `52mm` HR text; failure is not caused by mask misregistration.
+- **LoRA 2 vs. LoRA 3 behavior:** LoRA 2 draws sharp strokes that hallucinate differently across seeds (`crop_02`: `"深圳柏悦酒店"` -> 6 distinct readings; `crop_05`: 10 distinct readings). LoRA 3 is far more consistent (`crop_05`: 4 distinct readings, CER `0.138 -> 0.037`), but fades/blurs strokes and occasionally erases thin characters (`crop_03` `"2024/06/17"` CER `0.570 -> 0.880`), matching `LPIPS +0.0480`.
+- **Both empty-prompt 400-step pilots still lag Bicubic $\times 4$ (`0.5422` vs. `0.6650` CER), especially on dense multi-stroke Chinese characters (`酒`, `馆`, `悦`).**
+
 ---
 
 ## 4. Recommended Next Actions (Track 1 vs. Track 2)
 
 1. **Track 1 (`Assignment 5 Baseline` — Priority Before Mon `16/11 21:00` Internal / Tue `17/11 07:00` Official):**
-   - Do **not** derail Assignment 5 (`RealSRVal_crop128` DoSSR baseline) with LoRA tuning before submission. At most, include a short 1-paragraph summary in Future Work showing the verified `-57.5%` pixel / `-64.1%` LPIPS / `-28.5%` OCR seed-variance reduction at `0.00 GiB` VRAM overhead.
-2. **Track 2 (`LoRA Pilot` Diagnostic Before Any New GPU Run):**
-   - **Zero-GPU OCR re-score (~30s):** Re-run `scripts/text_eval.py --rec-only --rotate-vertical --upscale 2` on the already-saved `pilot-lora2-realce-val-10seed` and `pilot-lora3-realce-val-10seed` folders in Drive to measure true character accuracy on tight Real-CE crops.
-   - **Send Mentor Update to Dr. Thuận** with the verified pilot table and diagnosis (`LPIPS +0.048`, `CER +0.0147` vs `-57.5%` / `-64.1%` / `-28.5%` seed variance reduction).
-   - **Candidate Next Ablation (Once Dr. Thuận Confirms):** Test either lowering `lambda_cons` (`0.5 -> 0.1` or `0.2`) and/or gating consistency to low-to-mid noise timesteps ($t \le 500$ matching DoSSR's `t1_fraction = 0.5` inference regime) to preserve LPIPS sharpness while keeping seed stability, and add LoRA 1 (`alpha_text=1.0, lambda_cons=0.0`) after gating passes.
+   - Keep Assignment 5 (`RealSRVal_crop128` DoSSR baseline) completely separate from LoRA tuning; fill the `Bicubic x4` row in `docs/A5_baseline.tex` (`Table 1`) and submit `25125002_25125042_25125060_25125033.pdf`.
+2. **Track 2 (`LoRA Pilot` Tuning Next — Send Update & Get Dr. Thuận's Sign-Off):**
+   - **Send Mentor Update to Dr. Thuận** including the corrected `--rec-only --upscale 2` OCR results (`wrong_char -0.0262 ± 0.0084`, `CER -0.0264 ± 0.0122`, `-0.0619` on HR-solvable boxes, `seed_disagree -13.82%`), the 5 visual crop grids, and confirmed mask alignment.
+   - **Proposed Next Validation Sweep (After A5 & Mentor Approval):** Lower `lambda_cons` (`0.5 -> 0.1` or `0.2`) and/or apply consistency only for timesteps $t \le 500$ (matching DoSSR's 5-step `t1_fraction = 0.5` inference schedule) to fix thin-stroke erasure and LPIPS softening while keeping seed consistency, before adding LoRA 1 (`alpha_text=1.0, lambda_cons=0.0`).

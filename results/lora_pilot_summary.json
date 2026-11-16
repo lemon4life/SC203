@@ -143,5 +143,130 @@
       "ocr_seed_disagreement": -0.0986,
       "ocr_seed_disagreement_rel_pct": -28.53
     }
+  },
+  "text_eval_reconly_upscale2_val": {
+    "status": "VERIFIED",
+    "date": "2026-11-16",
+    "evaluated_by": "Hồ Quang Minh (M3)",
+    "command": "scripts/text_eval.py --ocr-backend rapidocr --rec-only --rotate-vertical --upscale 2",
+    "boxes_csv": "data/realce_val_boxes.csv",
+    "total_boxes": 154,
+    "solvable_boxes_hr_exact": 63,
+    "solvable_boxes_pct": 40.91,
+    "image_mean_n30": {
+      "hr_ceiling": {
+        "n_images": 30,
+        "wrong_char_rate": 0.5791,
+        "wrong_char_se": 0.0491,
+        "cer": 0.2722,
+        "cer_se": 0.0538
+      },
+      "bicubic_x4": {
+        "n_images": 30,
+        "wrong_char_rate": 0.7979,
+        "wrong_char_se": 0.0445,
+        "cer": 0.5422,
+        "cer_se": 0.0694
+      },
+      "lora2_val": {
+        "n_images": 30,
+        "wrong_char_rate": 0.9141,
+        "wrong_char_se": 0.0269,
+        "cer": 0.6914,
+        "cer_se": 0.0518,
+        "ocr_seed_disagreement": 0.5197,
+        "ocr_seed_disagreement_se": 0.0710,
+        "num_distinct_ocr_mean": 4.8808,
+        "crop_pixel_seed_spread_l1": 15.8839
+      },
+      "lora3_val": {
+        "n_images": 30,
+        "wrong_char_rate": 0.8878,
+        "wrong_char_se": 0.0291,
+        "cer": 0.6650,
+        "cer_se": 0.0549,
+        "ocr_seed_disagreement": 0.4479,
+        "ocr_seed_disagreement_se": 0.0660,
+        "num_distinct_ocr_mean": 4.1593,
+        "crop_pixel_seed_spread_l1": 7.1348
+      },
+      "paired_delta_lora3_minus_lora2": {
+        "wrong_char_rate": -0.0262,
+        "wrong_char_se": 0.0084,
+        "cer": -0.0264,
+        "cer_se": 0.0122,
+        "ocr_seed_disagreement": -0.0718,
+        "ocr_seed_disagreement_rel_pct": -13.82,
+        "num_distinct_ocr_mean": -0.7215,
+        "crop_pixel_seed_spread_l1": -8.7491,
+        "crop_pixel_seed_spread_rel_pct": -55.08
+      }
+    },
+    "box_weighted_all_154": {
+      "boxes": 154,
+      "box_seeds_per_variant": 1540,
+      "hr_ceiling": {
+        "wrong_char_rate": 0.5909,
+        "cer": 0.2908
+      },
+      "bicubic_x4": {
+        "wrong_char_rate": 0.8052,
+        "cer": 0.5770
+      },
+      "lora2_val": {
+        "wrong_char_rate": 0.9182,
+        "cer": 0.7241,
+        "ocr_seed_disagreement": 0.4769,
+        "num_distinct_ocr_mean": 4.5195,
+        "crop_pixel_seed_spread_l1": 15.5509
+      },
+      "lora3_val": {
+        "wrong_char_rate": 0.8942,
+        "cer": 0.6942,
+        "ocr_seed_disagreement": 0.4121,
+        "num_distinct_ocr_mean": 3.9026,
+        "crop_pixel_seed_spread_l1": 6.8595
+      },
+      "delta_lora3_minus_lora2": {
+        "wrong_char_rate": -0.0240,
+        "cer": -0.0299
+      }
+    },
+    "box_weighted_solvable_63": {
+      "boxes": 63,
+      "box_seeds_per_variant": 630,
+      "hr_ceiling": {
+        "wrong_char_rate": 0.0,
+        "cer": 0.0
+      },
+      "bicubic_x4": {
+        "wrong_char_rate": 0.5556,
+        "cer": 0.4184
+      },
+      "lora2_val": {
+        "wrong_char_rate": 0.8222,
+        "cer": 0.6144
+      },
+      "lora3_val": {
+        "wrong_char_rate": 0.7603,
+        "cer": 0.5803
+      },
+      "delta_lora3_minus_lora2": {
+        "wrong_char_rate": -0.0619,
+        "cer": -0.0340
+      }
+    }
+  },
+  "visual_crop_check_m3": {
+    "crops_dir": "results/pilot_lora2_vs_lora3_crops",
+    "notes_file": "docs/M3_3_pilot_reconly_and_crops_notes.md",
+    "num_crops_inspected": 5,
+    "mask_alignment_verified": true,
+    "key_observations": [
+      "LoRA 2 produces sharp strokes but frequently hallucinates characters differently per seed (e.g. crop #2 '深圳柏悦酒店').",
+      "LoRA 3 cuts cross-seed variance (~55% lower crop L1 spread) and lowers CER/wrong_char on solvable & full sets, but faded/blurred strokes at lambda_cons=0.5 explain LPIPS +0.0480 and thin-stroke erasure (e.g. crop #3 '2024/06/17').",
+      "Both 400-step empty-prompt LoRA pilots still trail Bicubic x4 on complex high-stroke Chinese characters (e.g. '酒', '馆', '悦')."
+    ],
+    "next_proposal_for_mentor": "Lower lambda_cons from 0.5 to 0.1-0.2 and/or restrict consistency loss to timesteps t <= 500 matching inference t1_fraction=0.5."
   }
 }

@@ -1,0 +1,44 @@
+#1 ip12pro_output_101APPLE_renew_10_patch000 box 5 (L3 better)
+  GT      : 商场
+  HR read : 商场
+  LR read : 商场
+  LoRA2   : s42:商场 | s43:(empty) | s44:商场 | s45:(empty) | s46:(empty)
+  LoRA3   : s42:商场 | s43:商场 | s44:商场 | s45:(empty) | s46:(empty)
+  meanCER L2=0.800 L3=0.300 distinct L2=2 L3=2
+  file    : crop_01_ip12pro_output_101APPLE_renew_10_patch000_box5.png
+
+#2 ip12pro_output_101APPLE_renew_10_patch000 box 3 (L3 better)
+  GT      : 深圳柏悦酒店
+  HR read : 深圳柏悦酒店
+  LR read : 深圳柏悦酒店
+  LoRA2   : s42:(empty) | s43:保机柏倪酒店 | s44:深圳柏夜运仿 | s45:深圳柏悦旧店 | s46:(empty)
+  LoRA3   : s42:深圳拍俊佰居 | s43:深圳柏悦石店 | s44:深圳柏夜酒店 | s45:深圳柏悦盾店 | s46:东圳柏俊商店
+  meanCER L2=0.717 L3=0.400 distinct L2=6 L3=10
+  file    : crop_02_ip12pro_output_101APPLE_renew_10_patch000_box3.png
+
+#3 ip12pro_output_100APPLE_renew_29_patch000 box 1 (L2 better)
+  GT      : 2024/06/17
+  HR read : 2024/06/17
+  LR read : 
+  LoRA2   : s42:lq741qa71 | s43:2024709717 | s44:7027700717 | s45:202420071 | s46:2074701777
+  LoRA3   : s42:107410671 | s43:(empty) | s44:707100717 | s45:(empty) | s46:(empty)
+  meanCER L2=0.570 L3=0.880 distinct L2=10 L3=4
+  file    : crop_03_ip12pro_output_100APPLE_renew_29_patch000_box1.png
+
+#4 ip11pro_output_TextSR_renew_114_patch000 box 1 (L2 better)
+  GT      : paas
+  HR read : paas
+  LR read : paas
+  LoRA2   : s42:pees1 | s43:paos | s44:paas | s45:paes | s46:paa5
+  LoRA3   : s42:pees i | s43:paosi | s44:paas i | s45:paas | s46:paas
+  meanCER L2=0.250 L3=0.425 distinct L2=6 L3=7
+  file    : crop_04_ip11pro_output_TextSR_renew_114_patch000_box1.png
+
+#5 ip12pro_output_101APPLE_renew_19_patch000 box 3 (L3 most stable)
+  GT      : g+24h生活馆
+  HR read : g+24h生活馆
+  LR read : g+24h生活馆
+  LoRA2   : s42:g+24h生活验 | s43:g+24h生活 | s44:g+24h生活购 | s45:g+24九生活馆 | s46:g+24h主活店
+  LoRA3   : s42:g+24h生活馆 | s43:g+24h生活馆 | s44:g+24h生活做 | s45:g+24力生活馆 | s46:g+24h主活馆
+  meanCER L2=0.138 L3=0.037 distinct L2=10 L3=4
+  file    : crop_05_ip12pro_output_101APPLE_renew_19_patch000_box3.png

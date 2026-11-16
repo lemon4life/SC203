@@ -5,7 +5,7 @@
 **Required Submission Format:** One PDF named `<StudentID1>_<StudentID2>_<StudentID3>_<StudentID4>.pdf`  
 **Final Submission Filename:** `25125002_25125042_25125060_25125033.pdf`  
 (Nguyễn Anh `25125002`, Gia Hân `25125042`, Quang Minh `25125060`, Minh Nhật `25125033`)  
-**Last Updated:** Sunday, `15/11/2026` (recording verified LoRA 2 vs. LoRA 3 pilot results from `notebooks/03_lora_pilot_colab.ipynb`)
+**Last Updated:** Monday, `16/11/2026` (integrating Member 3's `--rec-only --upscale 2` OCR re-score and 5-crop diagnostic check)
 
 ---
 
@@ -46,7 +46,7 @@
 | :--- | :---: | :--- | :---: | :---: |
 | **Sat `14/11`** | `21:00` | **`VERIFIED` Task M1-1:** Scene-disjoint `scripts/split_realce_by_scene.py` (`0` overlap).<br>**`VERIFIED` Task M3-1:** `src/lora_text_loss.py` CPU tests `(a)`–`(f)` + dry run.<br>**Pending Task M4-1:** Update `docs/A5_baseline.tex` with 193 vs 136 table, 32.83% formula, and eduroam crop note. | **M1** (`Nguyên Anh`)<br>**M3** (`Quang Minh`)<br>**M4** (`Minh Nhật`) | Track 1 & 2 |
 | **Sun `15/11`** | `14:00` | **`VERIFIED` Task M1-2 & M3-2:** Colab GPU Pilot (`400` steps each) + 10-seed 5-step Val inference completed (`8.04 GiB` peak alloc for both, `4.67s` vs `5.38s/step`, `-57.5%` pixel / `-64.1%` LPIPS seed diff, `-28.5%` OCR disagreement). | **M1** (`Nguyên Anh`) & **M3** (`Quang Minh`) | Track 2 |
-| **Sun `15/11`** | `18:00` | **Task M2-2 (Follow-Up):** Initial default `det+rec` OCR numbers captured; re-run `text_eval.py --rec-only --rotate-vertical --upscale 2` on saved Drive PNGs + inspect visual failure crops for gating/tuning. | **M2** (`Gia Hân`) & **M3** (`Quang Minh`) | Track 2 |
+| **Sun `15/11` – Mon `16/11`** | `18:00` | **`VERIFIED` Task M2-2 & M3-3:** Re-scored saved Drive PNGs with `--rec-only --rotate-vertical --upscale 2` (`154` boxes: $\Delta\text{wrong\_char} = -0.0262 \pm 0.0084$, $\Delta\text{CER} = -0.0264 \pm 0.0122$, `-0.0619` on 63 HR-solvable boxes, `-13.82%` OCR disagreement) + 5 crop grids & mask alignment verified (`docs/M3_3_pilot_reconly_and_crops_notes.md`). | **M3** (`Quang Minh`) *(covering M2-2 + M3-3)* | Track 2 |
 | **Sun `15/11`** | `21:00` | **A5 Internal Freeze:** Complete Section 1–6 in `docs/A5_baseline.tex`, compile clean PDF on Overleaf, execute Number-Audit Check against `docs/fact_sheet_for_report.md`. | **M4** (`Minh Nhật`) & **M1** (`Nguyên Anh`) | **Track 1 (`A5`)** |
 | **Mon `16/11`** | **`21:00`** | **INTERNAL SUBMIT DEADLINE:** Final proofread, export `25125002_25125042_25125060_25125033.pdf`, submit Assignment 5, and archive confirmation screenshot. | **M1** (`Nguyên Anh`) & All | **Track 1 (`A5`)** |
 | **Tue `17/11`** | **`07:00`** | **OFFICIAL COURSE DEADLINE: Group Assignment 5 (`Baseline`).** | All | **Track 1 (`A5`)** |
@@ -115,24 +115,14 @@
      - Ensure `results/text_eval_*.csv` and `results/text_eval_a5_summary.json` (`scripts/analyze_text_eval_a5.py`) match the verified 193-box / 136-solvable / 57-unsolvable breakdown.
      - Verify the 136-solvable subset stats ($0.0\%$ HR ceiling, $66.32\%$ DoSSR error rate, $71.32\%$ Bicubic floor, $34.05\%$ cross-seed disagreement).
      - Verify the 4-panel `eduroam` comparison figure (`figures/eduroam_10seeds.png` or `figures/eduroam_comparison.png`).
-  2. **Task M2-2: Pilot Evaluation Pipeline (LoRA 2 vs. LoRA 3) [`INITIAL VERIFIED` / `--rec-only` RE-RUN `PENDING`]:**
-     - Initial default RapidOCR (`det+rec`, `--upscale 1`, `n=30` patches) recorded in `CELL 07` (`results/lora_pilot_summary.json`):
-       * **HR Ceiling (`n=30`):** `wrong_char=0.9291` | `CER=0.7334` *(tight word crops missed by `DBNet` detector without `--rec-only --upscale 2`)*.
-       * **Bicubic $\times 4$ (`n=30`):** `wrong_char=0.9889` | `CER=0.9603`.
-       * **LoRA 2 VAL:** `wrong_char=0.9838` | `CER=0.8908` | `seed_disagree=0.3456`.
-       * **LoRA 3 VAL:** `wrong_char=0.9857` | `CER=0.9055` | `seed_disagree=0.2470` (**`-28.53%`** relative seed disagreement drop).
-       * **Deltas (`LoRA 3 - LoRA 2`):** $\Delta \text{wrong\_char} = +0.0019$, $\Delta \text{CER} = +0.0147$, $\Delta \text{seed\_disagree} = -0.0986$ (`-28.53%`), $\Delta \text{LPIPS} = +0.0480$ (`0.4231 -> 0.4711`).
-     - **Immediate Zero-GPU Follow-Up:** Re-run `scripts/text_eval.py` on the already-saved Drive outputs with `--rec-only --rotate-vertical --upscale 2` and inspect 3–5 validation crops side-by-side (`LR`, `LoRA 2`, `LoRA 3`, `HR`):
-       ```bash
-       python scripts/text_eval.py \
-         --study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora2-realce-val-10seed" \
-         --compare-study-root "/content/drive/MyDrive/lemmepass/outputs/pilot-lora3-realce-val-10seed" \
-         --hr-dir "/content/data_local/RealCE_patches/val/HR" \
-         --lr-dir "/content/data_local/RealCE_patches/val/LR" \
-         --boxes-csv "data/realce_val_boxes.csv" \
-         --rec-only --rotate-vertical --upscale 2 \
-         --output-dir "results/pilot_lora2_vs_lora3_reconly"
-       ```
+  2. **Task M2-2: Pilot Evaluation Pipeline (LoRA 2 vs. LoRA 3) [`VERIFIED` 2026-11-16 — Completed by M3]:**
+     - Initial default RapidOCR (`det+rec`, `--upscale 1`, `n=30` patches) recorded in `CELL 07` (`results/lora_pilot_summary.json`) was misled by `DBNet` missing tight crops (`HR Ceiling` CER `0.7334`).
+     - Re-scored on Nov 16 by `M3` (`Quang Minh`) using `--ocr-backend rapidocr --rec-only --rotate-vertical --upscale 2` (`results/pilot_lora2_vs_lora3_reconly/`, `results/pilot_lora3_reconly/`, `154` boxes across `30` patches):
+       * **HR Ceiling (`n=30`):** `wrong_char=0.5791 (±0.0491)` | `CER=0.2722 (±0.0538)` (`63/154 = 40.9%` exact HR-solvable boxes).
+       * **Bicubic $\times 4$ (`n=30`):** `wrong_char=0.7979 (±0.0445)` | `CER=0.5422 (±0.0694)` (`0.5556` / `0.4184` on 63 solvable boxes).
+       * **LoRA 2 VAL (`42..51`):** `wrong_char=0.9141 (±0.0269)` | `CER=0.6914 (±0.0518)` | `seed_disagree=0.5197 (±0.0710)` (`0.8222` / `0.6144` on 63 solvable).
+       * **LoRA 3 VAL (`42..51`):** **`wrong_char=0.8878`** `(±0.0291)` | **`CER=0.6650`** `(±0.0549)` | **`seed_disagree=0.4479`** `(±0.0660)` (`0.7603` / `0.5803` on 63 solvable).
+       * **Paired Deltas (`LoRA 3 - LoRA 2`):** $\Delta \text{wrong\_char} = -0.0262 \pm 0.0084$ (`-0.0619` on 63 solvable), $\Delta \text{CER} = -0.0264 \pm 0.0122$ (`-0.0340` on 63 solvable), $\Delta \text{seed\_disagree} = -0.0718$ (**`-13.82%`**), $\Delta \text{crop\_px\_L1} = -8.75$ (**`-55.08%`**), $\Delta \text{LPIPS} = +0.0480$ (`0.4231 -> 0.4711`).
 
 ---
 
@@ -149,8 +139,10 @@
        * `(f)` LoRA checkpoint save/load roundtrip fidelity.
   2. **Task M3-2: Support Colab Pilot Execution [`VERIFIED` 2026-11-15]:**
      - Verified lockstep convergence (`step 1` identical `rec=0.9776`, `text_l1=0.3544`; `step 400` LoRA 2 `rec=0.4878` vs. LoRA 3 `rec=0.4851`, `cons` `0.1571 -> 0.1299`) at zero extra peak VRAM (`8.04 GiB` allocated).
-  3. **Task M3-3: Post-Pilot Decision Action [`ACTIVE`]:**
-     - Diagnose the stability-vs-sharpness trade-off (`pair_px -57.50%`, `pair_lpips -64.06%`, `seed_disagree -28.53%` vs. `LPIPS +0.0480`, `CER +0.0147`): verify `--rec-only --rotate-vertical --upscale 2` OCR results with M2 and test tuning `lambda_cons` (`0.5 -> 0.1` or `0.2`) and/or restricting consistency to $t \le 500$ (matching inference `t1_fraction=0.5`) if approved by Dr. Thuận before training LoRA 1.
+  3. **Task M3-3: Post-Pilot Decision Action [`VERIFIED` 2026-11-16 — Pending Mentor Sign-Off]:**
+     - Executed `--rec-only --rotate-vertical --upscale 2` OCR re-score (`M2-2`) and inspected 5 multi-seed validation crop grids (`results/pilot_lora2_vs_lora3_crops/`, documented in `docs/M3_3_pilot_reconly_and_crops_notes.md`).
+     - Verified mask alignment is clean; diagnosed `LPIPS +0.0480` and thin-stroke erasure (`2024/06/17`) as `lambda_cons=0.5` over-smoothing across all $t \in [0, 999)$.
+     - Proposed next tuning step for Dr. Thuận: reduce `lambda_cons` (`0.5 -> 0.1`–`0.2`) and/or apply consistency only for $t \le 500$ (matching inference `t1_fraction=0.5`).
 
 ---
 
@@ -203,12 +195,11 @@
   [x] Pass 6 CPU unit tests (a)-(f) in src/lora_text_loss.py & scripts/run_lora_trial.py --dry-run-cpu.
   [x] Configure LoRA 2 (configs/lora2_pilot.yaml) and LoRA 3 (configs/lora3_pilot.yaml) + notebooks/03_lora_pilot_colab.ipynb.
 
-[PHASE 5: Colab GPU Pilot Run & Gating Evaluation] (PILOT COMPLETED 2026-11-15 / OCR RE-SCORE PENDING)
+[PHASE 5: Colab GPU Pilot Run & Gating Evaluation] (COMPLETED / VERIFIED 2026-11-16)
   [x] Run LoRA 2 pilot on Colab GPU (4.67s/step mean, 8.04 GiB alloc / 8.52 GiB reserved).
   [x] Run LoRA 3 pilot on Colab GPU (5.38s/step mean, 8.04 GiB alloc / 8.52 GiB reserved — 0.00 GiB extra VRAM).
   [x] 10-seed 5-step inference on fixed validation set (30 patches x 10 seeds: PSNR_Y +0.5848 dB, SSIM_Y +0.0300, LPIPS +0.0480, pair_px -57.50%, pair_lpips -64.06%).
-  [x] Initial default RapidOCR evaluation (-28.53% seed disagreement, delta_wrong_char +0.0019, delta_CER +0.0147; documented in results/lora_pilot_summary.json & docs/after_03_lora_pilot_discovery.md).
-  [ ] Re-run text_eval.py --rec-only --rotate-vertical --upscale 2 on saved Drive PNGs + inspect visual failure crops (M2/M3) before gating decision with Dr. Thuan.
+  [x] Re-run text_eval.py --rec-only --rotate-vertical --upscale 2 on saved Drive PNGs + inspect 5 visual crops (M3 on 2026-11-16: delta_wrong_char -0.0262 ± 0.0084, delta_CER -0.0264 ± 0.0122, -6.19% on 63 solvable boxes, -13.82% OCR disagreement, -55.08% crop pixel spread; masks aligned; lambda_cons=0.5 over-smoothing diagnosed).
 
 [PHASE 6: Gated Full Training & Gating Decision] (TARGET: Wed 18/11)
   [ ] If Gate Passes: Train LoRA 1 (baseline loss) for the full 3-way ablation.

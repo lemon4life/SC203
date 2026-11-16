@@ -21,8 +21,12 @@ Curated summary CSVs, whole-image metrics tables, and 10-seed text evaluation ta
   - `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
   - `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
 
-### 4. LoRA 2 vs. LoRA 3 Pilot Summary on Real-CE $\times 4$ (`VERIFIED`, Nov 15, 2026)
-- `results/lora_pilot_summary.json` — Verified controlled `400`-step Colab pilot results (`notebooks/03_lora_pilot_colab.ipynb` `CELL 05`–`07`, `30` scene-disjoint val patches $\times$ `10` seeds `42..51`, `5` inference steps):
+### 4. LoRA 2 vs. LoRA 3 Pilot Summary on Real-CE $\times 4$ (`VERIFIED`, Nov 15–16, 2026)
+- `results/lora_pilot_summary.json` — Controlled `400`-step Colab pilot results (`notebooks/03_lora_pilot_colab.ipynb` `CELL 05`–`07`, `30` scene-disjoint val patches $\times$ `10` seeds `42..51`, `5` inference steps):
   - **Training Cost & VRAM (`1,659,904` trainable params):** LoRA 2 `4.67 s/step`, `8.04 GiB` allocated (`8.52 GiB` reserved); LoRA 3 `5.38 s/step` (`+15.20%`), **`8.04 GiB` allocated (`0.00 GiB` extra VRAM)**.
   - **10-Seed Whole-Patch Metrics (`LoRA 3 - LoRA 2`):** `PSNR_Y` `17.6980 -> 18.2828` (`+0.5848 dB`), `SSIM_Y` `0.6442 -> 0.6742` (`+0.0300`), `LPIPS` `0.4231 -> 0.4711` (`+0.0480`), `pair_px` `9.2715 -> 3.9405` (**`-57.50%`**), `pair_lpips` `0.2020 -> 0.0726` (**`-64.06%`**).
-  - **Text-Box OCR (default RapidOCR `det+rec`, `--upscale 1`, `n=30`):** OCR `seed_disagree` `0.3456 -> 0.2470` (**`-28.53%`**), `wrong_char` `+0.0019` (`0.9838 -> 0.9857`), `CER` `+0.0147` (`0.8908 -> 0.9055`); see `docs/after_03_lora_pilot_discovery.md` for diagnostic notes and `--rec-only --rotate-vertical --upscale 2` follow-up.
+  - **Corrected OCR Re-Score (`results/pilot_lora2_vs_lora3_reconly/`, `results/pilot_lora3_reconly/` — RapidOCR `--rec-only --rotate-vertical --upscale 2`, `30` patches / `154` boxes, M3 on Nov 16):**
+    - `HR Ceiling` CER improved from `0.7334` (`det+rec`) to `0.2722` (`0.5791` wrong-char), confirming the earlier `det+rec` run suffered detector misses on tight crops.
+    - **Image-mean (`n=30`):** LoRA 3 beats LoRA 2 across all text metrics: `wrong_char` `0.9141 -> 0.8878` (**`-0.0262 ± 0.0084`**), `CER` `0.6914 -> 0.6650` (**`-0.0264 ± 0.0122`**), `seed_disagree` `0.5197 -> 0.4479` (**`-13.82%`**), `crop_pixel_seed_spread_l1` `15.8839 -> 7.1348` (**`-55.08%`**).
+    - **HR-solvable cohort (`63 / 154` boxes where HR wrong-char == 0):** `Bicubic x4` `0.5556` (`CER 0.4184`), `LoRA 2` `0.8222` (`CER 0.6144`), `LoRA 3` `0.7603` (`CER 0.5803`, **`-0.0619`** error rate delta).
+  - **Visual Crop Grids (`results/pilot_lora2_vs_lora3_crops/`, notes in `docs/M3_3_pilot_reconly_and_crops_notes.md`):** 5 multi-seed grids comparing `LR bicubic`, `LoRA 2`, `LoRA 3`, and `HR`.

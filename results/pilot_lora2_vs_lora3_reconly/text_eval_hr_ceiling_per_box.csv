@@ -1,0 +1,155 @@
+reference,image,stem,box_id,x,y,w,h,crop_upscale,gt_transcript,gt_norm,ocr_raw,ocr_norm,exact_match,wrong_char,wrong_char_yes_no,cer,wrong_char_case_sensitive,cer_case_sensitive
+HR_CEILING,ip11pro_output_TextSR-20211222_renew_23_patch000.png,ip11pro_output_TextSR-20211222_renew_23_patch000,1,346,432,144,80,2,小,小,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip11pro_output_TextSR-20211222_renew_23_patch000.png,ip11pro_output_TextSR-20211222_renew_23_patch000,2,185,235,232,70,2,tteas,tteas,Tst East,tst east,0,1,yes,0.6,1,1.0
+HR_CEILING,ip11pro_output_TextSR-20211222_renew_23_patch000.png,ip11pro_output_TextSR-20211222_renew_23_patch000,3,237,155,264,51,2,tower9h,tower9h,Tower 96,tower 96,0,1,yes,0.2857142857142857,1,0.42857142857142855
+HR_CEILING,ip11pro_output_TextSR-20211222_renew_23_patch000.png,ip11pro_output_TextSR-20211222_renew_23_patch000,4,16,144,179,68,2,hon,hon,Hilton,hilton,0,1,yes,1.0,1,1.3333333333333333
+HR_CEILING,ip11pro_output_TextSR_renew_101_patch000.png,ip11pro_output_TextSR_renew_101_patch000,1,26,435,244,74,2,aprior算法,aprior算法,Apriori算法,apriori算法,0,1,yes,0.125,1,0.25
+HR_CEILING,ip11pro_output_TextSR_renew_101_patch000.png,ip11pro_output_TextSR_renew_101_patch000,2,37,258,191,67,2,cart,cart,(CART）,cart,1,0,no,0.0,1,1.0
+HR_CEILING,ip11pro_output_TextSR_renew_101_patch000.png,ip11pro_output_TextSR_renew_101_patch000,3,16,188,268,54,2,集成方法、,集成方法、,集成方法、,集成方法、,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_101_patch000.png,ip11pro_output_TextSR_renew_101_patch000,4,16,80,455,84,2,法、logsic回归算法,法、logsic回归算法,法、Logistic回归算法,法、logistic回归算法,0,1,yes,0.16666666666666666,1,0.25
+HR_CEILING,ip11pro_output_TextSR_renew_101_patch000.png,ip11pro_output_TextSR_renew_101_patch000,5,16,16,346,49,2,的监督学习算法,的监督学习算法,的监督学习算法,的监督学习算法,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_114_patch000.png,ip11pro_output_TextSR_renew_114_patch000,1,29,455,142,52,2,paas,paas,Paas ,paas,1,0,no,0.0,1,0.25
+HR_CEILING,ip11pro_output_TextSR_renew_114_patch000.png,ip11pro_output_TextSR_renew_114_patch000,2,220,310,164,45,2,docker,docker,Docker,docker,1,0,no,0.0,1,0.16666666666666666
+HR_CEILING,ip11pro_output_TextSR_renew_114_patch000.png,ip11pro_output_TextSR_renew_114_patch000,3,175,237,162,39,2,docker,docker,Docker,docker,1,0,no,0.0,1,0.16666666666666666
+HR_CEILING,ip11pro_output_TextSR_renew_114_patch000.png,ip11pro_output_TextSR_renew_114_patch000,4,70,67,242,67,2,—ec,—ec,EMC,emc,0,1,yes,0.6666666666666666,1,1.0
+HR_CEILING,ip11pro_output_TextSR_renew_114_patch000.png,ip11pro_output_TextSR_renew_114_patch000,5,151,7,354,45,2,本书都很有帮助。,本书都很有帮助。,本书都很有帮助。,本书都很有帮助。,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_20_patch000.png,ip11pro_output_TextSR_renew_20_patch000,1,29,444,172,57,2,10tnu11,10tnu11,notnull,notnull,0,1,yes,0.5714285714285714,1,0.5714285714285714
+HR_CEILING,ip11pro_output_TextSR_renew_20_patch000.png,ip11pro_output_TextSR_renew_20_patch000,2,24,375,156,54,2,isnu1,isnu1,isnull,isnull,0,1,yes,0.4,1,0.4
+HR_CEILING,ip11pro_output_TextSR_renew_20_patch000.png,ip11pro_output_TextSR_renew_20_patch000,3,3,305,177,55,2,11108,11108,fillna,fillna,0,1,yes,1.2,1,1.2
+HR_CEILING,ip11pro_output_TextSR_renew_20_patch000.png,ip11pro_output_TextSR_renew_20_patch000,4,27,171,155,55,2,dopn,dopn,dropna,dropna,0,1,yes,0.5,1,0.5
+HR_CEILING,ip11pro_output_TextSR_renew_20_patch000.png,ip11pro_output_TextSR_renew_20_patch000,5,16,16,374,57,2,表7-1:na处理方法,表7-1:na处理方法,表7-1:NA处理方法,表7-1:na处理方法,1,0,no,0.0,1,0.18181818181818182
+HR_CEILING,ip11pro_output_TextSR_renew_34_patch000.png,ip11pro_output_TextSR_renew_34_patch000,1,132,391,334,61,2,fuoidetoothpaste,fuoidetoothpaste,Fluoride Toothpaste,fluoride toothpaste,0,1,yes,0.1875,1,0.3125
+HR_CEILING,ip11pro_output_TextSR_renew_34_patch000.png,ip11pro_output_TextSR_renew_34_patch000,2,53,312,407,79,2,orignalstongmi,orignalstongmi,Original Strong Min,original strong min,0,1,yes,0.35714285714285715,1,0.5714285714285714
+HR_CEILING,ip11pro_output_TextSR_renew_34_patch000.png,ip11pro_output_TextSR_renew_34_patch000,3,280,96,155,46,2,essence,essence,Essence,essence,1,0,no,0.0,1,0.14285714285714285
+HR_CEILING,ip11pro_output_TextSR_renew_34_patch000.png,ip11pro_output_TextSR_renew_34_patch000,4,278,43,132,52,2,mit,mit,Mint,mint,0,1,yes,0.3333333333333333,1,0.6666666666666666
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,1,105,403,100,67,2,135,135,1.35,1.35,0,1,yes,0.3333333333333333,1,0.3333333333333333
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,2,94,330,104,58,2,250,250,250,250,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,3,80,253,110,52,2,210,210,210,210,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,4,110,180,62,48,2,12,12,12,12,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,5,90,93,98,56,2,029,029,0.29,0.29,0,1,yes,0.3333333333333333,1,0.3333333333333333
+HR_CEILING,ip11pro_output_TextSR_renew_41_patch000.png,ip11pro_output_TextSR_renew_41_patch000,6,16,16,260,40,2,220y~50h2,220y~50h2,220V~50Hz,220v~50hz,0,1,yes,0.2222222222222222,1,0.3333333333333333
+HR_CEILING,ip11pro_output_testSR_2101225_xwm_renew_0_patch000.png,ip11pro_output_testSR_2101225_xwm_renew_0_patch000,1,101,342,316,122,2,buare,buare,square,square,0,1,yes,0.4,1,0.4
+HR_CEILING,ip11pro_output_testSR_2101225_xwm_renew_0_patch000.png,ip11pro_output_testSR_2101225_xwm_renew_0_patch000,2,16,224,244,117,2,heng,heng,Heng,heng,1,0,no,0.0,1,0.25
+HR_CEILING,ip11pro_output_testSR_2101225_xwm_renew_0_patch000.png,ip11pro_output_testSR_2101225_xwm_renew_0_patch000,3,26,104,398,115,2,latejh,latejh,Later Jin,later jin,0,1,yes,0.6666666666666666,1,1.0
+HR_CEILING,ip11pro_output_textSR_211206_renew_46_patch000.png,ip11pro_output_textSR_211206_renew_46_patch000,1,168,405,171,67,2,¥3.00,¥3.00,￥3.00,¥3.00,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_211206_renew_46_patch000.png,ip11pro_output_textSR_211206_renew_46_patch000,2,170,317,171,62,2,至2.00,至2.00,￥2.00,¥2.00,0,1,yes,0.2,1,0.2
+HR_CEILING,ip11pro_output_textSR_211206_renew_46_patch000.png,ip11pro_output_textSR_211206_renew_46_patch000,3,170,223,172,66,2,￥7.00,¥7.00,￥ 7.00,¥ 7.00,0,1,yes,0.2,1,0.2
+HR_CEILING,ip11pro_output_textSR_211206_renew_46_patch000.png,ip11pro_output_textSR_211206_renew_46_patch000,4,177,132,172,66,2,￥5.00,¥5.00,¥ 5.00,¥ 5.00,0,1,yes,0.2,1,0.2
+HR_CEILING,ip11pro_output_textSR_211206_renew_46_patch000.png,ip11pro_output_textSR_211206_renew_46_patch000,5,175,41,169,62,2,￥6.00,¥6.00,￥6.00,¥6.00,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_211206_renew_8_patch000.png,ip11pro_output_textSR_211206_renew_8_patch000,1,197,232,119,49,2,2021,2021,2021,2021,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_211206_renew_8_patch000.png,ip11pro_output_textSR_211206_renew_8_patch000,2,154,180,219,41,2,calendar,calendar,Calendar,calendar,1,0,no,0.0,1,0.125
+HR_CEILING,ip11pro_output_textSR_211206_renew_8_patch000.png,ip11pro_output_textSR_211206_renew_8_patch000,3,206,122,126,44,2,desk,desk,Desk,desk,1,0,no,0.0,1,0.25
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,1,6,378,324,56,2,质量目标江”杯,质量目标江”杯,质量目标“瓯江”杯,质量目标“瓯江”杯,0,1,yes,0.2857142857142857,1,0.2857142857142857
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,2,23,317,239,47,2,总工期820天,总工期820天,总工期820天,总工期820天,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,3,174,269,173,43,2,55865.84m,55865.84m,55865.84m,55865.84m,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,4,8,254,144,41,2,建筑面积,建筑面积,建筑面积,建筑面积,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,5,10,191,297,59,2,结构类型框剪结构,结构类型框剪结构,结构类型 框剪结构,结构类型 框剪结构,0,1,yes,0.125,1,0.125
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,6,184,147,240,50,2,184309999.00元,184309999.00元,184309999.00元,184309999.00元,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,7,6,131,140,41,2,工程造价,工程造价,工程造价,工程造价,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,8,12,70,134,44,2,监督单位,监督单位,监督单位,监督单位,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_textSR_220111_xwm_renew_98_patch000.png,ip11pro_output_textSR_220111_xwm_renew_98_patch000,9,16,16,174,45,2,施工单位,施工单位,施工单位,施工单位,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,1,327,427,106,67,2,美塘,美塘,美塘,美塘,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,2,71,415,248,68,2,wetowr,wetowr,WeTown,wetown,0,1,yes,0.16666666666666666,1,0.5
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,3,101,240,310,32,2,地点·美塘广场星田克宽,地点·美塘广场星田克宽,地点：美塘广场星巴克旁,地点:美塘广场星巴克旁,0,1,yes,0.2727272727272727,1,0.2727272727272727
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,4,80,193,354,45,2,时间：每周三下午3点至6点,时间:每周三下午3点至6点,时间：每周三下午3点至6点,时间:每周三下午3点至6点,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,5,190,125,141,51,2,回武乐,回武乐,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_1_patch000.png,ip11pro_output_xwm_textSR_211021_renew_1_patch000,6,184,14,149,55,2,日酒,日酒,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_22_patch000.png,ip11pro_output_xwm_textSR_211021_renew_22_patch000,1,6,459,197,48,2,2021届,2021届,2021届|,2021届,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_22_patch000.png,ip11pro_output_xwm_textSR_211021_renew_22_patch000,2,6,394,181,55,2,2021届,2021届,2021届,2021届,1,0,no,0.0,0,0.0
+HR_CEILING,ip11pro_output_xwm_textSR_211021_renew_22_patch000.png,ip11pro_output_xwm_textSR_211021_renew_22_patch000,3,23,79,445,53,2,2021届王奔植同学,2021届王奔植同学,2021届|王奔蔺同学,2021届|王奔蔺同学,0,1,yes,0.2,1,0.2
+HR_CEILING,ip12pro_output_100APPLE_renew_29_patch000.png,ip12pro_output_100APPLE_renew_29_patch000,1,61,293,390,66,2,2024/06/17,2024/06/17,2024/06/17,2024/06/17,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_100APPLE_renew_29_patch000.png,ip12pro_output_100APPLE_renew_29_patch000,2,67,226,379,61,2,2021/06/18,2021/06/18,2021/06/18,2021/06/18,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_100APPLE_renew_29_patch000.png,ip12pro_output_100APPLE_renew_29_patch000,3,81,161,224,64,2,210601,210601,210601,210601,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,1,63,349,268,52,2,dongbinroad,dongbinroad,Dongbin Road,dongbin road,0,1,yes,0.09090909090909091,1,0.2727272727272727
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,2,84,252,217,88,2,东滨路,东滨路,东滨路,东滨路,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,3,43,187,305,57,2,naryoucinema,naryoucinema,Nanyou Cinema,nanyou cinema,0,1,yes,0.16666666666666666,1,0.3333333333333333
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,4,16,95,346,83,2,南油景国院,南油景国院,南油影剧院,南油影剧院,0,1,yes,0.4,1,0.4
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,5,55,33,161,47,2,ntenet,ntenet,Internet,internet,0,1,yes,0.3333333333333333,1,0.3333333333333333
+HR_CEILING,ip12pro_output_100APPLE_renew_5_patch000.png,ip12pro_output_100APPLE_renew_5_patch000,6,224,24,281,52,2,ndustrialpark,ndustrialpark,Industrial Park,industrial park,0,1,yes,0.15384615384615385,1,0.23076923076923078
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,1,29,399,207,44,2,parkhvat,parkhvat,PARK HYATT,park hyatt,0,1,yes,0.375,1,1.25
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,2,243,397,192,41,2,shenzhen,shenzhen,SHENZHEN,shenzhen,1,0,no,0.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,3,34,333,396,58,2,深圳柏悦酒店,深圳柏悦酒店,深圳柏悦酒店,深圳柏悦酒店,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,4,24,243,186,42,2,pafcmal,pafcmal,PAFC MALL,pafc mall,0,1,yes,0.2857142857142857,1,1.2857142857142858
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,5,22,177,133,63,2,商场,商场,商场,商场,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,6,23,89,154,38,2,towerb,towerb,TOWER B,tower b,0,1,yes,0.16666666666666666,1,1.1666666666666667
+HR_CEILING,ip12pro_output_101APPLE_renew_10_patch000.png,ip12pro_output_101APPLE_renew_10_patch000,7,16,16,252,63,2,办公楼,办公楼,办公楼B,办公楼b,0,1,yes,0.3333333333333333,1,0.3333333333333333
+HR_CEILING,ip12pro_output_101APPLE_renew_19_patch000.png,ip12pro_output_101APPLE_renew_19_patch000,1,187,409,139,54,2,g+24h,g+24h,G+ 24H,g+ 24h,0,1,yes,0.2,1,0.6
+HR_CEILING,ip12pro_output_101APPLE_renew_19_patch000.png,ip12pro_output_101APPLE_renew_19_patch000,2,325,406,180,48,2,lifehal,lifehal,LIFE HALL,life hall,0,1,yes,0.2857142857142857,1,1.2857142857142858
+HR_CEILING,ip12pro_output_101APPLE_renew_19_patch000.png,ip12pro_output_101APPLE_renew_19_patch000,3,23,339,474,67,2,g+24h生活馆,g+24h生活馆,G+24h生活馆,g+24h生活馆,1,0,no,0.0,1,0.125
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,1,278,425,201,42,2,binhaibvd,binhaibvd,Binhai Blvd,binhai blvd,0,1,yes,0.2222222222222222,1,0.4444444444444444
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,2,253,343,243,82,2,滨海大道,滨海大道,滨海大道,滨海大道,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,3,269,301,218,38,2,hounaibvd,hounaibvd,Houhai Blvd,houhai blvd,0,1,yes,0.3333333333333333,1,0.5555555555555556
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,4,255,219,236,82,2,后海大道,后海大道,后海大道,后海大道,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,5,188,169,173,40,2,nanxnbd,nanxnbd,Nanxin Rd,nanxin rd,0,1,yes,0.42857142857142855,1,0.5714285714285714
+HR_CEILING,ip12pro_output_101APPLE_renew_27_patch000.png,ip12pro_output_101APPLE_renew_27_patch000,6,16,158,93,46,2,bvd,bvd,Blvd,blvd,0,1,yes,0.3333333333333333,1,0.6666666666666666
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,1,16,402,79,21,2,新兰街,新兰街,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,2,2,362,102,25,2,号沙花园,号沙花园,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,3,1,249,118,28,2,专价20,专价20,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,4,0,221,112,21,2,xo68,xo68,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,5,6,184,111,25,2,民务代日,民务代日,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,6,3,106,117,20,2,办民,办民,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_28_patch000.png,ip12pro_output_101APPLE_renew_28_patch000,7,11,77,100,16,2,白人叉吃义,白人叉吃义,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,1,20,440,160,28,2,18664945686,18664945686,18664945686,18664945686,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,2,16,396,207,31,2,精装，有钥匙,"精装,有钥匙",精装，有钥匙,"精装,有钥匙",1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,3,4,352,206,31,2,2房1厅1卫,2房1厅1卫,2房1厅1卫,2房1厅1卫,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,4,444,345,32,22,2,月,月,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,5,12,298,103,44,2,782,782,78 ㎡,78 m2,0,1,yes,0.6666666666666666,1,0.6666666666666666
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,6,180,253,84,35,2,元月,元月,元/月,元/月,0,1,yes,0.5,1,0.5
+HR_CEILING,ip12pro_output_101APPLE_renew_42_patch000.png,ip12pro_output_101APPLE_renew_42_patch000,7,13,226,154,60,2,8200,8200,8200,8200,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_71_patch000.png,ip12pro_output_101APPLE_renew_71_patch000,1,210,409,216,47,2,500meters,500meters,500 Meters,500 meters,0,1,yes,0.1111111111111111,1,0.2222222222222222
+HR_CEILING,ip12pro_output_101APPLE_renew_71_patch000.png,ip12pro_output_101APPLE_renew_71_patch000,2,172,348,227,67,2,500米,500米,500米,500米,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_71_patch000.png,ip12pro_output_101APPLE_renew_71_patch000,3,87,292,230,32,2,publictoie,publictoie,Public Toilet,public toilet,0,1,yes,0.3,1,0.5
+HR_CEILING,ip12pro_output_101APPLE_renew_71_patch000.png,ip12pro_output_101APPLE_renew_71_patch000,4,90,226,332,60,2,公真洗手肉,公真洗手肉,公共洗手间,公共洗手间,0,1,yes,0.4,1,0.4
+HR_CEILING,ip12pro_output_101APPLE_renew_74_patch000.png,ip12pro_output_101APPLE_renew_74_patch000,1,76,418,289,51,2,andazhote,andazhote,Andaz Hotel,andaz hotel,0,1,yes,0.2222222222222222,1,0.4444444444444444
+HR_CEILING,ip12pro_output_101APPLE_renew_74_patch000.png,ip12pro_output_101APPLE_renew_74_patch000,2,57,329,319,75,2,安达仕酒店,安达仕酒店,安达仕酒店,安达仕酒店,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_74_patch000.png,ip12pro_output_101APPLE_renew_74_patch000,3,16,222,402,65,2,crcapitaltower,crcapitaltower,CR Capital Tower,cr capital tower,0,1,yes,0.14285714285714285,1,0.42857142857142855
+HR_CEILING,ip12pro_output_101APPLE_renew_74_patch000.png,ip12pro_output_101APPLE_renew_74_patch000,4,25,137,379,75,2,华润金融大厦,华润金融大厦,华润金融大厦,华润金融大厦,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_74_patch000.png,ip12pro_output_101APPLE_renew_74_patch000,5,78,31,405,64,2,resourcestowe,resourcestowe,Resources Tower,resources tower,0,1,yes,0.15384615384615385,1,0.3076923076923077
+HR_CEILING,ip12pro_output_101APPLE_renew_79_patch000.png,ip12pro_output_101APPLE_renew_79_patch000,1,212,413,197,49,2,talentpark,talentpark,Talent Park,talent park,0,1,yes,0.1,1,0.3
+HR_CEILING,ip12pro_output_101APPLE_renew_79_patch000.png,ip12pro_output_101APPLE_renew_79_patch000,2,27,410,175,42,2,shenzhen,shenzhen,Shenzhen,shenzhen,1,0,no,0.0,1,0.125
+HR_CEILING,ip12pro_output_101APPLE_renew_79_patch000.png,ip12pro_output_101APPLE_renew_79_patch000,3,24,312,302,90,2,人才公园,人才公园,人才公园,人才公园,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_79_patch000.png,ip12pro_output_101APPLE_renew_79_patch000,4,16,16,223,58,2,polytheatre,polytheatre,Poly Theatre,poly theatre,0,1,yes,0.09090909090909091,1,0.2727272727272727
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,1,12,409,289,79,2,44：00-1700,44:00-1700,00:ZT-00:T,00:zt-00:t,0,1,yes,0.8,1,0.8
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,2,19,355,288,65,2,09：00-12:00,09:00-12:00,09:00-12:00,09:00-12:00,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,3,14,294,200,51,2,mon-fr,mon-fr,Mon-Fri,mon-fri,0,1,yes,0.16666666666666666,1,0.5
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,4,16,228,270,61,2,周一至周五,周一至周五,周一至周五,周一至周五,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,5,16,105,285,41,2,announcement,announcement,announcements,announcements,0,1,yes,0.08333333333333333,1,0.08333333333333333
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,6,13,58,286,55,2,boidayswbe,boidayswbe,holidays will be,holidays will be,0,1,yes,0.7,1,0.7
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,7,291,50,190,65,2,shecu,shecu,subject to,subject to,0,1,yes,1.4,1,1.4
+HR_CEILING,ip12pro_output_101APPLE_renew_80_patch000.png,ip12pro_output_101APPLE_renew_80_patch000,8,16,16,269,48,2,busnesshous,busnesshous,Business hours,business hours,0,1,yes,0.2727272727272727,1,0.36363636363636365
+HR_CEILING,ip12pro_output_102APPLE_renew_68_patch000.png,ip12pro_output_102APPLE_renew_68_patch000,1,7,432,294,62,2,g-shenzhen,g-shenzhen,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_68_patch000.png,ip12pro_output_102APPLE_renew_68_patch000,2,285,432,208,56,2,hospia,hospia,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_68_patch000.png,ip12pro_output_102APPLE_renew_68_patch000,3,2,375,286,46,2,tharbouro,tharbouro,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_68_patch000.png,ip12pro_output_102APPLE_renew_68_patch000,4,0,228,459,119,2,出口出站,出口出站,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_68_patch000.png,ip12pro_output_102APPLE_renew_68_patch000,5,0,100,449,102,2,港大医院,港大医院,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_70_patch000.png,ip12pro_output_102APPLE_renew_70_patch000,1,10,422,135,50,2,line9,line9,Line9,line9,1,0,no,0.0,1,0.2
+HR_CEILING,ip12pro_output_102APPLE_renew_70_patch000.png,ip12pro_output_102APPLE_renew_70_patch000,2,16,16,152,53,2,line7,line7,Line 7,line 7,0,1,yes,0.2,1,0.4
+HR_CEILING,ip12pro_output_102APPLE_renew_70_patch000.png,ip12pro_output_102APPLE_renew_70_patch000,3,301,13,174,54,2,taian,taian,Tai'an,tai'an,0,1,yes,0.2,1,0.4
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,1,177,367,227,64,2,462毫克,462毫克,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,2,174,250,188,55,2,178克,178克,水一,水一,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,3,171,174,156,70,2,69元,69元,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,4,179,106,256,71,2,1989干焦,1989干焦,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,5,168,16,218,65,2,每100克,每100克,74-1,74-1,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_102APPLE_renew_92_patch000.png,ip12pro_output_102APPLE_renew_92_patch000,6,435,17,77,58,2,营养素今考值06,营养素今考值06,,,0,1,yes,1.0,1,1.0
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,1,11,446,412,56,2,孩子大脑的五大基,孩子大脑的五大基,孩子大脑的五大基,孩子大脑的五大基,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,2,11,367,412,49,2,具，全面搬练、提升,"具,全面搬练、提升",具，全面锻炼、提升,"具,全面锻炼、提升",0,1,yes,0.2222222222222222,1,0.2222222222222222
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,3,14,283,410,47,2,个环节、30余种教,个环节、30余种教,个环节、30余种教,个环节、30余种教,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,4,16,203,411,37,2,点，每节课平价16,"点,每节课平价16",点，每节课平均16,"点,每节课平均16",0,1,yes,0.1111111111111111,1,0.1111111111111111
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,5,8,107,423,52,2,子大脑发育的特,子大脑发育的特,子大脑发育的特,子大脑发育的特,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_103APPLE_renew_25_patch000.png,ip12pro_output_103APPLE_renew_25_patch000,6,16,16,412,52,2,特色.结合0-6岁孩,特色.结合0-6岁孩,特色，结合0-6岁孩,"特色,结合0-6岁孩",0,1,yes,0.1,1,0.1
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,1,6,336,493,52,2,罗德岛设计学院,罗德岛设计学院,罗德岛设计学院,罗德岛设计学院,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,2,1,239,364,72,2,carnegemelan,carnegemelan,Carnegie Mellon,carnegie mellon,0,1,yes,0.3333333333333333,1,0.5
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,3,14,185,485,51,2,卡耐基梅隆大学,卡耐基梅隆大学,卡耐基梅隆大学,卡耐基梅隆大学,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,4,162,102,224,55,2,unversty,unversty,University,university,0,1,yes,0.25,1,0.375
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,5,13,105,150,42,2,conell,conell,Cornell,cornell,0,1,yes,0.16666666666666666,1,0.3333333333333333
+HR_CEILING,ip12pro_output_103APPLE_renew_42_patch000.png,ip12pro_output_103APPLE_renew_42_patch000,6,18,40,340,54,2,康奈尔大学,康奈尔大学,康奈尔大学,康奈尔大学,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_5-term_group_renew_12_patch000.png,ip12pro_output_5-term_group_renew_12_patch000,1,4,457,175,42,2,dongbin,dongbin,Dongbin,dongbin,1,0,no,0.0,1,0.14285714285714285
+HR_CEILING,ip12pro_output_5-term_group_renew_12_patch000.png,ip12pro_output_5-term_group_renew_12_patch000,2,180,454,110,44,2,road,road,Road,road,1,0,no,0.0,1,0.25
+HR_CEILING,ip12pro_output_5-term_group_renew_12_patch000.png,ip12pro_output_5-term_group_renew_12_patch000,3,107,232,299,48,2,dengliangroad,dengliangroad,Dengliang Road,dengliang road,0,1,yes,0.07692307692307693,1,0.23076923076923078
+HR_CEILING,ip12pro_output_5-term_group_renew_12_patch000.png,ip12pro_output_5-term_group_renew_12_patch000,4,96,110,289,117,2,登良路,登良路,登良路,登良路,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_5-term_group_renew_12_patch000.png,ip12pro_output_5-term_group_renew_12_patch000,5,32,9,363,49,2,houhaipimaryschoo,houhaipimaryschoo,Houhai Primary Schoo,houhai primary schoo,0,1,yes,0.17647058823529413,1,0.35294117647058826
+HR_CEILING,ip12pro_output_5-term_group_renew_28_patch000.png,ip12pro_output_5-term_group_renew_28_patch000,1,19,428,172,46,2,sundan,sundan,SUNDAN,sundan,1,0,no,0.0,1,1.0
+HR_CEILING,ip12pro_output_5-term_group_renew_28_patch000.png,ip12pro_output_5-term_group_renew_28_patch000,2,19,279,177,54,2,优衣车,优衣车,优衣库,优衣库,0,1,yes,0.3333333333333333,1,0.3333333333333333
+HR_CEILING,ip12pro_output_5-term_group_renew_28_patch000.png,ip12pro_output_5-term_group_renew_28_patch000,3,16,220,167,47,2,unqlo,unqlo,UNI QLO,uni qlo,0,1,yes,0.4,1,1.4
+HR_CEILING,ip12pro_output_5-term_group_renew_28_patch000.png,ip12pro_output_5-term_group_renew_28_patch000,4,22,78,353,52,2,顾客服务中心,顾客服务中心,顾客服务中心,顾客服务中心,1,0,no,0.0,0,0.0
+HR_CEILING,ip12pro_output_5-term_group_renew_28_patch000.png,ip12pro_output_5-term_group_renew_28_patch000,5,16,16,221,49,2,customer,customer,CUSTOMER,customer,1,0,no,0.0,1,1.0
