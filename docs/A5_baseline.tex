@@ -67,7 +67,7 @@ The box-weighted dataset average across all 193 boxes is $\overline{\text{Disagr
 
 \section{Quantitative and Qualitative Baseline Results}
 \subsection{Whole-Image Benchmark (10 Seeds \texorpdfstring{$\times$}{x} 100 Images)}
-Table~\ref{tab:whole_image} summarizes full-reference quality and pairwise cross-seed spread across all 100 images and 10 seeds (2,000 DoSSR PNGs).
+Table~\ref{tab:whole_image} summarizes full-reference quality across all 100 images. DoSSR is evaluated over 10 seeds per image (2,000 generated PNGs across the two prompt conditions); the Bicubic $\times 4$ reference is a single deterministic reconstruction per image.
 
 \begin{table}[ht]
 \centering
@@ -79,13 +79,14 @@ Table~\ref{tab:whole_image} summarizes full-reference quality and pairwise cross
 \toprule
 Method / Condition & $\text{PSNR}_{\text{RGB}}$ (dB) & $\text{SSIM}_{\text{RGB}}$ & $\text{PSNR}_Y$ (dB) & $\text{SSIM}_Y$ & LPIPS (Alex) & Pair Pixel $L_1$ (0--255) & Pair LPIPS \\
 \midrule
-Bicubic $\times 4$ (\texttt{test\_LR} floor) & $25.48$ & $0.7189$ & $27.11$ & $0.7561$ & $0.4563$ & 0.00 & 0.0000 \\
+Bicubic $\times 4$ (deterministic) & $25.48$ & $0.7189$ & $27.11$ & $0.7561$ & $0.4563$ & 0.00 & 0.0000 \\
 DoSSR 10-Seed (Default Prompt) & $22.64 \pm 0.60$ & $0.6406 \pm 0.018$ & $24.16 \pm 0.62$ & $0.6820 \pm 0.018$ & $0.3382 \pm 0.019$ & 10.45 & 0.1727 \\
 DoSSR 10-Seed (Empty Prompt) & $\mathbf{22.70 \pm 0.61}$ & $\mathbf{0.6431 \pm 0.018}$ & $\mathbf{24.23 \pm 0.63}$ & $\mathbf{0.6845 \pm 0.018}$ & $\mathbf{0.3352 \pm 0.019}$ & 10.34 & 0.1705 \\
 \bottomrule
 \end{tabular}
 }
 \end{table}
+\noindent\footnotesize Bicubic $\times 4$ values are averaged over the 100 paired RealSRVal images from the verified per-image summary. Because Bicubic interpolation is deterministic, it has one reconstruction per image rather than a 10-seed distribution; its pairwise cross-seed differences are therefore zero by construction. The DoSSR rows report mean $\pm$ standard deviation across 10 seeds and the 100 images.\normalsize
 
 \subsection{Text-Region Evaluation: Full 193 Boxes vs.\ 136 OCR-Solvable Subset}
 To separate diffusion restoration errors from OCR recognizer failures on degraded crops, Table~\ref{tab:text_eval} reports separately on all 193 annotated boxes, the 136 OCR-solvable boxes (where sharp HR crops achieve $100\%$ exact match), and the 57 HR-unsolvable boxes. Paired empty- vs.\ default-prompt differences over 1,930 box-seeds are negligible ($\Delta\text{Error} = -0.16\%$, $\Delta\text{CER} = +0.0001$).
@@ -115,8 +116,12 @@ Evaluation Cohort & Evaluated Target & Exact Match Rate & Box Error Rate (Box / 
 }
 \end{table}
 
+The partition in Table~\ref{tab:text_eval} provides two key empirical insights:
+First, even on the 136 OCR-solvable boxes where ground-truth HR crops achieve $100\%$ exact recognition, DoSSR still incurs a high box error rate of $66.32\%$, representing only a modest $\sim 5.0\%$ improvement over the bicubic baseline ($71.32\%$). Because upstream DoSSR relies on a generic natural-image diffusion prior without text-specific structural supervision, it synthesizes visually sharp yet semantically corrupted strokes (character hallucinations) under severe low-resolution stroke degradation.
+Second, cross-seed OCR disagreement is notably higher on the solvable subset ($34.05\%$) than on the unsolvable subset ($29.90\%$). In the unsolvable cohort, severe degradation causes the recognizer to consistently output empty strings or identical artifact tokens across seeds ($T_i = T_j = \emptyset$), artificially deflating disagreement. Conversely, on solvable text regions, weak LR constraints permit the diffusion trajectory to diverge across random noise vectors, yielding distinct pseudo-character hallucinations across different seeds.
+
 \subsection{Qualitative Analysis and Eduroam Seed-42 Source Audit}
-On \texttt{Canon\_001\_LR4.png} (``\texttt{eduroam}''), DoSSR fails in 10 out of 10 seeds (42--51), producing 10 distinct full OCR transcripts (whose final tokens across seeds 42--51 are \texttt{odureani}, \texttt{aduronm}, \texttt{odareum}, \texttt{oduroant}, \texttt{edureain}, \texttt{cduroniv}, \texttt{adaroam}, \texttt{odoroam}, \texttt{ddaroain}, and \texttt{aduronm}) and a mean crop pixel spread $L_1 = 19.17$.
+On \texttt{Canon\_001\_LR4.png} (``\texttt{eduroam}''), DoSSR fails in 10 out of 10 seeds (42--51), producing 10 distinct full OCR transcripts (whose final tokens across seeds 42--51 are \texttt{odureani}, \texttt{aduronm}, \texttt{odareum}, \texttt{oduroant}, \texttt{edureain}, \texttt{cduroniv}, \texttt{adaroam}, \texttt{odoroam}, \texttt{ddaroain}, and \texttt{aduronm}) and a mean crop pixel spread $L_1 = 19.17$. This stochastic behavior is pervasive across commercial signage: on \texttt{Canon\_002\_LR4.png} (\texttt{box\_id=1}, ground-truth \texttt{SIEMENS}, which achieves $100\%$ accuracy on HR), DoSSR hallucinates 10 entirely distinct character sequences across seeds 42--51 (\texttt{pamenl}, \texttt{slmle}, \texttt{ealmmta}, \texttt{fumo}, \texttt{dunla}, \texttt{e:naa}, \texttt{eimill}, \texttt{bj\}t}, \texttt{dimdho}, \texttt{51433}), corroborating severe cross-seed glyph divergence.
 
 \paragraph{Traceability Audit of Eduroam Crops and Seed-42 Figures:} Two distinct details must not be conflated. For OCR scoring, the annotation uses the tight word-box crop of $192\times 46$ pixels at $(x,y,w,h)=(320,38,192,46)$. The visualization scripts instead use a $202\times 85$-pixel full-sign crop at $(310,5,202,85)$, which includes the Wi-Fi arcs. Separately, the two earlier seed-42 figures used different source PNGs even though both files are named \texttt{Canon\_001\_LR4\_0.png}. Upstream \texttt{inference.py} initializes the seed once per folder, while \texttt{utils/file.py} traverses \texttt{os.walk()} without sorting. Consequently, \texttt{CELL 18} read the 1-image \texttt{prompt-check-1img} run (first RNG draw), whereas \texttt{plot\_eduroam\_10seeds.py} and \texttt{text\_eval.py} read the 100-image \texttt{seed-study-100img} run (a later RNG draw). Both visualization scripts use the same full-sign crop. For consistent comparisons, figures and OCR evaluation should use the 100-image study outputs, with the tight word crop reserved for OCR scoring.
 
@@ -141,13 +146,13 @@ Text-Mask Seed Loss & Cross-noise consistency loss inside HR mask & None & None 
 \end{table}
 
 \section{Conclusion and Reproducibility Guide}
-Across the two prompt conditions, DoSSR records whole-image LPIPS values of $0.3352$--$0.3382$, it exhibits $32.83\%$ cross-seed OCR disagreement ($34.05\%$ on OCR-solvable boxes) and $66.32\%$ solvable box error rate. All baseline artifacts are reproducible via:
+Across the two prompt conditions, DoSSR records whole-image LPIPS values of $0.3352$--$0.3382$; however, it exhibits $32.83\%$ cross-seed OCR disagreement ($34.05\%$ on OCR-solvable boxes) and $66.32\%$ solvable box error rate. All baseline artifacts are reproducible via:
 \begin{verbatim}
 # 1. 10-seed DoSSR inference (SDPA OFF, FP16, 5 steps)
 python src/run_dossr.py --config \
   configs/seed_study_realsr_100img_10seed_default_prompt_sdpa_off.yaml
 
-# 2. Whole-image Bicubic x4 metrics (run when LR/HR data are mounted)
+# 2. Whole-image Bicubic x4 metrics (100-image deterministic reference)
 DATA_ROOT="/content/drive/MyDrive/lemmepass/data/StableSR_testsets"
 DATASET_ROOT="$DATA_ROOT/StableSR_testsets/RealSRVal_crop128"
 python scripts/compute_metrics.py \
