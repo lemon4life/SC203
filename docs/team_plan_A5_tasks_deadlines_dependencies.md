@@ -21,7 +21,7 @@
      4. 10-seed text evaluation strengthened with mentor-mandated baseline audits:
         - **193 labeled boxes vs. 136 OCR-solvable subset:** Report performance separately on all 193 boxes and the 136 boxes where HR ground truth OCR matches the human transcript.
         - **Formal mathematical formula for 32.83% cross-seed disagreement rate.**
-        - **Traceability audit for `eduroam` seed 42 crops:** Explain the framing difference between the word box ($192\times 46$) and the figure sign crop ($202\times 85$ with Wi-Fi icon).
+        - **Traceability audit for `eduroam` seed 42 figures & crops:** Explain that (a) `CELL 18` (`plot_eduroam_figure.py`) read `prompt-check-1img` (1st RNG draw after `pl.seed_everything(42)`), whereas `plot_eduroam_10seeds.py` and `text_eval.py` read `seed-study-100img` (later RNG draw due to unsorted `os.walk()` in `utils/file.py`), while both figure scripts used the exact same `(310, 5, 202, 85)` full-sign crop; and (b) OCR scoring uses the tight word box `(320, 38, 192, 46)` ($192\times 46$) whereas visualization scripts crop `(310, 5, 202, 85)` ($202\times 85$ including Wi-Fi arcs).
    - **Decoupling Rule:** **`A5` does NOT depend on LoRA.** `A5` is 100% self-contained. Mention LoRA in `A5` only as a short 1-paragraph note in Future Work.
 
 2. **Track 2 — Parallel LoRA Pilot & Real-CE $\times 4$ Pipeline (For Mentor Report):**
@@ -44,8 +44,8 @@
 
 | Day & Date | Time | Milestone / Deliverable | Owner(s) | Track |
 | :--- | :---: | :--- | :---: | :---: |
-| **Sat `14/11`** | `21:00` | **`VERIFIED` Task M1-1:** Scene-disjoint `scripts/split_realce_by_scene.py` (`0` overlap).<br>**`VERIFIED` Task M3-1:** `src/lora_text_loss.py` CPU tests `(a)`–`(f)` + dry run.<br>**Pending Task M4-1:** Update `docs/A5_baseline.tex` with 193 vs 136 table, 32.83% formula, and eduroam crop note. | **M1** (`Nguyên Anh`)<br>**M3** (`Quang Minh`)<br>**M4** (`Minh Nhật`) | Track 1 & 2 |
-| **Sun `15/11`** | `14:00` | **`VERIFIED` Task M1-2 & M3-2:** Colab GPU Pilot (`400` steps each) + 10-seed 5-step Val inference completed (`8.04 GiB` peak alloc for both, `4.67s` vs `5.38s/step`, `-57.5%` pixel / `-64.1%` LPIPS seed diff, `-28.5%` OCR disagreement). | **M1** (`Nguyên Anh`) & **M3** (`Quang Minh`) | Track 2 |
+| **Sat `14/11`** | `21:00` | **`VERIFIED` Task M1-1:** Scene-disjoint `scripts/split_realce_by_scene.py` (`0` overlap).<br>**`VERIFIED` Task M3-1:** `src/lora_text_loss.py` CPU tests `(a)`–`(f)` + dry run.<br>**`VERIFIED` Task M4-1:** Update `docs/A5_baseline.tex` with 193 vs 136 table, 32.83% formula, and eduroam crop/seed-42 note. | **M1** (`Nguyên Anh`)<br>**M3** (`Quang Minh`)<br>**M4** (`Minh Nhật`) | Track 1 & 2 |
+| **Sun `15/11`** | `14:00` | **`VERIFIED` Task M1-2 & M3-2:** Colab GPU Pilot (`400` steps each) + 10-seed 5-step Val inference completed (`8.04 GiB` peak alloc for both, `4.67s` vs `5.38s/step`, `-57.5%` pixel / `-64.1%` LPIPS seed diff; initial `det+rec` `-28.5%` OCR disagreement superseded by `-13.82%` under `--rec-only --upscale 2` below). | **M1** (`Nguyên Anh`) & **M3** (`Quang Minh`) | Track 2 |
 | **Sun `15/11` – Mon `16/11`** | `18:00` | **`VERIFIED` Task M2-2 & M3-3:** Re-scored saved Drive PNGs with `--rec-only --rotate-vertical --upscale 2` (`154` boxes: $\Delta\text{wrong\_char} = -0.0262 \pm 0.0084$, $\Delta\text{CER} = -0.0264 \pm 0.0122$, `-0.0619` on 63 HR-solvable boxes, `-13.82%` OCR disagreement) + 5 crop grids & mask alignment verified (`docs/M3_3_pilot_reconly_and_crops_notes.md`). | **M3** (`Quang Minh`) *(covering M2-2 + M3-3)* | Track 2 |
 | **Sun `15/11`** | `21:00` | **A5 Internal Freeze:** Complete Section 1–6 in `docs/A5_baseline.tex`, compile clean PDF on Overleaf, execute Number-Audit Check against `docs/fact_sheet_for_report.md`. | **M4** (`Minh Nhật`) & **M1** (`Nguyên Anh`) | **Track 1 (`A5`)** |
 | **Mon `16/11`** | **`21:00`** | **INTERNAL SUBMIT DEADLINE:** Final proofread, export `25125002_25125042_25125060_25125033.pdf`, submit Assignment 5, and archive confirmation screenshot. | **M1** (`Nguyên Anh`) & All | **Track 1 (`A5`)** |
@@ -153,8 +153,8 @@
      - Write Sections 1–6 adhering strictly to the A5 brief.
      - Integrate the **1-page related methods comparison** (`docs/related_methods_ccsr_pnfs_tadisr.md`).
      - Incorporate the **193 vs 136 Solvable Subset Table**:
-       * Full 193: HR Ceiling $29.5\%$, Bicubic $79.8\%$, DoSSR $76.0\%$ (Disagreement $32.83\%$).
-       * Solvable 136: HR Ceiling $0.0\%$, Bicubic $71.3\%$, DoSSR $66.3\%$ (Disagreement $32.83\%$).
+       * Full 193: HR Ceiling $29.5\%$, Bicubic $79.8\%$, DoSSR $76.0\%$ (Disagreement $32.83\%$ box / $31.57\%$ img).
+       * Solvable 136: HR Ceiling $0.0\%$, Bicubic $71.3\%$, DoSSR $66.3\%$ (Disagreement $34.05\%$ box / $31.10\%$ img; Exact Match $33.7\%$).
      - Embed the **Formal 32.83% Disagreement Formula** in Section 3/4.
      - Add the **Eduroam Crop Traceability Note** in Section 4.3.
   2. **Task M4-2: Number-Audit Verification:**
@@ -181,8 +181,8 @@
   [x] Audit 193 total boxes vs 136 solvable subset.
   [x] Derive formal mathematical formula for 32.83% cross-seed disagreement.
   [x] Resolve eduroam crop framing distinction (word box vs full sign).
-  [ ] Draft Section 1–6 in docs/A5_baseline.tex (M4).
-  [ ] Team Number-Audit against docs/fact_sheet_for_report.md (All).
+  [x] Draft Section 1–6 in docs/A5_baseline.tex (M4).
+  [x] Team Number-Audit against docs/fact_sheet_for_report.md (All).
   [ ] Compile and submit 25125002_25125042_25125060_25125033.pdf (Mon 16/11 21:00).
 
 [PHASE 3: Real-CE x4 Dataset Preparation & Leak-Free Split] (COMPLETED / VERIFIED 2026-11-15)

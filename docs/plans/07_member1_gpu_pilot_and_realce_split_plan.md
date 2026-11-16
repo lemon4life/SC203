@@ -47,9 +47,9 @@ python scripts/split_realce_by_scene.py \
 ```
 
 #### Verification Criteria
-- [ ] $\text{scenes}(\text{train}) \cap \text{scenes}(\text{val}) = \emptyset$ (strictly 0 overlapping scenes).
-- [ ] Output manifest records total images, total scenes, train image count, and val image count.
-- [ ] Text annotation boxes corresponding to validation images are exported to `data/realce_val_boxes.csv` for Member 2's evaluation script.
+- [x] $\text{scenes}(\text{train}) \cap \text{scenes}(\text{val}) = \emptyset$ (strictly 0 overlapping scenes, verified in Colab `CELL 04`).
+- [x] Output manifest records total images, total scenes, train image count, and val image count.
+- [x] Text annotation boxes corresponding to validation images are exported to `data/realce_val_boxes.csv` (`154` boxes across `30` val patches).
 
 ---
 
@@ -65,12 +65,12 @@ Execute the pilot run comparing LoRA 2 (text-weighted) and LoRA 3 (text-weighted
   - Positive Prompt: Empty prompt `""`
   - Timestep sampling: Same timestep $t$ per batch
   - Noise samples: Exactly 2 independent noise samples $(\epsilon_1, \epsilon_2)$ per step
-  - Steps: Fixed pilot budget (e.g., 100 steps)
+  - Steps: Fixed pilot budget (`400` optimizer steps executed in `notebooks/03_lora_pilot_colab.ipynb`; initially estimated at `100`)
   - Optimizer: AdamW, lr = $1\times 10^{-4}$
-- **LoRA 2 Config:**
-  - $\lambda_{\text{rec}} = 1.0$, $\lambda_{\text{text}} = 2.0$, $\lambda_{\text{cons}} = 0.0$
-- **LoRA 3 Config:**
-  - $\lambda_{\text{rec}} = 1.0$, $\lambda_{\text{text}} = 2.0$, $\lambda_{\text{cons}} = 1.0$
+- **LoRA 2 Config (`configs/lora2_pilot.yaml`):**
+  - `alpha_text = 5.0`, `lambda_cons = 0.0` *(executed setting; early draft used `lambda_text = 2.0`)*
+- **LoRA 3 Config (`configs/lora3_pilot.yaml`):**
+  - `alpha_text = 5.0`, `lambda_cons = 0.5`, `alpha_cons_text = 5.0` *(executed setting; early draft used `lambda_text = 2.0, lambda_cons = 1.0`)*
 
 #### Colab Execution Commands
 ```python
@@ -99,9 +99,9 @@ In `lora_run_manifest.json` and `lora_train_log.csv` inside each output director
 - Per-step `total_loss`, `rec_loss`, `global_l1`, `text_l1`, `cons_loss` in `lora_train_log.csv`
 
 #### Verification Criteria
-- [ ] Checkpoints (`lora_weights_final.pt`) save cleanly to Google Drive without corruptions.
-- [ ] Loss values decrease smoothly without `NaN` or `Inf`.
-- [ ] Peak VRAM is recorded and confirmed within the L4 GPU budget (< 22.5 GiB).
+- [x] Checkpoints (`lora_weights_final.pt`) save cleanly to Google Drive without corruptions.
+- [x] Loss values decrease smoothly without `NaN` or `Inf`.
+- [x] Peak VRAM is recorded (`8.04 GiB` allocated / `8.52 GiB` reserved for both LoRA 2 and LoRA 3) and confirmed within the L4 GPU budget (< 22.5 GiB).
 
 ---
 
@@ -126,9 +126,9 @@ python src/run_dossr.py \
 ```
 
 #### Verification Criteria
-- [ ] All validation images are generated for all 10 seeds (`seed_42`..`seed_51`) in `outputs/pilot-lora{2,3}-realce-val-10seed/`.
-- [ ] Output images are non-blank, non-NaN, and exact $4\times$ resolution (`512x512`).
-- [ ] Handoff paths to Member 2 (Gia Hân) for RapidOCR evaluation and Member 1 computes `scripts/compute_metrics.py` (PSNR, SSIM, LPIPS).
+- [x] All validation images are generated for all 10 seeds (`seed_42`..`seed_51`) in `outputs/pilot-lora{2,3}-realce-val-10seed/` (`300` PNGs per variant).
+- [x] Output images are non-blank, non-NaN, and exact $4\times$ resolution (`512x512`).
+- [x] OCR evaluation (`--rec-only --rotate-vertical --upscale 2` completed by M3 on Nov 16) and `scripts/compute_metrics.py` (PSNR, SSIM, LPIPS) logged in `results/lora_pilot_summary.json`.
 
 ---
 
@@ -138,13 +138,13 @@ python src/run_dossr.py \
 Ensure Assignment 5 baseline report is 100% verified, compiled, and submitted before the internal deadline (**Monday 16/11 21:00**).
 
 #### Verification Checklist
-- [ ] Review `docs/A5_baseline.tex` tables against `docs/fact_sheet_for_report.md`:
-  - 10-seed whole-image table: `PSNR_RGB 22.6377 dB` / `PSNR_Y 24.1610 dB`, `SSIM_RGB 0.6406` / `SSIM_Y 0.6820`, `LPIPS 0.3382` (Default prompt); `Bicubic x4` whole-image row run on Colab via `--bicubic-lr-dir` (currently marked `PENDING`).
+- [x] Review `docs/A5_baseline.tex` tables against `docs/fact_sheet_for_report.md`:
+  - 10-seed whole-image table: `PSNR_RGB 22.6353 dB` (`22.64 dB`) / `PSNR_Y 24.1610 dB`, `SSIM_RGB 0.6406` / `SSIM_Y 0.6820`, `LPIPS 0.3382` (Default prompt); `Bicubic x4` whole-image row **`VERIFIED` Nov 16** on Colab (`PSNR_RGB 25.48 dB`, `SSIM_RGB 0.7189`, `PSNR_Y 27.11 dB`, `SSIM_Y 0.7561`, `LPIPS 0.4563`, saved in `results/metrics_realsr_bicubic_x4_summary.csv`).
   - 193-box vs 136-box solvable vs 57-box unsolvable breakdown table verified.
   - Pairwise disagreement formula ($32.83\%$ on 193 boxes, $34.05\%$ on 136 solvable) included.
   - Eduroam `seed 42` source audit (1-img vs 100-img RNG stream + crop framing) included.
 - [x] Compile PDF locally cleanly (`pdflatex -output-directory=/tmp docs/A5_baseline.tex` -> exit 0, `/tmp/A5_baseline.pdf` 4 pages).
-- [ ] Fill `Bicubic x4` whole-image row after Colab `compute_metrics.py --bicubic-lr-dir` run, re-compile to `25125002_25125042_25125060_25125033.pdf`, upload to course portal, and archive screenshot.
+- [x] Fill `Bicubic x4` whole-image row after Colab `compute_metrics.py --bicubic-lr-dir` run (done in `9c78cb6`); [ ] Final Overleaf re-compile to `25125002_25125042_25125060_25125033.pdf`, upload to course portal, and archive screenshot.
 
 ---
 
@@ -152,12 +152,12 @@ Ensure Assignment 5 baseline report is 100% verified, compiled, and submitted be
 
 ```text
 [x] Author scripts/split_realce_by_scene.py (--split train, LR/HR pairing, safe scene grouping, --extract-patches).
-[ ] Run split script on Real-CE on Drive and verify zero train/val scene overlap + populate data/realce_train_manifest.csv.
-[ ] Launch Colab Pilot via notebooks/03_lora_pilot_colab.ipynb for LoRA 2 and LoRA 3 (400 steps each).
-[ ] Record peak allocated VRAM, reserved VRAM, and step time from lora_run_manifest.json.
-[ ] Run 10-seed 5-step validation inference via scripts/run_seed_study.py --config configs/lora{2,3}_pilot.yaml.
-[ ] Compute Bicubic x4 whole-image baseline via scripts/compute_metrics.py --bicubic-lr-dir for A5 Table 1.
-[ ] Deliver validation folders to Member 2 for text error evaluation.
+[x] Run split script on Real-CE on Drive and verify zero train/val scene overlap + populate data/realce_val_boxes.csv.
+[x] Launch Colab Pilot via notebooks/03_lora_pilot_colab.ipynb for LoRA 2 and LoRA 3 (400 steps each).
+[x] Record peak allocated VRAM, reserved VRAM, and step time from lora_run_manifest.json.
+[x] Run 10-seed 5-step validation inference via scripts/run_seed_study.py --config configs/lora{2,3}_pilot.yaml.
+[x] Compute Bicubic x4 whole-image baseline via scripts/compute_metrics.py --bicubic-lr-dir for A5 Table 1.
+[x] Obtain pilot text error evaluation (`--rec-only --upscale 2` completed by M3 in `results/pilot_lora2_vs_lora3_reconly/`).
 [x] Cross-check A5 numbers with Member 4 against docs/fact_sheet_for_report.md & results/text_eval_a5_summary.json.
-[ ] Compile 25125002_25125042_25125060_25125033.pdf and submit by Mon 16/11 21:00.
+[ ] Compile 25125002_25125042_25125060_25125033.pdf on Overleaf and submit before Tue 17/11 07:00.
 ```

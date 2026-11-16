@@ -70,7 +70,7 @@
 
 > **Known caveats (added 11/11, `PENDING` until the unified re-run):**
 > 1. The CSVs do not record which OCR backend/version produced them. Nikon used `--upscale 1`, Canon used `--upscale 2` (`crop_upscale` column). The Canon backend (RapidOCR vs EasyOCR) and version are **not recorded anywhere in the repo**; the `8/50 = 16.0%` Canon default figure comes from a chat message, not from a file.
-> 2. The `NVIDIA L4` statement for the 10-seed runs comes from the team lead; the run manifests on Drive were not checked. The only GPU log in the repo is the `A100` of `CELL 03` (5 Nov).
+> 2. The `NVIDIA L4` (`22.5 GiB` VRAM) GPU for the 10-seed studies is verified via `CELL 17` / `CELL 17b` (`01dc1e2`, `131e636`), which checked all 20 run manifests on Drive (`precision="fp16"`, `sdpa_enabled=False`, `disable_sdpa=True`); the earlier `A100-SXM4-80GB` log in `CELL 03` (5 Nov) was from the initial discovery run.
 > 3. Image-mean values for the HR ceiling were corrected on 11/11 (earlier version had four wrong cells).
 *Source CSVs committed in `results/`:*
 - Combined 100-image tables: `results/text_eval_summary_by_image.csv`, `results/text_eval_paired_comparison_by_image.csv`, `results/text_eval_hr_ceiling_by_image.csv`, `results/text_eval_hr_ceiling_per_box.csv`, `results/text_eval_bicubic_floor_by_image.csv`, `results/text_eval_bicubic_floor_per_box.csv`, `results/text_eval_per_box_seed.csv`
@@ -140,7 +140,8 @@ The dataset-level metrics reported are:
 
 ## 6. Whole-Image 10-Seed Metrics (`100` Images $\times$ `10` Seeds `42..51` = `2,000` PNGs vs `test_HR`, `VERIFIED`)
 
-*Source CSVs committed in `results/` (`7564c85`):*
+*Source CSVs committed in `results/` (`7564c85`, `9c78cb6`):*
+- `results/metrics_realsr_bicubic_x4_summary.csv` (`Bicubic x4` whole-image floor)
 - `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
 - `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
 

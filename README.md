@@ -1,6 +1,6 @@
 # SC203 Scientific Methods — Team 1 LEMMEPASS
 
-This repository contains the analysis and experiment setup for studying whether lightweight text-instruction conditioning reduces DoSSR's sensitivity to the random seed.
+This repository contains the analysis and experiment setup for studying DoSSR's random-seed sensitivity on real-world scene text (`RealSRVal_crop128`) and evaluating whether a text-region cross-noise consistency loss during LoRA training (`Real-CE x4`) stabilizes and improves text restoration across seeds.
 
 ## Local analysis environment
 

@@ -17,9 +17,10 @@ Curated summary CSVs, whole-image metrics tables, and 10-seed text evaluation ta
 - **Nikon (`images 51–100`, `15` readable images, `143` boxes — Member 3, Quang Minh):** `results/text_eval_nikon_*.csv`.
 
 ### 3. Whole-Image Metrics (`scripts/compute_metrics.py`)
-- Save 10-seed whole-image `PSNR`, `SSIM`, `LPIPS`, and pairwise seed spread summary CSVs here as:
+- Save 10-seed and deterministic whole-image `PSNR`, `SSIM`, `LPIPS`, and pairwise seed spread summary CSVs here as:
   - `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
   - `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
+  - `results/metrics_realsr_bicubic_x4_summary.csv` — Deterministic Bicubic $\times 4$ whole-image floor on `RealSRVal_crop128` (`100` images: `PSNR_RGB = 25.48 dB`, `SSIM_RGB = 0.7189`, `PSNR_Y = 27.11 dB`, `SSIM_Y = 0.7561`, `LPIPS = 0.4563`).
 
 ### 4. LoRA 2 vs. LoRA 3 Pilot Summary on Real-CE $\times 4$ (`VERIFIED`, Nov 15–16, 2026)
 - `results/lora_pilot_summary.json` — Controlled `400`-step Colab pilot results (`notebooks/03_lora_pilot_colab.ipynb` `CELL 05`–`07`, `30` scene-disjoint val patches $\times$ `10` seeds `42..51`, `5` inference steps):

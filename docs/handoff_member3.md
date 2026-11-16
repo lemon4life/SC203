@@ -71,7 +71,7 @@ image,box_id,x,y,w,h,transcript,readable
 ### Worked Label Examples (`EXAMPLE ONLY — NOT REAL DATA`)
 
 > **IMPORTANT:** The 4 rows below are **synthetic worked examples** to illustrate the format. They are **NOT** real data from `test_HR`.
-> - **Confirmed real `Canon_001_LR4.png` (`eduroam`) box (from `data/text_boxes_realsr_m2.csv`):** `Canon_001_LR4.png,1,320,38,192,48,eduroam,yes` (and full sign crop for figure: `EDUROAM_CROP = '310,5,202,85'`).
+> - **Confirmed real `Canon_001_LR4.png` (`eduroam`) box (from `data/text_boxes_realsr_m2.csv` / `data/text_boxes_realsr.csv`):** `Canon_001_LR4.png,1,320,38,192,46,eduroam,yes` (and full sign crop for figure: `EDUROAM_CROP = '310,5,202,85'`).
 
 ```csv
 image,box_id,x,y,w,h,transcript,readable

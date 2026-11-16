@@ -1,6 +1,6 @@
 # Tasks C.9 & C.10: DoSSR Training Audit, Text-Region Loss Design, and LoRA Trial Estimates
 
-**Status:** Read-only codebase audit complete (`VERIFIED` in `external/DOSSR`). All LoRA parameter, batch size, and VRAM numbers in Section 6 are **`ESTIMATE — NOT TESTED`**.
+**Status:** Historical pre-pilot design audit (`VERIFIED` in `external/DOSSR`). All parameter counts, batch sizes, and VRAM numbers in Section 7 below were pre-run **`ESTIMATE — NOT TESTED`** projections; see [`docs/after_03_lora_pilot_discovery.md`](after_03_lora_pilot_discovery.md) and [`results/lora_pilot_summary.json`](../results/lora_pilot_summary.json) for the **`VERIFIED` Nov 15–16 Colab L4 pilot results** (`1,659,904` trainable LoRA params, `8.04 GiB` allocated / `8.52 GiB` reserved for both LoRA 2 and LoRA 3, `4.67 s/step` vs `5.38 s/step` across `400` steps).
 
 ---
 

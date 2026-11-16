@@ -4,9 +4,12 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{array}
+\usepackage{xurl}
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{caption}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 \title{Group Assignment 5: Baseline Super-Resolution Model and Seed Sensitivity Analysis\\
 \large Reproducible DoSSR Baseline, Runtime Compatibility, and Text-Region Robustness on RealSR}
@@ -74,7 +77,7 @@ Table~\ref{tab:whole_image} summarizes full-reference quality and pairwise cross
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lccccccc}
 \toprule
-Method / Condition & $\text{PSNR}_{\text{RGB}}$ (dB) & $\text{SSIM}_{\text{RGB}}$ & $\text{PSNR}_Y$ (dB) & $\text{SSIM}_Y$ & LPIPS (Alex) & Pair Pixel $L_1$ & Pair LPIPS \\
+Method / Condition & $\text{PSNR}_{\text{RGB}}$ (dB) & $\text{SSIM}_{\text{RGB}}$ & $\text{PSNR}_Y$ (dB) & $\text{SSIM}_Y$ & LPIPS (Alex) & Pair Pixel $L_1$ (0--255) & Pair LPIPS \\
 \midrule
 Bicubic $\times 4$ (\texttt{test\_LR} floor) & $25.48$ & $0.7189$ & $27.11$ & $0.7561$ & $0.4563$ & 0.00 & 0.0000 \\
 DoSSR 10-Seed (Default Prompt) & $22.64 \pm 0.60$ & $0.6406 \pm 0.018$ & $24.16 \pm 0.62$ & $0.6820 \pm 0.018$ & $0.3382 \pm 0.019$ & 10.45 & 0.1727 \\
@@ -115,19 +118,19 @@ Evaluation Cohort & Evaluated Target & Exact Match Rate & Box Error Rate (Box / 
 \subsection{Qualitative Analysis and Eduroam Seed-42 Source Audit}
 On \texttt{Canon\_001\_LR4.png} (``\texttt{eduroam}''), DoSSR fails in 10 out of 10 seeds (42--51), producing 10 distinct full OCR transcripts (whose final tokens across seeds 42--51 are \texttt{odureani}, \texttt{aduronm}, \texttt{odareum}, \texttt{oduroant}, \texttt{edureain}, \texttt{cduroniv}, \texttt{adaroam}, \texttt{odoroam}, \texttt{ddaroain}, and \texttt{aduronm}) and a mean crop pixel spread $L_1 = 19.17$.
 
-\paragraph{Traceability Audit of Earlier Seed-42 Figures:} Earlier qualitative comparisons differed on `seed 42` for two verified reasons: (1) upstream \texttt{inference.py} calls \texttt{pl.seed\_everything(args.seed)} once per folder while \texttt{utils/file.py} traverses \texttt{os.walk()} unsorted; thus \texttt{CELL 18} loaded the 1-image study (\texttt{prompt-check-1img}, 1st RNG draw), whereas \texttt{plot\_eduroam\_10seeds.py} and \texttt{text\_eval.py} loaded the 100-image study (\texttt{seed-study-100img}, later RNG draw); (2) \texttt{data/text\_boxes\_realsr.csv} uses the tight word box ($320,38,192,46$) for OCR, whereas both figure scripts crop ($310,5,202,85$) to show the full sign with Wi-Fi arcs. We standardize all figures to read from the 100-image study directory.
+\paragraph{Traceability Audit of Eduroam Crops and Seed-42 Figures:} Two distinct details must not be conflated. For OCR scoring, the annotation uses the tight word-box crop of $192\times 46$ pixels at $(x,y,w,h)=(320,38,192,46)$. The visualization scripts instead use a $202\times 85$-pixel full-sign crop at $(310,5,202,85)$, which includes the Wi-Fi arcs. Separately, the two earlier seed-42 figures used different source PNGs even though both files are named \texttt{Canon\_001\_LR4\_0.png}. Upstream \texttt{inference.py} initializes the seed once per folder, while \texttt{utils/file.py} traverses \texttt{os.walk()} without sorting. Consequently, \texttt{CELL 18} read the 1-image \texttt{prompt-check-1img} run (first RNG draw), whereas \texttt{plot\_eduroam\_10seeds.py} and \texttt{text\_eval.py} read the 100-image \texttt{seed-study-100img} run (a later RNG draw). Both visualization scripts use the same full-sign crop. For consistent comparisons, figures and OCR evaluation should use the 100-image study outputs, with the tight word crop reserved for OCR scoring.
 
 \section{Comparison with Related Diffusion Super-Resolution Approaches}
-Table~\ref{tab:related_methods} contrasts DoSSR against related diffusion SR methods from our literature audit (\texttt{docs/related\_methods\_ccsr\_pnfs\_tadisr.md}).
+Table~\ref{tab:related_methods} contrasts DoSSR against CCSR~\cite{sun2024ccsr}, PNFS~\cite{jiang2025pnfs}, and TADiSR~\cite{hu2025tadIsr}, following our related-methods literature audit (\texttt{docs/related\_methods\_ccsr\_pnfs\_tadisr.md}).
 
 \begin{table}[ht]
 \centering
 \small
 \caption{Comparison of diffusion SR paradigms targeting stability or text fidelity.}
 \label{tab:related_methods}
-\begin{tabularx}{\textwidth}{lXXXX}
+\begin{tabularx}{\textwidth}{lYYYY}
 \toprule
-Dimension & DoSSR + Planned LoRA (Ours) & CCSR (arXiv 2024) & PNFS (AAAI 2025) & TADiSR (NeurIPS 2025) \\
+Dimension & Proposed DoSSR Extension & CCSR~\cite{sun2024ccsr} & PNFS~\cite{jiang2025pnfs} & TADiSR~\cite{hu2025tadIsr} \\
 \midrule
 Core Mechanism & SD 2.1 + ControlNet (5 steps ODE) & Non-uniform diffusion + adversarial VAE & Discrepancy predictor + probabilistic noise fusion & Text-aware LoRA + joint SR/segmentation decoders \\
 Primary Target & Scene-text cross-seed stability & General SR stability and 1--2 step efficiency & General SR initial-noise stability & Explicit text fidelity + mask output \\
@@ -138,17 +141,41 @@ Text-Mask Seed Loss & Cross-noise consistency loss inside HR mask & None & None 
 \end{table}
 
 \section{Conclusion and Reproducibility Guide}
-While DoSSR delivers competitive whole-image LPIPS ($0.3352$--$0.3382$), it exhibits $32.83\%$ cross-seed OCR disagreement ($34.05\%$ on OCR-solvable boxes) and $66.32\%$ solvable box error rate. All baseline artifacts are reproducible via:
+Across the two prompt conditions, DoSSR records whole-image LPIPS values of $0.3352$--$0.3382$, it exhibits $32.83\%$ cross-seed OCR disagreement ($34.05\%$ on OCR-solvable boxes) and $66.32\%$ solvable box error rate. All baseline artifacts are reproducible via:
 \begin{verbatim}
-# 1. 10-Seed DoSSR Inference (SDPA OFF, FP16, 5 steps)
-python src/run_dossr.py --config configs/seed_study_realsr_100img_10seed_default_prompt_sdpa_off.yaml
+# 1. 10-seed DoSSR inference (SDPA OFF, FP16, 5 steps)
+python src/run_dossr.py --config \
+  configs/seed_study_realsr_100img_10seed_default_prompt_sdpa_off.yaml
 
-# 2. Whole-Image Metrics (DoSSR 10-Seed & Bicubic x4 Floor)
-python scripts/compute_metrics.py --bicubic-lr-dir <TEST_LR> --gt-dir <TEST_HR> \
-  --summary-csv results/metrics_bicubic_summary_by_image.csv
+# 2. Whole-image Bicubic x4 metrics (run when LR/HR data are mounted)
+DATA_ROOT="/content/drive/MyDrive/lemmepass/data/StableSR_testsets"
+DATASET_ROOT="$DATA_ROOT/StableSR_testsets/RealSRVal_crop128"
+python scripts/compute_metrics.py \
+  --bicubic-lr-dir "$DATASET_ROOT/test_LR" \
+  --gt-dir "$DATASET_ROOT/test_HR" \
+  --summary-csv results/metrics_realsr_bicubic_x4_summary.csv
 
-# 3. Text Evaluation & A5 Cohort Breakdown (193 vs 136 vs 57)
+# 3. Text evaluation and A5 cohort breakdown (193 / 136 / 57)
 python scripts/analyze_text_eval_a5.py
 \end{verbatim}
+
+\enlargethispage{4\baselineskip}
+\begingroup
+\footnotesize
+\setlength{\itemsep}{0pt}
+\begin{thebibliography}{9}
+\bibitem{sun2024ccsr}
+Sun et al., ``Improving the Stability and Efficiency of Diffusion Models for Content Consistent Super-Resolution,'' arXiv:2401.00877, 2024.\
+\url{https://arxiv.org/abs/2401.00877}
+
+\bibitem{jiang2025pnfs}
+Jiang et al., ``Restabilizing Diffusion Models with Predictive Noise Fusion Strategy for Image Super-Resolution,'' in \emph{Proceedings of the AAAI Conference on Artificial Intelligence}, vol. 39, no. 4, pp. 4021--4029, 2025.\
+\url{https://doi.org/10.1609/aaai.v39i4.32421}
+
+\bibitem{hu2025tadIsr}
+Hu et al., ``Text-Aware Real-World Image Super-Resolution via Diffusion Model with Joint Segmentation Decoders,'' in \emph{Advances in Neural Information Processing Systems}, 2025.\
+\href{https://proceedings.neurips.cc/paper_files/paper/2025/hash/58ce6a4b9c16d11975f11e4a23871041-Abstract-Conference.html}{NeurIPS proceedings page}
+\end{thebibliography}
+\endgroup
 
 \end{document}
