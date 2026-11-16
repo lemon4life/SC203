@@ -100,11 +100,11 @@
   3. **Task M1-3: Run 10-Seed 5-Step Validation Inference [`VERIFIED` 2026-11-15]:**
      - Evaluated both checkpoints (`configs/lora{2,3}_pilot.yaml`) across seeds `42`–`51`, `5` steps (`t1_fraction=0.5`), on `30` held-out Real-CE val patches (`300` PNGs per variant) saved under `/content/drive/MyDrive/lemmepass/outputs/pilot-lora{2,3}-realce-val-10seed/`.
      - **Verified Whole-Patch & Stability Results (`LoRA 3 - LoRA 2`):** `PSNR_Y` `17.6980 -> 18.2828` (`+0.5848 dB`), `SSIM_Y` `0.6442 -> 0.6742` (`+0.0300`), `LPIPS` `0.4231 -> 0.4711` (`+0.0480`), `pair_px` `9.2715 -> 3.9405` (**`-57.50%`**), `pair_lpips` `0.2020 -> 0.0726` (**`-64.06%`**).
-  4. **Task M1-4: Final A5 Assembly & Submission:**
-     - Run `scripts/compute_metrics.py --bicubic-lr-dir ...` on Colab to fill the `Bicubic x4` whole-image row in Table 1.
+  4. **Task M1-4: Final A5 Assembly & Submission [`VERIFIED` 2026-11-16]:**
+     - Run `scripts/compute_metrics.py --bicubic-lr-dir ...` on Colab to fill the `Bicubic x4` whole-image row in Table 1 (`VERIFIED`: $25.48$ RGB, $27.11$ $Y$, $0.4563$ LPIPS, saved in `results/metrics_realsr_bicubic_x4_summary.csv` and inserted into `docs/A5_baseline.tex`).
      - Coordinate final number-audit review with Member 4 (`results/text_eval_a5_summary.json` and `docs/fact_sheet_for_report.md`).
      - Compile and verify final PDF: `25125002_25125042_25125060_25125033.pdf`.
-     - Submit before internal deadline **Mon 16/11 21:00**.
+     - Submit before internal deadline **Mon 16/11 21:00** / Official deadline **Tue 17/11 07:00**.
 
 ---
 

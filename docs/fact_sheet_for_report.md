@@ -144,19 +144,20 @@ The dataset-level metrics reported are:
 - `results/metrics_10seed_default_summary_by_image.csv` & `results/metrics_10seed_default_per_seed.csv`
 - `results/metrics_10seed_empty_summary_by_image.csv` & `results/metrics_10seed_empty_per_seed.csv`
 
-| Prompt Mode (`100` images $\times$ `10` seeds `42..51`, `SDPA OFF`, `fp16`) | `PSNR_RGB` (dB) (`mean ± std`, `range`) | `SSIM_RGB` (`mean ± std`, `range`) | `PSNR_Y` (dB) (`mean ± std`, `range`) | `SSIM_Y` (`mean ± std`, `range`) | `LPIPS` (AlexNet) (`mean ± std`, `range`) | Pairwise Cross-Seed Pixel Diff (`0..255` `mean` / `max`) | Pairwise Cross-Seed `LPIPS` (`mean` / `max`) |
+| Prompt Mode (`100` images, `SDPA OFF`, `fp16`) | `PSNR_RGB` (dB) (`mean ± std`, `range`) | `SSIM_RGB` (`mean ± std`, `range`) | `PSNR_Y` (dB) (`mean ± std`, `range`) | `SSIM_Y` (`mean ± std`, `range`) | `LPIPS` (AlexNet) (`mean ± std`, `range`) | Pairwise Cross-Seed Pixel Diff (`0..255` `mean` / `max`) | Pairwise Cross-Seed `LPIPS` (`mean` / `max`) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`default` (`"clean, high-resolution, 8k"`)** | **`22.6353 ± 0.5961`** (`1.8966` dB) | **`0.6406 ± 0.0182`** (`0.0573`) | **`24.1610 ± 0.6170`** (`1.9616` dB) | **`0.6820 ± 0.0179`** (`0.0564`) | **`0.3382 ± 0.0191`** (`0.0608`) | **`10.4508`** / `229.67` | **`0.1727`** / `0.2064` |
-| **`empty` (`""`)** | **`22.6998 ± 0.6079`** (`1.9232` dB) | **`0.6431 ± 0.0184`** (`0.0574`) | **`24.2262 ± 0.6295`** (`1.9930` dB) | **`0.6845 ± 0.0181`** (`0.0565`) | **`0.3352 ± 0.0191`** (`0.0602`) | **`10.3415`** / `229.07` | **`0.1705`** / `0.2039` |
+| **`Bicubic x4` (`test_LR` $\to$ `512x512` floor)** | **`25.4776 ± 0.0000`** (`0.0000` dB) | **`0.7189 ± 0.0000`** (`0.0000`) | **`27.1128 ± 0.0000`** (`0.0000` dB) | **`0.7561 ± 0.0000`** (`0.0000`) | **`0.4563 ± 0.0000`** (`0.0000`) | **`0.0000`** / `0.00` | **`0.0000`** / `0.0000` |
+| **`default` (`"clean, high-resolution, 8k"`, 10 seeds)** | **`22.6353 ± 0.5961`** (`1.8966` dB) | **`0.6406 ± 0.0182`** (`0.0573`) | **`24.1610 ± 0.6170`** (`1.9616` dB) | **`0.6820 ± 0.0179`** (`0.0564`) | **`0.3382 ± 0.0191`** (`0.0608`) | **`10.4508`** / `229.67` | **`0.1727`** / `0.2064` |
+| **`empty` (`""`, 10 seeds)** | **`22.6998 ± 0.6079`** (`1.9232` dB) | **`0.6431 ± 0.0184`** (`0.0574`) | **`24.2262 ± 0.6295`** (`1.9930` dB) | **`0.6845 ± 0.0181`** (`0.0565`) | **`0.3352 ± 0.0191`** (`0.0602`) | **`10.3415`** / `229.07` | **`0.1705`** / `0.2039` |
 | **Difference (`empty - default`)** | `+0.0645` dB | `+0.0025` | `+0.0652` dB | `+0.0025` | `-0.0030` | `-0.1093` px | `-0.0022` |
 
 ---
 
-## 7. Active Pending Items (`UPDATED` Nov 15, 2026)
+## 7. Active Pending Items (`UPDATED` Nov 16, 2026)
 
 | Item | Owner | Current Status | Where Results Will Go |
 | :--- | :--- | :---: | :--- |
-| **`Bicubic x4` Whole-Image Row (`PSNR/SSIM/LPIPS`)** | Member 1 / Member 4 | `PENDING` *(Generated on Colab Drive during `03_lora` `CELL 03` or `compute_metrics.py --bicubic-lr-dir ...`; sync CSV into `results/` if not yet committed)* | `results/metrics_bicubic_summary_by_image.csv` & `docs/A5_baseline.tex` (`Table 1`) |
+| **`Bicubic x4` Whole-Image Row (`PSNR/SSIM/LPIPS`)** | Member 1 / Member 4 | **`VERIFIED` (Nov 16, 2026)**; PSNR RGB 25.48 dB, SSIM RGB 0.7189, PSNR Y 27.11 dB, SSIM Y 0.7561, LPIPS 0.4563 on 100 `RealSRVal_crop128` pairs | `results/metrics_realsr_bicubic_x4_summary.csv` & `docs/A5_baseline.tex` (`Table 1`) |
 | **Unified Single-OCR Re-Run & A5 Stats (`193` vs. `136`)** | Member 2 / Member 1 | `PENDING (Unified Re-Run)` / `VERIFIED (CSV Split-Run)` in `scripts/analyze_text_eval_a5.py` | `results/text_eval_a5_cohort_breakdown.csv` & `docs/A5_baseline.tex` |
 | **Real-CE $\times 4$ Scene-Level Split & LoRA 2 vs. LoRA 3 Pilot** | Member 1 & Member 3 | **`VERIFIED` (Pilot + `--rec-only` OCR Re-Score + 5-Crop Inspection Complete, Nov 16, 2026)**; ready for Mentor Update & Gate Tuning Proposal | `results/lora_pilot_summary.json`, `docs/after_03_lora_pilot_discovery.md`, `docs/M3_3_pilot_reconly_and_crops_notes.md` & Mentor Update Package |
 
