@@ -93,6 +93,9 @@ Each inspection figure is structured in 3 rows:
 ### Crop #1: Complex Traditional Chinese "商场" (LoRA 3 Clear Win)
 * **File:** `results/pilot_lora2_vs_lora3_crops/crop_01_ip12pro_output_101APPLE_renew_10_patch000_box5.png`
 * **Ground Truth:** `商场` (HR read: `商场`, LR read: `商场`)
+
+![Crop #1: Complex Traditional Chinese "商场" (LoRA 3 Clear Win)](../results/pilot_lora2_vs_lora3_crops/crop_01_ip12pro_output_101APPLE_renew_10_patch000_box5.png)
+
 * **Per-Seed OCR Transcripts:**
   * **LoRA 2:** `s42: 商场` | `s43: (empty)` | `s44: 商场` | `s45: (empty)` | `s46: (empty)` $\to$ **Mean CER = 0.800**
   * **LoRA 3:** `s42: 商场` | `s43: 商场` | `s44: 商场` | `s45: (empty)` | `s46: (empty)` $\to$ **Mean CER = 0.300**
@@ -103,6 +106,9 @@ Each inspection figure is structured in 3 rows:
 ### Crop #2: Signboard Text "深圳柏悦酒店" (LoRA 3 Win & Suppression of Hallucination)
 * **File:** `results/pilot_lora2_vs_lora3_crops/crop_02_ip12pro_output_101APPLE_renew_10_patch000_box3.png`
 * **Ground Truth:** `深圳柏悦酒店` (HR read: `深圳柏悦酒店`, LR read: `深圳柏悦酒店`)
+
+![Crop #2: Signboard Text "深圳柏悦酒店" (LoRA 3 Win & Suppression of Hallucination)](../results/pilot_lora2_vs_lora3_crops/crop_02_ip12pro_output_101APPLE_renew_10_patch000_box3.png)
+
 * **Per-Seed OCR Transcripts:**
   * **LoRA 2:** `s42: (empty)` | `s43: 保机柏倪酒店` | `s44: 深圳柏夜运仿` | `s45: 深圳柏悦旧店` | `s46: (empty)` $\to$ **Mean CER = 0.717** (produces 6 distinct fabricated variants).
   * **LoRA 3:** `s42: 深圳拍俊佰居` | `s43: 深圳柏悦石店` | `s44: 深圳柏夜酒店` | `s45: 深圳柏悦盾店` | `s46: 东圳柏俊商店` $\to$ **Mean CER = 0.400**.
@@ -113,6 +119,9 @@ Each inspection figure is structured in 3 rows:
 ### Crop #3: Numeric Date & Fine Strokes "2024/06/17" (LoRA 2 Win — Trade-off Identification)
 * **File:** `results/pilot_lora2_vs_lora3_crops/crop_03_ip12pro_output_100APPLE_renew_29_patch000_box1.png`
 * **Ground Truth:** `2024/06/17` (HR read: `2024/06/17`, LR read: ` `)
+
+![Crop #3: Numeric Date & Fine Strokes "2024/06/17" (LoRA 2 Win — Trade-off Identification)](../results/pilot_lora2_vs_lora3_crops/crop_03_ip12pro_output_100APPLE_renew_29_patch000_box1.png)
+
 * **Per-Seed OCR Transcripts:**
   * **LoRA 2:** `s42: lq741qa71` | `s43: 2024709717` | `s44: 7027700717` | `s45: 202420071` | `s46: 2074701777` $\to$ **Mean CER = 0.570** (preserves delicate numerical stroke outlines).
   * **LoRA 3:** `s42: 107410671` | `s43: (empty)` | `s44: 707100717` | `s45: (empty)` | `s46: (empty)` $\to$ **Mean CER = 0.880**.
@@ -123,6 +132,9 @@ Each inspection figure is structured in 3 rows:
 ### Crop #4: Lowercase Latin Script "paas" (LoRA 2 Slight Win)
 * **File:** `results/pilot_lora2_vs_lora3_crops/crop_04_ip11pro_output_TextSR_renew_114_patch000_box1.png`
 * **Ground Truth:** `paas` (HR read: `paas`, LR read: `paas`)
+
+![Crop #4: Lowercase Latin Script "paas" (LoRA 2 Slight Win)](../results/pilot_lora2_vs_lora3_crops/crop_04_ip11pro_output_TextSR_renew_114_patch000_box1.png)
+
 * **Per-Seed OCR Transcripts:**
   * **LoRA 2:** `s42: pees1` | `s43: paos` | `s44: paas` | `s45: paes` | `s46: paa5` $\to$ **Mean CER = 0.250**.
   * **LoRA 3:** `s42: pees i` | `s43: paosi` | `s44: paas i` | `s45: paas` | `s46: paas` $\to$ **Mean CER = 0.425**.
@@ -133,6 +145,9 @@ Each inspection figure is structured in 3 rows:
 ### Crop #5: Commercial Shopfront Sign "g+24h生活馆" (LoRA 3 High Stability)
 * **File:** `results/pilot_lora2_vs_lora3_crops/crop_05_ip12pro_output_101APPLE_renew_19_patch000_box3.png`
 * **Ground Truth:** `g+24h生活馆` (HR read: `g+24h生活馆`, LR read: `g+24h生活馆`)
+
+![Crop #5: Commercial Shopfront Sign "g+24h生活馆" (LoRA 3 High Stability)](../results/pilot_lora2_vs_lora3_crops/crop_05_ip12pro_output_101APPLE_renew_19_patch000_box3.png)
+
 * **Per-Seed OCR Transcripts:**
   * **LoRA 2:** `s42: g+24h生活验` | `s43: g+24h生活` | `s44: g+24h生活购` | `s45: g+24九生活馆` | `s46: g+24h主活店` $\to$ **Mean CER = 0.138** (yields 10 completely different readings across 10 seeds).
   * **LoRA 3:** `s42: g+24h生活馆` | `s43: g+24h生活馆` | `s44: g+24h生活做` | `s45: g+24力生活馆` | `s46: g+24h主活馆` $\to$ **Mean CER = 0.037** (distinct transcripts cut from 10 down to 4).
@@ -152,6 +167,6 @@ Each inspection figure is structured in 3 rows:
    * **Complex Radicals:** Both 400-step pilots leave room for improvement on complex multi-radical characters compared to Bicubic $\times 4$.
 
 3. **Proposed Next Steps for Full-Scale Training:**
-   * **Tune Consistency Penalty:** Lower $\lambda_{\text{cons}}$ from $0.5$ down to $0.1$–$0.2$ (or apply a cosine annealing schedule) to preserve fine stroke details while maintaining cross-seed stabilization.
+   * **Tune Consistency Penalty:** Lower $\lambda_{\text{cons}} from $0.5$ down to $0.1$–$0.2$ (or apply a cosine annealing schedule) to preserve fine stroke details while maintaining cross-seed stabilization.
    * **Timestep-Aware Consistency Regularization:** Restrict consistency loss to intermediate diffusion timesteps $t \le 500$ ($t_1 = T/2$), directly aligning with DoSSR's 5-step sampling schedule.
    * **Full Training Schedule:** Scale up training duration from 400 pilot steps to 2,000–5,000 steps using the verified scene-disjoint training partition.
