@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from dataclasses import dataclass
+import json
 import math
 from pathlib import Path
 from typing import Any, Iterable, Sequence
@@ -325,6 +327,7 @@ def run_two_noise_step(
     lambda_cons: float = 0.0,
     alpha_cons_text: float = 1.0,
     loss_scale: float = 1.0,
+    cons_active: bool = True,
     loss_backward_fn: Any = None,
     backward: bool = True,
 ) -> dict[str, float]:
@@ -332,9 +335,10 @@ def run_two_noise_step(
 
     Peak activation memory stays equal to one forward pass because Pass 1 frees its
     computation graph before Pass 2 builds its own, while gradients equal
-    loss_scale * (0.5*L_rec(p_a) + 0.5*L_rec(p_b) + lambda_cons*L_cons(p_a, p_b)).
+    loss_scale * (0.5*L_rec(p_a) + 0.5*L_rec(p_b) + eff_lambda_cons*L_cons(p_a, p_b)).
     """
     bw = loss_backward_fn if loss_backward_fn is not None else (lambda t: t.backward())
+    eff_lambda_cons = float(lambda_cons) if (cons_active and float(lambda_cons) > 0.0) else 0.0
 
     def _pass_objective(
         pred: torch.Tensor, peer_detached: torch.Tensor | None
@@ -348,13 +352,13 @@ def run_two_noise_step(
             lambda_cons=0.0,
         )
         obj = 0.5 * rec_out.total
-        if peer_detached is not None and lambda_cons > 0.0:
+        if peer_detached is not None and eff_lambda_cons > 0.0:
             w_cons = _build_text_weight_map(mask_lat.to(pred.dtype), alpha_cons_text)
-            obj = obj + float(lambda_cons) * (w_cons * (pred - peer_detached).abs()).mean()
+            obj = obj + eff_lambda_cons * (w_cons * (pred - peer_detached).abs()).mean()
         return obj * float(loss_scale), rec_out
 
     pred_b_ref: torch.Tensor | None = None
-    if lambda_cons > 0.0:
+    if eff_lambda_cons > 0.0:
         with torch.no_grad():
             pred_b_ref = forward_fn(noise_b).detach()
 
@@ -366,7 +370,7 @@ def run_two_noise_step(
     del pred_a, pass1_obj
 
     pred_b = forward_fn(noise_b)
-    pass2_obj, rec_b = _pass_objective(pred_b, pred_a_ref if lambda_cons > 0.0 else None)
+    pass2_obj, rec_b = _pass_objective(pred_b, pred_a_ref if eff_lambda_cons > 0.0 else None)
     if backward:
         bw(pass2_obj)
 
@@ -380,7 +384,7 @@ def run_two_noise_step(
                 .mean()
                 .item()
             )
-            if lambda_cons > 0.0
+            if eff_lambda_cons > 0.0
             else 0.0
         )
         rec_mean = 0.5 * (rec_a.rec_loss + rec_b.rec_loss)
@@ -388,11 +392,237 @@ def run_two_noise_step(
         text_l1 = 0.5 * (rec_a.text_l1 + rec_b.text_l1)
 
     return {
-        "total_loss": rec_mean + float(lambda_cons) * cons_val,
+        "total_loss": rec_mean + eff_lambda_cons * cons_val,
         "rec_loss": rec_mean,
         "global_l1": global_l1,
         "text_l1": text_l1,
         "cons_loss": cons_val,
+        "cons_active": 1.0 if eff_lambda_cons > 0.0 else 0.0,
+    }
+
+
+def audit_dossr_eta_and_timesteps(
+    num_timesteps: int = 1000,
+    num_steps: int = 5,
+    linear_start: float = 0.00085,
+    linear_end: float = 0.0120,
+) -> dict[str, Any]:
+    """Replicate DoSSR's trunc_12 eta_t and SD2.1 alpha_bar_t schedules for math auditing."""
+    t1 = num_timesteps // 2
+    etas = torch.ones(num_timesteps, dtype=torch.float64)
+    ramp = torch.linspace(0.001, 0.999, t1, dtype=torch.float64)
+    etas[:t1] = (1.0 - torch.cos(ramp * math.pi)) / 2.0
+    one_minus_etas = 1.0 - etas
+
+    betas = torch.linspace(linear_start**0.5, linear_end**0.5, num_timesteps, dtype=torch.float64) ** 2
+    alphas = 1.0 - betas
+    alphas_cumprod = torch.cumprod(alphas, dim=0)
+    sqrt_alphas_cumprod = torch.sqrt(alphas_cumprod)
+    sqrt_one_minus_alphas_cumprod = torch.sqrt(1.0 - alphas_cumprod)
+    sqrt_recip_alphas_cumprod = torch.sqrt(1.0 / alphas_cumprod)
+    sqrt_recipm1_alphas_cumprod = torch.sqrt(1.0 / alphas_cumprod - 1.0)
+
+    # SpacedSampler space_timesteps(t1, str(num_steps + 1))
+    section_count = num_steps + 1
+    frac_stride = (t1 - 1) / (section_count - 1)
+    cur_idx = 0.0
+    spaced_timesteps = []
+    for _ in range(section_count):
+        spaced_timesteps.append(round(cur_idx))
+        cur_idx += frac_stride
+    inference_eval_timesteps = list(reversed(spaced_timesteps[1:]))
+
+    return {
+        "num_timesteps": num_timesteps,
+        "t1_trunc_12": t1,
+        "active_hr_mix_range": [0, t1 - 1],
+        "pure_lr_prior_range": [t1, num_timesteps - 1],
+        "eta_at_t": {
+            "0": float(etas[0].item()),
+            "100": float(etas[100].item()),
+            "200": float(etas[200].item()),
+            "250": float(etas[250].item()),
+            "299": float(etas[299].item()),
+            "300": float(etas[300].item()),
+            "399": float(etas[399].item()),
+            "400": float(etas[400].item()),
+            "498": float(etas[498].item()),
+            "499": float(etas[499].item()),
+            "500": float(etas[500].item()),
+            "999": float(etas[999].item()),
+        },
+        "one_minus_eta_at_t": {
+            "0": float(one_minus_etas[0].item()),
+            "100": float(one_minus_etas[100].item()),
+            "200": float(one_minus_etas[200].item()),
+            "250": float(one_minus_etas[250].item()),
+            "299": float(one_minus_etas[299].item()),
+            "300": float(one_minus_etas[300].item()),
+            "399": float(one_minus_etas[399].item()),
+            "400": float(one_minus_etas[400].item()),
+            "498": float(one_minus_etas[498].item()),
+            "499": float(one_minus_etas[499].item()),
+            "500": float(one_minus_etas[500].item()),
+            "999": float(one_minus_etas[999].item()),
+        },
+        "sqrt_alphas_cumprod_at_t": {
+            "0": float(sqrt_alphas_cumprod[0].item()),
+            "499": float(sqrt_alphas_cumprod[499].item()),
+            "500": float(sqrt_alphas_cumprod[500].item()),
+            "999": float(sqrt_alphas_cumprod[999].item()),
+        },
+        "sqrt_recip_alphas_cumprod_at_t": {
+            "0": float(sqrt_recip_alphas_cumprod[0].item()),
+            "499": float(sqrt_recip_alphas_cumprod[499].item()),
+            "500": float(sqrt_recip_alphas_cumprod[500].item()),
+            "999": float(sqrt_recip_alphas_cumprod[999].item()),
+        },
+        "sqrt_recipm1_alphas_cumprod_at_t": {
+            "0": float(sqrt_recipm1_alphas_cumprod[0].item()),
+            "499": float(sqrt_recipm1_alphas_cumprod[499].item()),
+            "500": float(sqrt_recipm1_alphas_cumprod[500].item()),
+            "999": float(sqrt_recipm1_alphas_cumprod[999].item()),
+        },
+        "sqrt_one_minus_alphas_cumprod_at_t": {
+            "499": float(sqrt_one_minus_alphas_cumprod[499].item()),
+            "999": float(sqrt_one_minus_alphas_cumprod[999].item()),
+        },
+        "training_divides_by_one_minus_eta": False,
+        "training_divisor": "sqrt_alphas_cumprod_t inside predict_start_from_noise (finite across 0..999)",
+        "inference_divides_by_one_minus_eta": True,
+        "inference_spaced_timesteps": spaced_timesteps,
+        "inference_unet_eval_timesteps": inference_eval_timesteps,
+        "inference_min_one_minus_eta_used": float(one_minus_etas[499].item()),
+        "recommended_cons_t_range": [0, t1 - 1],
+    }
+
+
+def verify_fp32_twopass_vs_joint_gradients(
+    *,
+    forward_factory: Any = None,
+    grad_accum: int = 4,
+    alpha_text: float = 5.0,
+    lambda_cons: float = 0.2,
+    alpha_cons_text: float = 5.0,
+    seed: int = 231,
+) -> dict[str, Any]:
+    """Compare custom two-pass chain-rule gradients against simultaneous two-branch backward in FP32."""
+    torch.manual_seed(seed)
+
+    if forward_factory is None:
+        class _FP32AuditNet(nn.Module):
+            def __init__(self, channels: int = 4) -> None:
+                super().__init__()
+                self.input_blocks = nn.ModuleList([nn.Linear(channels, channels)])
+                self.middle_block = nn.Linear(channels, channels)
+                self.control_model = nn.ModuleDict({"to_q": nn.Linear(channels, channels)})
+                self.model = nn.ModuleDict(
+                    {
+                        "diffusion_model": nn.ModuleDict(
+                            {
+                                "output_blocks": nn.ModuleList(
+                                    [nn.ModuleDict({"to_v": nn.Linear(channels, channels)})]
+                                )
+                            }
+                        )
+                    }
+                )
+
+            def forward(self, x: torch.Tensor) -> torch.Tensor:
+                tokens = x.permute(0, 2, 3, 1)
+                with torch.no_grad():
+                    enc = self.middle_block(self.input_blocks[0](tokens))
+                ctrl = self.control_model["to_q"](tokens)
+                out = self.model["diffusion_model"]["output_blocks"][0]["to_v"](enc + ctrl)
+                return out.permute(0, 3, 1, 2)
+
+        net_joint = _FP32AuditNet(channels=4).float()
+        inject_lora_adapters(net_joint, rank=4, alpha=8.0)
+        for mod in net_joint.modules():
+            if isinstance(mod, LoRALinear):
+                nn.init.normal_(mod.lora_A, std=0.1)
+                nn.init.normal_(mod.lora_B, std=0.1)
+        net_twopass = copy.deepcopy(net_joint).float()
+
+        microbatches = []
+        for _ in range(grad_accum):
+            x_lat = torch.randn(1, 4, 16, 16, dtype=torch.float32)
+            target_lat = torch.randn(1, 4, 16, 16, dtype=torch.float32)
+            mask = (torch.rand(1, 1, 16, 16) > 0.65).float()
+            noise_a = torch.randn(1, 4, 16, 16, dtype=torch.float32)
+            noise_b = torch.randn(1, 4, 16, 16, dtype=torch.float32)
+            microbatches.append((x_lat, target_lat, mask, noise_a, noise_b))
+
+        def _make_fwd(model_ref: nn.Module, x_in: torch.Tensor):
+            return lambda eps: model_ref(x_in + eps)
+
+        net_joint.zero_grad(set_to_none=True)
+        net_twopass.zero_grad(set_to_none=True)
+        joint_loss_total = 0.0
+        twopass_loss_total = 0.0
+        loss_scale = 1.0 / float(grad_accum)
+        for x_lat, target_lat, mask, noise_a, noise_b in microbatches:
+            p_a = _make_fwd(net_joint, x_lat)(noise_a)
+            p_b = _make_fwd(net_joint, x_lat)(noise_b)
+            w_rec = _build_text_weight_map(mask, alpha_text)
+            w_cons = _build_text_weight_map(mask, alpha_cons_text)
+            l_mb = loss_scale * (
+                0.5 * (w_rec * (p_a - target_lat).abs()).mean()
+                + 0.5 * (w_rec * (p_b - target_lat).abs()).mean()
+                + float(lambda_cons) * (w_cons * (p_a - p_b).abs()).mean()
+            )
+            joint_loss_total += float(l_mb.detach().item())
+            l_mb.backward()
+
+            tp_stats = run_two_noise_step(
+                _make_fwd(net_twopass, x_lat),
+                target_lat,
+                mask,
+                noise_a,
+                noise_b,
+                alpha_text=alpha_text,
+                lambda_cons=lambda_cons,
+                alpha_cons_text=alpha_cons_text,
+                loss_scale=loss_scale,
+                cons_active=True,
+            )
+            twopass_loss_total += loss_scale * tp_stats["total_loss"]
+
+        joint_params = get_lora_parameters(net_joint)
+        twopass_params = get_lora_parameters(net_twopass)
+    else:
+        return forward_factory(grad_accum=grad_accum, alpha_text=alpha_text, lambda_cons=lambda_cons, alpha_cons_text=alpha_cons_text, seed=seed)
+
+    abs_diffs: list[torch.Tensor] = []
+    joint_sq_norm = 0.0
+    diff_sq_norm = 0.0
+    per_param_max: list[float] = []
+    for p_j, p_t in zip(joint_params, twopass_params):
+        assert p_j.grad is not None and p_t.grad is not None
+        assert p_j.grad.dtype == torch.float32 and p_t.grad.dtype == torch.float32
+        diff = (p_j.grad - p_t.grad).abs()
+        abs_diffs.append(diff.reshape(-1))
+        per_param_max.append(float(diff.max().item()))
+        joint_sq_norm += float(p_j.grad.double().pow(2).sum().item())
+        diff_sq_norm += float((p_j.grad.double() - p_t.grad.double()).pow(2).sum().item())
+
+    flat_diff = torch.cat(abs_diffs)
+    joint_norm = math.sqrt(joint_sq_norm)
+    diff_norm = math.sqrt(diff_sq_norm)
+    rel_l2 = diff_norm / joint_norm if joint_norm > 0.0 else diff_norm
+
+    return {
+        "precision": "fp32",
+        "grad_accum": grad_accum,
+        "num_lora_tensors": len(joint_params),
+        "num_lora_elements": int(flat_diff.numel()),
+        "joint_loss": joint_loss_total,
+        "twopass_loss": twopass_loss_total,
+        "loss_abs_diff": abs(joint_loss_total - twopass_loss_total),
+        "max_abs_grad_diff": float(flat_diff.max().item()),
+        "mean_abs_grad_diff": float(flat_diff.mean().item()),
+        "rel_l2_grad_diff": rel_l2,
+        "joint_grad_l2_norm": joint_norm,
     }
 
 
@@ -540,15 +770,64 @@ def run_cpu_tests() -> None:
         assert roundtrip_diff < 1e-6, f"Test (f) roundtrip diff: {roundtrip_diff}"
     print("[PASS] Test (f): LoRA checkpoint save/load roundtrip preserves exact model outputs")
 
+    # (g) Timestep gating (cons_active=False vs True) & 4-minibatch FP32 gradient equivalence
+    net_twopass.zero_grad(set_to_none=True)
+    gated_off = run_two_noise_step(
+        lambda eps: net_twopass(x_lat + eps),
+        target_lat,
+        small_mask,
+        noise_a,
+        noise_b,
+        alpha_text=4.0,
+        lambda_cons=0.5,
+        alpha_cons_text=3.0,
+        cons_active=False,
+    )
+    assert gated_off["cons_active"] == 0.0 and gated_off["cons_loss"] == 0.0
+    assert abs(gated_off["total_loss"] - gated_off["rec_loss"]) < 1e-7
+
+    fp32_audit = verify_fp32_twopass_vs_joint_gradients(grad_accum=4, lambda_cons=0.2, seed=231)
+    assert fp32_audit["max_abs_grad_diff"] < 1e-5, f"Test (g) max_abs_grad_diff={fp32_audit['max_abs_grad_diff']}"
+    assert fp32_audit["rel_l2_grad_diff"] < 1e-6, f"Test (g) rel_l2_grad_diff={fp32_audit['rel_l2_grad_diff']}"
+    eta_audit = audit_dossr_eta_and_timesteps()
+    assert eta_audit["t1_trunc_12"] == 500
+    assert eta_audit["inference_unet_eval_timesteps"] == [499, 399, 299, 200, 100]
+    assert eta_audit["one_minus_eta_at_t"]["500"] == 0.0
+    assert eta_audit["one_minus_eta_at_t"]["499"] > 0.0
+    print(
+        "[PASS] Test (g): Timestep gating (cons_active=False), eta schedule audit, and "
+        f"4-accum FP32 gradient check (max_diff={fp32_audit['max_abs_grad_diff']:.2e}, "
+        f"rel_l2={fp32_audit['rel_l2_grad_diff']:.2e})"
+    )
+
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="LoRA adapters and text-loss utilities for DoSSR.")
-    parser.add_argument("--run-cpu-tests", action="store_true", help="Run CPU unit tests (a)-(f)")
+    parser.add_argument("--run-cpu-tests", action="store_true", help="Run CPU unit tests (a)-(g)")
+    parser.add_argument(
+        "--verify-fp32-gradients",
+        action="store_true",
+        help="Run explicit FP32 comparison between two-pass chain-rule backward and simultaneous joint backward",
+    )
+    parser.add_argument(
+        "--audit-eta-schedule",
+        action="store_true",
+        help="Print DoSSR trunc_12 eta_t, 1-eta_t, alpha_bar_t, and SpacedSampler timestep math",
+    )
     args = parser.parse_args(argv)
+    if not (args.run_cpu_tests or args.verify_fp32_gradients or args.audit_eta_schedule):
+        parser.print_help()
+        return 0
     if args.run_cpu_tests:
         run_cpu_tests()
-        return 0
-    parser.print_help()
+    if args.verify_fp32_gradients:
+        print("\n=== FP32 Two-Pass vs Simultaneous Joint Two-Branch Gradient Check ===")
+        for accum in (1, 4):
+            res = verify_fp32_twopass_vs_joint_gradients(grad_accum=accum, lambda_cons=0.2, seed=231)
+            print(json.dumps(res, indent=2))
+    if args.audit_eta_schedule:
+        print("\n=== DoSSR trunc_12 & SpacedSampler Schedule Audit ===")
+        print(json.dumps(audit_dossr_eta_and_timesteps(), indent=2))
     return 0
 
 

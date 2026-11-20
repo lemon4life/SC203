@@ -279,6 +279,132 @@ def load_dossr_for_lora(
     return model
 
 
+def run_controlldm_fp32_grad_check(
+    model: Any,
+    *,
+    device: str,
+    alpha_text: float = 5.0,
+    lambda_cons: float = 0.2,
+    alpha_cons_text: float = 5.0,
+    latent_size: int = 32,
+    seed: int = 231,
+) -> dict[str, Any]:
+    """Compare two-pass chain-rule backward vs simultaneous two-branch backward in FP32 on ControlLDM.
+
+    Preserves all model weights, RNG states, and CUDA peak memory stats for subsequent training.
+    """
+    from src.lora_text_loss import _build_text_weight_map
+
+    py_state = random.getstate()
+    np_state = np.random.get_state()
+    cpu_rng_state = torch.get_rng_state()
+    cuda_rng_state = torch.cuda.get_rng_state_all() if (device.startswith("cuda") and torch.cuda.is_available()) else None
+
+    lora_params = get_lora_parameters(model)
+    saved_weights = [p.detach().clone() for p in lora_params]
+
+    try:
+        seed_everything_deterministic(seed + 999)
+        # Temporarily perturb lora_B so both lora_A and lora_B carry non-zero gradients
+        for name, mod in model.named_modules():
+            if hasattr(mod, "lora_A") and hasattr(mod, "lora_B"):
+                with torch.no_grad():
+                    mod.lora_A.add_(torch.randn_like(mod.lora_A) * 0.01)
+                    mod.lora_B.add_(torch.randn_like(mod.lora_B) * 0.01)
+
+        c_crossattn = torch.randn((1, 77, 1024), device=device, dtype=torch.float32)
+        c_latent = torch.randn((1, 4, latent_size, latent_size), device=device, dtype=torch.float32)
+        cond = {"c_crossattn": [c_crossattn], "c_latent": [c_latent], "c_preprocess": [c_latent]}
+        x_hr_lat = torch.randn((1, 4, latent_size, latent_size), device=device, dtype=torch.float32)
+        mask_lat = (torch.rand((1, 1, latent_size, latent_size), device=device) > 0.6).float()
+        t = torch.tensor([250], device=device, dtype=torch.long)
+        noise_a = torch.randn_like(x_hr_lat)
+        noise_b = torch.randn_like(x_hr_lat)
+
+        model.zero_grad(set_to_none=True)
+        p_a_j = model.predict_x0_out_mix(x_hr_lat, c_latent, cond, t, noise=noise_a).float()
+        p_b_j = model.predict_x0_out_mix(x_hr_lat, c_latent, cond, t, noise=noise_b).float()
+        w_rec = _build_text_weight_map(mask_lat, alpha_text)
+        w_cons = _build_text_weight_map(mask_lat, alpha_cons_text)
+        joint_loss = (
+            0.5 * (w_rec * (p_a_j - x_hr_lat).abs()).mean()
+            + 0.5 * (w_rec * (p_b_j - x_hr_lat).abs()).mean()
+            + float(lambda_cons) * (w_cons * (p_a_j - p_b_j).abs()).mean()
+        )
+        joint_loss.backward()
+        joint_loss_val = float(joint_loss.detach().item())
+        joint_grads = [
+            p.grad.detach().float().cpu().clone() if p.grad is not None else torch.zeros_like(p, device="cpu", dtype=torch.float32)
+            for p in lora_params
+        ]
+        del p_a_j, p_b_j, joint_loss
+
+        model.zero_grad(set_to_none=True)
+        tp_stats = run_two_noise_step(
+            lambda eps: model.predict_x0_out_mix(x_hr_lat, c_latent, cond, t, noise=eps).float(),
+            x_hr_lat,
+            mask_lat,
+            noise_a,
+            noise_b,
+            alpha_text=alpha_text,
+            lambda_cons=lambda_cons,
+            alpha_cons_text=alpha_cons_text,
+            loss_scale=1.0,
+            cons_active=True,
+        )
+        twopass_grads = [
+            p.grad.detach().float().cpu().clone() if p.grad is not None else torch.zeros_like(p, device="cpu", dtype=torch.float32)
+            for p in lora_params
+        ]
+
+        max_diff = 0.0
+        sum_diff = 0.0
+        n_elem = 0
+        joint_sq = 0.0
+        diff_sq = 0.0
+        n_nonzero = 0
+        for gj, gt in zip(joint_grads, twopass_grads):
+            if float(gj.abs().max().item()) > 0.0:
+                n_nonzero += 1
+            d = (gj - gt).abs()
+            max_diff = max(max_diff, float(d.max().item()))
+            sum_diff += float(d.double().sum().item())
+            n_elem += int(d.numel())
+            joint_sq += float(gj.double().pow(2).sum().item())
+            diff_sq += float((gj.double() - gt.double()).pow(2).sum().item())
+
+        joint_norm = math.sqrt(joint_sq)
+        diff_norm = math.sqrt(diff_sq)
+        rel_l2 = diff_norm / joint_norm if joint_norm > 0.0 else diff_norm
+        return {
+            "precision": "fp32",
+            "latent_size": latent_size,
+            "num_lora_tensors": len(lora_params),
+            "nonzero_grad_tensors": n_nonzero,
+            "num_lora_elements": n_elem,
+            "joint_loss": joint_loss_val,
+            "twopass_loss": tp_stats["total_loss"],
+            "loss_abs_diff": abs(joint_loss_val - tp_stats["total_loss"]),
+            "max_abs_grad_diff": max_diff,
+            "mean_abs_grad_diff": sum_diff / max(1, n_elem),
+            "rel_l2_grad_diff": rel_l2,
+            "joint_grad_l2_norm": joint_norm,
+        }
+    finally:
+        with torch.no_grad():
+            for p, orig in zip(lora_params, saved_weights):
+                p.copy_(orig)
+        model.zero_grad(set_to_none=True)
+        if device.startswith("cuda") and torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.reset_peak_memory_stats()
+        random.setstate(py_state)
+        np.random.set_state(np_state)
+        torch.set_rng_state(cpu_rng_state)
+        if cuda_rng_state is not None:
+            torch.cuda.set_rng_state_all(cuda_rng_state)
+
+
 def resolve_variant_hyperparams(
     variant: str,
     alpha_text: float,
@@ -316,12 +442,15 @@ def run_training_loop(
     alpha_text: float,
     lambda_cons: float,
     alpha_cons_text: float,
+    cons_t_min: int = 0,
+    cons_t_max: int | None = None,
     seed: int,
     device: str,
     precision: str,
     log_every: int,
     save_every: int,
     config_meta: dict[str, Any],
+    fp32_grad_audit: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Run controlled gradient-accumulated LoRA training and emit logs, weights, and manifest."""
     if num_noise_samples != 2:
@@ -331,6 +460,13 @@ def run_training_loop(
     alpha_text_val, lambda_cons_val, alpha_cons_val = resolve_variant_hyperparams(
         variant, alpha_text, lambda_cons, alpha_cons_text
     )
+    model_num_t = int(getattr(model, "num_timesteps", 1000))
+    cons_t_min_val = max(0, int(cons_t_min))
+    cons_t_max_val = (model_num_t - 1) if cons_t_max is None else int(cons_t_max)
+    if cons_t_min_val > cons_t_max_val:
+        raise ValueError(
+            f"cons_t_min ({cons_t_min_val}) cannot exceed cons_t_max ({cons_t_max_val})"
+        )
 
     seed_everything_deterministic(seed)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -338,6 +474,15 @@ def run_training_loop(
     trainable_params = sum(int(p.numel()) for p in lora_params)
     if trainable_params == 0:
         raise RuntimeError("No trainable LoRA parameters found on model")
+
+    total_expected_minibatches = max_steps * grad_accum
+    print(
+        f"[{variant}] Start training: max_steps={max_steps} optimizer updates x grad_accum={grad_accum} "
+        f"= {total_expected_minibatches} minibatches ({total_expected_minibatches * num_noise_samples} noise forwards) | "
+        f"alpha_text={alpha_text_val} | lambda_cons={lambda_cons_val} | "
+        f"cons_t_window=[{cons_t_min_val}, {cons_t_max_val}] | seed={seed} | precision={precision}",
+        flush=True,
+    )
 
     optimizer = torch.optim.AdamW(lora_params, lr=lr, weight_decay=0.0)
     use_amp = device.startswith("cuda") and precision == "fp16"
@@ -349,6 +494,9 @@ def run_training_loop(
     data_iter = iter(dataloader)
     log_rows: list[dict[str, Any]] = []
     step_times: list[float] = []
+    all_sampled_t: list[int] = []
+    total_minibatches = 0
+    total_cons_active_minibatches = 0
 
     for step in range(1, max_steps + 1):
         optimizer.zero_grad(set_to_none=True)
@@ -363,6 +511,8 @@ def run_training_loop(
             "text_l1": 0.0,
             "cons_loss": 0.0,
         }
+        step_t_list: list[int] = []
+        step_cons_active = 0
 
         make_autocast = (
             (lambda: torch.autocast(device_type="cuda", dtype=torch.float16, cache_enabled=False))
@@ -391,6 +541,17 @@ def run_training_loop(
                     noise_a = torch.randn_like(x_hr_lat)
                     noise_b = torch.randn_like(x_hr_lat)
 
+                t_val = int(t[0].item())
+                step_t_list.append(t_val)
+                all_sampled_t.append(t_val)
+                is_cons_active = (lambda_cons_val > 0.0) and (
+                    cons_t_min_val <= t_val <= cons_t_max_val
+                )
+                total_minibatches += 1
+                if is_cons_active:
+                    step_cons_active += 1
+                    total_cons_active_minibatches += 1
+
                 step_stats = run_two_noise_step(
                     lambda eps: model.predict_x0_out_mix(
                         x_hr_lat, preprocess_x, cond, t, noise=eps
@@ -403,6 +564,7 @@ def run_training_loop(
                     lambda_cons=lambda_cons_val,
                     alpha_cons_text=alpha_cons_val,
                     loss_scale=1.0 / float(grad_accum),
+                    cons_active=is_cons_active,
                     loss_backward_fn=(
                         (lambda loss: scaler.scale(loss).backward()) if use_amp else None
                     ),
@@ -432,12 +594,19 @@ def run_training_loop(
 
         row = {
             "step": step,
+            "minibatches_cum": total_minibatches,
             "variant": variant,
             "total_loss": round(accum_metrics["total_loss"], 6),
             "rec_loss": round(accum_metrics["rec_loss"], 6),
             "global_l1": round(accum_metrics["global_l1"], 6),
             "text_l1": round(accum_metrics["text_l1"], 6),
             "cons_loss": round(accum_metrics["cons_loss"], 6),
+            "t_sampled": "|".join(str(tv) for tv in step_t_list),
+            "cons_active_count": step_cons_active,
+            "cons_active_ratio": round(step_cons_active / float(grad_accum), 4),
+            "cons_active_cum_ratio": round(
+                total_cons_active_minibatches / float(max(1, total_minibatches)), 4
+            ),
             "lr": lr,
             "step_time_sec": round(step_sec, 4),
             "peak_vram_allocated_gib": round(peak_alloc, 4),
@@ -447,8 +616,9 @@ def run_training_loop(
 
         if step == 1 or step % log_every == 0 or step == max_steps:
             print(
-                f"[{variant}] step={step}/{max_steps} | total={row['total_loss']:.4f} "
-                f"| rec={row['rec_loss']:.4f} | text_l1={row['text_l1']:.4f} "
+                f"[{variant}] step={step}/{max_steps} (mb={total_minibatches}) | t={step_t_list} "
+                f"| cons_act={step_cons_active}/{grad_accum} (cum={100.0 * row['cons_active_cum_ratio']:.1f}%) "
+                f"| total={row['total_loss']:.4f} | rec={row['rec_loss']:.4f} | text_l1={row['text_l1']:.4f} "
                 f"| cons={row['cons_loss']:.4f} | {row['step_time_sec']:.2f}s/step "
                 f"| peak_vram={peak_alloc:.2f} GiB",
                 flush=True,
@@ -457,14 +627,34 @@ def run_training_loop(
         if save_every > 0 and step % save_every == 0 and step < max_steps:
             ckpt_step = output_dir / f"lora_weights_step_{step:04d}.pt"
             save_lora_state_dict(
-                model, ckpt_step, meta={"variant": variant, "step": step, "rank": rank, "alpha": alpha}
+                model,
+                ckpt_step,
+                meta={
+                    "variant": variant,
+                    "step": step,
+                    "minibatches": total_minibatches,
+                    "rank": rank,
+                    "alpha": alpha,
+                    "lambda_cons": lambda_cons_val,
+                    "cons_t_min": cons_t_min_val,
+                    "cons_t_max": cons_t_max_val,
+                },
             )
 
     final_weights_path = output_dir / "lora_weights_final.pt"
     save_lora_state_dict(
         model,
         final_weights_path,
-        meta={"variant": variant, "step": max_steps, "rank": rank, "alpha": alpha},
+        meta={
+            "variant": variant,
+            "step": max_steps,
+            "minibatches": total_minibatches,
+            "rank": rank,
+            "alpha": alpha,
+            "lambda_cons": lambda_cons_val,
+            "cons_t_min": cons_t_min_val,
+            "cons_t_max": cons_t_max_val,
+        },
     )
 
     log_csv = output_dir / "lora_train_log.csv"
@@ -472,6 +662,30 @@ def run_training_loop(
         writer = csv.DictWriter(handle, fieldnames=list(log_rows[0].keys()))
         writer.writeheader()
         writer.writerows(log_rows)
+
+    n_lt_500 = sum(1 for tv in all_sampled_t if tv < 500)
+    n_in_window = sum(1 for tv in all_sampled_t if cons_t_min_val <= tv <= cons_t_max_val)
+    t_stats = {
+        "total_minibatches": total_minibatches,
+        "t_min_sampled": min(all_sampled_t),
+        "t_max_sampled": max(all_sampled_t),
+        "t_mean_sampled": round(statistics.mean(all_sampled_t), 2),
+        "t_median_sampled": round(statistics.median(all_sampled_t), 2),
+        "count_t_lt_500": n_lt_500,
+        "pct_t_lt_500": round(100.0 * n_lt_500 / float(max(1, total_minibatches)), 2),
+        "count_t_in_cons_window": n_in_window,
+        "pct_t_in_cons_window": round(100.0 * n_in_window / float(max(1, total_minibatches)), 2),
+        "cons_active_minibatches": total_cons_active_minibatches,
+        "cons_active_ratio": round(total_cons_active_minibatches / float(max(1, total_minibatches)), 4),
+    }
+    print(
+        f"[{variant}] Timestep & Consistency Summary | minibatches={total_minibatches} "
+        f"| t_mean={t_stats['t_mean_sampled']} (min={t_stats['t_min_sampled']}, max={t_stats['t_max_sampled']}) "
+        f"| t<500: {n_lt_500}/{total_minibatches} ({t_stats['pct_t_lt_500']:.2f}%) "
+        f"| cons_active: {total_cons_active_minibatches}/{total_minibatches} "
+        f"({100.0 * t_stats['cons_active_ratio']:.2f}%)",
+        flush=True,
+    )
 
     sorted_times = sorted(step_times)
     p95_idx = min(len(sorted_times) - 1, math.floor(0.95 * (len(sorted_times) - 1)))
@@ -487,10 +701,16 @@ def run_training_loop(
         "lr": lr,
         "max_steps": max_steps,
         "grad_accum": grad_accum,
+        "total_minibatches": total_minibatches,
+        "total_noise_forward_evals": total_minibatches * num_noise_samples,
         "num_noise_samples": num_noise_samples,
         "alpha_text": alpha_text_val,
         "lambda_cons": lambda_cons_val,
         "alpha_cons_text": alpha_cons_val,
+        "cons_t_min": cons_t_min_val,
+        "cons_t_max": cons_t_max_val,
+        "timestep_and_consistency_stats": t_stats,
+        "fp32_grad_audit": fp32_grad_audit,
         "trainable_lora_params": trainable_params,
         "mean_step_time_sec": round(statistics.mean(step_times), 4),
         "p95_step_time_sec": round(sorted_times[p95_idx], 4),
@@ -605,12 +825,28 @@ def run_dry_run_cpu() -> int:
         assert sample0["txt"] == ""
         assert float(sample0["mask_hr"].sum().item()) == 64 * 32
 
-        for variant, alpha_t, l_cons in (("lora2", 5.0, 0.0), ("lora3", 5.0, 0.5)):
+        for tag, variant, alpha_t, l_cons, t_max_val in (
+            ("lora2", "lora2", 5.0, 0.0, None),
+            ("lora3_full", "lora3", 5.0, 0.2, None),
+            ("lora3_t499", "lora3", 5.0, 0.2, 499),
+        ):
             loader = DataLoader(ds, batch_size=1, shuffle=False)
             mock_model = _MockControlLDM()
             mock_model.eval()
             inject_lora_adapters(mock_model, rank=2, alpha=4.0)
-            out_dir = tmp / f"out_{variant}"
+            fp32_check = None
+            if tag == "lora3_t499":
+                fp32_check = run_controlldm_fp32_grad_check(
+                    mock_model,
+                    device="cpu",
+                    alpha_text=alpha_t,
+                    lambda_cons=l_cons,
+                    alpha_cons_text=alpha_t,
+                    latent_size=8,
+                    seed=231,
+                )
+                assert fp32_check["max_abs_grad_diff"] < 1e-5, fp32_check
+            out_dir = tmp / f"out_{tag}"
             summary = run_training_loop(
                 model=mock_model,
                 dataloader=loader,
@@ -619,21 +855,32 @@ def run_dry_run_cpu() -> int:
                 rank=2,
                 alpha=4.0,
                 lr=1e-3,
-                max_steps=2,
-                grad_accum=2,
+                max_steps=4,
+                grad_accum=4,
                 num_noise_samples=2,
                 alpha_text=alpha_t,
                 lambda_cons=l_cons,
                 alpha_cons_text=alpha_t,
+                cons_t_min=0,
+                cons_t_max=t_max_val,
                 seed=231,
                 device="cpu",
                 precision="fp32",
-                log_every=1,
-                save_every=0,
+                log_every=2,
+                save_every=2,
                 config_meta={"dry_run_cpu": True},
+                fp32_grad_audit=fp32_check,
             )
             assert (out_dir / "lora_train_log.csv").is_file()
             assert (out_dir / "lora_run_manifest.json").is_file()
+            assert (out_dir / "lora_weights_step_0002.pt").is_file()
+            assert summary["total_minibatches"] == 16
+            if tag == "lora3_full":
+                assert summary["timestep_and_consistency_stats"]["cons_active_minibatches"] == 16
+                assert summary["timestep_and_consistency_stats"]["cons_active_ratio"] == 1.0
+            elif tag == "lora3_t499":
+                assert summary["cons_t_max"] == 499
+                assert summary["fp32_grad_audit"] is not None
             weights_file = Path(summary["weights_path"])
             assert weights_file.is_file()
             fresh = _MockControlLDM()
@@ -689,7 +936,7 @@ def run_dry_run_cpu() -> int:
         assert lora_a.grad is not None and lora_b.grad is not None and x_in.grad is not None
         assert base_layer.weight.grad is None and base_layer.bias.grad is None
 
-    print("[PASS] run_lora_trial.py --dry-run-cpu (LoRA 2, LoRA 3, dataset, checkpoints, run_dossr plumbing)")
+    print("[PASS] run_lora_trial.py --dry-run-cpu (LoRA 2, LoRA 3, t<=499 gating, FP32 grad check, checkpoints, run_dossr plumbing)")
     return 0
 
 
@@ -713,6 +960,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--alpha-text", type=float, default=None)
     parser.add_argument("--lambda-cons", type=float, default=None)
     parser.add_argument("--alpha-cons-text", type=float, default=None)
+    parser.add_argument("--cons-t-min", type=int, default=None, help="Minimum timestep t (inclusive) enabling consistency loss")
+    parser.add_argument("--cons-t-max", type=int, default=None, help="Maximum timestep t (inclusive) enabling consistency loss, e.g. 499")
     parser.add_argument("--image-size", type=int, default=None)
     parser.add_argument("--sr-scale", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
@@ -720,6 +969,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--device", type=str, default=None)
     parser.add_argument("--log-every", type=int, default=None)
     parser.add_argument("--save-every", type=int, default=None)
+    parser.add_argument(
+        "--verify-fp32-grad",
+        action="store_true",
+        help="Run a single-minibatch FP32 comparison between two-pass chain-rule backward and simultaneous joint backward before training",
+    )
     parser.add_argument("--dry-run-cpu", action="store_true", help="Run offline CPU smoke verification")
     return parser.parse_args(argv)
 
@@ -776,6 +1030,9 @@ def main(argv: list[str] | None = None) -> int:
     alpha_text = float(pick("alpha_text", args.alpha_text, 1.0 if variant == "lora1" else 5.0))
     lambda_cons = float(pick("lambda_cons", args.lambda_cons, 0.5 if variant == "lora3" else 0.0))
     alpha_cons_text = float(pick("alpha_cons_text", args.alpha_cons_text, alpha_text))
+    cons_t_min = int(pick("cons_t_min", args.cons_t_min, 0))
+    cons_t_max_raw = pick("cons_t_max", args.cons_t_max, None)
+    cons_t_max = int(cons_t_max_raw) if cons_t_max_raw is not None else None
     image_size = int(pick("image_size", args.image_size, 512))
     sr_scale = int(pick("sr_scale", args.sr_scale, 4))
     seed = int(pick("seed", args.seed, 231))
@@ -783,6 +1040,7 @@ def main(argv: list[str] | None = None) -> int:
     device = str(pick("device", args.device, "cuda"))
     log_every = int(pick("log_every", args.log_every, 10))
     save_every = int(pick("save_every", args.save_every, 200))
+    verify_fp32_grad = bool(args.verify_fp32_grad or lora_cfg.get("verify_fp32_grad", False))
 
     seed_everything_deterministic(seed)
     dataset = PairedRealCEDataset(
@@ -812,6 +1070,20 @@ def main(argv: list[str] | None = None) -> int:
         alpha=alpha,
     )
 
+    fp32_audit = None
+    if verify_fp32_grad and variant == "lora3":
+        print("[Audit] Running FP32 two-pass vs simultaneous joint backward check on ControlLDM...", flush=True)
+        fp32_audit = run_controlldm_fp32_grad_check(
+            model,
+            device=device,
+            alpha_text=alpha_text,
+            lambda_cons=lambda_cons,
+            alpha_cons_text=alpha_cons_text,
+            latent_size=32,
+            seed=seed,
+        )
+        print("[Audit] FP32 gradient check result:", json.dumps(fp32_audit), flush=True)
+
     run_training_loop(
         model=model,
         dataloader=dataloader,
@@ -826,12 +1098,15 @@ def main(argv: list[str] | None = None) -> int:
         alpha_text=alpha_text,
         lambda_cons=lambda_cons,
         alpha_cons_text=alpha_cons_text,
+        cons_t_min=cons_t_min,
+        cons_t_max=cons_t_max,
         seed=seed,
         device=device,
         precision=precision,
         log_every=log_every,
         save_every=save_every,
         config_meta={"config_path": str(args.config) if args.config else None},
+        fp32_grad_audit=fp32_audit,
     )
     return 0
 

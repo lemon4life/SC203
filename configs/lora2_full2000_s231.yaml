@@ -1,0 +1,58 @@
+# Full 2,000-step LoRA 2 baseline config (lambda_cons = 0.0, grad_accum = 4 -> 8,000 minibatches)
+# Saves intermediate checkpoints every 400 optimizer steps (400, 800, 1200, 1600, 2000).
+# For an independent training seed, override `--seed 777` and `--output-dir .../lora2-full2000-s777`.
+
+# --- Shared model & Colab Drive paths ---
+checkpoint: /content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt
+model_config: /content/SC203/external/DOSSR/configs/model/cldm_v21.yaml
+inference_script: /content/SC203/external/DOSSR/scripts/inference.py
+dossr_root: /content/SC203/external/DOSSR
+log_dir: /content/drive/MyDrive/lemmepass/logs
+
+# --- Study wrapper keys ---
+baseline_config: configs/lora2_full2000_s231.yaml
+seeds_file: configs/seeds_10.yaml
+
+# --- Fixed validation inference config (for src/run_dossr.py) ---
+seed: 42
+input_dir: /content/data_local/RealCE_patches/val/LR
+gt_dir: /content/data_local/RealCE_patches/val/HR
+output_root: /content/drive/MyDrive/lemmepass/outputs/full2000-lora2-s231-realce-val-10seed
+lora_weights: /content/drive/MyDrive/lemmepass/outputs/lora2-full2000-s231/lora_weights_final.pt
+per_image_seed: true
+steps: 5
+solver_order: 3
+t1_fraction: 0.5
+device: cuda
+precision: fp16
+prompt_mode: empty
+disable_sdpa: true
+offload_condition_encoder: false
+tiled: false
+tile_size: 512
+tile_stride: 256
+sr_scale: 4
+color_fix_type: wavelet
+preprocessor: RealESRNet
+
+# --- LoRA full 2,000-step training hyperparameters ---
+lora:
+  variant: lora2
+  seed: 231
+  train_manifest: data/realce_train_manifest.csv
+  boxes_csv: data/realce_train_boxes.csv
+  output_dir: /content/drive/MyDrive/lemmepass/outputs/lora2-full2000-s231
+  rank: 8
+  alpha: 16.0
+  lr: 1.0e-4
+  max_steps: 2000
+  batch_size: 1
+  grad_accum: 4
+  num_noise_samples: 2
+  alpha_text: 5.0
+  lambda_cons: 0.0
+  alpha_cons_text: 5.0
+  image_size: 512
+  sr_scale: 4
+  log_every: 20
+  save_every: 400

@@ -1,0 +1,805 @@
+{
+  "realce_dataset_provenance": {
+    "total_4x_pairs": 945,
+    "official_train_pairs_13mm_52mm": 645,
+    "official_val_pairs_13mm_52mm_held_out": 300,
+    "explanation": "Real-CE contains 945 paired (13mm, 52mm) full images in total: 645 pairs in official RealCE/train/ and 300 pairs in official RealCE/val/. scripts/split_realce_by_scene.py --split train ONLY splits the 645 official RealCE/train/ pairs by root scene ID (80% train / 20% internal val, seed=42), leaving all 300 official RealCE/val/ pairs 100% untouched for final test evaluation."
+  },
+  "validation_split_summary": {
+    "num_val_patches": 30,
+    "num_distinct_parent_scenes": 30,
+    "total_boxes": 154,
+    "hr_solvable_boxes": 63,
+    "val_patches": [
+      {
+        "val_patch_image": "ip11pro_output_TextSR-20211222_renew_23_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR-20211222_renew_23",
+        "num_boxes": 4,
+        "num_hr_solvable": 0
+      },
+      {
+        "val_patch_image": "ip11pro_output_TextSR_renew_101_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR_renew_101",
+        "num_boxes": 5,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip11pro_output_TextSR_renew_114_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR_renew_114",
+        "num_boxes": 5,
+        "num_hr_solvable": 4
+      },
+      {
+        "val_patch_image": "ip11pro_output_TextSR_renew_20_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR_renew_20",
+        "num_boxes": 5,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip11pro_output_TextSR_renew_34_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR_renew_34",
+        "num_boxes": 4,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip11pro_output_TextSR_renew_41_patch000.png",
+        "parent_scene_id": "ip11pro_output_TextSR_renew_41",
+        "num_boxes": 6,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip11pro_output_testSR_2101225_xwm_renew_0_patch000.png",
+        "parent_scene_id": "ip11pro_output_testSR_2101225_xwm_renew_0",
+        "num_boxes": 3,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip11pro_output_textSR_211206_renew_46_patch000.png",
+        "parent_scene_id": "ip11pro_output_textSR_211206_renew_46",
+        "num_boxes": 5,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip11pro_output_textSR_211206_renew_8_patch000.png",
+        "parent_scene_id": "ip11pro_output_textSR_211206_renew_8",
+        "num_boxes": 3,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip11pro_output_textSR_220111_xwm_renew_98_patch000.png",
+        "parent_scene_id": "ip11pro_output_textSR_220111_xwm_renew_98",
+        "num_boxes": 9,
+        "num_hr_solvable": 7
+      },
+      {
+        "val_patch_image": "ip11pro_output_xwm_textSR_211021_renew_1_patch000.png",
+        "parent_scene_id": "ip11pro_output_xwm_textSR_211021_renew_1",
+        "num_boxes": 6,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip11pro_output_xwm_textSR_211021_renew_22_patch000.png",
+        "parent_scene_id": "ip11pro_output_xwm_textSR_211021_renew_22",
+        "num_boxes": 3,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip12pro_output_100APPLE_renew_29_patch000.png",
+        "parent_scene_id": "ip12pro_output_100APPLE_renew_29",
+        "num_boxes": 3,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip12pro_output_100APPLE_renew_5_patch000.png",
+        "parent_scene_id": "ip12pro_output_100APPLE_renew_5",
+        "num_boxes": 6,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_10_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_10",
+        "num_boxes": 7,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_19_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_19",
+        "num_boxes": 3,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_27_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_27",
+        "num_boxes": 6,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_28_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_28",
+        "num_boxes": 7,
+        "num_hr_solvable": 0
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_42_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_42",
+        "num_boxes": 7,
+        "num_hr_solvable": 4
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_71_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_71",
+        "num_boxes": 4,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_74_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_74",
+        "num_boxes": 5,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_79_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_79",
+        "num_boxes": 4,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip12pro_output_101APPLE_renew_80_patch000.png",
+        "parent_scene_id": "ip12pro_output_101APPLE_renew_80",
+        "num_boxes": 8,
+        "num_hr_solvable": 2
+      },
+      {
+        "val_patch_image": "ip12pro_output_102APPLE_renew_68_patch000.png",
+        "parent_scene_id": "ip12pro_output_102APPLE_renew_68",
+        "num_boxes": 5,
+        "num_hr_solvable": 0
+      },
+      {
+        "val_patch_image": "ip12pro_output_102APPLE_renew_70_patch000.png",
+        "parent_scene_id": "ip12pro_output_102APPLE_renew_70",
+        "num_boxes": 3,
+        "num_hr_solvable": 1
+      },
+      {
+        "val_patch_image": "ip12pro_output_102APPLE_renew_92_patch000.png",
+        "parent_scene_id": "ip12pro_output_102APPLE_renew_92",
+        "num_boxes": 6,
+        "num_hr_solvable": 0
+      },
+      {
+        "val_patch_image": "ip12pro_output_103APPLE_renew_25_patch000.png",
+        "parent_scene_id": "ip12pro_output_103APPLE_renew_25",
+        "num_boxes": 6,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip12pro_output_103APPLE_renew_42_patch000.png",
+        "parent_scene_id": "ip12pro_output_103APPLE_renew_42",
+        "num_boxes": 6,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip12pro_output_5-term_group_renew_12_patch000.png",
+        "parent_scene_id": "ip12pro_output_5-term_group_renew_12",
+        "num_boxes": 5,
+        "num_hr_solvable": 3
+      },
+      {
+        "val_patch_image": "ip12pro_output_5-term_group_renew_28_patch000.png",
+        "parent_scene_id": "ip12pro_output_5-term_group_renew_28",
+        "num_boxes": 5,
+        "num_hr_solvable": 3
+      }
+    ]
+  },
+  "category_counts": {
+    "all_154": {
+      "numeric_or_date": 50,
+      "latin_only": 67,
+      "border_touching": 73,
+      "cjk_signage": 68
+    },
+    "solvable_63": {
+      "numeric_or_date": 24,
+      "latin_only": 16,
+      "border_touching": 27,
+      "cjk_signage": 35
+    }
+  },
+  "methods": [
+    {
+      "label": "HR Ceiling",
+      "all_154_boxes": {
+        "num_boxes": 154,
+        "box_error_rate": 0.5909,
+        "mean_cer": 0.2908,
+        "seed_disagreement": null
+      },
+      "hr_solvable_63_boxes": {
+        "num_boxes": 63,
+        "box_error_rate": 0.0,
+        "mean_cer": 0.0,
+        "seed_disagreement": null
+      },
+      "crop_pixel_seed_spread_l1": null,
+      "whole_patch_metrics": null,
+      "training_cost": null,
+      "category_breakdown": {
+        "all_154": {
+          "numeric_or_date": {
+            "num_boxes": 50,
+            "box_error_rate": 0.52,
+            "mean_cer": 0.2867,
+            "seed_disagreement": null
+          },
+          "latin_only": {
+            "num_boxes": 67,
+            "box_error_rate": 0.7612,
+            "mean_cer": 0.2878,
+            "seed_disagreement": null
+          },
+          "border_touching": {
+            "num_boxes": 73,
+            "box_error_rate": 0.6301,
+            "mean_cer": 0.3469,
+            "seed_disagreement": null
+          },
+          "cjk_signage": {
+            "num_boxes": 68,
+            "box_error_rate": 0.4853,
+            "mean_cer": 0.3202,
+            "seed_disagreement": null
+          }
+        },
+        "solvable_63": {
+          "numeric_or_date": {
+            "num_boxes": 24,
+            "box_error_rate": 0.0,
+            "mean_cer": 0.0,
+            "seed_disagreement": null
+          },
+          "latin_only": {
+            "num_boxes": 16,
+            "box_error_rate": 0.0,
+            "mean_cer": 0.0,
+            "seed_disagreement": null
+          },
+          "border_touching": {
+            "num_boxes": 27,
+            "box_error_rate": 0.0,
+            "mean_cer": 0.0,
+            "seed_disagreement": null
+          },
+          "cjk_signage": {
+            "num_boxes": 35,
+            "box_error_rate": 0.0,
+            "mean_cer": 0.0,
+            "seed_disagreement": null
+          }
+        }
+      }
+    },
+    {
+      "label": "Bicubic x4",
+      "all_154_boxes": {
+        "num_boxes": 154,
+        "box_error_rate": 0.8052,
+        "mean_cer": 0.577,
+        "seed_disagreement": null
+      },
+      "hr_solvable_63_boxes": {
+        "num_boxes": 63,
+        "box_error_rate": 0.5556,
+        "mean_cer": 0.4184,
+        "seed_disagreement": null
+      },
+      "crop_pixel_seed_spread_l1": null,
+      "whole_patch_metrics": null,
+      "training_cost": null,
+      "category_breakdown": {
+        "all_154": {
+          "numeric_or_date": {
+            "num_boxes": 50,
+            "box_error_rate": 0.84,
+            "mean_cer": 0.5731,
+            "seed_disagreement": null
+          },
+          "latin_only": {
+            "num_boxes": 67,
+            "box_error_rate": 0.8358,
+            "mean_cer": 0.5142,
+            "seed_disagreement": null
+          },
+          "border_touching": {
+            "num_boxes": 73,
+            "box_error_rate": 0.8493,
+            "mean_cer": 0.7112,
+            "seed_disagreement": null
+          },
+          "cjk_signage": {
+            "num_boxes": 68,
+            "box_error_rate": 0.7941,
+            "mean_cer": 0.6512,
+            "seed_disagreement": null
+          }
+        },
+        "solvable_63": {
+          "numeric_or_date": {
+            "num_boxes": 24,
+            "box_error_rate": 0.7083,
+            "mean_cer": 0.4863,
+            "seed_disagreement": null
+          },
+          "latin_only": {
+            "num_boxes": 16,
+            "box_error_rate": 0.375,
+            "mean_cer": 0.2147,
+            "seed_disagreement": null
+          },
+          "border_touching": {
+            "num_boxes": 27,
+            "box_error_rate": 0.5926,
+            "mean_cer": 0.5049,
+            "seed_disagreement": null
+          },
+          "cjk_signage": {
+            "num_boxes": 35,
+            "box_error_rate": 0.6,
+            "mean_cer": 0.4721,
+            "seed_disagreement": null
+          }
+        }
+      }
+    },
+    {
+      "label": "LoRA 2 (lambda=0.0, 400st)",
+      "all_154_boxes": {
+        "num_boxes": 154,
+        "box_error_rate": 0.9182,
+        "mean_cer": 0.7241,
+        "seed_disagreement": 0.4769,
+        "cer_win_tie_loss_vs_ref": "0/154/0",
+        "box_err_win_tie_loss_vs_ref": "0/154/0"
+      },
+      "hr_solvable_63_boxes": {
+        "num_boxes": 63,
+        "box_error_rate": 0.8222,
+        "mean_cer": 0.6144,
+        "seed_disagreement": 0.5171,
+        "cer_win_tie_loss_vs_ref": "0/63/0",
+        "box_err_win_tie_loss_vs_ref": "0/63/0"
+      },
+      "crop_pixel_seed_spread_l1": 15.8839,
+      "whole_patch_metrics": {
+        "psnr_y": 17.698,
+        "ssim_y": 0.6442,
+        "lpips": 0.4231,
+        "pairwise_pixel_diff_mean": 9.2715,
+        "pairwise_lpips_mean": 0.202
+      },
+      "training_cost": {
+        "config": "configs/lora2_pilot.yaml",
+        "alpha_text": 5.0,
+        "lambda_cons": 0.0,
+        "alpha_cons_text": 5.0,
+        "step1_loss": {
+          "total": 0.9776,
+          "rec": 0.9776,
+          "text_l1": 0.3544,
+          "cons": 0.0
+        },
+        "step400_loss": {
+          "total": 0.4878,
+          "rec": 0.4878,
+          "text_l1": 0.2456,
+          "cons": 0.0
+        },
+        "step_time_mean_s": 4.67,
+        "step_time_p95_s": 4.7,
+        "peak_allocated_gib": 8.04,
+        "peak_reserved_gib": 8.52
+      },
+      "category_breakdown": {
+        "all_154": {
+          "numeric_or_date": {
+            "num_boxes": 50,
+            "box_error_rate": 0.884,
+            "mean_cer": 0.6712,
+            "seed_disagreement": 0.4827,
+            "cer_win_tie_loss_vs_ref": "0/50/0",
+            "box_err_win_tie_loss_vs_ref": "0/50/0"
+          },
+          "latin_only": {
+            "num_boxes": 67,
+            "box_error_rate": 0.9358,
+            "mean_cer": 0.691,
+            "seed_disagreement": 0.5907,
+            "cer_win_tie_loss_vs_ref": "0/67/0",
+            "box_err_win_tie_loss_vs_ref": "0/67/0"
+          },
+          "border_touching": {
+            "num_boxes": 73,
+            "box_error_rate": 0.9699,
+            "mean_cer": 0.8172,
+            "seed_disagreement": 0.3592,
+            "cer_win_tie_loss_vs_ref": "0/73/0",
+            "box_err_win_tie_loss_vs_ref": "0/73/0"
+          },
+          "cjk_signage": {
+            "num_boxes": 68,
+            "box_error_rate": 0.95,
+            "mean_cer": 0.8172,
+            "seed_disagreement": 0.3405,
+            "cer_win_tie_loss_vs_ref": "0/68/0",
+            "box_err_win_tie_loss_vs_ref": "0/68/0"
+          }
+        },
+        "solvable_63": {
+          "numeric_or_date": {
+            "num_boxes": 24,
+            "box_error_rate": 0.8125,
+            "mean_cer": 0.5854,
+            "seed_disagreement": 0.5398,
+            "cer_win_tie_loss_vs_ref": "0/24/0",
+            "box_err_win_tie_loss_vs_ref": "0/24/0"
+          },
+          "latin_only": {
+            "num_boxes": 16,
+            "box_error_rate": 0.7375,
+            "mean_cer": 0.4517,
+            "seed_disagreement": 0.6778,
+            "cer_win_tie_loss_vs_ref": "0/16/0",
+            "box_err_win_tie_loss_vs_ref": "0/16/0"
+          },
+          "border_touching": {
+            "num_boxes": 27,
+            "box_error_rate": 0.9222,
+            "mean_cer": 0.7044,
+            "seed_disagreement": 0.4716,
+            "cer_win_tie_loss_vs_ref": "0/27/0",
+            "box_err_win_tie_loss_vs_ref": "0/27/0"
+          },
+          "cjk_signage": {
+            "num_boxes": 35,
+            "box_error_rate": 0.9029,
+            "mean_cer": 0.7322,
+            "seed_disagreement": 0.4362,
+            "cer_win_tie_loss_vs_ref": "0/35/0",
+            "box_err_win_tie_loss_vs_ref": "0/35/0"
+          }
+        }
+      }
+    },
+    {
+      "label": "LoRA 3 (lambda=0.5, 400st)",
+      "all_154_boxes": {
+        "num_boxes": 154,
+        "box_error_rate": 0.8942,
+        "mean_cer": 0.6942,
+        "seed_disagreement": 0.4121,
+        "cer_win_tie_loss_vs_ref": "63/71/20",
+        "box_err_win_tie_loss_vs_ref": "17/135/2"
+      },
+      "hr_solvable_63_boxes": {
+        "num_boxes": 63,
+        "box_error_rate": 0.7603,
+        "mean_cer": 0.5803,
+        "seed_disagreement": 0.4173,
+        "cer_win_tie_loss_vs_ref": "31/22/10",
+        "box_err_win_tie_loss_vs_ref": "17/46/0"
+      },
+      "crop_pixel_seed_spread_l1": 7.1348,
+      "whole_patch_metrics": {
+        "psnr_y": 18.2828,
+        "ssim_y": 0.6742,
+        "lpips": 0.4711,
+        "pairwise_pixel_diff_mean": 3.9405,
+        "pairwise_lpips_mean": 0.0726
+      },
+      "training_cost": {
+        "config": "configs/lora3_pilot.yaml",
+        "alpha_text": 5.0,
+        "lambda_cons": 0.5,
+        "alpha_cons_text": 5.0,
+        "step1_loss": {
+          "total": 1.0561,
+          "rec": 0.9776,
+          "text_l1": 0.3544,
+          "cons": 0.1571
+        },
+        "step400_loss": {
+          "total": 0.5501,
+          "rec": 0.4851,
+          "text_l1": 0.2475,
+          "cons": 0.1299
+        },
+        "step_time_mean_s": 5.38,
+        "step_time_p95_s": 5.41,
+        "peak_allocated_gib": 8.04,
+        "peak_reserved_gib": 8.52
+      },
+      "category_breakdown": {
+        "all_154": {
+          "numeric_or_date": {
+            "num_boxes": 50,
+            "box_error_rate": 0.864,
+            "mean_cer": 0.6685,
+            "seed_disagreement": 0.3782,
+            "cer_win_tie_loss_vs_ref": "16/24/10",
+            "box_err_win_tie_loss_vs_ref": "5/43/2"
+          },
+          "latin_only": {
+            "num_boxes": 67,
+            "box_error_rate": 0.9149,
+            "mean_cer": 0.6596,
+            "seed_disagreement": 0.5483,
+            "cer_win_tie_loss_vs_ref": "30/25/12",
+            "box_err_win_tie_loss_vs_ref": "7/60/0"
+          },
+          "border_touching": {
+            "num_boxes": 73,
+            "box_error_rate": 0.9452,
+            "mean_cer": 0.7925,
+            "seed_disagreement": 0.284,
+            "cer_win_tie_loss_vs_ref": "24/44/5",
+            "box_err_win_tie_loss_vs_ref": "7/66/0"
+          },
+          "cjk_signage": {
+            "num_boxes": 68,
+            "box_error_rate": 0.9191,
+            "mean_cer": 0.7738,
+            "seed_disagreement": 0.2761,
+            "cer_win_tie_loss_vs_ref": "29/37/2",
+            "box_err_win_tie_loss_vs_ref": "7/61/0"
+          }
+        },
+        "solvable_63": {
+          "numeric_or_date": {
+            "num_boxes": 24,
+            "box_error_rate": 0.7625,
+            "mean_cer": 0.5865,
+            "seed_disagreement": 0.3704,
+            "cer_win_tie_loss_vs_ref": "10/8/6",
+            "box_err_win_tie_loss_vs_ref": "5/19/0"
+          },
+          "latin_only": {
+            "num_boxes": 16,
+            "box_error_rate": 0.65,
+            "mean_cer": 0.4183,
+            "seed_disagreement": 0.6069,
+            "cer_win_tie_loss_vs_ref": "10/2/4",
+            "box_err_win_tie_loss_vs_ref": "7/9/0"
+          },
+          "border_touching": {
+            "num_boxes": 27,
+            "box_error_rate": 0.8556,
+            "mean_cer": 0.6642,
+            "seed_disagreement": 0.3342,
+            "cer_win_tie_loss_vs_ref": "13/12/2",
+            "box_err_win_tie_loss_vs_ref": "7/20/0"
+          },
+          "cjk_signage": {
+            "num_boxes": 35,
+            "box_error_rate": 0.8429,
+            "mean_cer": 0.6755,
+            "seed_disagreement": 0.3429,
+            "cer_win_tie_loss_vs_ref": "18/15/2",
+            "box_err_win_tie_loss_vs_ref": "7/28/0"
+          }
+        }
+      }
+    }
+  ],
+  "highlight_boxes": [
+    {
+      "image": "ip12pro_output_100APPLE_renew_29_patch000.png",
+      "box_id": 1,
+      "xywh": [
+        61.0,
+        293.0,
+        390.0,
+        66.0
+      ],
+      "transcript": "2024/06/17",
+      "categories": [
+        "numeric_or_date"
+      ],
+      "hr_solvable": true,
+      "per_method": {
+        "HR Ceiling": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "2024/06/17"
+        },
+        "Bicubic x4": {
+          "box_error_rate": 1.0,
+          "mean_cer": 1.0,
+          "seed_disagreement": null,
+          "sample_ocr": null
+        },
+        "LoRA 2 (lambda=0.0, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.57,
+          "seed_disagreement": 1.0,
+          "sample_ocr": "lq741qa71"
+        },
+        "LoRA 3 (lambda=0.5, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.88,
+          "seed_disagreement": 0.5333,
+          "sample_ocr": "107410671"
+        }
+      }
+    },
+    {
+      "image": "ip11pro_output_TextSR_renew_114_patch000.png",
+      "box_id": 1,
+      "xywh": [
+        29.0,
+        455.0,
+        142.0,
+        52.0
+      ],
+      "transcript": "paas",
+      "categories": [
+        "latin_only",
+        "border_touching"
+      ],
+      "hr_solvable": true,
+      "per_method": {
+        "HR Ceiling": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "paas"
+        },
+        "Bicubic x4": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "paas"
+        },
+        "LoRA 2 (lambda=0.0, 400st)": {
+          "box_error_rate": 0.8,
+          "mean_cer": 0.25,
+          "seed_disagreement": 0.8889,
+          "sample_ocr": "pees1"
+        },
+        "LoRA 3 (lambda=0.5, 400st)": {
+          "box_error_rate": 0.7,
+          "mean_cer": 0.425,
+          "seed_disagreement": 0.9111,
+          "sample_ocr": "pees i"
+        }
+      }
+    },
+    {
+      "image": "ip11pro_output_TextSR_renew_101_patch000.png",
+      "box_id": 3,
+      "xywh": [
+        16.0,
+        188.0,
+        268.0,
+        54.0
+      ],
+      "transcript": "集成方法、",
+      "categories": [
+        "cjk_signage",
+        "border_touching"
+      ],
+      "hr_solvable": true,
+      "per_method": {
+        "HR Ceiling": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "集成方法、"
+        },
+        "Bicubic x4": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "集成方法、"
+        },
+        "LoRA 2 (lambda=0.0, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.82,
+          "seed_disagreement": 0.6667,
+          "sample_ocr": ""
+        },
+        "LoRA 3 (lambda=0.5, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.72,
+          "seed_disagreement": 0.7778,
+          "sample_ocr": ""
+        }
+      }
+    },
+    {
+      "image": "ip11pro_output_TextSR_renew_101_patch000.png",
+      "box_id": 5,
+      "xywh": [
+        16.0,
+        16.0,
+        346.0,
+        49.0
+      ],
+      "transcript": "的监督学习算法",
+      "categories": [
+        "cjk_signage",
+        "border_touching"
+      ],
+      "hr_solvable": true,
+      "per_method": {
+        "HR Ceiling": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "的监督学习算法"
+        },
+        "Bicubic x4": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "的监督学习算法"
+        },
+        "LoRA 2 (lambda=0.0, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.9857,
+          "seed_disagreement": 0.2,
+          "sample_ocr": ""
+        },
+        "LoRA 3 (lambda=0.5, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.8714,
+          "seed_disagreement": 0.6667,
+          "sample_ocr": "的真好罕习体注。"
+        }
+      }
+    },
+    {
+      "image": "ip11pro_output_TextSR_renew_114_patch000.png",
+      "box_id": 5,
+      "xywh": [
+        151.0,
+        7.0,
+        354.0,
+        45.0
+      ],
+      "transcript": "本书都很有帮助。",
+      "categories": [
+        "cjk_signage",
+        "border_touching"
+      ],
+      "hr_solvable": true,
+      "per_method": {
+        "HR Ceiling": {
+          "box_error_rate": 0.0,
+          "mean_cer": 0.0,
+          "seed_disagreement": null,
+          "sample_ocr": "本书都很有帮助。"
+        },
+        "Bicubic x4": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.25,
+          "seed_disagreement": null,
+          "sample_ocr": "本书都得有器助。"
+        },
+        "LoRA 2 (lambda=0.0, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.9875,
+          "seed_disagreement": 0.2,
+          "sample_ocr": "太书低喂瑞存效"
+        },
+        "LoRA 3 (lambda=0.5, 400st)": {
+          "box_error_rate": 1.0,
+          "mean_cer": 0.9125,
+          "seed_disagreement": 0.5333,
+          "sample_ocr": "木君尼迅布冠勤"
+        }
+      }
+    }
+  ]
+}

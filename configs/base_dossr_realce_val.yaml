@@ -1,0 +1,34 @@
+# Unmodified Base DoSSR (no LoRA) 10-seed evaluation config on Real-CE Val patches
+# Uses identical seed loop, noise draws per (image, seed), 5 steps, FP16, empty prompt "", and SDPA OFF.
+
+# --- Shared model & Colab Drive paths ---
+checkpoint: /content/drive/MyDrive/lemmepass/weights/dossr_default.ckpt
+model_config: /content/SC203/external/DOSSR/configs/model/cldm_v21.yaml
+inference_script: /content/SC203/external/DOSSR/scripts/inference.py
+dossr_root: /content/SC203/external/DOSSR
+log_dir: /content/drive/MyDrive/lemmepass/logs
+
+# --- Study wrapper keys (allows running directly with scripts/run_seed_study.py --config configs/base_dossr_realce_val.yaml) ---
+baseline_config: configs/base_dossr_realce_val.yaml
+seeds_file: configs/seeds_10.yaml
+
+# --- Fixed validation inference config (for src/run_dossr.py) ---
+seed: 42
+input_dir: /content/data_local/RealCE_patches/val/LR
+gt_dir: /content/data_local/RealCE_patches/val/HR
+output_root: /content/drive/MyDrive/lemmepass/outputs/base-dossr-realce-val-10seed
+per_image_seed: true
+steps: 5
+solver_order: 3
+t1_fraction: 0.5
+device: cuda
+precision: fp16
+prompt_mode: empty
+disable_sdpa: true
+offload_condition_encoder: false
+tiled: false
+tile_size: 512
+tile_stride: 256
+sr_scale: 4
+color_fix_type: wavelet
+preprocessor: RealESRNet
