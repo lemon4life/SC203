@@ -224,7 +224,7 @@ def parse_method_spec(spec: str) -> tuple[str, Path, Path | None, Path | None]:
     """Parse `--method label=ocr_dir[:metrics_summary_csv[:lora_manifest_json]]`."""
     if "=" not in spec:
         raise ValueError(f"Expected label=ocr_dir[:metrics_csv[:manifest_json]], got {spec!r}")
-    label, rest = spec.split("=", 1)
+    label, rest = spec.rsplit("=", 1)
     parts = rest.split(":")
     ocr_dir = Path(parts[0]).expanduser()
     metrics_csv = Path(parts[1]).expanduser() if len(parts) > 1 and parts[1] else None
